@@ -12,11 +12,11 @@ entity memu is
         op   : in  memu_op_type; --access type
         A    : in  data_type;    --address
         W    : in  data_type;    --write data (one word) 
-        R    : out data_type; --result of mem access
+        R    : out data_type := (others => '0');  --result of mem access
 
-        B    : out std_logic; --busy
-        XL   : out std_logic; --load exception
-        XS   : out std_logic;  --store exception
+        B    : out std_logic := '0'; --busy
+        XL   : out std_logic := '0'; --load exception
+        XS   : out std_logic := '0';  --store exception
 
         -- to memory controller
         D    : in  mem_in_type; --interface from memory (result of access)
@@ -40,6 +40,8 @@ end memu;
 
 architecture rtl of memu is
 begin
+	logic : process (op)
+	begin
 	if op.memread = '1' then
 		--read access to memory
 		M.wr <= '0'; 	
@@ -116,7 +118,7 @@ begin
 
 					--load exception 
 					if A(1 downto 0) = "01" then 
-						XL <= '1; 
+						XL <= '1'; 
 						M.rd <= '0'; 
 					else 
 						XL <= '0'; 
@@ -132,7 +134,7 @@ begin
 
  					--load exception 
 					if A(1 downto 0) = "11" then 
-						XL <= '1; 
+						XL <= '1'; 
 						M.rd <= '0'; 
 					else 
 						XL <= '0'; 
@@ -152,7 +154,7 @@ begin
 
 					--load exception 
 					if A(1 downto 0) = "01" then 
-						XL <= '1; 
+						XL <= '1'; 
 						M.rd <= '0'; 
 					else 
 						XL <= '0'; 
@@ -167,7 +169,7 @@ begin
 					
 					--load exception 
 					if A(1 downto 0) = "11" then 
-						XL <= '1; 
+						XL <= '1'; 
 						M.rd <= '0'; 
 					else 
 						XL <= '0'; 
@@ -297,5 +299,6 @@ begin
 				end if; 
 		end case;
 
-	end if;  
+	end if;
+	end process;  
 end architecture;
