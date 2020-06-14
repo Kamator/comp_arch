@@ -22,7 +22,7 @@ package op_pkg is
     type exec_op_type is
     record
         aluop      : alu_op_type;
-        alusrc1    : std_logic;
+        imm_flag   : std_logic; --immediate used instead of alusrc1 (PHGE, 14.06)
         alusrc2    : std_logic;
         alusrc3    : std_logic;
         rs1        : reg_adr_type;
