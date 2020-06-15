@@ -20,7 +20,7 @@ end entity;
 
 architecture rtl of regfile is
     type REG_MEMORY is array (0 to REG_COUNT-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
-    signal reg_file : REG_MEMORY := (others => (others => '0'));
+    signal reg_file, reg_file_next : REG_MEMORY := (others => (others => '0'));
     signal tmp_rdaddr1, tmp_rdaddr2 : reg_adr_type := (others => '0');
 	 constant zeros : std_logic_vector(reg_adr_type'range) := (others => '0');
 begin
@@ -31,11 +31,9 @@ begin
             tmp_rdaddr1 <= (others => '0');
             tmp_rdaddr2 <= (others => '0');
         elsif rising_edge(clk) and stall = '0' then --stall causes the circuit not to latch input values
+            reg_file <= reg_file_next;
             tmp_rdaddr1 <= rdaddr1;
             tmp_rdaddr2 <= rdaddr2;
-				if regwrite = '1' and wraddr /= zeros then
-					reg_file(to_integer(unsigned(wraddr))) <= wrdata;
-				end if;    
         end if;
     
     end process;
@@ -45,10 +43,17 @@ begin
         rddata1 <= reg_file(to_integer(unsigned(tmp_rdaddr1)));
         rddata2 <= reg_file(to_integer(unsigned(tmp_rdaddr2)));
         
-        if tmp_rdaddr1 = wraddr and tmp_rdaddr1 /= zeros and regwrite = '1' and stall = '0' then
+        if tmp_rdaddr1 = wraddr and tmp_rdaddr2 = zeros and regwrite = '1' then
             rddata1 <= wrdata;
-        elsif tmp_rdaddr2 = wraddr and tmp_rdaddr2 /= zeros and regwrite = '1' and stall = '0' then
+        elsif tmp_rdaddr1 = zeros and tmp_rdaddr2 = wraddr and regwrite = '1' then
             rddata2 <= wrdata;
+        end if;    
+    end process;
+    
+    reg_file_write : process(all)
+    begin
+        if regwrite = '1' and wraddr /= zeros then
+            reg_file_next(to_integer(unsigned(wraddr))) <= wrdata;
         end if;    
     end process;
     
