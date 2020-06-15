@@ -23,7 +23,7 @@ package op_pkg is
     record
         aluop      : alu_op_type;
         imm_flag   : std_logic; --immediate used instead of alusrc1 (PHGE, 14.06)
-        alusrc2    : std_logic;
+        store_flag : std_logic; --store instruction issued, need rs1, rs2 and immediate
         alusrc3    : std_logic;
         rs1        : reg_adr_type;
         rs2        : reg_adr_type;
