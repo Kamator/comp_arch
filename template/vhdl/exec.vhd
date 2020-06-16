@@ -36,5 +36,144 @@ entity exec is
 end exec;
 
 architecture rtl of exec is
+
+	component alu is   
+            port (
+        	op   : in  alu_op_type;
+        	A, B : in  data_type;
+        	R    : out data_type;
+        	Z    : out std_logic
+	    );
+	end component; 
+
+	--ALU Signals /
+	signal alu_op: alu_op_type; 
+	signal alu_A, alu_B : data_type; 
+	signal alu_R : data_type; 
+	signal alu_Z : std_logic; 
+
+	--alu 2 signals
+	signal alu_op_2 : alu_op_type; 
+	signal alu_A_2, alu_B_2 : data_type; 
+	signal alu_R_2 : data_type; 
+	signal alu_Z_2 : std_logic;  
+
+	--computing signals 
+	signal int_op : exec_op_type; 
+	signal int_pc_in : pc_type; 
+	signal int_memop_in : mem_op_type; 
+	signal int_wbop_in : wb_op_type;  
+	signal int_wrdata : data_type; 
+
 begin
+
+	alu_inst_1 : alu 
+	port map(
+		op => alu_op,
+		A => alu_A,
+		B => alu_B,
+		R => alu_R,
+		Z => alu_Z
+	); 
+
+	alu_inst_2 : alu
+	port map(
+		op => ALU_ADD,
+		A => alu_A_2,
+		B => alu_B_2,
+		R => alu_R_2,
+		Z => alu_Z_2
+	); 
+
+	sync_p : process(clk, reset, flush)
+	begin
+		if reset = '0' then 
+			--global reset
+			--reset internal signals
+			int_op <= EXEC_NOP; 
+			int_pc_in <= (others => '0'); 
+			int_memop_in <= MEM_NOP; 
+			int_wbop_in <= WB_NOP; 
+			int_wrdata <= (others => '0'); 
+
+		elsif flush = '1' then 
+			--flush signal
+			--flush internal signals 
+			int_op <= EXEC_NOP; 
+			int_pc_in <= (others => '0'); 
+			int_memop_in <= MEM_NOP; 
+			int_wbop_in <= WB_NOP; 
+			int_wrdata <= (others => '0'); 
+
+		elsif rising_edge(clk) and stall = '0' then 
+			--put through directly to ALU, ALU 1 control signals 
+			int_op <= op; 
+			int_pc_in <= pc_in; 
+			int_memop_in <= memop_in; 
+			int_wbop_in <= wbop_in; 
+			int_wrdata <= (others => '0'); 
+		end if; 
+
+	end process; 
+	
+
+	logic : process(int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R)
+	begin
+		
+		if int_op.aluop = ALU_NOP then 
+			pc_old_out <= (others => '0'); 
+			pc_new_out <= (others => '0');
+		
+			wrdata <= (others => '0'); 
+			aluresult <= (others => '0'); 
+		else  
+
+			--alu operation 
+			alu_op <= int_op.aluop; 
+			aluresult <= alu_R; 		
+
+			--forward directly
+			pc_old_out <= int_pc_in; 
+			memop_out <= int_memop_in; 
+			wbop_out <= int_wbop_in; 	
+
+			wrdata <= int_wrdata; 
+		
+			--default for pc_new_out
+			pc_new_out <= int_pc_in;
+		
+		end if; 
+
+		--R-Type instructions
+		if int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '0' then 
+				alu_A <= int_op.readdata1;
+				alu_B <= int_op.readdata2;  
+
+		--I-Type Instructions
+		elsif int_op.imm_flag = '1' and int_op.store_flag = '0' and int_op.pc_flag = '0' then 				     alu_A <= int_op.readdata1; 
+				alu_B <= int_op.imm; 
+		
+		--S-Type Instructions
+		elsif int_op.imm_flag = '0' and int_op.store_flag = '1' and int_op.pc_flag = '0' then
+				alu_A <= int_op.readdata1; 
+				alu_B <= int_op.imm; 
+				--value thats stored by memory stage
+				wrdata <= int_op.readdata2; 
+		
+		--B-Type Instructions
+		elsif int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '1' then
+				alu_A <= int_op.readdata1; 
+				alu_B <= int_op.readdata2; 
+			
+				--branch target address
+				alu_A_2(15 downto 0) <= int_pc_in; 
+				alu_A_2(31 downto 16) <= (others => '0'); 
+				alu_B_2 <= int_op.imm; 
+				pc_new_out <= alu_R_2(15 downto 0); 
+		end if; 
+
+
+	end process; 
+		
+	
 end architecture;
