@@ -164,7 +164,16 @@ begin
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '1' then
 				alu_A <= int_op.readdata1; 
 				alu_B <= int_op.readdata2; 
-			
+				
+				if int_op.aluop = ALU_SUB then
+					--beq/neq instruction
+					aluresult(31 downto 1) <= (others => '0');
+					aluresult(0) <= alu_Z;  
+				else 
+					--blt, bltu, bge, bgeu instructions
+					aluresult <= alu_R; 
+				end if; 
+	
 				--branch target address
 				alu_A_2(15 downto 0) <= int_pc_in; 
 				alu_A_2(31 downto 16) <= (others => '0'); 
