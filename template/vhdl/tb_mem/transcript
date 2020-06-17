@@ -1,0 +1,86 @@
+# //  Questa Sim
+# //  Version 10.6c_1 linux Sep 15 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# vsim mem_tb -t 1ps -msgmode both
+# vsim mem_tb -t 1ps -msgmode both 
+# Start time: 15:38:28 on Jun 17,2020
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.mem_pkg(body)
+# Loading work.core_pkg(body)
+# Loading work.op_pkg
+# Loading work.mem_tb(beh)#1
+# Loading work.mem(rtl)#1
+# ** Warning: (vsim-8684) No drivers exist on out port /mem_tb/mem_inst/reg_write.write, and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /mem_tb/reg_write.write.
+# ** Warning: (vsim-8684) No drivers exist on out port /mem_tb/mem_inst/reg_write.data(31 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /mem_tb/reg_write.data(31 downto 0).
+#  do scripts/wave.do
+#  run 2ms
+# ** Note: TESTCASE #1
+#    Time: 380 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: pc_new_out = 32
+#    Time: 380 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: pcsrc = 0
+#    Time: 380 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: pc_old_out = 32
+#    Time: 380 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: aluresult_out = 0
+#    Time: 380 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: memresult  = 0
+#    Time: 380 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: excload = 0
+#    Time: 380 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: exc_store = 0
+#    Time: 380 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: TESTCASE #2
+#    Time: 580 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: pc_new_out = 32
+#    Time: 580 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: pcsrc = 0
+#    Time: 580 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: pc_old_out = 28
+#    Time: 580 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: aluresult_out = 2768
+#    Time: 580 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: memresult  = 0
+#    Time: 580 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: excload = 0
+#    Time: 580 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: exc_store = 0
+#    Time: 580 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: TESTCASE #3
+#    Time: 780 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: pc_new_out = 32
+#    Time: 780 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: pcsrc = 0
+#    Time: 780 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: pc_old_out = 28
+#    Time: 780 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: aluresult_out = 2768
+#    Time: 780 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: memresult  = 56576
+#    Time: 780 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: excload = 0
+#    Time: 780 ns  Iteration: 0  Instance: /mem_tb
+# ** Note: exc_store = 0
+#    Time: 780 ns  Iteration: 0  Instance: /mem_tb
+# 
+# End time: 15:46:57 on Jun 17,2020, Elapsed time: 0:08:29
+# Errors: 0, Warnings: 2

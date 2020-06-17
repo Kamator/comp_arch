@@ -19,14 +19,14 @@ entity exec is
         -- to MEM
         pc_old_out    : out pc_type;
         pc_new_out    : out pc_type;
-        aluresult     : out data_type;
-        wrdata        : out data_type;
+        aluresult     : out data_type; --result of ALU computation
+        wrdata        : out data_type; --value that might be stored to memory (not SRAM!) 
         zero          : out std_logic;
 
         memop_in      : in  mem_op_type;
-        memop_out     : out mem_op_type;
+        memop_out     : out mem_op_type; --forwarded to MEM stage
         wbop_in       : in  wb_op_type;
-        wbop_out      : out wb_op_type;
+        wbop_out      : out wb_op_type;  --forwarded to WB stage
 
         -- FWD
         exec_op       : out exec_op_type;
@@ -78,7 +78,7 @@ begin
 
 	alu_inst_2 : alu
 	port map(
-		op => ALU_ADD,
+		op => alu_op_2,
 		A => alu_A_2,
 		B => alu_B_2,
 		R => alu_R_2,
@@ -137,10 +137,14 @@ begin
 			memop_out <= int_memop_in; 
 			wbop_out <= int_wbop_in; 	
 
-			wrdata <= int_wrdata; 
+			wrdata <= (others => '0'); 
 		
-			--default for pc_new_out
-			pc_new_out <= int_pc_in;
+			--calculate pc+4 with other ALU
+			alu_op_2 <= ALU_ADD; 
+			alu_A_2(15 downto 0) <= int_pc_in; 
+			alu_A_2(31 downto 16) <= (others => '0');
+			alu_B_2 <= x"00000004"; 
+			pc_new_out <= alu_R_2(15 downto 0);
 		
 		end if; 
 
@@ -155,8 +159,10 @@ begin
 		
 		--S-Type Instructions
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '1' and int_op.pc_flag = '0' then
+				--address where to store that data
 				alu_A <= int_op.readdata1; 
 				alu_B <= int_op.imm; 
+ 
 				--value thats stored by memory stage
 				wrdata <= int_op.readdata2; 
 		

@@ -40,7 +40,7 @@ end memu;
 
 architecture rtl of memu is
 begin
-	logic : process (op)
+	logic : process (all)
 	begin
 	if op.memread = '1' then
 		--read access to memory

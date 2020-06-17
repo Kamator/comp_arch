@@ -1,3 +1,7 @@
+# vsim memu_tb -t 1ps -msgmode both
+# vsim memu_tb -t 1ps -msgmode both 
+# Start time: 15:01:45 on Jun 10,2020
+# ** Note: (vsim-3812) Design is being optimized...
 # //  Questa Sim
 # //  Version 10.6c_1 linux Sep 15 2017
 # //
@@ -12,10 +16,6 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# vsim memu_tb -t 1ps -msgmode both
-# vsim memu_tb -t 1ps -msgmode both 
-# Start time: 10:02:17 on Jun 09,2020
-# ** Note: (vsim-8009) Loading existing optimized design _opt
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -24,7 +24,6 @@
 # Loading work.core_pkg(body)
 # Loading work.op_pkg
 # Loading work.memu_tb(beh)#1
-#  do scripts/wave.do
 #  run 2ms
 # ** Error: TC#1 : Result is NULL VEC.
 #    Time: 30 ns  Iteration: 0  Instance: /memu_tb
@@ -134,7 +133,7 @@
 #    Time: 810 ns  Iteration: 0  Instance: /memu_tb
 # ** Error: TC#9 : Busy flag one.
 #    Time: 810 ns  Iteration: 0  Instance: /memu_tb
-# ** Error: TC#9 : No looad exception.
+# ** Error: TC#9 : No load exception.
 #    Time: 810 ns  Iteration: 0  Instance: /memu_tb
 # ** Error: TC#9 : No store exeption.
 #    Time: 810 ns  Iteration: 0  Instance: /memu_tb
@@ -142,4 +141,16 @@
 #    Time: 810 ns  Iteration: 0  Instance: /memu_tb
 # ** Error: TC#9 : Read issued.
 #    Time: 810 ns  Iteration: 0  Instance: /memu_tb
+# ** Error: TC#10 : Result is D.rddata.
+#    Time: 920 ns  Iteration: 0  Instance: /memu_tb
+# ** Error: TC#10 : Busy flag one.
+#    Time: 920 ns  Iteration: 0  Instance: /memu_tb
+# ** Error: TC#10 : No load exception.
+#    Time: 920 ns  Iteration: 0  Instance: /memu_tb
+# ** Error: TC#10 : No store exeption.
+#    Time: 920 ns  Iteration: 0  Instance: /memu_tb
+# ** Error: TC#10 : No write issued.
+#    Time: 920 ns  Iteration: 0  Instance: /memu_tb
+# ** Error: TC#10 : Read issued.
+#    Time: 920 ns  Iteration: 0  Instance: /memu_tb
 # 
