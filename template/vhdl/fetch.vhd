@@ -28,5 +28,40 @@ entity fetch is
 end fetch;
 
 architecture rtl of fetch is
+	signal prg_cnt, prg_cnt_next : pc_type := (others => '0');
 begin
+
+	sync : process(reset, clk)
+	begin
+		if reset = '0' then 
+			prg_cnt <= std_logic_vector(to_signed(-4, pc_type'LENGTH));
+		elsif rising_edge(clk) and stall = '0' then
+		   prg_cnt <= prg_cnt_next;
+		end if;
+	end process;
+	
+	program_counter : process(all)
+	begin
+		prg_cnt_next <= prg_cnt;
+		if stall = '0' and pcsrc = '1' then
+			prg_cnt_next <= pc_in;
+			pc_out <= prg_cnt_next;
+			instr <= NOP_INST;
+		elsif stall = '0' and pcsrc = '0' then
+			prg_cnt_next <= std_logic_vector(unsigned(prg_cnt) + 4);
+			pc_out <= prg_cnt_next;
+			instr <= mem_in.rddata;
+		end if;	
+	end process;
+	
+	flush_proc : process(pcsrc)
+	begin
+		if flush = '0' then
+			mem_out.address <= prg_cnt(15 downto 2);
+			mem_out.rd <= '1';
+		elsif flush = '1' then
+			mem_out <= MEM_OUT_NOP;
+		end if;	
+	end process;
+	
 end architecture;
