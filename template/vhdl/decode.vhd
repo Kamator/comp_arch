@@ -112,8 +112,8 @@ begin
 		pc_out <= int_pc;
 		case opcode is
 			when OPC_OP =>
-                exec_op.imm_flag <= '0';
-                exec_op.store_flag <= '0';
+            exec_op.imm_flag <= '0';
+            exec_op.store_flag <= '0';
 				exec_op.pc_flag <= '0';
 				case fct3 is
 					when "000" =>
@@ -124,7 +124,7 @@ begin
 								exec_op.readdata2 <= int_readdata2;
 								wb_op.src <= WBS_ALU;
 								wb_op.write <= '1'; 
-                                wb_op.rd <= rd;
+                        wb_op.rd <= rd;
 							when "0100000" => -- R SUB rd, rs1, rs2
 								exec_op.aluop <= ALU_SUB;
 								exec_op.readdata1 <= int_readdata1; --reading from register
@@ -138,7 +138,7 @@ begin
 						if fct7 = fct7_zeros then -- R SLL rd = rs1 << rs2(4:0)
 							exec_op.aluop <= ALU_SLL;
 							exec_op.readdata1 <= int_readdata1;
-							exec_op.readdata2(4 downto 0) <= int_readdata2(4 downto 0);
+							exec_op.readdata2 <= int_readdata2;
 							wb_op.src <= WBS_ALU;
 							wb_op.write <= '1';
 							wb_op.rd <= rd;
@@ -150,7 +150,7 @@ begin
 							exec_op.aluop <= ALU_SLT;
 							exec_op.readdata1 <= int_readdata1; --reading from register
 							exec_op.readdata2 <= int_readdata2;
-                            wb_op.src <= WBS_ALU;
+                     wb_op.src <= WBS_ALU;
 							wb_op.write <= '1';
 							wb_op.rd <= rd;
 						else
@@ -221,12 +221,11 @@ begin
 			when OPC_OP_IMM =>
                 exec_op.imm_flag <= '1';
                 exec_op.store_flag <= '0';
-				exec_op.pc_flag <= '0';
-				exec_op.imm(31 downto 11) <= (others => int_instr(31));
-				exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
-				exec_op.imm(4 downto 1) <= int_instr(24 downto 21);
-				exec_op.imm(0) <= int_instr(20);
-				
+					 exec_op.pc_flag <= '0';
+					 exec_op.imm(31 downto 11) <= (others => int_instr(31));
+					 exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
+					 exec_op.imm(4 downto 1) <= int_instr(24 downto 21);
+					 exec_op.imm(0) <= int_instr(20);
 				case fct3 is
 					when "000" =>    -- I ADDI rd = rs1 + imm\+-
 						exec_op.aluop <= ALU_AND;
@@ -292,13 +291,13 @@ begin
 					when others => exc_dec <= '1';
 				end case;
 			when OPC_STORE =>
-                exec_op.imm_flag <= '0';
-                exec_op.store_flag <= '1';
-				exec_op.pc_flag <= '0';
-				exec_op.imm(31 downto 11) <= (others => int_instr(31));
-				exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
-				exec_op.imm(4 downto 1) <= int_instr(11 downto 8);
-				exec_op.imm(0) <= int_instr(7);
+						exec_op.imm_flag <= '0';
+						exec_op.store_flag <= '1';
+						exec_op.pc_flag <= '0';
+						exec_op.imm(31 downto 11) <= (others => int_instr(31));
+						exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
+						exec_op.imm(4 downto 1) <= int_instr(11 downto 8);
+						exec_op.imm(0) <= int_instr(7);
 				case fct3 is
 					when "000" =>    -- S SB DMEM[rs1 + imm\+-] = rs2(7 : 0)
 						exec_op.aluop <= ALU_ADD;
@@ -334,54 +333,54 @@ begin
 			when OPC_LOAD =>
                 exec_op.imm_flag <= '1';
                 exec_op.store_flag <= '0';
-				exec_op.pc_flag <= '0';
-				exec_op.imm(31 downto 11) <= (others => int_instr(31));
-				exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
-				exec_op.imm(4 downto 1) <= int_instr(24 downto 21);
-				exec_op.imm(0) <= int_instr(20);
+					 exec_op.pc_flag <= '0';
+					 exec_op.imm(31 downto 11) <= (others => int_instr(31));
+					 exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
+					 exec_op.imm(4 downto 1) <= int_instr(24 downto 21);
+				    exec_op.imm(0) <= int_instr(20);
 				case fct3 is
 					when "000" =>    -- I LB rd = (int8_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
 						exec_op.readdata1 <= int_readdata1;
+						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
-						wb_op.src <= WBS_ALU;
 						mem_op.mem.memtype <= MEM_B;
 						mem_op.mem.memread <= '1';
 						mem_op.mem.memwrite <= '0';
 					when "001" =>    -- I LH rd = (int16_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
 						exec_op.readdata1 <= int_readdata1;
+						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
-						wb_op.src <= WBS_ALU;
 						mem_op.mem.memtype <= MEM_H;
 						mem_op.mem.memread <= '1';
 						mem_op.mem.memwrite <= '0';
 					when "010" =>    -- I LW rd = (int32_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
 						exec_op.readdata1 <= int_readdata1;
+						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
-						wb_op.src <= WBS_ALU;
 						mem_op.mem.memtype <= MEM_W;
 						mem_op.mem.memread <= '1';
 						mem_op.mem.memwrite <= '0';
 					when "100" =>    -- I LBU rd = (uint8_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
 						exec_op.readdata1 <= int_readdata1;
+						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
-						wb_op.src <= WBS_ALU;
 						mem_op.mem.memtype <= MEM_BU;
 						mem_op.mem.memread <= '1';
 						mem_op.mem.memwrite <= '0';
 					when "101" =>    -- I LHU rd = (uint16_t) DMEM[rs1 + imm\+-]
+						wb_op.src <= WBS_ALU;
 						exec_op.aluop <= ALU_ADD;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
-					   wb_op.src <= WBS_ALU;
 						mem_op.mem.memtype <= MEM_HU;
 						mem_op.mem.memread <= '1';	
 						mem_op.mem.memwrite <= '0';
@@ -390,12 +389,12 @@ begin
 			when OPC_BRANCH =>
                 exec_op.imm_flag <= '0';
                 exec_op.store_flag <= '0';
-				exec_op.pc_flag <= '1';
-				exec_op.imm(31 downto 13) <= (others => int_instr(31));
-				exec_op.imm(12) <= int_instr(7);
-				exec_op.imm(11 downto 6) <= int_instr(30 downto 25);
-				exec_op.imm(5 downto 2) <= int_instr(11 downto 8);
-				exec_op.imm(1 downto 0) <= (others => '0');
+					 exec_op.pc_flag <= '1';
+					 exec_op.imm(31 downto 13) <= (others => int_instr(31));
+					 exec_op.imm(12) <= int_instr(7);
+					 exec_op.imm(11 downto 6) <= int_instr(30 downto 25);
+					 exec_op.imm(5 downto 2) <= int_instr(11 downto 8);
+					 exec_op.imm(1 downto 0) <= (others => '0');
 				case fct3 is
 					when "000" =>    -- B BEQ if(rs1 == rs2) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_SUB;
@@ -407,13 +406,13 @@ begin
 						exec_op.aluop <= ALU_SUB;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
-                        wb_op.src <= WBS_OPC;
+                  wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "100" =>    -- B BLT if(rs1\+- < rs2\+-) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
-                        wb_op.src <= WBS_OPC;
+                  wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "101" =>    -- B BGE if(rs1\+- >= rs2\+- pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
@@ -437,18 +436,18 @@ begin
 				end case;	
 			when OPC_JALR =>
 				if fct3 = "000" then  --I JALR rd = pc + 4; pc = imm\+- + rs1; pc[0] = '0'
-                    exec_op.imm_flag <= '1';
-                    exec_op.store_flag <= '0';
-                    exec_op.pc_flag <= '1';
-                    exec_op.aluop <= ALU_ADD;
-					exec_op.imm(31 downto 11) <= (others => int_instr(31));
-					exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
-					exec_op.imm(4 downto 1) <= int_instr(24 downto 21);
-					exec_op.imm(0) <= int_instr(20);
-					exec_op.readdata1 <= int_readdata1;
-					wb_op.src <= WBS_ALU;
-					wb_op.write <= '1';
-                    wb_op.rd <= rd;
+                  exec_op.imm_flag <= '0';
+                  exec_op.store_flag <= '1';
+                  exec_op.pc_flag <= '1';
+                  exec_op.aluop <= ALU_ADD;
+						exec_op.imm(31 downto 11) <= (others => int_instr(31));
+						exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
+						exec_op.imm(4 downto 1) <= int_instr(24 downto 21);
+						exec_op.imm(0) <= int_instr(20);
+						exec_op.readdata1 <= int_readdata1;
+						wb_op.src <= WBS_ALU;
+						wb_op.write <= '1';
+                  wb_op.rd <= rd;
 				else
 					exc_dec <= '1';
 				end if;
@@ -456,38 +455,38 @@ begin
                 exec_op.imm_flag <= '1';
                 exec_op.store_flag <= '0';
                 exec_op.pc_flag <= '1';
-				exec_op.imm(31 downto 21) <= (others => int_instr(31));
-				exec_op.imm(20 downto 13) <= int_instr(19 downto 12);
-				exec_op.imm(12) <= int_instr(20);
-				exec_op.imm(11 downto 6) <= int_instr(30 downto 25);
-				exec_op.imm(5 downto 2) <= int_instr(24 downto 21);
-				exec_op.imm(1 downto 0) <= (others => '0');
-				exec_op.aluop <= ALU_ADD;
-				wb_op.src <= WBS_OPC;
-				wb_op.write <= '1';
-				wb_op.rd <= rd;
+					 exec_op.imm(31 downto 21) <= (others => int_instr(31));
+				    exec_op.imm(20 downto 13) <= int_instr(19 downto 12);
+				    exec_op.imm(12) <= int_instr(20);
+				    exec_op.imm(11 downto 6) <= int_instr(30 downto 25);
+				    exec_op.imm(5 downto 2) <= int_instr(24 downto 21);
+				    exec_op.imm(1 downto 0) <= (others => '0');
+				    exec_op.aluop <= ALU_ADD;
+				    wb_op.src <= WBS_OPC;
+				    wb_op.write <= '1';
+				    wb_op.rd <= rd;
 			when OPC_AUIPC =>   --U AUIPC rd = pc + (imm\+- << 12)
-                exec_op.imm_flag <= '1';
+                exec_op.imm_flag <= '0';
                 exec_op.store_flag <= '0';
                 exec_op.pc_flag <= '0';
                 exec_op.imm(31 downto 24) <= int_instr(19 downto 12);
-				exec_op.imm(23 downto 0) <= (others => '0');
+				    exec_op.imm(23 downto 0) <= (others => '0');
                 exec_op.aluop <= ALU_ADD;
 					 exec_op.readdata1 <= (others => '0');
                 exec_op.readdata1(15 downto 0) <= int_pc;
-				wb_op.src <= WBS_ALU;
-				wb_op.write <= '1';
-				wb_op.rd <= rd;
+				    wb_op.src <= WBS_ALU;
+			       wb_op.write <= '1';
+				    wb_op.rd <= rd;
 			when OPC_LUI =>    --U LUI rd = imm\+- << 12
-                exec_op.imm_flag <= '1';
+                exec_op.imm_flag <= '0';
                 exec_op.store_flag <= '0';
                 exec_op.pc_flag <= '0';
-				exec_op.imm(31 downto 24) <= int_instr(19 downto 12);
-				exec_op.imm(23 downto 0) <= (others => '0');
-				exec_op.readdata1 <= (others => '0');
-				wb_op.src <= WBS_ALU;
-				wb_op.write <= '1';
-				wb_op.rd <= rd;
+					 exec_op.imm(31 downto 24) <= int_instr(19 downto 12);
+					 exec_op.imm(23 downto 0) <= (others => '0');
+				    exec_op.readdata1 <= (others => '0');
+					 wb_op.src <= WBS_ALU;
+					 wb_op.write <= '1';
+					 wb_op.rd <= rd;
 			when "0001111" =>
 				if fct3 = "000" then -- I FENCE nop
 					exec_op <= EXEC_NOP;
