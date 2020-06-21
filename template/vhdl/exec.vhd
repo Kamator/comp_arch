@@ -184,7 +184,33 @@ begin
 				alu_A_2(15 downto 0) <= int_pc_in; 
 				alu_A_2(31 downto 16) <= (others => '0'); 
 				alu_B_2 <= int_op.imm; 
-				pc_new_out <= alu_R_2(15 downto 0); 
+				pc_new_out <= alu_R_2(15 downto 0);
+
+		--UJ - Instructions (JAL)
+		elsif int_op.imm_flag = '1' and int_op.store_flag = '0' and int_op.pc_flag = '1' then
+				alu_A(15 downto 0) <= int_pc_in; 
+				alu_A(31 downto 16) <= (others => '0'); 
+				alu_B <= int_op.imm; 
+				
+				--pc+4 stored in rd
+				wrdata <= alu_R_2(15 downto 0); 		
+				wrdata(31 downto 16) <= (others => '0'); 
+
+				--pc_new_out .. jal, so pc_in + offset
+				pc_new_out <= alu_R(15 downto 0); 
+
+		--UJ - Instructions (JALR)
+		elsif int_op.imm_flag = '0' and int_op.store_flag = '1' and int_op.pc_flag = '1' then
+				alu_A <= int_op.readdata1; 
+				alu_B <= int_op.imm; 
+
+				--pc+4 stored in rd
+				wrdata <= alu_R_2(15 downto 0); 
+				wrdata(31 downto 16) <= (others => '0'); 
+
+				--pc_new_out .. jalr, so rs1 + offset
+				pc_new_out <= alu_R(15 downto 0);
+
 		end if; 
 
 
