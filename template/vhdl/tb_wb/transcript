@@ -1,0 +1,56 @@
+# vsim wb_tb -t 1ps -msgmode both
+# vsim wb_tb -t 1ps -msgmode both 
+# Start time: 09:17:01 on Jun 18,2020
+# ** Error: Unable to lock WLF file "vsim.wlf". Retrying 1 times, errno 11
+# ** Error: Unable to lock WLF file "vsim.wlf". Retrying 2 times, errno 11
+# ** Error: Unable to lock WLF file "vsim.wlf". Retrying 3 times, errno 11
+# ** Error: Cannot lock WLF file: "vsim.wlf"
+#           errno 11: Resource temporarily unavailable.
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: d11775812  Hostname: ti10  ProcessID: 12430
+#           Attempting to use alternate WLF file "./wlftxm6XXt".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftxm6XXt
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# //  Questa Sim
+# //  Version 10.6c_1 linux Sep 15 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.mem_pkg(body)
+# Loading work.core_pkg(body)
+# Loading work.op_pkg
+# Loading work.wb_tb(beh)#1
+#  run 2ms
+# ** Note: TESTCASE #1
+#    Time: 380 ns  Iteration: 0  Instance: /wb_tb
+# ** Note: reg_write.write = 1
+#    Time: 380 ns  Iteration: 0  Instance: /wb_tb
+# ** Note: reg_write.reg = 2
+#    Time: 380 ns  Iteration: 0  Instance: /wb_tb
+# ** Note: reg_write.data = 14535168
+#    Time: 380 ns  Iteration: 0  Instance: /wb_tb
+# ** Note: TESTCASE #2
+#    Time: 660 ns  Iteration: 0  Instance: /wb_tb
+# ** Note: reg_write.write = 1
+#    Time: 660 ns  Iteration: 0  Instance: /wb_tb
+# ** Note: reg_write.reg = 2
+#    Time: 660 ns  Iteration: 0  Instance: /wb_tb
+# ** Note: reg_write.data = 14535168
+#    Time: 660 ns  Iteration: 0  Instance: /wb_tb
+# 
+# End time: 09:18:50 on Jun 18,2020, Elapsed time: 0:01:49
+# Errors: 4, Warnings: 2

@@ -1,0 +1,9 @@
+add wave sim:/wb_tb/clk
+add wave sim:/wb_tb/reset
+add wave sim:/wb_tb/op
+add wave sim:/wb_tb/uut/int_op
+add wave sim:/wb_tb/uut/int_pc_new_in
+add wave sim:/wb_tb/uut/int_pc_old_in
+add wave sim:/wb_tb/uut/int_aluresult
+add wave sim:/wb_tb/uut/int_memresult
+add wave sim:/wb_tb/reg_write
