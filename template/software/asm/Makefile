@@ -1,10 +1,10 @@
-PREFIX=riscv32-unknown-elf
+PREFIX=/opt/ddca/riscv/riscv32-unknown-elf/bin/
 
-CC=${PREFIX}-gcc
-AS=${PREFIX}-as
-LD=${PREFIX}-ld -N --section-start=.text=0x0 -no-relex
-AR=${PREFIX}-ar
-OBJCOPY=${PREFIX}-objcopy
+CC=${PREFIX}gcc
+AS=${PREFIX}as
+LD=${PREFIX}ld -N --section-start=.text=0x0 -no-relex
+AR=${PREFIX}ar
+OBJCOPY=${PREFIX}objcopy
 
 FILES=$(wildcard *.S)
 
