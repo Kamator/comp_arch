@@ -1,0 +1,13 @@
+# transcript error: error writing "stdout": broken pipe
+    while executing
+"puts -nonewline stdout $s"
+# Current time Mon Jun 22 16:34:48 2020
+# Program = vish
+# Id = "10.6c_1"
+# Version = "2017.09"
+# Date = "Sep 15 2017"
+# Platform = linux
+# 0    0x085f646d: '<unknown (@0x85f646d)>'
+# 1    0x084f500b: 'TclInvokeStringCommand + 0x7b' in '/opt/questa_core_prime_10.6-for_quartus18.1-10.6c.1/mentor/2017-18/RHELx86/QUESTA-CORE-PRIME_10.6c-1/questasim/linux/vish'
+# 2    0x0986427b: '<unknown (@0x986427b)>'
+# 3    0x09a7df9b: '<unknown (@0x9a7df9b)>'
