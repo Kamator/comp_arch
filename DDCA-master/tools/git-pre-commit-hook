@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Redirect all output to stderr
+exec 1>&2
+
+#
+# Executes check_modelsim_project script to ensure paths are relative
+#
+if [ ! -d tools ]; then
+  echo >&2 "Could not find tools directory."
+  exit 1
+fi
+./tools/check_modelsim_project.sh 
+ret=$?
+if [ $ret -ne 0 ]; then
+  exit 1
+fi
