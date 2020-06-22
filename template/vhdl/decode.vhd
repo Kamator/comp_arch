@@ -120,6 +120,8 @@ begin
 						case fct7 is
 							when fct7_zeros => -- R ADD rd, rs1, rs2
 								exec_op.aluop <= ALU_ADD;
+								exec_op.rs1 <= rs1;
+								exec_op.rs2 <= rs2;
 								exec_op.readdata1 <= int_readdata1; --reading from register
 								exec_op.readdata2 <= int_readdata2;
 								wb_op.src <= WBS_ALU;
@@ -127,6 +129,8 @@ begin
                         wb_op.rd <= rd;
 							when "0100000" => -- R SUB rd, rs1, rs2
 								exec_op.aluop <= ALU_SUB;
+								exec_op.rs1 <= rs1;
+								exec_op.rs2 <= rs2;
 								exec_op.readdata1 <= int_readdata1; --reading from register
 								exec_op.readdata2 <= int_readdata2;
 								wb_op.src <= WBS_ALU;
@@ -137,6 +141,8 @@ begin
 				   when "001" =>
 						if fct7 = fct7_zeros then -- R SLL rd = rs1 << rs2(4:0)
 							exec_op.aluop <= ALU_SLL;
+							exec_op.rs1 <= rs1;
+							exec_op.rs2 <= rs2;
 							exec_op.readdata1 <= int_readdata1;
 							exec_op.readdata2 <= int_readdata2;
 							wb_op.src <= WBS_ALU;
@@ -148,6 +154,8 @@ begin
 				   when "010" => 
 						if fct7 = fct7_zeros then -- R SLT rd = (rs1\+- < rs2\+-) ? 1:0
 							exec_op.aluop <= ALU_SLT;
+							exec_op.rs1 <= rs1;
+							exec_op.rs2 <= rs2;
 							exec_op.readdata1 <= int_readdata1; --reading from register
 							exec_op.readdata2 <= int_readdata2;
                      wb_op.src <= WBS_ALU;
@@ -159,6 +167,8 @@ begin
 					when "011" =>
 						if fct7 = fct7_zeros then -- R SLTU rd = (rs1\0 < rs\0) ? 1:0
 							exec_op.aluop <= ALU_SLTU;
+							exec_op.rs1 <= rs1;
+							exec_op.rs2 <= rs2;
 							exec_op.readdata1 <= int_readdata1; --reading from register
 							exec_op.readdata2 <= int_readdata2;
 							wb_op.src <= WBS_ALU;
@@ -168,6 +178,8 @@ begin
 					when "100" =>
 						if fct7 = fct7_zeros then -- R XOR rd = rs1^rs2
 							exec_op.aluop <= ALU_XOR;
+							exec_op.rs1 <= rs1;
+							exec_op.rs2 <= rs2;
 							exec_op.readdata1 <= int_readdata1; --reading from register
 							exec_op.readdata2 <= int_readdata2;
 							wb_op.src <= WBS_ALU;
@@ -180,6 +192,8 @@ begin
 						case fct7 is
 							when fct7_zeros =>  -- R SRL rd = rs1\0 >> rs2(4:0)
 								exec_op.aluop <= ALU_SRL;
+								exec_op.rs1 <= rs1;
+								exec_op.rs2 <= rs2;
 								exec_op.readdata1 <= int_readdata1;
 								exec_op.readdata2 <= int_readdata2;
 								wb_op.src <= WBS_ALU;
@@ -187,6 +201,8 @@ begin
 								wb_op.rd <= rd;
 							when "0100000" =>  -- R SRA rd = rs1\+- >> rs2(4:0)
 								exec_op.aluop <= ALU_SRA;
+								exec_op.rs1 <= rs1;
+								exec_op.rs2 <= rs2;
 								exec_op.readdata1 <= int_readdata1;
 								exec_op.readdata2 <= int_readdata2;
 								wb_op.src <= WBS_ALU;	
@@ -197,6 +213,8 @@ begin
 					when "110" =>
 						if fct7 = fct7_zeros then -- R OR rd = rs1 | rs2
 							exec_op.aluop <= ALU_OR;
+							exec_op.rs1 <= rs1;
+							exec_op.rs2 <= rs2;
 							exec_op.readdata1 <= int_readdata1; --reading from register
 							exec_op.readdata2 <= int_readdata2;
 							wb_op.src <= WBS_ALU;
@@ -208,6 +226,8 @@ begin
 					when "111" =>
 						if fct7 = fct7_zeros then -- R AND rd = rs1 & rs2
 							exec_op.aluop <= ALU_AND;
+							exec_op.rs1 <= rs1;
+							exec_op.rs2 <= rs2;
 							exec_op.readdata1 <= int_readdata1; --reading from register
 							exec_op.readdata2 <= int_readdata2;
 							wb_op.src <= WBS_ALU;
@@ -229,42 +249,49 @@ begin
 				case fct3 is
 					when "000" =>    -- I ADDI rd = rs1 + imm\+-
 						exec_op.aluop <= ALU_AND;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 					when "010" =>    -- I SLTI rd = (rs1\+- < imm\+-) ? 1 : 0
 						exec_op.aluop <= ALU_SLT;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
-					when "011" =>    -- I SLTIU rd = (rs1\0 < (imm\+-)\0) ? 1 : 0 ????
+					when "011" =>    -- I SLTIU rd = (rs1\0 < (imm\+-)\0) ? 1 : 0
 						exec_op.aluop <= ALU_SLTU;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 					when "100" =>    -- I XORI rd = rs1 ^ imm\+-
 						exec_op.aluop <= ALU_XOR;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 					when "110" =>   -- I ORI rd = rs1 | imm\+-
 						exec_op.aluop <= ALU_OR;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;	
 					when "111" =>   -- I ANDI rd = rs1 & imm\+-
 						exec_op.aluop <= ALU_AND;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;	
 					when "001" =>     -- I SLLI rd = rs1 << shamt
 						exec_op.aluop <= ALU_SLL;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.imm(4 downto 0) <= shamt;
 						wb_op.src <= WBS_ALU;
@@ -274,6 +301,7 @@ begin
                         case exec_op.imm(10) is
                             when '0' =>    -- I SRLI rd = rs1\0 >> shamt
                                 exec_op.aluop <= ALU_SRL;
+										  exec_op.rs1 <= rs1;
                                 exec_op.readdata1 <= int_readdata1;
                                 exec_op.imm(4 downto 0) <= shamt;
                                 wb_op.src <= WBS_ALU;
@@ -281,6 +309,7 @@ begin
                                 wb_op.rd <= rd;
                             when '1' =>   -- I SRAI rd = rs1\+- >> shamt...imm[4:0]=shamt
                                 exec_op.aluop <= ALU_SRA;
+										  exec_op.rs1 <= rs1;
                                 exec_op.readdata1 <= int_readdata1;
                                 exec_op.imm(4 downto 0) <= shamt;
                                 wb_op.src <= WBS_ALU;
@@ -301,6 +330,8 @@ begin
 				case fct3 is
 					when "000" =>    -- S SB DMEM[rs1 + imm\+-] = rs2(7 : 0)
 						exec_op.aluop <= ALU_ADD;
+						exec_op.rs1 <= rs1;
+						exec_op.rs2 <= rs2;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= (others => '0');
 						exec_op.readdata2(7 downto 0) <= int_readdata2(7 downto 0); 
@@ -311,6 +342,8 @@ begin
 						mem_op.mem.memwrite <= '1';
 					when "001" =>    -- S SH DMEM[rs1 + imm\+-] = rs2(15 : 0)
 						exec_op.aluop <= ALU_ADD;
+						exec_op.rs1 <= rs1;
+					   exec_op.rs2 <= rs2;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= (others => '0');
 						exec_op.readdata2(15 downto 0) <= int_readdata2(15 downto 0);
@@ -321,6 +354,8 @@ begin
 						mem_op.mem.memwrite <= '1';
 					when "010" =>    -- S SW DMEM[rs1 + imm\+-] = rs2
 						exec_op.aluop <= ALU_ADD;
+						exec_op.rs1 <= rs1;
+						exec_op.rs2 <= rs2;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
 						wb_op.src <= WBS_MEM;
@@ -341,6 +376,7 @@ begin
 				case fct3 is
 					when "000" =>    -- I LB rd = (int8_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
@@ -350,6 +386,7 @@ begin
 						mem_op.mem.memwrite <= '0';
 					when "001" =>    -- I LH rd = (int16_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
@@ -359,6 +396,7 @@ begin
 						mem_op.mem.memwrite <= '0';
 					when "010" =>    -- I LW rd = (int32_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
@@ -368,6 +406,7 @@ begin
 						mem_op.mem.memwrite <= '0';
 					when "100" =>    -- I LBU rd = (uint8_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
@@ -378,6 +417,7 @@ begin
 					when "101" =>    -- I LHU rd = (uint16_t) DMEM[rs1 + imm\+-]
 						wb_op.src <= WBS_ALU;
 						exec_op.aluop <= ALU_ADD;
+						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
@@ -398,36 +438,48 @@ begin
 				case fct3 is
 					when "000" =>    -- B BEQ if(rs1 == rs2) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_SUB;
+						exec_op.rs1 <= rs1;
+						exec_op.rs2 <= rs2;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
 						wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "001" =>    -- B BNE if(rs1 != rs2) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_SUB;
+						exec_op.rs1 <= rs1;
+						exec_op.rs2 <= rs2;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
                   wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "100" =>    -- B BLT if(rs1\+- < rs2\+-) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
+						exec_op.rs1 <= rs1;
+					   exec_op.rs2 <= rs2;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
                   wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "101" =>    -- B BGE if(rs1\+- >= rs2\+- pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
+						exec_op.rs1 <= rs1;
+						exec_op.rs2 <= rs2;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
 						wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "110" =>    -- B BLTU if(rs1\0 < rs2\0) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
+						exec_op.rs1 <= rs1;
+						exec_op.rs2 <= rs2;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
 						wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "111" =>    -- B BGEU if(rs1\0 >= rs2\0) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
+						exec_op.rs1 <= rs1;
+						exec_op.rs2 <= rs2;
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
 						wb_op.src <= WBS_OPC;
@@ -474,6 +526,7 @@ begin
                 exec_op.aluop <= ALU_ADD;
 					 exec_op.readdata1 <= (others => '0');
                 exec_op.readdata1(15 downto 0) <= int_pc;
+					 exec_op.readdata2 <= exec_op.imm;
 				    wb_op.src <= WBS_ALU;
 			       wb_op.write <= '1';
 				    wb_op.rd <= rd;
@@ -483,7 +536,9 @@ begin
                 exec_op.pc_flag <= '0';
 					 exec_op.imm(31 downto 24) <= int_instr(19 downto 12);
 					 exec_op.imm(23 downto 0) <= (others => '0');
-				    exec_op.readdata1 <= (others => '0');
+				    exec_op.aluop <= ALU_NOP;
+					 exec_op.readdata1 <= (others => '0');
+					 exec_op.readdata2 <= exec_op.imm;
 					 wb_op.src <= WBS_ALU;
 					 wb_op.write <= '1';
 					 wb_op.rd <= rd;
