@@ -44,6 +44,7 @@ begin
 		end if;
 	end process;
 	
+
 	prg_cnt_proc : process(all)
 	begin
 		prg_cnt_next <= prg_cnt; 
@@ -77,13 +78,14 @@ begin
 		end if;	
 	end process; */
 	
-	flush_proc : process(pcsrc, mem_in.rddata, prg_cnt)
+	flush_proc : process(pcsrc, mem_in, prg_cnt)
 	begin
-		if flush = '0' then
-			mem_out.address <= prg_cnt(13 downto 0);
-			mem_out.rd <= '1';
-		elsif flush = '1' then
-			mem_out <= MEM_OUT_NOP;
+		mem_out.address <= prg_cnt(13 downto 0);
+		
+		if mem_in.busy = '1' then 
+			mem_out <= MEM_OUT_NOP; 
+		else 
+			mem_out.rd <= '1'; 
 		end if;	
 	end process;
 	
