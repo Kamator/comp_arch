@@ -8,15 +8,6 @@ z2
 !i10f 100
 cModel Technology
 Z0 d/homes/d11775812/comp_arch/template/vhdl/tb_exec
-T_opt
-!s110 1592395841
-V:gPL`]<Bn[Q>Vfo7ff1JU3
-04 7 3 work exec_tb beh 1
-=1-000ae431a4f1-5eea0841-4e781-49d4
-o-quiet -auto_acc_if_foreign -work work
-tCvgOpt 0
-n@_opt
-OE;O;10.6c_1;65
 Ealu
 Z1 w1591725846
 Z2 DPx4 work 6 op_pkg 0 22 P2VdQF?4?M3ACO`G5Q=Wk1
@@ -34,9 +25,9 @@ V52[FKWRiMMDdk>AT?e=HF0
 !s100 nR6hQ28B@UceMYR9T;UFL0
 Z10 OE;C;10.6c_1;65
 33
-Z11 !s110 1592395838
+Z11 !s110 1592825670
 !i10b 1
-Z12 !s108 1592395838.000000
+Z12 !s108 1592825670.000000
 Z13 !s90 -2008|-opt=-clkOpt|-work|work|-suppress|1236|-novopt|../alu/alu.vhd|
 Z14 !s107 ../alu/alu.vhd|
 !i113 1
@@ -80,11 +71,11 @@ V8AQoS0H^;EmnY>FR]R6]<0
 R10
 33
 b1
-Z20 !s110 1592395837
+R11
 !i10b 1
-Z21 !s108 1592395837.000000
-Z22 !s90 -2008|-opt=-clkOpt|-work|work|-suppress|1236|-novopt|../core_pkg.vhd|
-Z23 !s107 ../core_pkg.vhd|
+Z20 !s108 1592825669.000000
+Z21 !s90 -2008|-opt=-clkOpt|-work|work|-suppress|1236|-novopt|../core_pkg.vhd|
+Z22 !s107 ../core_pkg.vhd|
 !i113 1
 R15
 R16
@@ -100,16 +91,16 @@ V@[EBgVj_PBhib_zbA1R]T0
 !s100 FGDUjGTHoAhWdgj2QA5I=2
 R10
 33
-R20
+R11
 !i10b 1
+R20
 R21
 R22
-R23
 !i113 1
 R15
 R16
 Eexec
-Z24 w1592395733
+Z23 w1592819909
 R2
 R3
 R4
@@ -117,8 +108,8 @@ R5
 R6
 R7
 R0
-Z25 8../exec.vhd
-Z26 F../exec.vhd
+Z24 8../exec.vhd
+Z25 F../exec.vhd
 l0
 L8
 V30bE=N^9iJHf@fChjFTYL0
@@ -128,8 +119,8 @@ R10
 R11
 !i10b 1
 R12
-Z27 !s90 -2008|-opt=-clkOpt|-work|work|-suppress|1236|-novopt|../exec.vhd|
-Z28 !s107 ../exec.vhd|
+Z26 !s90 -2008|-opt=-clkOpt|-work|work|-suppress|1236|-novopt|../exec.vhd|
+Z27 !s107 ../exec.vhd|
 !i113 1
 R15
 R16
@@ -143,20 +134,20 @@ R7
 DEx4 work 4 exec 0 22 30bE=N^9iJHf@fChjFTYL0
 l68
 L38
-VF`;;5z7Z::IFao@YEgCDX0
-!s100 4W:S5e0Jn8kk>53S:eHc01
+VAH9d_`gMAS2e0mg0L_MY30
+!s100 VlN6TV9`lXX=V]PK]69nb3
 R10
 33
 R11
 !i10b 1
 R12
+R26
 R27
-R28
 !i113 1
 R15
 R16
 Eexec_tb
-Z29 w1592395836
+Z28 w1592395836
 R2
 R4
 R3
@@ -164,8 +155,8 @@ R5
 R6
 R7
 R0
-Z30 8./exec_tb.vhd
-Z31 F./exec_tb.vhd
+Z29 8./exec_tb.vhd
+Z30 F./exec_tb.vhd
 l0
 L8
 VN;c_ZGYdZeMG^zdefbQ592
@@ -175,8 +166,8 @@ R10
 R11
 !i10b 1
 R12
-Z32 !s90 -2008|-opt=-clkOpt|-work|work|-suppress|1236|-novopt|./exec_tb.vhd|
-Z33 !s107 ./exec_tb.vhd|
+Z31 !s90 -2008|-opt=-clkOpt|-work|work|-suppress|1236|-novopt|./exec_tb.vhd|
+!s107 ./exec_tb.vhd|
 !i113 1
 R15
 R16
@@ -197,8 +188,8 @@ R10
 R11
 !i10b 1
 R12
-R32
-R33
+R31
+Z32 !s107 ./exec_tb.vhd|
 !i113 1
 R15
 R16
@@ -207,8 +198,8 @@ R6
 R7
 R17
 R0
-Z34 8../mem_pkg.vhd
-Z35 F../mem_pkg.vhd
+Z33 8../mem_pkg.vhd
+Z34 F../mem_pkg.vhd
 l0
 L4
 V`9e;iYV0e;P3635DQ9HiK0
@@ -216,9 +207,9 @@ V`9e;iYV0e;P3635DQ9HiK0
 R10
 33
 b1
-R20
+Z35 !s110 1592825669
 !i10b 1
-R21
+R20
 Z36 !s90 -2008|-opt=-clkOpt|-work|work|-suppress|1236|-novopt|../mem_pkg.vhd|
 Z37 !s107 ../mem_pkg.vhd|
 !i113 1
@@ -234,9 +225,9 @@ VkH@_cj@=e4>cJEn1T8mIg1
 !s100 g2WS3iYoRUAfF96QClLgF0
 R10
 33
-R20
+R35
 !i10b 1
-R21
+R20
 R36
 R37
 !i113 1
@@ -260,7 +251,7 @@ R10
 33
 R11
 !i10b 1
-R21
+R12
 !s90 -2008|-opt=-clkOpt|-work|work|-suppress|1236|-novopt|../op_pkg.vhd|
 !s107 ../op_pkg.vhd|
 !i113 1

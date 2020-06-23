@@ -29,7 +29,8 @@ end fetch;
 
 architecture rtl of fetch is
 	signal prg_cnt, prg_cnt_next : pc_type := (others => '0');
-	
+	signal int_instr : instr_type;
+	signal int_pc_cnt : pc_type;  
 begin
 
 	sync : process(reset, clk)
@@ -38,24 +39,45 @@ begin
 			prg_cnt <= std_logic_vector(to_signed(-4, pc_type'LENGTH));
 		elsif rising_edge(clk) and stall = '0' then
 		   	prg_cnt <= prg_cnt_next;
+			int_instr <= mem_in.rddata;
+			int_pc_cnt <= std_logic_vector(unsigned(prg_cnt_next) - 4);   
 		end if;
 	end process;
 	
-	program_counter : process(all)
+	prg_cnt_proc : process(all)
+	begin
+		prg_cnt_next <= prg_cnt; 
+		instr <= NOP_INST; 
+
+		if stall = '0' and pcsrc = '1' then
+			--branch was taken
+			pc_out <= pc_in; 
+			prg_cnt_next <= pc_in; 
+
+		elsif stall = '0' and pcsrc = '0' then 
+			prg_cnt_next <= std_logic_vector(unsigned(prg_cnt) + 4); 
+			pc_out <= int_pc_cnt; 
+			instr <= to_little_endian(int_instr);
+		end if; 
+	end process; 
+
+	/*program_counter : process(all)
 	begin
 		prg_cnt_next <= prg_cnt;
+		instr <= NOP_INST; 
+
 		if stall = '0' and pcsrc = '1' then
 			prg_cnt_next <= pc_in;
-			pc_out <= prg_cnt_next;
+			prg_cnt_next <= prg_cnt;
 			instr <= NOP_INST;
 		elsif stall = '0' and pcsrc = '0' then
 			prg_cnt_next <= std_logic_vector(unsigned(prg_cnt) + 4);
-			pc_out <= prg_cnt_next;
-			instr <= mem_in.rddata;
+			pc_out <= prg_cnt;
+			instr <= to_little_endian(int_instr);
 		end if;	
-	end process;
+	end process; */
 	
-	flush_proc : process(pcsrc, mem_in.rddata)
+	flush_proc : process(pcsrc, mem_in.rddata, prg_cnt)
 	begin
 		if flush = '0' then
 			mem_out.address <= prg_cnt(13 downto 0);

@@ -2,6 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all; 
 use ieee.numeric_std.all; 
 
+use work.mem_pkg.all; 
+use work.core_pkg.all; 
+use work.op_pkg.all;
+
 --component declarations for pipeline.vhd
 
 package pipeline_pkg is 

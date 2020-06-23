@@ -248,7 +248,7 @@ begin
 					 exec_op.imm(0) <= int_instr(20);
 				case fct3 is
 					when "000" =>    -- I ADDI rd = rs1 + imm\+-
-						exec_op.aluop <= ALU_AND;
+						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
 						exec_op.readdata1 <= int_readdata1;
 						wb_op.src <= WBS_ALU;

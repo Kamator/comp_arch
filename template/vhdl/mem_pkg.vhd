@@ -55,6 +55,7 @@ package mem_pkg is
     pure function to_std_logic_vector(i : mem_in_type)  return std_logic_vector;
     pure function to_mem_out_type(i : std_logic_vector(mem_out_range_type)) return mem_out_type;
     pure function to_mem_in_type(i : std_logic_vector(mem_in_range_type)) return mem_in_type;
+    pure function to_little_endian(i : std_logic_vector(DATA_WIDTH-1 downto 0)) return std_logic_vector; 
 
 end package;
 
@@ -93,5 +94,15 @@ package body mem_pkg is
             busy   => i(32)
         );
     end function;
+	
+    pure function to_little_endian(i : std_logic_vector(DATA_WIDTH-1 downto 0)) return std_logic_vector is 
+	variable output : std_logic_vector(DATA_WIDTH-1 downto 0); 
+	begin
+		output(31 downto 24) := i(7 downto 0); 
+		output(23 downto 16) := i(15 downto 8); 
+		output(15 downto 8)  := i(23 downto 16); 
+		output(7 downto 0)   := i(31 downto 24); 
+		return output; 
+	end function;  
 
 end package body;

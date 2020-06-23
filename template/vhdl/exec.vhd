@@ -193,7 +193,7 @@ begin
 				alu_B <= int_op.imm; 
 				
 				--pc+4 stored in rd
-				wrdata <= alu_R_2(15 downto 0); 		
+				wrdata(15 downto 0) <= alu_R_2(15 downto 0); 		
 				wrdata(31 downto 16) <= (others => '0'); 
 
 				--pc_new_out .. jal, so pc_in + offset
@@ -205,7 +205,7 @@ begin
 				alu_B <= int_op.imm; 
 
 				--pc+4 stored in rd
-				wrdata <= alu_R_2(15 downto 0); 
+				wrdata(15 downto 0) <= alu_R_2(15 downto 0); 
 				wrdata(31 downto 16) <= (others => '0'); 
 
 				--pc_new_out .. jalr, so rs1 + offset

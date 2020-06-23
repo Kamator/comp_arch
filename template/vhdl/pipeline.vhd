@@ -66,11 +66,12 @@ begin
 		stall => stall, 
 		flush => '0',
 		mem_busy => open,
-		pc_in => pc_to_fetch,
+		pcsrc => pcsrc,
+		pc_in => pc_new_from_mem,
 		pc_out => pc_from_fetch,
 		instr => instr,
-		mem_out => mem_d_out,
-		mem_in  => mem_d_in
+		mem_out => mem_i_out,
+		mem_in  => mem_i_in
 	);
 
 	decode_inst : decode
@@ -106,9 +107,9 @@ begin
 		memop_out => mem_op_from_ex,
 		wbop_in => wb_op,
 		wbop_out => wb_op_from_ex,
-		exc_op => open,
+		exec_op => open,
 		reg_write_mem => REG_WRITE_NOP,
-		reg_write_wr => reg_write_wr
+		reg_write_wr => REG_WRITE_NOP
 	); 
 
 	mem_inst : mem
@@ -155,9 +156,9 @@ begin
 	stall_logic : process(mem_d_in) 
 	begin
 		if mem_d_in.busy = '0' then 
-			stall = '0'; 
-		else 
-			stall = '1'; 
+			stall <= '0'; 
+		else
+			stall <= '1'; 
 		end if; 
 	end process; 
 

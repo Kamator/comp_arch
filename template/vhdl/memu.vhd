@@ -42,6 +42,9 @@ architecture rtl of memu is
 begin
 	logic : process (all)
 	begin
+	
+	M <= MEM_OUT_NOP; 
+
 	if op.memread = '1' then
 		--read access to memory
 		M.wr <= '0'; 	
