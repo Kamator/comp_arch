@@ -29,6 +29,7 @@ end fetch;
 
 architecture rtl of fetch is
 	signal prg_cnt, prg_cnt_next : pc_type := (others => '0');
+	
 begin
 
 	sync : process(reset, clk)
@@ -36,7 +37,7 @@ begin
 		if reset = '0' then 
 			prg_cnt <= std_logic_vector(to_signed(-4, pc_type'LENGTH));
 		elsif rising_edge(clk) and stall = '0' then
-		   prg_cnt <= prg_cnt_next;
+		   	prg_cnt <= prg_cnt_next;
 		end if;
 	end process;
 	
@@ -54,10 +55,10 @@ begin
 		end if;	
 	end process;
 	
-	flush_proc : process(pcsrc)
+	flush_proc : process(pcsrc, mem_in.rddata)
 	begin
 		if flush = '0' then
-			mem_out.address <= prg_cnt(15 downto 2);
+			mem_out.address <= prg_cnt(13 downto 0);
 			mem_out.rd <= '1';
 		elsif flush = '1' then
 			mem_out <= MEM_OUT_NOP;
