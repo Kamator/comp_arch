@@ -1,3 +1,8 @@
+	.text 
+	.align 2
+	.globl _start
+
+_start:
 	addi x5, x0, 0
 	nop 
 	nop
@@ -10,3 +15,5 @@ loop:
 	nop
 	nop
 	nop
+	.end _start
+	.size _start, .-_start
