@@ -28,7 +28,7 @@ entity fetch is
 end fetch;
 
 architecture rtl of fetch is
-	signal prg_cnt, prg_cnt_next : pc_type := (others => '0');
+	signal prg_cnt, prg_cnt_next : pc_type;
 	signal int_instr : instr_type;
 	signal int_pc_cnt : pc_type;  
 begin
@@ -36,29 +36,31 @@ begin
 	sync : process(reset, clk)
 	begin
 		if reset = '0' then 
+			mem_busy <= '0';
 			prg_cnt <= std_logic_vector(to_signed(-4, pc_type'LENGTH));
+			int_instr <= (others => '0');
+			int_pc_cnt <= (others => '0');
 		elsif rising_edge(clk) and stall = '0' then
-		   	prg_cnt <= prg_cnt_next;
+		   prg_cnt <= prg_cnt_next;
 			int_instr <= mem_in.rddata;
 			int_pc_cnt <= std_logic_vector(unsigned(prg_cnt_next) - 4);   
 		end if;
 	end process;
 	
 
-	prg_cnt_proc : process(all)
+	prg_cnt_proc : process(stall, pcsrc, prg_cnt, pc_in)
 	begin
 		prg_cnt_next <= prg_cnt; 
 		instr <= NOP_INST; 
-
-		if stall = '0' and pcsrc = '1' then
-			--branch was taken
+		pc_out <= prg_cnt;
+		if stall = '0' and pcsrc = '1' and reset = '1' then
+			-- branch was taken
 			pc_out <= pc_in; 
-			prg_cnt_next <= pc_in; 
-
-		elsif stall = '0' and pcsrc = '0' then 
+			prg_cnt_next <= pc_in;	 
+		elsif stall = '0' and pcsrc = '0' and reset = '1' then 
 			prg_cnt_next <= std_logic_vector(unsigned(prg_cnt) + 4); 
 			pc_out <= int_pc_cnt; 
-			instr <= to_little_endian(int_instr);
+			instr <= to_little_endian(int_instr);	
 		end if; 
 	end process; 
 
@@ -79,13 +81,15 @@ begin
 	end process; */
 	
 	flush_proc : process(pcsrc, mem_in, prg_cnt)
-	begin
-		mem_out.address <= prg_cnt(13 downto 0);
-		
+	begin		
 		if mem_in.busy = '1' then 
 			mem_out <= MEM_OUT_NOP; 
-		else 
-			mem_out.rd <= '1'; 
+		else
+			mem_out.rd <= '1';
+			mem_out.address <= prg_cnt(13 downto 0);
+			mem_out.wr <= '0';
+			mem_out.byteena <= (others => '1');
+			mem_out.wrdata <= (others => '0');
 		end if;	
 	end process;
 	
