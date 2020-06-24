@@ -9,10 +9,10 @@ z2
 cModel Technology
 Z0 d/homes/d11775812/comp_arch/template/sim
 T_opt
-!s110 1592988091
-V@i4zX0]F;1`ha`5N_i<ED3
+!s110 1593003190
+VM73jgW0_dm5DRi7fD7@8H1
 04 6 5 work tb_cpu bench 1
-=1-000ae431a4f1-5ef311bb-b5cd1-772f
+=1-000ae431a4f1-5ef34cb5-d93d3-1ab3
 o-quiet -auto_acc_if_foreign -work work -G DMEM_FILE=../software/asm/phge.dmem.mif -G IMEM_FILE=../software/asm/phge.imem.mif
 tCvgOpt 0
 n@_opt
@@ -34,9 +34,9 @@ VPCO4X]CnGzgcB;Q[oBAiU0
 !s100 nR6hQ28B@UceMYR9T;UFL0
 Z10 OE;C;10.6c_1;65
 33
-Z11 !s110 1592988084
+Z11 !s110 1593003183
 !i10b 1
-Z12 !s108 1592988084.000000
+Z12 !s108 1593003183.000000
 Z13 !s90 -work|work|-2008|../vhdl/alu.vhd|
 Z14 !s107 ../vhdl/alu.vhd|
 !i113 0
@@ -81,9 +81,9 @@ VoES6GnBd;mB>M6EmoC<YY0
 !s100 Hm24J[LW5U];Bc<5TX?;j0
 R10
 33
-Z20 !s110 1592988085
+Z20 !s110 1593003184
 !i10b 1
-Z21 !s108 1592988085.000000
+Z21 !s108 1593003184.000000
 Z22 !s90 -work|work|-2008|../vhdl/core.vhd|
 Z23 !s107 ../vhdl/core.vhd|
 !i113 0
@@ -253,7 +253,7 @@ R39
 R15
 R16
 Eexec
-Z40 w1592988037
+Z40 w1592994083
 R2
 R3
 R4
@@ -287,8 +287,8 @@ R7
 DEx4 work 4 exec 0 22 C:W@2RW5J;>SzKQKj<?V11
 l68
 L38
-V?U_9J`WKKmYEdLzzoE5QK0
-!s100 oh7]1]Czh2>@Ynh:h]=]g3
+VI<]ec1ojESGeNacSlKUfi0
+!s100 T:GcJTIj2A;fNWS:MMCO@2
 R10
 33
 R20
@@ -300,7 +300,7 @@ R44
 R15
 R16
 Efetch
-Z45 w1592984234
+Z45 w1593003174
 R2
 R3
 R4
@@ -332,10 +332,10 @@ R5
 R6
 R7
 DEx4 work 5 fetch 0 22 fV?n?:Q;d46CG?cg<R2zC2
-l49
+l36
 L31
-VG6G[cG`PKV<AO5zHP:9F;2
-!s100 `fISCoMF2BmRZ=nhXdNdC0
+Vge3<I<SUcBz86jHBEimH73
+!s100 TU<RPhY_aeF?;OZO`KN5l3
 R10
 33
 R20
@@ -394,7 +394,7 @@ R53
 R15
 R16
 Emem
-Z54 w1592986654
+Z54 w1592993022
 R2
 R3
 R4
@@ -428,8 +428,8 @@ R7
 DEx4 work 3 mem 0 22 ]=`Z^3<L9G?SSIl@GDzUk2
 l95
 L51
-V[m5h`F9VHU=l=dL?LL[iO1
-!s100 5ECm[;8Qin_6=i5VPEMl31
+VOhVH0cNfP[>=8fZfgc?LU1
+!s100 ^U29PHZ?izWMf`1Mk^]>10
 R10
 33
 R20
@@ -481,7 +481,7 @@ R63
 R15
 R16
 Ememu
-Z64 w1592891011
+Z64 w1592992403
 R2
 R4
 R3
@@ -515,8 +515,8 @@ R7
 DEx4 work 4 memu 0 22 mDE88ci]nMgbI5CH=He283
 l42
 L41
-VmemPI]RO<R?@jhI4]88Y=1
-!s100 GPicBA3UL6ic6XbNT:THC3
+VU=G^HlRUUb1:JjQ_ZdKzc0
+!s100 1PMAZY>1o4eP2aCnOFS^B3
 R10
 33
 R11
@@ -722,7 +722,7 @@ R85
 R15
 R16
 Ewb
-Z86 w1592463800
+Z86 w1592992555
 R2
 R3
 R4
@@ -756,8 +756,8 @@ R7
 DEx4 work 2 wb 0 22 hDGcEJ<lU>TX[Oae=eIY90
 l33
 L27
-Vz9EezNIGmnM1Ze`U7kZaK0
-!s100 B[C1b7YT_Ze8kPk6jMB:00
+VUP2;OH^f5>k8l`5zk^nC62
+!s100 9;]3eN<TCKi8MhA:P6f:12
 R10
 33
 R20

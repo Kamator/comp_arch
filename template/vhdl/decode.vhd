@@ -87,11 +87,6 @@ begin
         regwrite => reg_write.write
     );
 	
-/* 
-        TODO: Implement pass-through logic that sends reg_write.data to 
-	downstream stages if reg_write.reg = instr'register 
-*/
-	 
 	sync : process(reset, clk, flush, stall)
 	begin
 		if reset = '0' then
@@ -128,8 +123,19 @@ begin
 								exec_op.aluop <= ALU_ADD;
 								exec_op.rs1 <= rs1;
 								exec_op.rs2 <= rs2;
-								exec_op.readdata1 <= int_readdata1; --reading from register
-								exec_op.readdata2 <= int_readdata2;
+								if reg_write.reg = rs1 then
+									exec_op.readdata1 <= reg_write.data;
+									exec_op.readdata2 <= int_readdata2;
+								elsif reg_write.reg = rs2 then
+									exec_op.readdata2 <= reg_write.data;
+									exec_op.readdata1 <= int_readdata1;
+								elsif reg_write.reg = rs1 and rs1 = rs2 then
+									exec_op.readdata1 <= reg_write.data;
+									exec_op.readdata2 <= reg_write.data;
+								else	
+									exec_op.readdata1 <= int_readdata1;
+									exec_op.readdata2 <= int_readdata2;
+								end if;
 								wb_op.src <= WBS_ALU;
 								wb_op.write <= '1'; 
                         wb_op.rd <= rd;
@@ -137,8 +143,19 @@ begin
 								exec_op.aluop <= ALU_SUB;
 								exec_op.rs1 <= rs1;
 								exec_op.rs2 <= rs2;
-								exec_op.readdata1 <= int_readdata1; --reading from register
-								exec_op.readdata2 <= int_readdata2;
+								if reg_write.reg = rs1 then
+									exec_op.readdata1 <= reg_write.data;
+									exec_op.readdata2 <= int_readdata2;
+								elsif reg_write.reg = rs2 then
+									exec_op.readdata2 <= reg_write.data;
+									exec_op.readdata1 <= int_readdata1;
+								elsif reg_write.reg = rs1 and rs1 = rs2 then
+									exec_op.readdata1 <= reg_write.data;
+									exec_op.readdata2 <= reg_write.data;
+								else	
+									exec_op.readdata1 <= int_readdata1;
+									exec_op.readdata2 <= int_readdata2;
+								end if;
 								wb_op.src <= WBS_ALU;
 								wb_op.write <= '1';
 								wb_op.rd <= rd;
@@ -149,8 +166,19 @@ begin
 							exec_op.aluop <= ALU_SLL;
 							exec_op.rs1 <= rs1;
 							exec_op.rs2 <= rs2;
-							exec_op.readdata1 <= int_readdata1;
-							exec_op.readdata2 <= int_readdata2;
+							if reg_write.reg = rs1 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= int_readdata2;
+							elsif reg_write.reg = rs2 then
+								exec_op.readdata2 <= reg_write.data;
+								exec_op.readdata1 <= int_readdata1;
+							elsif reg_write.reg = rs1 and rs1 = rs2 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= reg_write.data;
+							else	
+								exec_op.readdata1 <= int_readdata1;
+								exec_op.readdata2 <= int_readdata2;
+							end if;
 							wb_op.src <= WBS_ALU;
 							wb_op.write <= '1';
 							wb_op.rd <= rd;
@@ -162,8 +190,19 @@ begin
 							exec_op.aluop <= ALU_SLT;
 							exec_op.rs1 <= rs1;
 							exec_op.rs2 <= rs2;
-							exec_op.readdata1 <= int_readdata1; --reading from register
-							exec_op.readdata2 <= int_readdata2;
+							if reg_write.reg = rs1 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= int_readdata2;
+							elsif reg_write.reg = rs2 then
+								exec_op.readdata2 <= reg_write.data;
+								exec_op.readdata1 <= int_readdata1;
+							elsif reg_write.reg = rs1 and rs1 = rs2 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= reg_write.data;
+							else	
+								exec_op.readdata1 <= int_readdata1;
+								exec_op.readdata2 <= int_readdata2;
+							end if;
                      wb_op.src <= WBS_ALU;
 							wb_op.write <= '1';
 							wb_op.rd <= rd;
@@ -175,8 +214,19 @@ begin
 							exec_op.aluop <= ALU_SLTU;
 							exec_op.rs1 <= rs1;
 							exec_op.rs2 <= rs2;
-							exec_op.readdata1 <= int_readdata1; --reading from register
-							exec_op.readdata2 <= int_readdata2;
+							if reg_write.reg = rs1 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= int_readdata2;
+							elsif reg_write.reg = rs2 then
+								exec_op.readdata2 <= reg_write.data;
+								exec_op.readdata1 <= int_readdata1;
+							elsif reg_write.reg = rs1 and rs1 = rs2 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= reg_write.data;
+							else	
+								exec_op.readdata1 <= int_readdata1;
+								exec_op.readdata2 <= int_readdata2;
+							end if;
 							wb_op.src <= WBS_ALU;
 							wb_op.write <= '1';
 							wb_op.rd <= rd;
@@ -186,8 +236,19 @@ begin
 							exec_op.aluop <= ALU_XOR;
 							exec_op.rs1 <= rs1;
 							exec_op.rs2 <= rs2;
-							exec_op.readdata1 <= int_readdata1; --reading from register
-							exec_op.readdata2 <= int_readdata2;
+							if reg_write.reg = rs1 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= int_readdata2;
+							elsif reg_write.reg = rs2 then
+								exec_op.readdata2 <= reg_write.data;
+								exec_op.readdata1 <= int_readdata1;
+							elsif reg_write.reg = rs1 and rs1 = rs2 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= reg_write.data;
+							else	
+								exec_op.readdata1 <= int_readdata1;
+								exec_op.readdata2 <= int_readdata2;
+							end if;
 							wb_op.src <= WBS_ALU;
 							wb_op.write <= '1';
 							wb_op.rd <= rd;
@@ -200,8 +261,19 @@ begin
 								exec_op.aluop <= ALU_SRL;
 								exec_op.rs1 <= rs1;
 								exec_op.rs2 <= rs2;
-								exec_op.readdata1 <= int_readdata1;
-								exec_op.readdata2 <= int_readdata2;
+								if reg_write.reg = rs1 then
+									exec_op.readdata1 <= reg_write.data;
+									exec_op.readdata2 <= int_readdata2;
+								elsif reg_write.reg = rs2 then
+									exec_op.readdata2 <= reg_write.data;
+									exec_op.readdata1 <= int_readdata1;
+								elsif reg_write.reg = rs1 and rs1 = rs2 then
+									exec_op.readdata1 <= reg_write.data;
+									exec_op.readdata2 <= reg_write.data;
+								else	
+									exec_op.readdata1 <= int_readdata1;
+									exec_op.readdata2 <= int_readdata2;
+								end if;
 								wb_op.src <= WBS_ALU;
 								wb_op.write <= '1';
 								wb_op.rd <= rd;
@@ -209,8 +281,19 @@ begin
 								exec_op.aluop <= ALU_SRA;
 								exec_op.rs1 <= rs1;
 								exec_op.rs2 <= rs2;
-								exec_op.readdata1 <= int_readdata1;
-								exec_op.readdata2 <= int_readdata2;
+								if reg_write.reg = rs1 then
+									exec_op.readdata1 <= reg_write.data;
+									exec_op.readdata2 <= int_readdata2;
+								elsif reg_write.reg = rs2 then
+									exec_op.readdata2 <= reg_write.data;
+									exec_op.readdata1 <= int_readdata1;
+								elsif reg_write.reg = rs1 and rs1 = rs2 then
+									exec_op.readdata1 <= reg_write.data;
+									exec_op.readdata2 <= reg_write.data;
+								else	
+									exec_op.readdata1 <= int_readdata1;
+									exec_op.readdata2 <= int_readdata2;
+								end if;
 								wb_op.src <= WBS_ALU;	
 								wb_op.write <= '1';
 								wb_op.rd <= rd;
@@ -221,8 +304,19 @@ begin
 							exec_op.aluop <= ALU_OR;
 							exec_op.rs1 <= rs1;
 							exec_op.rs2 <= rs2;
-							exec_op.readdata1 <= int_readdata1; --reading from register
-							exec_op.readdata2 <= int_readdata2;
+							if reg_write.reg = rs1 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= int_readdata2;
+							elsif reg_write.reg = rs2 then
+								exec_op.readdata2 <= reg_write.data;
+								exec_op.readdata1 <= int_readdata1;
+							elsif reg_write.reg = rs1 and rs1 = rs2 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= reg_write.data;
+							else	
+								exec_op.readdata1 <= int_readdata1;
+								exec_op.readdata2 <= int_readdata2;
+							end if;
 							wb_op.src <= WBS_ALU;
 							wb_op.write <= '1';
 							wb_op.rd <= rd;
@@ -234,8 +328,19 @@ begin
 							exec_op.aluop <= ALU_AND;
 							exec_op.rs1 <= rs1;
 							exec_op.rs2 <= rs2;
-							exec_op.readdata1 <= int_readdata1; --reading from register
-							exec_op.readdata2 <= int_readdata2;
+							if reg_write.reg = rs1 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= int_readdata2;
+							elsif reg_write.reg = rs2 then
+								exec_op.readdata2 <= reg_write.data;
+								exec_op.readdata1 <= int_readdata1;
+							elsif reg_write.reg = rs1 and rs1 = rs2 then
+								exec_op.readdata1 <= reg_write.data;
+								exec_op.readdata2 <= reg_write.data;
+							else	
+								exec_op.readdata1 <= int_readdata1;
+								exec_op.readdata2 <= int_readdata2;
+							end if;
 							wb_op.src <= WBS_ALU;
 							wb_op.write <= '1';
 							wb_op.rd <= rd;
@@ -256,49 +361,77 @@ begin
 					when "000" =>    -- I ADDI rd = rs1 + imm\+-
 						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 					when "010" =>    -- I SLTI rd = (rs1\+- < imm\+-) ? 1 : 0
 						exec_op.aluop <= ALU_SLT;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 					when "011" =>    -- I SLTIU rd = (rs1\0 < (imm\+-)\0) ? 1 : 0
 						exec_op.aluop <= ALU_SLTU;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 					when "100" =>    -- I XORI rd = rs1 ^ imm\+-
 						exec_op.aluop <= ALU_XOR;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 					when "110" =>   -- I ORI rd = rs1 | imm\+-
 						exec_op.aluop <= ALU_OR;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;	
 					when "111" =>   -- I ANDI rd = rs1 & imm\+-
 						exec_op.aluop <= ALU_AND;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;	
 					when "001" =>     -- I SLLI rd = rs1 << shamt
 						exec_op.aluop <= ALU_SLL;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						exec_op.imm(4 downto 0) <= shamt;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
@@ -308,7 +441,11 @@ begin
                             when '0' =>    -- I SRLI rd = rs1\0 >> shamt
                                 exec_op.aluop <= ALU_SRL;
 										  exec_op.rs1 <= rs1;
-                                exec_op.readdata1 <= int_readdata1;
+                                if reg_write.reg = rs1 then
+												exec_op.readdata1 <= reg_write.data;
+										  else
+												exec_op.readdata1 <= int_readdata1;
+										  end if;
                                 exec_op.imm(4 downto 0) <= shamt;
                                 wb_op.src <= WBS_ALU;
                                 wb_op.write <= '1';
@@ -316,7 +453,11 @@ begin
                             when '1' =>   -- I SRAI rd = rs1\+- >> shamt...imm[4:0]=shamt
                                 exec_op.aluop <= ALU_SRA;
 										  exec_op.rs1 <= rs1;
-                                exec_op.readdata1 <= int_readdata1;
+                                if reg_write.reg = rs1 then
+												exec_op.readdata1 <= reg_write.data;
+										  else
+												exec_op.readdata1 <= int_readdata1;
+										  end if;
                                 exec_op.imm(4 downto 0) <= shamt;
                                 wb_op.src <= WBS_ALU;
                                 wb_op.write <= '1';
@@ -338,9 +479,23 @@ begin
 						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
 						exec_op.rs2 <= rs2;
-						exec_op.readdata1 <= int_readdata1;
-						exec_op.readdata2 <= (others => '0');
-						exec_op.readdata2(7 downto 0) <= int_readdata2(7 downto 0); 
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= (others => '0');
+							exec_op.readdata2(7 downto 0) <= int_readdata2(7 downto 0); 
+						elsif reg_write.reg = rs2 then
+							exec_op.readdata2 <= (others => '0');
+							exec_op.readdata2(7 downto 0) <= reg_write.data(7 downto 0);
+							exec_op.readdata1 <= int_readdata1;
+						elsif reg_write.reg = rs1 and rs1 = rs2 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= (others => '0');
+							exec_op.readdata2(7 downto 0) <= reg_write.data(7 downto 0);
+						else	
+							exec_op.readdata1 <= int_readdata1;
+							exec_op.readdata2 <= (others => '0');
+							exec_op.readdata2(7 downto 0) <= int_readdata2(7 downto 0); 
+						end if;
 						wb_op.src <= WBS_MEM;
 						wb_op.write <= '1';
 						mem_op.mem.memtype <= MEM_B;
@@ -350,9 +505,23 @@ begin
 						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
 					   exec_op.rs2 <= rs2;
-						exec_op.readdata1 <= int_readdata1;
-						exec_op.readdata2 <= (others => '0');
-						exec_op.readdata2(15 downto 0) <= int_readdata2(15 downto 0);
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= (others => '0');
+							exec_op.readdata2(15 downto 0) <= int_readdata2(15 downto 0);
+						elsif reg_write.reg = rs2 then
+							exec_op.readdata2 <= (others => '0');
+							exec_op.readdata2(15 downto 0) <= reg_write.data(15 downto 0);
+							exec_op.readdata1 <= int_readdata1;
+						elsif reg_write.reg = rs1 and rs1 = rs2 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= (others => '0');
+							exec_op.readdata2(15 downto 0) <= reg_write.data(15 downto 0);
+						else	
+							exec_op.readdata1 <= int_readdata1;
+							exec_op.readdata2 <= (others => '0');
+							exec_op.readdata2(15 downto 0) <= int_readdata2(15 downto 0);
+						end if;						
 						wb_op.src <= WBS_MEM;
 						wb_op.write <= '1';
 						mem_op.mem.memtype <= MEM_H;
@@ -362,8 +531,19 @@ begin
 						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
 						exec_op.rs2 <= rs2;
-						exec_op.readdata1 <= int_readdata1;
-						exec_op.readdata2 <= int_readdata2;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= int_readdata2;
+						elsif reg_write.reg = rs2 then
+							exec_op.readdata2 <= reg_write.data;
+							exec_op.readdata1 <= int_readdata1;
+						elsif reg_write.reg = rs1 and rs1 = rs2 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= reg_write.data;
+						else	
+							exec_op.readdata1 <= int_readdata1;
+							exec_op.readdata2 <= int_readdata2;
+						end if;				
 						wb_op.src <= WBS_MEM;
 						wb_op.write <= '1';
 						mem_op.mem.memtype <= MEM_W;
@@ -383,7 +563,11 @@ begin
 					when "000" =>    -- I LB rd = (int8_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
@@ -393,7 +577,11 @@ begin
 					when "001" =>    -- I LH rd = (int16_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
@@ -403,7 +591,11 @@ begin
 					when "010" =>    -- I LW rd = (int32_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
@@ -413,7 +605,11 @@ begin
 					when "100" =>    -- I LBU rd = (uint8_t) DMEM[rs1 + imm\+-]
 						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
@@ -424,7 +620,11 @@ begin
 						wb_op.src <= WBS_ALU;
 						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+						else
+							exec_op.readdata1 <= int_readdata1;
+						end if;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 						mem_op.mem.memtype <= MEM_HU;
@@ -446,48 +646,114 @@ begin
 						exec_op.aluop <= ALU_SUB;
 						exec_op.rs1 <= rs1;
 						exec_op.rs2 <= rs2;
-						exec_op.readdata1 <= int_readdata1;
-						exec_op.readdata2 <= int_readdata2;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= int_readdata2;
+						elsif reg_write.reg = rs2 then
+							exec_op.readdata2 <= reg_write.data;
+							exec_op.readdata1 <= int_readdata1;
+						elsif reg_write.reg = rs1 and rs1 = rs2 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= reg_write.data;
+						else	
+							exec_op.readdata1 <= int_readdata1;
+							exec_op.readdata2 <= int_readdata2;
+						end if;		
 						wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "001" =>    -- B BNE if(rs1 != rs2) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_SUB;
 						exec_op.rs1 <= rs1;
 						exec_op.rs2 <= rs2;
-						exec_op.readdata1 <= int_readdata1;
-						exec_op.readdata2 <= int_readdata2;
+							if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= int_readdata2;
+						elsif reg_write.reg = rs2 then
+							exec_op.readdata2 <= reg_write.data;
+							exec_op.readdata1 <= int_readdata1;
+						elsif reg_write.reg = rs1 and rs1 = rs2 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= reg_write.data;
+						else	
+							exec_op.readdata1 <= int_readdata1;
+							exec_op.readdata2 <= int_readdata2;
+						end if;		
                   wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "100" =>    -- B BLT if(rs1\+- < rs2\+-) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
 						exec_op.rs1 <= rs1;
 					   exec_op.rs2 <= rs2;
-						exec_op.readdata1 <= int_readdata1;
-						exec_op.readdata2 <= int_readdata2;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= int_readdata2;
+						elsif reg_write.reg = rs2 then
+							exec_op.readdata2 <= reg_write.data;
+							exec_op.readdata1 <= int_readdata1;
+						elsif reg_write.reg = rs1 and rs1 = rs2 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= reg_write.data;
+						else	
+							exec_op.readdata1 <= int_readdata1;
+							exec_op.readdata2 <= int_readdata2;
+						end if;		
                   wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "101" =>    -- B BGE if(rs1\+- >= rs2\+- pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
 						exec_op.rs1 <= rs1;
 						exec_op.rs2 <= rs2;
-						exec_op.readdata1 <= int_readdata1;
-						exec_op.readdata2 <= int_readdata2;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= int_readdata2;
+						elsif reg_write.reg = rs2 then
+							exec_op.readdata2 <= reg_write.data;
+							exec_op.readdata1 <= int_readdata1;
+						elsif reg_write.reg = rs1 and rs1 = rs2 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= reg_write.data;
+						else	
+							exec_op.readdata1 <= int_readdata1;
+							exec_op.readdata2 <= int_readdata2;
+						end if;		
 						wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "110" =>    -- B BLTU if(rs1\0 < rs2\0) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
 						exec_op.rs1 <= rs1;
 						exec_op.rs2 <= rs2;
-						exec_op.readdata1 <= int_readdata1;
-						exec_op.readdata2 <= int_readdata2;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= int_readdata2;
+						elsif reg_write.reg = rs2 then
+							exec_op.readdata2 <= reg_write.data;
+							exec_op.readdata1 <= int_readdata1;
+						elsif reg_write.reg = rs1 and rs1 = rs2 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= reg_write.data;
+						else	
+							exec_op.readdata1 <= int_readdata1;
+							exec_op.readdata2 <= int_readdata2;
+						end if;		
 						wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when "111" =>    -- B BGEU if(rs1\0 >= rs2\0) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
 						exec_op.rs1 <= rs1;
 						exec_op.rs2 <= rs2;
-						exec_op.readdata1 <= int_readdata1;
-						exec_op.readdata2 <= int_readdata2;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= int_readdata2;
+						elsif reg_write.reg = rs2 then
+							exec_op.readdata2 <= reg_write.data;
+							exec_op.readdata1 <= int_readdata1;
+						elsif reg_write.reg = rs1 and rs1 = rs2 then
+							exec_op.readdata1 <= reg_write.data;
+							exec_op.readdata2 <= reg_write.data;
+						else	
+							exec_op.readdata1 <= int_readdata1;
+							exec_op.readdata2 <= int_readdata2;
+						end if;		
 						wb_op.src <= WBS_OPC;
 						mem_op.branch <= BR_CND;
 					when others => exc_dec <= '1';
@@ -502,7 +768,11 @@ begin
 						exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
 						exec_op.imm(4 downto 1) <= int_instr(24 downto 21);
 						exec_op.imm(0) <= int_instr(20);
-						exec_op.readdata1 <= int_readdata1;
+						if reg_write.reg = rs1 then
+							exec_op.readdata1 <= reg_write.data;
+					   else
+							exec_op.readdata1 <= int_readdata1;
+						end if;	
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
                   wb_op.rd <= rd;

@@ -13,7 +13,7 @@
 # //  18 U.S.C. Section 1905.
 # //
 # vsim -t ps work.tb_cpu -quiet -do "do scripts/wave.do;run 5us;wave zoom full" -GDMEM_FILE=../software/asm/phge.dmem.mif -GIMEM_FILE=../software/asm/phge.imem.mif 
-# Start time: 10:41:31 on Jun 24,2020
+# Start time: 14:53:09 on Jun 24,2020
 # ** Note: (vsim-3812) Design is being optimized...
 # do scripts/wave.do
 # run 5us
@@ -23,3 +23,4 @@
 #    Time: 15 ns  Iteration: 2  Instance: /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst
 # wave zoom full
 # {0 ps} {5250 ns}
+# Causality operation skipped due to absence of debug database file
