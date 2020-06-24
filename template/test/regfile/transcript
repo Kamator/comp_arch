@@ -1,0 +1,114 @@
+# vsim -c -t ps work.tb -quiet -do "run 5us;quit -f" 
+# Start time: 12:09:50 on Jun 22,2020
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim
+# //  Version 10.6c_1 linux Sep 15 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# run 5us
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 25 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=11111111111111111111111111111111 regwrite='1'
+# 
+#    Time: 35 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 45 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 55 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 65 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00001 rdaddr2=00000 wraddr=00001 wrdata=00000001001000110100010101100111 regwrite='1'
+# 
+#    Time: 75 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00001 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 85 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00001 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 95 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 105 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00010 wraddr=00010 wrdata=11111110110111001011101010011000 regwrite='1'
+# 
+#    Time: 115 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00010 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 125 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00010 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 135 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00010 rdaddr2=00001 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 145 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 155 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=11110 rdaddr2=00000 wraddr=11110 wrdata=00000001001000110100010101100111 regwrite='1'
+# 
+#    Time: 165 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=11110 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 175 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=11110 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 185 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 195 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=11101 wraddr=11101 wrdata=11111110110111001011101010011000 regwrite='1'
+# 
+#    Time: 205 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=11101 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 215 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=11101 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 225 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=11101 rdaddr2=11110 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 235 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 245 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=10101 rdaddr2=00000 wraddr=10101 wrdata=10101010010101011010101001010101 regwrite='1'
+# 
+#    Time: 255 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='1' rdaddr1=00000 rdaddr2=00000 wraddr=10101 wrdata=01010101101010100101010110101010 regwrite='1'
+# 
+#    Time: 265 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='1' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=00010010001101000101011001111000 regwrite='1'
+# 
+#    Time: 275 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=10101 wrdata=01010101101010100101010110101010 regwrite='1'
+# 
+#    Time: 285 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 295 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=10101 rdaddr2=00000 wraddr=00000 wrdata=00000000000000000000000000000000 regwrite='0'
+# 
+#    Time: 305 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=11100 rdaddr2=00000 wraddr=11100 wrdata=10001001101010111100110111101111 regwrite='1'
+# 
+#    Time: 315 ns  Iteration: 0  Instance: /tb
+# ** Note:  PASSED: stall='0' rdaddr1=00000 rdaddr2=11101 wraddr=11101 wrdata=01110110010101000011001000010000 regwrite='1'
+# 
+#    Time: 325 ns  Iteration: 0  Instance: /tb
+# quit -f
+# End time: 12:09:52 on Jun 22,2020, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0

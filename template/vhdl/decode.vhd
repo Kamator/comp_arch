@@ -79,14 +79,18 @@ begin
         reset => reset,
         stall => stall,
         rdaddr1 => instr(19 downto 15),
-		  rdaddr2 => instr(24 downto 20),
+	rdaddr2 => instr(24 downto 20),
         rddata1 => int_readdata1,
-		  rddata2 => int_readdata2,
-        wraddr => wraddr,
-        wrdata => wrdata,
-        regwrite => regwrite
+	rddata2 => int_readdata2,
+        wraddr => reg_write.reg,
+        wrdata => reg_write.data,
+        regwrite => reg_write.write
     );
-	 
+	
+/* 
+        TODO: Implement pass-through logic that sends reg_write.data to 
+	downstream stages if reg_write.reg = instr'register 
+*/
 	 
 	sync : process(reset, clk, flush, stall)
 	begin
@@ -110,11 +114,13 @@ begin
 		wb_op <= WB_NOP;
 		exc_dec <= '0';
 		pc_out <= int_pc;
+
+
 		case opcode is
 			when OPC_OP =>
-            exec_op.imm_flag <= '0';
-            exec_op.store_flag <= '0';
-				exec_op.pc_flag <= '0';
+		            exec_op.imm_flag <= '0';
+            		    exec_op.store_flag <= '0';
+			    exec_op.pc_flag <= '0';
 				case fct3 is
 					when "000" =>
 						case fct7 is
@@ -552,6 +558,8 @@ begin
 				end if;
 			when others => exc_dec <= '1';
 		end case;
+
+
 	end process;
 
 end architecture;
