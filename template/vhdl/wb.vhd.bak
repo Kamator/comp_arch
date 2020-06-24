@@ -54,7 +54,6 @@ begin
 			int_aluresult <= aluresult; 
 			int_memresult <= memresult; 
 			int_pc_old_in <= pc_old_in; 
-			int_pc_new_in <= pc_new_in; 
 		end if; 
 	end process; 
 

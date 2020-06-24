@@ -110,8 +110,7 @@ begin
 	begin
 		if reset = '0' then 
 			--reset
-			int_op <= MEMU_NOP;
-			int_mem_op <= MEM_NOP;
+			int_op <= MEMU_NOP; 
 			int_A <= (others => '0'); 
 			int_W <= (others => '0'); 
 			int_R <= (others => '0'); 
@@ -122,21 +121,18 @@ begin
 			int_M <= MEM_OUT_NOP; 
 		elsif stall = '1' then 
 			--stall
-			int_mem_op <= MEM_NOP; 
 			int_op <= MEMU_NOP; 
 			int_D <= MEM_IN_NOP; 
 			int_M <= MEM_OUT_NOP; 
 			
 		elsif flush = '1' then 
 			--flush
-			int_mem_op <= MEM_NOP; 
 			int_op <= MEMU_NOP; 
 			int_D <= MEM_IN_NOP; 
 			int_M <= MEM_OUT_NOP; 
 
 		elsif rising_edge(clk) and stall = '0' and flush = '0' then 
 			--sync
-			int_op <= mem_op.mem; 
 			int_mem_op <= mem_op; 
 			int_wbop_in <= wbop_in; 
 			int_pc_new_in <= pc_new_in; 
@@ -148,7 +144,7 @@ begin
 		end if;	
 	end process; 
 
-	logic : process(memu_XL, memu_XS, mem_in, stall, int_op, int_mem_op, int_wbop_in, int_pc_new_in, int_pc_old_in, int_aluresult_in, int_wrdata, int_zero, int_mem_in, memu_M, memu_B, memu_D, memu_R)
+	logic : process(int_op, int_mem_op, int_wbop_in, int_pc_new_in, int_pc_old_in, int_aluresult_in, int_wrdata, int_zero, int_mem_in, memu_M, memu_D, memu_R)
 	begin
 		--send to subsequent pipeline stages
 		pc_new_out <= int_pc_new_in; 
@@ -167,18 +163,18 @@ begin
 		exc_load <= '0'; 
 		exc_store <= '0';
 
-		--no latches
-		memu_op <= MEMU_NOP; 
-		memu_A <= (others => '0'); 
-		memu_W <= (others => '0'); 
-		memu_D <= MEM_IN_NOP;  
-		
 		if int_mem_op.branch = BR_NOP and memu_B = '0' then
 
 			mem_busy <= '0'; 			
 
+			/* --reg write writes directly back to exec
+			--write sthg to register file
+			reg_write.write <= '1'; 
+			reg_write.data  <= int_wrdata;
+			*/
+
 			--pass memtype to memu
-			memu_op <= int_op;
+			memu_op.memtype <= int_mem_op.mem.memtype;
 			memu_A <= int_aluresult_in; 
 			memu_W <= int_wrdata; 
 				

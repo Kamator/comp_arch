@@ -43,13 +43,8 @@ begin
 	logic : process (all)
 	begin
 	
-	--no latches
 	M <= MEM_OUT_NOP; 
-	B <= '0'; 
-	XS <= '0'; 
-	XL <= '0'; 
-	R <= (others => '0'); 
-	
+
 	if op.memread = '1' then
 		--read access to memory
 		M.wr <= '0'; 	

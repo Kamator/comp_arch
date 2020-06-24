@@ -53,7 +53,7 @@ architecture rtl of exec is
 	signal alu_Z : std_logic; 
 
 	--alu 2 signals
-	signal alu_op_2 : alu_op_type;
+	signal alu_op_2 : alu_op_type; 
 	signal alu_A_2, alu_B_2 : data_type; 
 	signal alu_R_2 : data_type; 
 	signal alu_Z_2 : std_logic;  
@@ -85,7 +85,7 @@ begin
 		Z => alu_Z_2
 	); 
 
-	sync_p : process(clk, reset, flush, stall)
+	sync_p : process(clk, reset, flush)
 	begin
 		if reset = '0' then 
 			--global reset
@@ -117,7 +117,7 @@ begin
 	end process; 
 	
 
-	logic : process(int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2)
+	logic : process(int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R)
 	begin
 		
 		if int_op.aluop = ALU_NOP then 
@@ -128,11 +128,6 @@ begin
 			aluresult <= (others => '0'); 
 			
 			zero <= '0'; 	
-			
-			--no latches
-			alu_op <= int_op.aluop; 
-			memop_out <= int_memop_in; 
-			wbop_out <= int_wbop_in; 
 	
 		else  
 
@@ -146,19 +141,19 @@ begin
 			wbop_out <= int_wbop_in; 	
 
 			wrdata <= (others => '0'); 
+		
+			--calculate pc+4 with other ALU
+			/*alu_op_2 <= ALU_ADD; 
+			alu_A_2(15 downto 0) <= int_pc_in; 
+			alu_A_2(31 downto 16) <= (others => '0');
+			alu_B_2 <= x"00000004"; 
+			pc_new_out <= alu_R_2(15 downto 0);*/
 
 			pc_new_out <= (others => '0');
 
 			zero <= alu_Z; 
 		
 		end if; 
-		
-		alu_A <= (others => '0'); 
-		alu_B <= (others => '0'); 
-		
-		alu_A_2 <= (others => '0'); 
-		alu_B_2 <= (others => '0'); 
-		alu_op_2 <= ALU_NOP;
 
 		--R-Type instructions
 		if int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '0' then 
