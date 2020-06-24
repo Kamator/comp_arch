@@ -15,7 +15,7 @@ TIME_RESOLUTION = 1ps
 TB = fetch_tb
 
 # For the simulation time -all can also be selected. Questa then simulates until no more singal changes occour.
-SIM_TIME = 20 ms
+SIM_TIME = 2 ms
 WAVE_FILE = scripts/fetch_wave.do
 
 compile: log 

@@ -126,6 +126,9 @@ begin
 		
 			wrdata <= (others => '0'); 
 			aluresult <= (others => '0'); 
+			
+			zero <= '0'; 	
+	
 		else  
 
 			--alu operation 
@@ -140,11 +143,15 @@ begin
 			wrdata <= (others => '0'); 
 		
 			--calculate pc+4 with other ALU
-			alu_op_2 <= ALU_ADD; 
+			/*alu_op_2 <= ALU_ADD; 
 			alu_A_2(15 downto 0) <= int_pc_in; 
 			alu_A_2(31 downto 16) <= (others => '0');
 			alu_B_2 <= x"00000004"; 
-			pc_new_out <= alu_R_2(15 downto 0);
+			pc_new_out <= alu_R_2(15 downto 0);*/
+
+			pc_new_out <= (others => '0');
+
+			zero <= alu_Z; 
 		
 		end if; 
 
@@ -154,9 +161,14 @@ begin
 				alu_B <= int_op.readdata2;  
 
 		--I-Type Instructions
-		elsif int_op.imm_flag = '1' and int_op.store_flag = '0' and int_op.pc_flag = '0' then 				     alu_A <= int_op.readdata1; 
-				alu_B <= int_op.imm; 
-		
+		elsif int_op.imm_flag = '1' and int_op.store_flag = '0' and int_op.pc_flag = '0' then
+				alu_A <= int_op.readdata1; 									     alu_B <= int_op.imm; 
+		  
+				if int_op.imm = x"00000000" and int_op.rs1 = "00000" then 
+					--NOP Instruction
+					wbop_out.write <= '0';
+				end if; 
+					
 		--S-Type Instructions
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '1' and int_op.pc_flag = '0' then
 				--address where to store that data

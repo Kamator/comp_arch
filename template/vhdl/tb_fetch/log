@@ -1,6 +1,6 @@
 ** Warning: (vlib-34) Library already exists at "work".
-QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
-Start time: 20:59:44 on Jun 17,2020
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+Start time: 16:35:48 on Jun 23,2020
 vcom -2008 -work work -suppress 1236 ../mem_pkg.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -8,10 +8,10 @@ vcom -2008 -work work -suppress 1236 ../mem_pkg.vhd
 -- Compiling package mem_pkg
 -- Compiling package body mem_pkg
 -- Loading package mem_pkg
-End time: 20:59:45 on Jun 17,2020, Elapsed time: 0:00:01
+End time: 16:35:48 on Jun 23,2020, Elapsed time: 0:00:00
 Errors: 0, Warnings: 0
-QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
-Start time: 20:59:45 on Jun 17,2020
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+Start time: 16:35:48 on Jun 23,2020
 vcom -2008 -work work -suppress 1236 ../core_pkg.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -21,10 +21,10 @@ vcom -2008 -work work -suppress 1236 ../core_pkg.vhd
 -- Compiling package core_pkg
 -- Compiling package body core_pkg
 -- Loading package core_pkg
-End time: 20:59:45 on Jun 17,2020, Elapsed time: 0:00:00
+End time: 16:35:49 on Jun 23,2020, Elapsed time: 0:00:01
 Errors: 0, Warnings: 0
-QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
-Start time: 20:59:45 on Jun 17,2020
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+Start time: 16:35:49 on Jun 23,2020
 vcom -2008 -work work -suppress 1236 ../op_pkg.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -33,10 +33,10 @@ vcom -2008 -work work -suppress 1236 ../op_pkg.vhd
 -- Loading package mem_pkg
 -- Loading package core_pkg
 -- Compiling package op_pkg
-End time: 20:59:45 on Jun 17,2020, Elapsed time: 0:00:00
+End time: 16:35:49 on Jun 23,2020, Elapsed time: 0:00:00
 Errors: 0, Warnings: 0
-QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
-Start time: 20:59:45 on Jun 17,2020
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+Start time: 16:35:49 on Jun 23,2020
 vcom -2008 -work work -suppress 1236 ../fetch.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -47,10 +47,10 @@ vcom -2008 -work work -suppress 1236 ../fetch.vhd
 -- Loading package op_pkg
 -- Compiling entity fetch
 -- Compiling architecture rtl of fetch
-End time: 20:59:45 on Jun 17,2020, Elapsed time: 0:00:00
+End time: 16:35:49 on Jun 23,2020, Elapsed time: 0:00:00
 Errors: 0, Warnings: 0
-QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
-Start time: 20:59:45 on Jun 17,2020
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+Start time: 16:35:49 on Jun 23,2020
 vcom -2008 -work work -suppress 1236 ./fetch_tb.vhd 
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -61,5 +61,5 @@ vcom -2008 -work work -suppress 1236 ./fetch_tb.vhd
 -- Loading package op_pkg
 -- Compiling entity fetch_tb
 -- Compiling architecture bench of fetch_tb
-End time: 20:59:45 on Jun 17,2020, Elapsed time: 0:00:00
+End time: 16:35:49 on Jun 23,2020, Elapsed time: 0:00:00
 Errors: 0, Warnings: 0

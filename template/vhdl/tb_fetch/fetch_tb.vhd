@@ -31,7 +31,7 @@ architecture bench of fetch_tb is
     );
 	end component;
 	 
-	signal clk, reset, stall, flush, mem_busy, pcsrc : std_logic;
+	signal clk, reset, stall, flush, pcsrc : std_logic;
 	signal pc_in, pc_out : pc_type;
 	signal instr : instr_type;
 	signal mem_out : mem_out_type;
@@ -46,7 +46,7 @@ begin
        reset => reset,
        stall => stall,
        flush => flush,
-       mem_busy => mem_busy,
+       mem_busy => mem_in.busy,
        pcsrc => pcsrc,
        pc_in => pc_in,
        pc_out => pc_out,
@@ -64,17 +64,18 @@ begin
 		pc_in <= (others => '0');
 		mem_in.busy <= '0';
 		mem_in.rddata <= (others => '0');
-		wait until rising_edge(clk);
+		wait for CLK_PERIOD;
 		reset <= '1';
 		pc_in <= (others => '0');
-		mem_in.busy <= '0';
 		mem_in.rddata <= (0 => '0', others => '0');
 		wait for CLK_PERIOD;
+		mem_in.rddata <= ( 31 => '1', 1 => '1', others => '0');
 		stall <= '1';
 		wait for CLK_PERIOD;
 		stall <= '0';
 				
-		wait for 5 ns;		
+		wait for 2*CLK_PERIOD;		
+		stop_clk <= true;
 		wait;
 	end process;
 

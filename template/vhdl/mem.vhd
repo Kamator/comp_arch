@@ -153,6 +153,8 @@ begin
 		aluresult_out <= int_aluresult_in; 
 
 		reg_write.reg <= int_wbop_in.rd; 
+		reg_write.write <= '0'; 
+		reg_write.data <= (others => '0');
 
 		pcsrc <= '0'; 
 		memresult <= memu_R; 
