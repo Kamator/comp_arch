@@ -3,7 +3,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 use work.core_pkg.all;
+use work.mem_pkg.all;
 use work.op_pkg.all;
+
 
 entity wb is
     port (
@@ -52,13 +54,13 @@ begin
 		elsif rising_edge(clk) and stall = '0' then
 			int_op <= op; 
 			int_aluresult <= aluresult; 
-			int_memresult <= memresult; 
+			--int_memresult <= memresult; 
 			int_pc_old_in <= pc_old_in; 
 			int_pc_new_in <= pc_new_in; 
 		end if; 
 	end process; 
 
-	logic : process(int_op, int_aluresult, int_memresult, int_pc_new_in, int_pc_old_in)
+	logic : process(int_op, int_aluresult, memresult, int_pc_new_in, int_pc_old_in)
 	begin
 		reg_write.write <= '0'; 
 		reg_write.reg   <= (others => '0'); 
@@ -72,7 +74,7 @@ begin
 				reg_write.data <= int_aluresult; 
 			
 			elsif int_op.src = WBS_MEM then 
-				reg_write.data <= int_memresult; 
+				reg_write.data <= to_little_endian(memresult); 
 			
 			else 
 				reg_write.data(15 downto 0) <= int_pc_new_in; 

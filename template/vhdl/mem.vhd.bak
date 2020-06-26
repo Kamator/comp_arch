@@ -68,12 +68,12 @@ architecture rtl of mem is
     		);
 	end component;
 
-/*	--signals to memu
+	--signals to memu
 	signal memu_op : memu_op_type; 
 	signal memu_A, memu_W, memu_R : data_type; 
 	signal memu_B, memu_XL, memu_XS : std_logic; 
 	signal memu_D : mem_in_type; 
-	signal memu_M : mem_out_type;  */
+	signal memu_M : mem_out_type; 
 
 	--internal signals 
 	signal int_mem_op : MEM_OP_TYPE; 
@@ -85,7 +85,8 @@ architecture rtl of mem is
 	signal int_zero : std_logic; 
 	signal int_mem_in : MEM_IN_TYPE; 
 
-	--internal signals for memu 
+	--internal signals for memu
+	signal int_op : memu_op_type; 
 	signal int_A, int_W, int_R : data_type; 
 	signal int_B, int_XL, int_XS : std_logic; 
 	signal int_D : mem_in_type; 
@@ -94,50 +95,67 @@ architecture rtl of mem is
 begin
 	memu_inst : memu
 	port map(
-		op => int_mem_op.mem,
-		A => int_aluresult_in,
-		W => int_wrdata,
-		R => open,
-		B => mem_busy, 
-		XL => exc_load,
-		XS => exc_store,
-		D => mem_in,
-		M => mem_out
+		op => memu_op,
+		A => memu_A,
+		W => memu_W,
+		R => memu_R,
+		B => memu_B, 
+		XL => memu_XL,
+		XS => memu_XS,
+		D => memu_D,
+		M => memu_M
 	); 
 	
 	sync_p : process(clk, reset, stall, flush)
 	begin
 		if reset = '0' then 
 			--reset
+			int_op <= MEMU_NOP;
 			int_mem_op <= MEM_NOP;
-			int_pc_old_in <= (others => '0');  
+			int_A <= (others => '0'); 
+			int_W <= (others => '0'); 
+			int_R <= (others => '0'); 
+			int_B <= '0'; 
+			int_XL <= '0'; 
+			int_XS <= '0'; 
+			int_D <= MEM_IN_NOP; 
+			int_M <= MEM_OUT_NOP;
+			int_pc_old_in <= (others => '0'); 
+			int_mem_op <= MEM_NOP; 
 			int_wbop_in <= WB_NOP; 
 			int_aluresult_in <= (others => '0'); 
 			int_wrdata <= (others => '0'); 
-	
+			int_zero <= '0'; 
+			int_mem_in <= MEM_IN_NOP; 
+		elsif stall = '1' then 
+			--stall
+			int_mem_op <= MEM_NOP; 
+			int_op <= MEMU_NOP; 
+			int_D <= MEM_IN_NOP; 
+			int_M <= MEM_OUT_NOP; 
+			
 		elsif flush = '1' then 
 			--flush
 			int_mem_op <= MEM_NOP; 
+			int_op <= MEMU_NOP; 
 			int_D <= MEM_IN_NOP; 
 			int_M <= MEM_OUT_NOP; 
 
 		elsif rising_edge(clk) and stall = '0' and flush = '0' then 
 			--sync
+			int_op <= mem_op.mem; 
 			int_mem_op <= mem_op; 
 			int_wbop_in <= wbop_in; 
 			int_pc_new_in <= pc_new_in; 
 			int_pc_old_in <= pc_old_in; 	 
 			int_aluresult_in <= aluresult_in; 
 			int_wrdata <= wrdata; 	
-
-		elsif stall = '1' then 
-			int_mem_op.mem.memread <= '0';
-			int_mem_op.mem.memwrite <= '0'; 
-
+			int_zero <= zero; 
+			int_mem_in <= mem_in; 		
 		end if;	
 	end process; 
 
-	logic : process(all)
+	logic : process(memu_XL, memu_XS, mem_in, stall, int_op, int_mem_op, int_wbop_in, int_pc_new_in, int_pc_old_in, int_aluresult_in, int_wrdata, int_zero, int_mem_in, memu_M, memu_B, memu_R)
 	begin
 		--send to subsequent pipeline stages
 		pc_new_out <= int_pc_new_in; 
@@ -150,16 +168,57 @@ begin
 		reg_write.data <= (others => '0');
 
 		pcsrc <= '0'; 
+		memresult <= memu_R; 
+		mem_out <= memu_M;
 
-		memresult <= mem_in.rddata;
+		exc_load <= '0'; 
+		exc_store <= '0';
 
-		if int_mem_op.branch = BR_BR or int_mem_op.branch = BR_CND or int_mem_op.branch = BR_CNDI then
-			if to_integer(unsigned(int_aluresult_in)) /= 0 then
-				pcsrc <= '1';
-			else 
-				pcsrc <= '0'; 
-			end  if; 
-		end if; 
+		--no latches
+		memu_op <= MEMU_NOP; 
+		memu_A <= (others => '0'); 
+		memu_W <= (others => '0'); 
+		memu_D <= MEM_IN_NOP;  
 		
+		if int_mem_op.branch = BR_NOP and memu_B = '0' then
+
+			mem_busy <= '0'; 			
+
+			--pass memtype to memu
+			memu_op <= int_op;
+			memu_A <= int_aluresult_in; 
+			memu_W <= int_wrdata; 
+				
+			
+			
+			--only read/write if stall is low
+			if stall = '0' and int_aluresult_in /= x"00000000" then 
+				memu_op.memread <= int_mem_op.mem.memread; 
+				memu_op.memwrite <= int_mem_op.mem.memwrite; 
+			else 
+				memu_op.memread <= '0'; 
+				memu_op.memwrite <= '0'; 
+			end if; 
+			
+			memresult <= memu_R; 
+			exc_load <= memu_XL; 
+			exc_store <= memu_XS; 
+		
+			memu_D <= mem_in; 
+			mem_out <= memu_M; 		
+	
+		elsif memu_B = '1' and int_mem_op.branch = BR_NOP then 
+			mem_busy <= '1'; 		
+				
+		else 
+			mem_busy <= '0'; 
+			--branch thingy 
+			if to_integer(unsigned(int_aluresult_in)) = 1 then
+				--branch taken
+				pcsrc <= '1';  
+			else
+				pcsrc <= '0'; 
+			end if; 
+		end if;  
 	end process; 	
 end architecture;

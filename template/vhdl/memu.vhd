@@ -307,6 +307,12 @@ begin
 				end if; 
 		end case;
 
-	end if;
+	else 
+			M <= MEM_OUT_NOP; 
+			B <= '0'; 
+			XL <= '0'; 
+			XS <= '0'; 
+			R <= (others => '0');			
+	end if; 
 	end process;  
 end architecture;

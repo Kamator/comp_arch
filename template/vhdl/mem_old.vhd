@@ -97,7 +97,7 @@ begin
 		op => int_mem_op.mem,
 		A => int_aluresult_in,
 		W => int_wrdata,
-		R => open,
+		R => memresult,
 		B => mem_busy, 
 		XL => exc_load,
 		XS => exc_store,
@@ -151,15 +151,53 @@ begin
 
 		pcsrc <= '0'; 
 
-		memresult <= mem_in.rddata;
-
-		if int_mem_op.branch = BR_BR or int_mem_op.branch = BR_CND or int_mem_op.branch = BR_CNDI then
-			if to_integer(unsigned(int_aluresult_in)) /= 0 then
+		if int_mem_op.branch = BR_BR or int_mem_op.branch = BR_CND or int_mem_op.BR_CNDI then
+			if to_integer(unsigned(int_aluresult_in)) = 1 then
 				pcsrc <= '1';
 			else 
 				pcsrc <= '0'; 
 			end  if; 
 		end if; 
 		
+		/*
+		if int_mem_op.branch = BR_NOP and memu_B = '0' then
+
+			mem_busy <= '0'; 			
+
+			--pass memtype to memu
+			memu_op <= int_mem_op.mem;
+			memu_A <= int_aluresult_in; 
+			memu_W <= int_wrdata; 
+				
+			
+			
+			--only read/write if stall is low
+			/*if stall = '0' and int_aluresult_in /= x"00000000" then 
+				memu_op.memread <= int_mem_op.mem.memread; 
+				memu_op.memwrite <= int_mem_op.mem.memwrite; 
+			else 
+				memu_op.memread <= '0'; 
+				memu_op.memwrite <= '0'; 
+			end if; */
+			
+			memresult <= memu_R; 
+			exc_load <= memu_XL; 
+			exc_store <= memu_XS; 
+		
+			memu_D <= int_mem_in;  		
+	
+		elsif memu_B = '1' and int_mem_op.branch = BR_NOP then 
+			mem_busy <= '1'; 		
+				
+		else 
+			mem_busy <= '0'; 
+			--branch thingy 
+			if to_integer(unsigned(int_aluresult_in)) = 1 then
+				--branch taken
+				pcsrc <= '1';  
+			else
+				pcsrc <= '0'; 
+			end if; 
+		end if;  */
 	end process; 	
 end architecture;

@@ -51,7 +51,9 @@ architecture rtl of decode is
  signal wraddr : reg_adr_type;
  signal wrdata : data_type;
  signal regwrite : std_logic;
- 
+ signal int_pc_in : pc_type; 
+ signal int_pc_out : pc_type;  
+
  constant fct7_zeros : std_logic_vector(6 downto 0) := (others => '0');
  constant OPC_LOAD : std_logic_vector(6 downto 0) := "0000011";
  constant OPC_STORE : std_logic_vector(6 downto 0) := "0100011";
@@ -98,7 +100,8 @@ begin
 			else
 				int_instr <= instr;
 			end if;	
-			int_pc <= pc_in;
+			int_pc <= pc_in; 
+		
 		end if;
 	end process;
 	
@@ -568,7 +571,7 @@ begin
 						else
 							exec_op.readdata1 <= int_readdata1;
 						end if;
-						wb_op.src <= WBS_ALU;
+						wb_op.src <= WBS_MEM;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 						mem_op.mem.memtype <= MEM_B;
@@ -582,7 +585,7 @@ begin
 						else
 							exec_op.readdata1 <= int_readdata1;
 						end if;
-						wb_op.src <= WBS_ALU;
+						wb_op.src <= WBS_MEM;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 						mem_op.mem.memtype <= MEM_H;
@@ -596,7 +599,7 @@ begin
 						else
 							exec_op.readdata1 <= int_readdata1;
 						end if;
-						wb_op.src <= WBS_ALU;
+						wb_op.src <= WBS_MEM;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 						mem_op.mem.memtype <= MEM_W;
@@ -610,14 +613,14 @@ begin
 						else
 							exec_op.readdata1 <= int_readdata1;
 						end if;
-						wb_op.src <= WBS_ALU;
+						wb_op.src <= WBS_MEM;
 						wb_op.write <= '1';
 						wb_op.rd <= rd;
 						mem_op.mem.memtype <= MEM_BU;
 						mem_op.mem.memread <= '1';
 						mem_op.mem.memwrite <= '0';
 					when "101" =>    -- I LHU rd = (uint16_t) DMEM[rs1 + imm\+-]
-						wb_op.src <= WBS_ALU;
+						wb_op.src <= WBS_MEM;
 						exec_op.aluop <= ALU_ADD;
 						exec_op.rs1 <= rs1;
 						if reg_write.reg = rs1 then
@@ -783,16 +786,18 @@ begin
                 exec_op.imm_flag <= '1';
                 exec_op.store_flag <= '0';
                 exec_op.pc_flag <= '1';
-					 exec_op.imm(31 downto 21) <= (others => int_instr(31));
-				    exec_op.imm(20 downto 13) <= int_instr(19 downto 12);
-				    exec_op.imm(12) <= int_instr(20);
-				    exec_op.imm(11 downto 6) <= int_instr(30 downto 25);
-				    exec_op.imm(5 downto 2) <= int_instr(24 downto 21);
-				    exec_op.imm(1 downto 0) <= (others => '0');
+			            exec_op.imm(31 downto 20) <= (others => int_instr(31));
+				    exec_op.imm(19 downto 12) <= int_instr(19 downto 12);
+				    exec_op.imm(11) <= int_instr(20);
+				    exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
+				    exec_op.imm(4 downto 1) <= int_instr(24 downto 21);
+				    exec_op.imm(0) <= '0';
 				    exec_op.aluop <= ALU_ADD;
 				    wb_op.src <= WBS_OPC;
 				    wb_op.write <= '1';
 				    wb_op.rd <= rd;
+				    mem_op.branch <= BR_BR; 
+			
 			when OPC_AUIPC =>   --U AUIPC rd = pc + (imm\+- << 12)
                 exec_op.imm_flag <= '0';
                 exec_op.store_flag <= '0';
