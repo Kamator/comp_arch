@@ -12,10 +12,12 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# vsim -t ps work.tb_cpu -quiet -do "do scripts/wave.do;run 5us;wave zoom full" -GDMEM_FILE=../software/asm/phge.dmem.mif -GIMEM_FILE=../software/asm/phge.imem.mif 
-# Start time: 14:53:09 on Jun 24,2020
+# vsim -t ps work.tb_cpu -quiet -do "do scripts/wave.do;run 5us;wave zoom full" -GDMEM_FILE=../software/asm/submission.dmem.mif -GIMEM_FILE=../software/asm/submission.imem.mif 
+# Start time: 11:17:19 on Jun 26,2020
 # ** Note: (vsim-3812) Design is being optimized...
 # do scripts/wave.do
+# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/wb_inst/int_memresult'.
+# Executing ONERROR command at macro ./scripts/wave.do line 83
 # run 5us
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 #    Time: 15 ns  Iteration: 2  Instance: /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst
@@ -23,4 +25,5 @@
 #    Time: 15 ns  Iteration: 2  Instance: /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst
 # wave zoom full
 # {0 ps} {5250 ns}
-# Causality operation skipped due to absence of debug database file
+# End time: 11:19:37 on Jun 26,2020, Elapsed time: 0:02:18
+# Errors: 3, Warnings: 4

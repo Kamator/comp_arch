@@ -9,11 +9,11 @@ z2
 cModel Technology
 Z0 d/homes/d11775812/comp_arch/template/sim
 T_opt
-!s110 1593003190
-VM73jgW0_dm5DRi7fD7@8H1
+!s110 1593163039
+VTHRHL=nbWD0K?Xfo@l6CR2
 04 6 5 work tb_cpu bench 1
-=1-000ae431a4f1-5ef34cb5-d93d3-1ab3
-o-quiet -auto_acc_if_foreign -work work -G DMEM_FILE=../software/asm/phge.dmem.mif -G IMEM_FILE=../software/asm/phge.imem.mif
+=1-000ae431a4f1-5ef5bd1f-be2f9-50d3
+o-quiet -auto_acc_if_foreign -work work -G DMEM_FILE=../software/asm/submission.dmem.mif -G IMEM_FILE=../software/asm/submission.imem.mif
 tCvgOpt 0
 n@_opt
 OE;O;10.6c_1;65
@@ -34,9 +34,9 @@ VPCO4X]CnGzgcB;Q[oBAiU0
 !s100 nR6hQ28B@UceMYR9T;UFL0
 Z10 OE;C;10.6c_1;65
 33
-Z11 !s110 1593003183
+Z11 !s110 1593163033
 !i10b 1
-Z12 !s108 1593003183.000000
+Z12 !s108 1593163033.000000
 Z13 !s90 -work|work|-2008|../vhdl/alu.vhd|
 Z14 !s107 ../vhdl/alu.vhd|
 !i113 0
@@ -81,9 +81,9 @@ VoES6GnBd;mB>M6EmoC<YY0
 !s100 Hm24J[LW5U];Bc<5TX?;j0
 R10
 33
-Z20 !s110 1593003184
+Z20 !s110 1593163034
 !i10b 1
-Z21 !s108 1593003184.000000
+Z21 !s108 1593163034.000000
 Z22 !s90 -work|work|-2008|../vhdl/core.vhd|
 Z23 !s107 ../vhdl/core.vhd|
 !i113 0
@@ -131,9 +131,9 @@ R10
 b1
 R11
 !i10b 1
-R12
-Z28 !s90 -work|work|-2008|../vhdl/core_pkg.vhd|
-Z29 !s107 ../vhdl/core_pkg.vhd|
+Z28 !s108 1593163032.000000
+Z29 !s90 -work|work|-2008|../vhdl/core_pkg.vhd|
+Z30 !s107 ../vhdl/core_pkg.vhd|
 !i113 0
 R15
 R16
@@ -151,9 +151,9 @@ R10
 33
 R11
 !i10b 1
-R12
 R28
 R29
+R30
 !i113 0
 R15
 R16
@@ -166,8 +166,8 @@ R5
 R6
 R7
 R0
-Z30 8../vhdl/ctrl.vhd
-Z31 F../vhdl/ctrl.vhd
+Z31 8../vhdl/ctrl.vhd
+Z32 F../vhdl/ctrl.vhd
 l0
 L8
 V]<dFSBD7NPbQNQhYfWN4P1
@@ -177,8 +177,8 @@ R10
 R11
 !i10b 1
 R12
-Z32 !s90 -work|work|-2008|../vhdl/ctrl.vhd|
-Z33 !s107 ../vhdl/ctrl.vhd|
+Z33 !s90 -work|work|-2008|../vhdl/ctrl.vhd|
+Z34 !s107 ../vhdl/ctrl.vhd|
 !i113 0
 R15
 R16
@@ -199,14 +199,14 @@ R10
 R11
 !i10b 1
 R12
-R32
 R33
+R34
 !i113 0
 R15
 R16
 Edecode
-Z34 w1592986092
-Z35 DEx4 work 7 regfile 0 22 _I5gXEeo?]hZQQM1bQUUP0
+Z35 w1593162924
+Z36 DEx4 work 7 regfile 0 22 _I5gXEeo?]hZQQM1bQUUP0
 R2
 R3
 R4
@@ -214,19 +214,19 @@ R5
 R6
 R7
 R0
-Z36 8../vhdl/decode.vhd
-Z37 F../vhdl/decode.vhd
+Z37 8../vhdl/decode.vhd
+Z38 F../vhdl/decode.vhd
 l0
 L9
 Vgm]zOC>O3HIVS=i]hJNmK0
 !s100 HBh6dnNbRDaX_CkA>T@hc1
 R10
 33
-R20
+R11
 !i10b 1
-R21
-Z38 !s90 -work|work|-2008|../vhdl/decode.vhd|
-Z39 !s107 ../vhdl/decode.vhd|
+R12
+Z39 !s90 -work|work|-2008|../vhdl/decode.vhd|
+Z40 !s107 ../vhdl/decode.vhd|
 !i113 0
 R15
 R16
@@ -238,22 +238,22 @@ R5
 R6
 R7
 DEx4 work 6 decode 0 22 gm]zOC>O3HIVS=i]hJNmK0
-l74
+l76
 L33
-V8`LS3EmoBg1zWj>:kOQ@_0
-!s100 ;C[aP@MM5Z995MWNQSPX;0
+V8J<[Ig5ePkQ>D_oUQ[WcO1
+!s100 6ShRlo=o6Fg:ZHokCaa:01
 R10
 33
-R20
+R11
 !i10b 1
-R21
-R38
+R12
 R39
+R40
 !i113 0
 R15
 R16
 Eexec
-Z40 w1592994083
+Z41 w1592994083
 R2
 R3
 R4
@@ -261,19 +261,19 @@ R5
 R6
 R7
 R0
-Z41 8../vhdl/exec.vhd
-Z42 F../vhdl/exec.vhd
+Z42 8../vhdl/exec.vhd
+Z43 F../vhdl/exec.vhd
 l0
 L8
 VC:W@2RW5J;>SzKQKj<?V11
 !s100 LnbPQ@COFb_mH[NQ^oz7V2
 R10
 33
-R20
+R11
 !i10b 1
-R21
-Z43 !s90 -work|work|-2008|../vhdl/exec.vhd|
-Z44 !s107 ../vhdl/exec.vhd|
+R12
+Z44 !s90 -work|work|-2008|../vhdl/exec.vhd|
+Z45 !s107 ../vhdl/exec.vhd|
 !i113 0
 R15
 R16
@@ -291,16 +291,16 @@ VI<]ec1ojESGeNacSlKUfi0
 !s100 T:GcJTIj2A;fNWS:MMCO@2
 R10
 33
-R20
+R11
 !i10b 1
-R21
-R43
+R12
 R44
+R45
 !i113 0
 R15
 R16
 Efetch
-Z45 w1593003174
+Z46 w1593090146
 R2
 R3
 R4
@@ -308,19 +308,19 @@ R5
 R6
 R7
 R0
-Z46 8../vhdl/fetch.vhd
-Z47 F../vhdl/fetch.vhd
+Z47 8../vhdl/fetch.vhd
+Z48 F../vhdl/fetch.vhd
 l0
 L9
 VfV?n?:Q;d46CG?cg<R2zC2
 !s100 ambV2XbM5h^7B@]Na3^ZZ0
 R10
 33
-R20
+R11
 !i10b 1
 R12
-Z48 !s90 -work|work|-2008|../vhdl/fetch.vhd|
-Z49 !s107 ../vhdl/fetch.vhd|
+Z49 !s90 -work|work|-2008|../vhdl/fetch.vhd|
+Z50 !s107 ../vhdl/fetch.vhd|
 !i113 0
 R15
 R16
@@ -338,11 +338,11 @@ Vge3<I<SUcBz86jHBEimH73
 !s100 TU<RPhY_aeF?;OZO`KN5l3
 R10
 33
-R20
+R11
 !i10b 1
 R12
-R48
 R49
+R50
 !i113 0
 R15
 R16
@@ -355,8 +355,8 @@ R5
 R6
 R7
 R0
-Z50 8../vhdl/fwd.vhd
-Z51 F../vhdl/fwd.vhd
+Z51 8../vhdl/fwd.vhd
+Z52 F../vhdl/fwd.vhd
 l0
 L8
 VOAC4C^02Eme1[28n`;Ijz0
@@ -366,8 +366,8 @@ R10
 R11
 !i10b 1
 R12
-Z52 !s90 -work|work|-2008|../vhdl/fwd.vhd|
-Z53 !s107 ../vhdl/fwd.vhd|
+Z53 !s90 -work|work|-2008|../vhdl/fwd.vhd|
+Z54 !s107 ../vhdl/fwd.vhd|
 !i113 0
 R15
 R16
@@ -388,13 +388,13 @@ R10
 R11
 !i10b 1
 R12
-R52
 R53
+R54
 !i113 0
 R15
 R16
 Emem
-Z54 w1592993022
+Z55 w1593163020
 R2
 R3
 R4
@@ -402,19 +402,19 @@ R5
 R6
 R7
 R0
-Z55 8../vhdl/mem.vhd
-Z56 F../vhdl/mem.vhd
+Z56 8../vhdl/mem.vhd
+Z57 F../vhdl/mem.vhd
 l0
 L9
 V]=`Z^3<L9G?SSIl@GDzUk2
 !s100 >31S3OzeLKf_?976i5XJa0
 R10
 33
-R20
+R11
 !i10b 1
-R21
-Z57 !s90 -work|work|-2008|../vhdl/mem.vhd|
-Z58 !s107 ../vhdl/mem.vhd|
+R12
+Z58 !s90 -work|work|-2008|../vhdl/mem.vhd|
+Z59 !s107 ../vhdl/mem.vhd|
 !i113 0
 R15
 R16
@@ -426,27 +426,27 @@ R5
 R6
 R7
 DEx4 work 3 mem 0 22 ]=`Z^3<L9G?SSIl@GDzUk2
-l95
+l94
 L51
-VOhVH0cNfP[>=8fZfgc?LU1
-!s100 ^U29PHZ?izWMf`1Mk^]>10
+VNhh3b0lUca>m`Ue;;AAHh0
+!s100 LC><MfCGAgS1j=M_3zS9?2
 R10
 33
-R20
+R11
 !i10b 1
-R21
-R57
+R12
 R58
+R59
 !i113 0
 R15
 R16
 Pmem_pkg
 R6
 R7
-Z59 w1592899017
+Z60 w1592899017
 R0
-Z60 8../vhdl/mem_pkg.vhd
-Z61 F../vhdl/mem_pkg.vhd
+Z61 8../vhdl/mem_pkg.vhd
+Z62 F../vhdl/mem_pkg.vhd
 l0
 L4
 V6hl;o<<kM@4]fAai`Zz1f0
@@ -454,11 +454,11 @@ V6hl;o<<kM@4]fAai`Zz1f0
 R10
 33
 b1
-R11
+Z63 !s110 1593163032
 !i10b 1
-R12
-Z62 !s90 -work|work|-2008|../vhdl/mem_pkg.vhd|
-Z63 !s107 ../vhdl/mem_pkg.vhd|
+R28
+Z64 !s90 -work|work|-2008|../vhdl/mem_pkg.vhd|
+Z65 !s107 ../vhdl/mem_pkg.vhd|
 !i113 0
 R15
 R16
@@ -472,16 +472,16 @@ Vh]S^dGYG<_zj8kO@i@31f2
 !s100 E;HKm:fZ2dkiJZCiA42=V3
 R10
 33
-R11
-!i10b 1
-R12
-R62
 R63
+!i10b 1
+R28
+R64
+R65
 !i113 0
 R15
 R16
 Ememu
-Z64 w1592992403
+Z66 w1593094835
 R2
 R4
 R3
@@ -489,8 +489,8 @@ R5
 R6
 R7
 R0
-Z65 8../vhdl/memu.vhd
-Z66 F../vhdl/memu.vhd
+Z67 8../vhdl/memu.vhd
+Z68 F../vhdl/memu.vhd
 l0
 L9
 VmDE88ci]nMgbI5CH=He283
@@ -500,8 +500,8 @@ R10
 R11
 !i10b 1
 R12
-Z67 !s90 -work|work|-2008|../vhdl/memu.vhd|
-Z68 !s107 ../vhdl/memu.vhd|
+Z69 !s90 -work|work|-2008|../vhdl/memu.vhd|
+Z70 !s107 ../vhdl/memu.vhd|
 !i113 0
 R15
 R16
@@ -515,15 +515,15 @@ R7
 DEx4 work 4 memu 0 22 mDE88ci]nMgbI5CH=He283
 l42
 L41
-VU=G^HlRUUb1:JjQ_ZdKzc0
-!s100 1PMAZY>1o4eP2aCnOFS^B3
+VI8zA5X4hjbHZ]?a9;`QSn0
+!s100 O^CPaT^_9R^NLi@W?:S^C0
 R10
 33
 R11
 !i10b 1
 R12
-R67
-R68
+R69
+R70
 !i113 0
 R15
 R16
@@ -552,7 +552,7 @@ R12
 R15
 R16
 Epipeline
-Z69 w1592891840
+Z71 w1592891840
 R24
 R2
 R3
@@ -561,8 +561,8 @@ R4
 R6
 R7
 R0
-Z70 8../vhdl/pipeline.vhd
-Z71 F../vhdl/pipeline.vhd
+Z72 8../vhdl/pipeline.vhd
+Z73 F../vhdl/pipeline.vhd
 l0
 L9
 VP68moW[8<o]LiJ?9hlAUS2
@@ -571,9 +571,9 @@ R10
 33
 R20
 !i10b 1
-R21
-Z72 !s90 -work|work|-2008|../vhdl/pipeline.vhd|
-Z73 !s107 ../vhdl/pipeline.vhd|
+R12
+Z74 !s90 -work|work|-2008|../vhdl/pipeline.vhd|
+Z75 !s107 ../vhdl/pipeline.vhd|
 !i113 0
 R15
 R16
@@ -594,9 +594,9 @@ R10
 33
 R20
 !i10b 1
-R21
-R72
-R73
+R12
+R74
+R75
 !i113 0
 R15
 R16
@@ -633,8 +633,8 @@ R5
 R6
 R7
 R0
-Z74 8../vhdl/regfile.vhd
-Z75 F../vhdl/regfile.vhd
+Z76 8../vhdl/regfile.vhd
+Z77 F../vhdl/regfile.vhd
 l0
 L8
 V_I5gXEeo?]hZQQM1bQUUP0
@@ -644,8 +644,8 @@ R10
 R11
 !i10b 1
 R12
-Z76 !s90 -work|work|-2008|../vhdl/regfile.vhd|
-Z77 !s107 ../vhdl/regfile.vhd|
+Z78 !s90 -work|work|-2008|../vhdl/regfile.vhd|
+Z79 !s107 ../vhdl/regfile.vhd|
 !i113 0
 R15
 R16
@@ -655,7 +655,7 @@ R4
 R5
 R6
 R7
-R35
+R36
 l26
 L21
 VcfOZJXKbTkCBcEVUHdF5W1
@@ -665,24 +665,24 @@ R10
 R11
 !i10b 1
 R12
-R76
-R77
+R78
+R79
 !i113 0
 R15
 R16
 Etb_cpu
 R17
 R3
-Z78 DPx10 bootloader 7 mem_pkg 0 22 4:9?>[:::Wn>Tj4627`571
-Z79 DPx10 bootloader 7 dev_pkg 0 22 Xam9B`PN^O9[FmkLPcZJA0
-Z80 DPx3 std 3 env 0 22 d?`1ck@NdeD@H3RZG7FgZ2
-Z81 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
+Z80 DPx10 bootloader 7 mem_pkg 0 22 4:9?>[:::Wn>Tj4627`571
+Z81 DPx10 bootloader 7 dev_pkg 0 22 Xam9B`PN^O9[FmkLPcZJA0
+Z82 DPx3 std 3 env 0 22 d?`1ck@NdeD@H3RZG7FgZ2
+Z83 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
 R5
 R6
 R7
 R0
-Z82 8tb/tb.vhd
-Z83 Ftb/tb.vhd
+Z84 8tb/tb.vhd
+Z85 Ftb/tb.vhd
 l0
 L15
 VJcH;<=zz748KaWGI<8:O;2
@@ -692,17 +692,17 @@ R10
 R20
 !i10b 1
 R21
-Z84 !s90 -work|work|-2008|tb/tb.vhd|
-Z85 !s107 tb/tb.vhd|
+Z86 !s90 -work|work|-2008|tb/tb.vhd|
+Z87 !s107 tb/tb.vhd|
 !i113 0
 R15
 R16
 Abench
 R3
-R78
-R79
 R80
 R81
+R82
+R83
 R5
 R6
 R7
@@ -716,13 +716,13 @@ R10
 R20
 !i10b 1
 R21
-R84
-R85
+R86
+R87
 !i113 0
 R15
 R16
 Ewb
-Z86 w1592992555
+Z88 w1593151738
 R2
 R3
 R4
@@ -730,19 +730,19 @@ R5
 R6
 R7
 R0
-Z87 8../vhdl/wb.vhd
-Z88 F../vhdl/wb.vhd
+Z89 8../vhdl/wb.vhd
+Z90 F../vhdl/wb.vhd
 l0
-L8
-VhDGcEJ<lU>TX[Oae=eIY90
-!s100 R_WFnL<AfGez9JiB4FHk[3
+L10
+VLj3A]_filfd6m0zzm:ldL2
+!s100 1;0^hJIP1adE?;>?@=zLL0
 R10
 33
-R20
+R11
 !i10b 1
-R21
-Z89 !s90 -work|work|-2008|../vhdl/wb.vhd|
-Z90 !s107 ../vhdl/wb.vhd|
+R12
+Z91 !s90 -work|work|-2008|../vhdl/wb.vhd|
+Z92 !s107 ../vhdl/wb.vhd|
 !i113 0
 R15
 R16
@@ -753,18 +753,18 @@ R4
 R5
 R6
 R7
-DEx4 work 2 wb 0 22 hDGcEJ<lU>TX[Oae=eIY90
-l33
-L27
-VUP2;OH^f5>k8l`5zk^nC62
-!s100 9;]3eN<TCKi8MhA:P6f:12
+DEx4 work 2 wb 0 22 Lj3A]_filfd6m0zzm:ldL2
+l35
+L29
+V1P[zegi8TinJzYDlSBBD@2
+!s100 @jjdi78RPgG6d6A@OK@co1
 R10
 33
-R20
+R11
 !i10b 1
-R21
-R89
-R90
+R12
+R91
+R92
 !i113 0
 R15
 R16
