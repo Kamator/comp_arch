@@ -1,0 +1,1407 @@
+Analysis & Synthesis report for miriv
+Mon Jun 29 08:24:38 2020
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Source assignments for dev:dev_inst
+  7. Partition Status Summary
+  8. Partition for Top-Level Resource Utilization by Entity
+  9. State Machine - |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst|int_op.src
+ 10. State Machine - |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_wbop_in.src
+ 11. State Machine - |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.mem.memtype
+ 12. State Machine - |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.branch
+ 13. State Machine - |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_wbop_in.src
+ 14. State Machine - |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.mem.memtype
+ 15. State Machine - |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.branch
+ 16. State Machine - |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.aluop
+ 17. Registers Removed During Synthesis
+ 18. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 19. Parameter Settings for User Entity Instance: pll:pll_inst|altpll:altpll_component
+ 20. Partition Dependent Files
+ 21. Post-Synthesis Netlist Statistics for Top Partition
+ 22. Partition Dependent Files
+ 23. Partition "sld_hub:auto_hub" Resource Utilization by Entity
+ 24. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 25. Post-Synthesis Netlist Statistics for Partition sld_hub:auto_hub
+ 26. Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|wb:wb_inst"
+ 27. Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst"
+ 28. Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|mem:mem_inst"
+ 29. Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_2"
+ 30. Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|exec:exec_inst"
+ 31. Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|decode:decode_inst"
+ 32. Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst"
+ 33. Virtual JTAG Settings
+ 34. Elapsed Time Per Partition
+ 35. Analysis & Synthesis INI Usage
+ 36. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++--------------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                         ;
++------------------------------------+-------------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Mon Jun 29 08:24:38 2020           ;
+; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
+; Revision Name                      ; miriv                                           ;
+; Top-level Entity Name              ; top                                             ;
+; Family                             ; Cyclone IV E                                    ;
+; Total logic elements               ; N/A until Partition Merge                       ;
+;     Total combinational functions  ; N/A until Partition Merge                       ;
+;     Dedicated logic registers      ; N/A until Partition Merge                       ;
+; Total registers                    ; N/A until Partition Merge                       ;
+; Total pins                         ; N/A until Partition Merge                       ;
+; Total virtual pins                 ; N/A until Partition Merge                       ;
+; Total memory bits                  ; N/A until Partition Merge                       ;
+; Embedded Multiplier 9-bit elements ; N/A until Partition Merge                       ;
+; Total PLLs                         ; N/A until Partition Merge                       ;
++------------------------------------+-------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; EP4CE115F29C7      ;                    ;
+; Top-level entity name                                            ; top                ; miriv              ;
+; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
+; Maximum processors allowed for parallel compilation              ; All                ;                    ;
+; VHDL Show LMF Mapping Messages                                   ; Off                ;                    ;
+; VHDL Version                                                     ; VHDL_2008          ; VHDL_1993          ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 4           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.1%      ;
+;     Processor 3            ;   0.1%      ;
+;     Processor 4            ;   0.1%      ;
++----------------------------+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                           ;
++----------------------------------+-----------------+-----------------------------+---------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                   ; File Name with Absolute Path                                        ; Library ;
++----------------------------------+-----------------+-----------------------------+---------------------------------------------------------------------+---------+
+; ../vhdl/alu.vhd                  ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/alu.vhd                    ;         ;
+; ../vhdl/wb.vhd                   ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/wb.vhd                     ;         ;
+; ../vhdl/mem_pkg.vhd              ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/mem_pkg.vhd                ;         ;
+; ../vhdl/core_pkg.vhd             ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/core_pkg.vhd               ;         ;
+; ../vhdl/regfile.vhd              ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/regfile.vhd                ;         ;
+; ../vhdl/op_pkg.vhd               ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/op_pkg.vhd                 ;         ;
+; ../vhdl/memu.vhd                 ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/memu.vhd                   ;         ;
+; ../vhdl/mem.vhd                  ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/mem.vhd                    ;         ;
+; ../vhdl/fetch.vhd                ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/fetch.vhd                  ;         ;
+; ../vhdl/exec.vhd                 ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/exec.vhd                   ;         ;
+; ../vhdl/decode.vhd               ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/decode.vhd                 ;         ;
+; ../vhdl/pipeline.vhd             ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd               ;         ;
+; ../vhdl/core.vhd                 ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/core.vhd                   ;         ;
+; pll_altera.vhd                   ; yes             ; User Wizard-Generated File  ; /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd          ;         ;
+; top.vhd                          ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/quartus/top.vhd                 ;         ;
+; bootloader.qxp                   ; yes             ; User File                   ; /homes/d11775812/comp_arch/template/quartus/bootloader.qxp          ;         ;
+; ../vhdl/pipeline_pkg.vhd         ; yes             ; User VHDL File              ; /homes/d11775812/comp_arch/template/vhdl/pipeline_pkg.vhd           ;         ;
+; altpll.tdf                       ; yes             ; Megafunction                ; /opt/quartus_18.1/quartus/libraries/megafunctions/altpll.tdf        ;         ;
+; aglobal181.inc                   ; yes             ; Megafunction                ; /opt/quartus_18.1/quartus/libraries/megafunctions/aglobal181.inc    ;         ;
+; stratix_pll.inc                  ; yes             ; Megafunction                ; /opt/quartus_18.1/quartus/libraries/megafunctions/stratix_pll.inc   ;         ;
+; stratixii_pll.inc                ; yes             ; Megafunction                ; /opt/quartus_18.1/quartus/libraries/megafunctions/stratixii_pll.inc ;         ;
+; cycloneii_pll.inc                ; yes             ; Megafunction                ; /opt/quartus_18.1/quartus/libraries/megafunctions/cycloneii_pll.inc ;         ;
+; sld_hub.vhd                      ; yes             ; Encrypted Megafunction      ; /opt/quartus_18.1/quartus/libraries/megafunctions/sld_hub.vhd       ;         ;
+; sld_jtag_hub.vhd                 ; yes             ; Encrypted Megafunction      ; /opt/quartus_18.1/quartus/libraries/megafunctions/sld_jtag_hub.vhd  ;         ;
+; sld_rom_sr.vhd                   ; yes             ; Encrypted Megafunction      ; /opt/quartus_18.1/quartus/libraries/megafunctions/sld_rom_sr.vhd    ;         ;
++----------------------------------+-----------------+-----------------------------+---------------------------------------------------------------------+---------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for dev:dev_inst                                                                                                                                                                                                                                                            ;
++--------------------------------------------------------------------------------+--------------------+------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Assignment                                                                     ; Value              ; From ; To                                                                                                                                                                                ;
++--------------------------------------------------------------------------------+--------------------+------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; LOCATION                                                                       ; PIN_Y2             ;      ; clk_pin                                                                                                                                                                           ;
+; LOCATION                                                                       ; PIN_R24            ;      ; res_n                                                                                                                                                                             ;
+; LOCATION                                                                       ; PIN_G12            ;      ; rx                                                                                                                                                                                ;
+; LOCATION                                                                       ; PIN_G9             ;      ; tx                                                                                                                                                                                ;
+; ENABLE_UNUSED_RX_CLOCK_WORKAROUND                                              ; OFF                ;      ;                                                                                                                                                                                   ;
+; PRESERVE_UNUSED_XCVR_CHANNEL                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
+; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP                                            ; OFF                ;      ;                                                                                                                                                                                   ;
+; SYNCHRONIZATION_REGISTER_CHAIN_LENGTH                                          ; 2                  ;      ;                                                                                                                                                                                   ;
+; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL COMPILATION ;      ;                                                                                                                                                                                   ;
+; TXPMA_SLEW_RATE                                                                ; LOW                ;      ;                                                                                                                                                                                   ;
+; ADCE_ENABLED                                                                   ; AUTO               ;      ;                                                                                                                                                                                   ;
+; BLOCK_RAM_TO_MLAB_CELL_CONVERSION                                              ; ON                 ;      ;                                                                                                                                                                                   ;
+; BLOCK_RAM_AND_MLAB_EQUIVALENT_POWER_UP_CONDITIONS                              ; AUTO               ;      ;                                                                                                                                                                                   ;
+; BLOCK_RAM_AND_MLAB_EQUIVALENT_PAUSED_READ_CAPABILITIES                         ; CARE               ;      ;                                                                                                                                                                                   ;
+; OPTIMIZE_POWER_DURING_FITTING                                                  ; NORMAL COMPILATION ;      ;                                                                                                                                                                                   ;
+; PHYSICAL_SYNTHESIS_COMBO_LOGIC_FOR_AREA                                        ; OFF                ;      ;                                                                                                                                                                                   ;
+; PHYSICAL_SYNTHESIS_COMBO_LOGIC                                                 ; OFF                ;      ;                                                                                                                                                                                   ;
+; PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION                                        ; OFF                ;      ;                                                                                                                                                                                   ;
+; PHYSICAL_SYNTHESIS_MAP_LOGIC_TO_MEMORY_FOR_AREA                                ; OFF                ;      ;                                                                                                                                                                                   ;
+; PHYSICAL_SYNTHESIS_REGISTER_RETIMING                                           ; OFF                ;      ;                                                                                                                                                                                   ;
+; PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING                              ; OFF                ;      ;                                                                                                                                                                                   ;
+; ENABLE_BENEFICIAL_SKEW_OPTIMIZATION                                            ; ON                 ;      ;                                                                                                                                                                                   ;
+; FORM_DDR_CLUSTERING_CLIQUE                                                     ; OFF                ;      ;                                                                                                                                                                                   ;
+; HYPER_RETIMER_FAST_FORWARD_ADD_PIPELINING_MAX                                  ; -1                 ;      ;                                                                                                                                                                                   ;
+; HYPER_RETIMER_FAST_FORWARD_ASYNCH_CLEAR                                        ; AUTO               ;      ;                                                                                                                                                                                   ;
+; HYPER_RETIMER_FAST_FORWARD_USER_PRESERVE_RESTRICTION                           ; AUTO               ;      ;                                                                                                                                                                                   ;
+; HYPER_RETIMER_FAST_FORWARD_DSP_BLOCKS                                          ; ON                 ;      ;                                                                                                                                                                                   ;
+; HYPER_RETIMER_FAST_FORWARD_RAM_BLOCKS                                          ; ON                 ;      ;                                                                                                                                                                                   ;
+; POWER_REPORT_SIGNAL_ACTIVITY                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
+; POWER_REPORT_POWER_DISSIPATION                                                 ; OFF                ;      ;                                                                                                                                                                                   ;
+; ARRIAIIGX_RX_CDR_LOCKUP_FIX_OVERRIDE                                           ; OFF                ;      ;                                                                                                                                                                                   ;
+; MUX_RESTRUCTURE                                                                ; AUTO               ;      ;                                                                                                                                                                                   ;
+; MLAB_ADD_TIMING_CONSTRAINTS_FOR_MIXED_PORT_FEED_THROUGH_MODE_SETTING_DONT_CARE ; OFF                ;      ;                                                                                                                                                                                   ;
+; STATE_MACHINE_PROCESSING                                                       ; AUTO               ;      ;                                                                                                                                                                                   ;
+; SAFE_STATE_MACHINE                                                             ; OFF                ;      ;                                                                                                                                                                                   ;
+; IGNORE_VERILOG_INITIAL_CONSTRUCTS                                              ; OFF                ;      ;                                                                                                                                                                                   ;
+; VERILOG_CONSTANT_LOOP_LIMIT                                                    ; 5000               ;      ;                                                                                                                                                                                   ;
+; VERILOG_NON_CONSTANT_LOOP_LIMIT                                                ; 250                ;      ;                                                                                                                                                                                   ;
+; INFER_RAMS_FROM_RAW_LOGIC                                                      ; ON                 ;      ;                                                                                                                                                                                   ;
+; DSP_BLOCK_BALANCING                                                            ; AUTO               ;      ;                                                                                                                                                                                   ;
+; NOT_GATE_PUSH_BACK                                                             ; ON                 ;      ;                                                                                                                                                                                   ;
+; REMOVE_REDUNDANT_LOGIC_CELLS                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
+; REMOVE_DUPLICATE_REGISTERS                                                     ; ON                 ;      ;                                                                                                                                                                                   ;
+; IGNORE_CARRY_BUFFERS                                                           ; OFF                ;      ;                                                                                                                                                                                   ;
+; IGNORE_CASCADE_BUFFERS                                                         ; OFF                ;      ;                                                                                                                                                                                   ;
+; IGNORE_GLOBAL_BUFFERS                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
+; IGNORE_ROW_GLOBAL_BUFFERS                                                      ; OFF                ;      ;                                                                                                                                                                                   ;
+; IGNORE_LCELL_BUFFERS                                                           ; OFF                ;      ;                                                                                                                                                                                   ;
+; MAX7000_IGNORE_LCELL_BUFFERS                                                   ; AUTO               ;      ;                                                                                                                                                                                   ;
+; IGNORE_SOFT_BUFFERS                                                            ; ON                 ;      ;                                                                                                                                                                                   ;
+; MAX7000_IGNORE_SOFT_BUFFERS                                                    ; OFF                ;      ;                                                                                                                                                                                   ;
+; AUTO_GLOBAL_CLOCK_MAX                                                          ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_GLOBAL_OE_MAX                                                             ; ON                 ;      ;                                                                                                                                                                                   ;
+; MAX_AUTO_GLOBAL_REGISTER_CONTROLS                                              ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_IMPLEMENT_IN_ROM                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
+; APEX20K_TECHNOLOGY_MAPPER                                                      ; LUT                ;      ;                                                                                                                                                                                   ;
+; OPTIMIZATION_TECHNIQUE                                                         ; BALANCED           ;      ;                                                                                                                                                                                   ;
+; STRATIXII_OPTIMIZATION_TECHNIQUE                                               ; BALANCED           ;      ;                                                                                                                                                                                   ;
+; CYCLONE_OPTIMIZATION_TECHNIQUE                                                 ; BALANCED           ;      ;                                                                                                                                                                                   ;
+; CYCLONEII_OPTIMIZATION_TECHNIQUE                                               ; BALANCED           ;      ;                                                                                                                                                                                   ;
+; STRATIX_OPTIMIZATION_TECHNIQUE                                                 ; BALANCED           ;      ;                                                                                                                                                                                   ;
+; MAXII_OPTIMIZATION_TECHNIQUE                                                   ; BALANCED           ;      ;                                                                                                                                                                                   ;
+; MAX7000_OPTIMIZATION_TECHNIQUE                                                 ; SPEED              ;      ;                                                                                                                                                                                   ;
+; APEX20K_OPTIMIZATION_TECHNIQUE                                                 ; BALANCED           ;      ;                                                                                                                                                                                   ;
+; MERCURY_OPTIMIZATION_TECHNIQUE                                                 ; AREA               ;      ;                                                                                                                                                                                   ;
+; FLEX6K_OPTIMIZATION_TECHNIQUE                                                  ; AREA               ;      ;                                                                                                                                                                                   ;
+; FLEX10K_OPTIMIZATION_TECHNIQUE                                                 ; AREA               ;      ;                                                                                                                                                                                   ;
+; ALLOW_XOR_GATE_USAGE                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_LCELL_INSERTION                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
+; CARRY_CHAIN_LENGTH                                                             ; 48                 ;      ;                                                                                                                                                                                   ;
+; FLEX6K_CARRY_CHAIN_LENGTH                                                      ; 32                 ;      ;                                                                                                                                                                                   ;
+; FLEX10K_CARRY_CHAIN_LENGTH                                                     ; 32                 ;      ;                                                                                                                                                                                   ;
+; MERCURY_CARRY_CHAIN_LENGTH                                                     ; 48                 ;      ;                                                                                                                                                                                   ;
+; STRATIX_CARRY_CHAIN_LENGTH                                                     ; 70                 ;      ;                                                                                                                                                                                   ;
+; STRATIXII_CARRY_CHAIN_LENGTH                                                   ; 70                 ;      ;                                                                                                                                                                                   ;
+; CASCADE_CHAIN_LENGTH                                                           ; 2                  ;      ;                                                                                                                                                                                   ;
+; PARALLEL_EXPANDER_CHAIN_LENGTH                                                 ; 16                 ;      ;                                                                                                                                                                                   ;
+; MAX7000_PARALLEL_EXPANDER_CHAIN_LENGTH                                         ; 4                  ;      ;                                                                                                                                                                                   ;
+; AUTO_CARRY_CHAINS                                                              ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_CASCADE_CHAINS                                                            ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_PARALLEL_EXPANDERS                                                        ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_OPEN_DRAIN_PINS                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_ROM_RECOGNITION                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_RAM_RECOGNITION                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_DSP_RECOGNITION                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_SHIFT_REGISTER_RECOGNITION                                                ; AUTO               ;      ;                                                                                                                                                                                   ;
+; ALLOW_SHIFT_REGISTER_MERGING_ACROSS_HIERARCHIES                                ; AUTO               ;      ;                                                                                                                                                                                   ;
+; AUTO_CLOCK_ENABLE_RECOGNITION                                                  ; ON                 ;      ;                                                                                                                                                                                   ;
+; STRICT_RAM_RECOGNITION                                                         ; OFF                ;      ;                                                                                                                                                                                   ;
+; ALLOW_SYNCH_CTRL_USAGE                                                         ; ON                 ;      ;                                                                                                                                                                                   ;
+; FORCE_SYNCH_CLEAR                                                              ; OFF                ;      ;                                                                                                                                                                                   ;
+; AUTO_RAM_TO_LCELL_CONVERSION                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
+; AUTO_RESOURCE_SHARING                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
+; ALLOW_ANY_RAM_SIZE_FOR_RECOGNITION                                             ; OFF                ;      ;                                                                                                                                                                                   ;
+; ALLOW_ANY_ROM_SIZE_FOR_RECOGNITION                                             ; OFF                ;      ;                                                                                                                                                                                   ;
+; ALLOW_ANY_SHIFT_REGISTER_SIZE_FOR_RECOGNITION                                  ; OFF                ;      ;                                                                                                                                                                                   ;
+; MAX7000_FANIN_PER_CELL                                                         ; 100                ;      ;                                                                                                                                                                                   ;
+; SYNTH_TIMING_DRIVEN_SYNTHESIS                                                  ; ON                 ;      ;                                                                                                                                                                                   ;
+; IGNORE_MAX_FANOUT_ASSIGNMENTS                                                  ; OFF                ;      ;                                                                                                                                                                                   ;
+; USE_HIGH_SPEED_ADDER                                                           ; AUTO               ;      ;                                                                                                                                                                                   ;
+; SYNTH_GATED_CLOCK_CONVERSION                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
+; BLOCK_DESIGN_NAMING                                                            ; AUTO               ;      ;                                                                                                                                                                                   ;
+; SHIFT_REGISTER_RECOGNITION_ACLR_SIGNAL                                         ; ON                 ;      ;                                                                                                                                                                                   ;
+; PRPOF_ID                                                                       ; OFF                ;      ;                                                                                                                                                                                   ;
+; DISABLE_DSP_NEGATE_INFERENCING                                                 ; OFF                ;      ;                                                                                                                                                                                   ;
+; AUTO_MERGE_PLLS                                                                ; ON                 ;      ;                                                                                                                                                                                   ;
+; IGNORE_MODE_FOR_MERGE                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
+; PERIPHERY_TO_CORE_PLACEMENT_AND_ROUTING_OPTIMIZATION                           ; OFF                ;      ;                                                                                                                                                                                   ;
+; SLOW_SLEW_RATE                                                                 ; OFF                ;      ;                                                                                                                                                                                   ;
+; PCI_IO                                                                         ; OFF                ;      ;                                                                                                                                                                                   ;
+; TURBO_BIT                                                                      ; ON                 ;      ;                                                                                                                                                                                   ;
+; WEAK_PULL_UP_RESISTOR                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
+; ENABLE_BUS_HOLD_CIRCUITRY                                                      ; OFF                ;      ;                                                                                                                                                                                   ;
+; AUTO_GLOBAL_MEMORY_CONTROLS                                                    ; OFF                ;      ;                                                                                                                                                                                   ;
+; QII_AUTO_PACKED_REGISTERS                                                      ; AUTO               ;      ;                                                                                                                                                                                   ;
+; AUTO_PACKED_REGISTERS_MAX                                                      ; AUTO               ;      ;                                                                                                                                                                                   ;
+; NORMAL_LCELL_INSERT                                                            ; ON                 ;      ;                                                                                                                                                                                   ;
+; CARRY_OUT_PINS_LCELL_INSERT                                                    ; ON                 ;      ;                                                                                                                                                                                   ;
+; XSTL_INPUT_ALLOW_SE_BUFFER                                                     ; OFF                ;      ;                                                                                                                                                                                   ;
+; TREAT_BIDIR_AS_OUTPUT                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
+; AUTO_TURBO_BIT                                                                 ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_GLOBAL_CLOCK                                                              ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_GLOBAL_OE                                                                 ; ON                 ;      ;                                                                                                                                                                                   ;
+; AUTO_GLOBAL_REGISTER_CONTROLS                                                  ; ON                 ;      ;                                                                                                                                                                                   ;
+; SYNCHRONIZER_IDENTIFICATION                                                    ; AUTO               ;      ;                                                                                                                                                                                   ;
+; M144K_BLOCK_READ_CLOCK_DUTY_CYCLE_DEPENDENCY                                   ; OFF                ;      ;                                                                                                                                                                                   ;
+; CLAMPING_DIODE                                                                 ; OFF                ;      ;                                                                                                                                                                                   ;
+; IMPLEMENT_MLAB_IN_16_BIT_DEEP_MODE                                             ; OFF                ;      ;                                                                                                                                                                                   ;
+; MESSAGE_DISABLE                                                                ; 13410              ;      ;                                                                                                                                                                                   ;
+; NOT_GATE_PUSH_BACK                                                             ; OFF                ;      ; clr_reg                                                                                                                                                                           ;
+; REMOVE_REDUNDANT_LOGIC_CELLS                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
+; IGNORE_LCELL_BUFFERS                                                           ; OFF                ;      ;                                                                                                                                                                                   ;
+; POWER_UP_LEVEL                                                                 ; LOW                ;      ; clr_reg                                                                                                                                                                           ;
+; AUTO_ROM_RECOGNITION                                                           ; OFF                ;      ;                                                                                                                                                                                   ;
+; MESSAGE_DISABLE                                                                ; 13410              ;      ; dev:dev_inst|sld_hub:auto_hub                                                                                                                                                     ;
+; NOT_GATE_PUSH_BACK                                                             ; OFF                ;      ; dev:dev_inst|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|clr_reg                                                                                                ;
+; REMOVE_REDUNDANT_LOGIC_CELLS                                                   ; OFF                ;      ; dev:dev_inst|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                                                                                                        ;
+; IGNORE_LCELL_BUFFERS                                                           ; OFF                ;      ; dev:dev_inst|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                                                                                                        ;
+; POWER_UP_LEVEL                                                                 ; LOW                ;      ; dev:dev_inst|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|clr_reg                                                                                                ;
+; IO_STANDARD                                                                    ; 3.3-V LVTTL        ;      ; clk_pin                                                                                                                                                                           ;
+; IO_STANDARD                                                                    ; 2.5 V              ;      ; res_n                                                                                                                                                                             ;
+; IO_STANDARD                                                                    ; 2.5 V              ;      ; rx                                                                                                                                                                                ;
+; IO_STANDARD                                                                    ; 2.5 V              ;      ; tx                                                                                                                                                                                ;
+; AUTO_ROM_RECOGNITION                                                           ; OFF                ;      ; dev:dev_inst|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg                                                                                ;
+; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL_COMPILATION ;      ; dev:dev_inst|devices:inst|memory:mem|ram:dram|altsyncram:altsyncram_component|altsyncram_qau3:auto_generated                                                                      ;
+; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL_COMPILATION ;      ; dev:dev_inst|devices:inst|memory:mem|ram:iram|altsyncram:altsyncram_component|altsyncram_qau3:auto_generated                                                                      ;
+; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL_COMPILATION ;      ; dev:dev_inst|devices:inst|serial_port_wrapper:uart|serial_port:sp|fifo:rx_fifo_inst|scfifo:fifo_inst_dist|scfifo_4sd1:auto_generated|a_dpfifo_u651:dpfifo|altsyncram_e5j1:FIFOram ;
+; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL_COMPILATION ;      ; dev:dev_inst|devices:inst|serial_port_wrapper:uart|serial_port:sp|fifo:tx_fifo_inst|scfifo:fifo_inst_dist|scfifo_4sd1:auto_generated|a_dpfifo_u651:dpfifo|altsyncram_e5j1:FIFOram ;
++--------------------------------------------------------------------------------+--------------------+------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------+
+; Partition Status Summary                                               ;
++------------------+-------------+---------------------------------------+
+; Partition Name   ; Synthesized ; Reason                                ;
++------------------+-------------+---------------------------------------+
+; Top              ; yes         ; netlist type = Source File            ;
+; dev:dev_inst     ; no          ; Netlist imported from another project ;
+; sld_hub:auto_hub ; no          ; No relevant changes                   ;
++------------------+-------------+---------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Partition for Top-Level Resource Utilization by Entity                                                                                                                                                                                                                   ;
++---------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------+-------------+--------------+
+; Compilation Hierarchy Node      ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                            ; Entity Name ; Library Name ;
++---------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------+-------------+--------------+
+; |top                            ; 2899 (4)            ; 1352 (0)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top                                                                           ; top         ; work         ;
+;    |core:core_inst|             ; 2895 (0)            ; 1352 (0)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst                                                            ; core        ; work         ;
+;       |pipeline:pipeline_inst|  ; 2895 (0)            ; 1352 (0)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst                                     ; pipeline    ; work         ;
+;          |decode:decode_inst|   ; 1696 (1625)         ; 1040 (48)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst                  ; decode      ; work         ;
+;             |regfile:reg_inst|  ; 71 (71)             ; 992 (992)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst ; regfile     ; work         ;
+;          |exec:exec_inst|       ; 949 (418)           ; 144 (144)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst                      ; exec        ; work         ;
+;             |alu:alu_inst_1|    ; 531 (531)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1       ; alu         ; work         ;
+;          |fetch:fetch_inst|     ; 75 (75)             ; 16 (16)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst                    ; fetch       ; work         ;
+;          |mem:mem_inst|         ; 106 (21)            ; 96 (96)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst                        ; mem         ; work         ;
+;             |memu:memu_inst|    ; 85 (85)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst         ; memu        ; work         ;
+;          |wb:wb_inst|           ; 69 (69)             ; 56 (56)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst                          ; wb          ; work         ;
+;    |pll:pll_inst|               ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|pll:pll_inst                                                              ; pll         ; work         ;
+;       |altpll:altpll_component| ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|pll:pll_inst|altpll:altpll_component                                      ; altpll      ; work         ;
++---------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------+-------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------------------------+
+; State Machine - |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst|int_op.src  ;
++--------------------+--------------------+--------------------+--------------------+
+; Name               ; int_op.src.WBS_OPC ; int_op.src.WBS_MEM ; int_op.src.WBS_ALU ;
++--------------------+--------------------+--------------------+--------------------+
+; int_op.src.WBS_ALU ; 0                  ; 0                  ; 0                  ;
+; int_op.src.WBS_MEM ; 0                  ; 1                  ; 1                  ;
+; int_op.src.WBS_OPC ; 1                  ; 0                  ; 1                  ;
++--------------------+--------------------+--------------------+--------------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------------------------------+
+; State Machine - |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_wbop_in.src               ;
++-------------------------+-------------------------+-------------------------+-------------------------+
+; Name                    ; int_wbop_in.src.WBS_OPC ; int_wbop_in.src.WBS_MEM ; int_wbop_in.src.WBS_ALU ;
++-------------------------+-------------------------+-------------------------+-------------------------+
+; int_wbop_in.src.WBS_ALU ; 0                       ; 0                       ; 0                       ;
+; int_wbop_in.src.WBS_MEM ; 0                       ; 1                       ; 1                       ;
+; int_wbop_in.src.WBS_OPC ; 1                       ; 0                       ; 1                       ;
++-------------------------+-------------------------+-------------------------+-------------------------+
+
+
+Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.mem.memtype                                                                                             ;
++-------------------------------+------------------------------+-------------------------------+------------------------------+-------------------------------+------------------------------+
+; Name                          ; int_mem_op.mem.memtype.MEM_B ; int_mem_op.mem.memtype.MEM_HU ; int_mem_op.mem.memtype.MEM_H ; int_mem_op.mem.memtype.MEM_BU ; int_mem_op.mem.memtype.MEM_W ;
++-------------------------------+------------------------------+-------------------------------+------------------------------+-------------------------------+------------------------------+
+; int_mem_op.mem.memtype.MEM_W  ; 0                            ; 0                             ; 0                            ; 0                             ; 0                            ;
+; int_mem_op.mem.memtype.MEM_BU ; 0                            ; 0                             ; 0                            ; 1                             ; 1                            ;
+; int_mem_op.mem.memtype.MEM_H  ; 0                            ; 0                             ; 1                            ; 0                             ; 1                            ;
+; int_mem_op.mem.memtype.MEM_HU ; 0                            ; 1                             ; 0                            ; 0                             ; 1                            ;
+; int_mem_op.mem.memtype.MEM_B  ; 1                            ; 0                             ; 0                            ; 0                             ; 1                            ;
++-------------------------------+------------------------------+-------------------------------+------------------------------+-------------------------------+------------------------------+
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.branch                                             ;
++---------------------------+---------------------------+--------------------------+-------------------------+--------------------------+
+; Name                      ; int_mem_op.branch.BR_CNDI ; int_mem_op.branch.BR_CND ; int_mem_op.branch.BR_BR ; int_mem_op.branch.BR_NOP ;
++---------------------------+---------------------------+--------------------------+-------------------------+--------------------------+
+; int_mem_op.branch.BR_NOP  ; 0                         ; 0                        ; 0                       ; 0                        ;
+; int_mem_op.branch.BR_BR   ; 0                         ; 0                        ; 1                       ; 1                        ;
+; int_mem_op.branch.BR_CND  ; 0                         ; 1                        ; 0                       ; 1                        ;
+; int_mem_op.branch.BR_CNDI ; 1                         ; 0                        ; 0                       ; 1                        ;
++---------------------------+---------------------------+--------------------------+-------------------------+--------------------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------------------------------+
+; State Machine - |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_wbop_in.src             ;
++-------------------------+-------------------------+-------------------------+-------------------------+
+; Name                    ; int_wbop_in.src.WBS_OPC ; int_wbop_in.src.WBS_MEM ; int_wbop_in.src.WBS_ALU ;
++-------------------------+-------------------------+-------------------------+-------------------------+
+; int_wbop_in.src.WBS_ALU ; 0                       ; 0                       ; 0                       ;
+; int_wbop_in.src.WBS_MEM ; 0                       ; 1                       ; 1                       ;
+; int_wbop_in.src.WBS_OPC ; 1                       ; 0                       ; 1                       ;
++-------------------------+-------------------------+-------------------------+-------------------------+
+
+
+Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.mem.memtype                                                                                                     ;
++---------------------------------+--------------------------------+---------------------------------+--------------------------------+---------------------------------+--------------------------------+
+; Name                            ; int_memop_in.mem.memtype.MEM_B ; int_memop_in.mem.memtype.MEM_HU ; int_memop_in.mem.memtype.MEM_H ; int_memop_in.mem.memtype.MEM_BU ; int_memop_in.mem.memtype.MEM_W ;
++---------------------------------+--------------------------------+---------------------------------+--------------------------------+---------------------------------+--------------------------------+
+; int_memop_in.mem.memtype.MEM_W  ; 0                              ; 0                               ; 0                              ; 0                               ; 0                              ;
+; int_memop_in.mem.memtype.MEM_BU ; 0                              ; 0                               ; 0                              ; 1                               ; 1                              ;
+; int_memop_in.mem.memtype.MEM_H  ; 0                              ; 0                               ; 1                              ; 0                               ; 1                              ;
+; int_memop_in.mem.memtype.MEM_HU ; 0                              ; 1                               ; 0                              ; 0                               ; 1                              ;
+; int_memop_in.mem.memtype.MEM_B  ; 1                              ; 0                               ; 0                              ; 0                               ; 1                              ;
++---------------------------------+--------------------------------+---------------------------------+--------------------------------+---------------------------------+--------------------------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.branch                                                   ;
++-----------------------------+-----------------------------+----------------------------+---------------------------+----------------------------+
+; Name                        ; int_memop_in.branch.BR_CNDI ; int_memop_in.branch.BR_CND ; int_memop_in.branch.BR_BR ; int_memop_in.branch.BR_NOP ;
++-----------------------------+-----------------------------+----------------------------+---------------------------+----------------------------+
+; int_memop_in.branch.BR_NOP  ; 0                           ; 0                          ; 0                         ; 0                          ;
+; int_memop_in.branch.BR_BR   ; 0                           ; 0                          ; 1                         ; 1                          ;
+; int_memop_in.branch.BR_CND  ; 0                           ; 1                          ; 0                         ; 1                          ;
+; int_memop_in.branch.BR_CNDI ; 1                           ; 0                          ; 0                         ; 1                          ;
++-----------------------------+-----------------------------+----------------------------+---------------------------+----------------------------+
+
+
+Encoding Type:  One-Hot
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.aluop                                                                                                                                                                                             ;
++-----------------------+----------------------+---------------------+----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+-----------------------+----------------------+----------------------+
+; Name                  ; int_op.aluop.ALU_XOR ; int_op.aluop.ALU_OR ; int_op.aluop.ALU_AND ; int_op.aluop.ALU_SUB ; int_op.aluop.ALU_ADD ; int_op.aluop.ALU_SRA ; int_op.aluop.ALU_SRL ; int_op.aluop.ALU_SLL ; int_op.aluop.ALU_SLTU ; int_op.aluop.ALU_SLT ; int_op.aluop.ALU_NOP ;
++-----------------------+----------------------+---------------------+----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+-----------------------+----------------------+----------------------+
+; int_op.aluop.ALU_NOP  ; 0                    ; 0                   ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                     ; 0                    ; 0                    ;
+; int_op.aluop.ALU_SLT  ; 0                    ; 0                   ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                     ; 1                    ; 1                    ;
+; int_op.aluop.ALU_SLTU ; 0                    ; 0                   ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 1                     ; 0                    ; 1                    ;
+; int_op.aluop.ALU_SLL  ; 0                    ; 0                   ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 1                    ; 0                     ; 0                    ; 1                    ;
+; int_op.aluop.ALU_SRL  ; 0                    ; 0                   ; 0                    ; 0                    ; 0                    ; 0                    ; 1                    ; 0                    ; 0                     ; 0                    ; 1                    ;
+; int_op.aluop.ALU_SRA  ; 0                    ; 0                   ; 0                    ; 0                    ; 0                    ; 1                    ; 0                    ; 0                    ; 0                     ; 0                    ; 1                    ;
+; int_op.aluop.ALU_ADD  ; 0                    ; 0                   ; 0                    ; 0                    ; 1                    ; 0                    ; 0                    ; 0                    ; 0                     ; 0                    ; 1                    ;
+; int_op.aluop.ALU_SUB  ; 0                    ; 0                   ; 0                    ; 1                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                     ; 0                    ; 1                    ;
+; int_op.aluop.ALU_AND  ; 0                    ; 0                   ; 1                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                     ; 0                    ; 1                    ;
+; int_op.aluop.ALU_OR   ; 0                    ; 1                   ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                     ; 0                    ; 1                    ;
+; int_op.aluop.ALU_XOR  ; 1                    ; 0                   ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                     ; 0                    ; 1                    ;
++-----------------------+----------------------+---------------------+----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+-----------------------+----------------------+----------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                                                                             ;
++-------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+
+; Register name                                                                             ; Reason for Removal                                                                 ;
++-------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|tmp_rdaddr2[4]  ; Merged with core:core_inst|pipeline:pipeline_inst|decode:decode_inst|int_instr[24] ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|tmp_rdaddr2[3]  ; Merged with core:core_inst|pipeline:pipeline_inst|decode:decode_inst|int_instr[23] ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|tmp_rdaddr2[2]  ; Merged with core:core_inst|pipeline:pipeline_inst|decode:decode_inst|int_instr[22] ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|tmp_rdaddr2[1]  ; Merged with core:core_inst|pipeline:pipeline_inst|decode:decode_inst|int_instr[21] ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|tmp_rdaddr2[0]  ; Merged with core:core_inst|pipeline:pipeline_inst|decode:decode_inst|int_instr[20] ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|tmp_rdaddr1[4]  ; Merged with core:core_inst|pipeline:pipeline_inst|decode:decode_inst|int_instr[19] ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|tmp_rdaddr1[3]  ; Merged with core:core_inst|pipeline:pipeline_inst|decode:decode_inst|int_instr[18] ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|tmp_rdaddr1[2]  ; Merged with core:core_inst|pipeline:pipeline_inst|decode:decode_inst|int_instr[17] ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|tmp_rdaddr1[1]  ; Merged with core:core_inst|pipeline:pipeline_inst|decode:decode_inst|int_instr[16] ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|tmp_rdaddr1[0]  ; Merged with core:core_inst|pipeline:pipeline_inst|decode:decode_inst|int_instr[15] ;
+; core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_instr[2,3,5..30]               ; Merged with core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_instr[31]   ;
+; core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_instr[0,1]                     ; Merged with core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_instr[4]    ;
+; core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.imm[21..23]                   ; Merged with core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.imm[20]    ;
+; core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_instr[31]                      ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_instr[4]                       ; Stuck at VCC due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][1]  ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][0]  ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][2]  ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][3]  ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][4]  ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][5]  ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][6]  ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][7]  ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][8]  ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][9]  ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][10] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][11] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][12] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][13] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][14] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][15] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][16] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][17] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][18] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][19] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][20] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][21] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][22] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][23] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][24] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][25] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][26] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][27] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][28] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][29] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][30] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][31] ; Stuck at GND due to stuck port data_in                                             ;
+; core:core_inst|pipeline:pipeline_inst|wb:wb_inst|int_op.src.WBS_OPC                       ; Lost fanout                                                                        ;
+; core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_wbop_in.src.WBS_OPC                ; Lost fanout                                                                        ;
+; core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.branch.BR_BR                ; Lost fanout                                                                        ;
+; core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.branch.BR_CND               ; Lost fanout                                                                        ;
+; core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.branch.BR_CNDI              ; Lost fanout                                                                        ;
+; core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_wbop_in.src.WBS_OPC              ; Lost fanout                                                                        ;
+; core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.branch.BR_BR            ; Lost fanout                                                                        ;
+; core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.branch.BR_CND           ; Lost fanout                                                                        ;
+; core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.branch.BR_CNDI          ; Lost fanout                                                                        ;
+; Total Number of Removed Registers = 86                                                    ;                                                                                    ;
++-------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------+
+; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_aluresult_in[12]              ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_pc_new_in[3]                  ;
+; 5:1                ; 16 bits   ; 48 LEs        ; 32 LEs               ; 16 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_wrdata[2]                     ;
+; 16:1               ; 7 bits    ; 70 LEs        ; 63 LEs               ; 7 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_aluresult_in[20]              ;
+; 17:1               ; 4 bits    ; 44 LEs        ; 40 LEs               ; 4 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_aluresult_in[27]              ;
+; 18:1               ; 2 bits    ; 24 LEs        ; 22 LEs               ; 2 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_aluresult_in[28]              ;
+; 163:1              ; 12 bits   ; 1296 LEs      ; 276 LEs              ; 1020 LEs               ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[18]            ;
+; 44:1               ; 4 bits    ; 116 LEs       ; 96 LEs               ; 20 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[20]            ;
+; 167:1              ; 8 bits    ; 888 LEs       ; 184 LEs              ; 704 LEs                ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[1]             ;
+; 168:1              ; 8 bits    ; 896 LEs       ; 184 LEs              ; 712 LEs                ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[8]             ;
+; 31:1               ; 5 bits    ; 100 LEs       ; 10 LEs               ; 90 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_wbop_in.rd[0]               ;
+; 169:1              ; 15 bits   ; 1680 LEs      ; 330 LEs              ; 1350 LEs               ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata1[29]            ;
+; 169:1              ; 16 bits   ; 1792 LEs      ; 368 LEs              ; 1424 LEs               ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata1[15]            ;
+; 31:1               ; 5 bits    ; 100 LEs       ; 10 LEs               ; 90 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.rs1[0]                   ;
+; 3:1                ; 22 bits   ; 44 LEs        ; 22 LEs               ; 22 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux482                      ;
+; 4:1                ; 28 bits   ; 56 LEs        ; 56 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_B[5]                        ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_B[22]                       ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.mem.memtype.MEM_HU ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.mem.memtype.MEM_H  ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst|reg_write.data[20]                  ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst|reg_write.data[10]                  ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux515                      ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux480                      ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 6 LEs                ; 3 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux482                      ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_A[27]                       ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_A[7]                        ;
+; 6:1                ; 7 bits    ; 28 LEs        ; 21 LEs               ; 7 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux490                      ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[14]       ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[6]        ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux496                      ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[19]       ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[28]       ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.byteena[3]       ;
+; 12:1               ; 6 bits    ; 48 LEs        ; 30 LEs               ; 18 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux497                      ;
+; 131:1              ; 2 bits    ; 174 LEs       ; 8 LEs                ; 166 LEs                ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.aluop.ALU_SRL            ;
+; 13:1               ; 8 bits    ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1|Selector22       ;
+; 14:1               ; 4 bits    ; 36 LEs        ; 36 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1|Selector27       ;
+; 15:1               ; 2 bits    ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1|Selector29       ;
+; 19:1               ; 3 bits    ; 36 LEs        ; 12 LEs               ; 24 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux505                      ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pll:pll_inst|altpll:altpll_component ;
++-------------------------------+------------------------------+--------------------+
+; Parameter Name                ; Value                        ; Type               ;
++-------------------------------+------------------------------+--------------------+
+; OPERATION_MODE                ; NORMAL                       ; Untyped            ;
+; PLL_TYPE                      ; AUTO                         ; Untyped            ;
+; LPM_HINT                      ; CBX_MODULE_PREFIX=pll_altera ; Untyped            ;
+; QUALIFY_CONF_DONE             ; OFF                          ; Untyped            ;
+; COMPENSATE_CLOCK              ; CLK0                         ; Untyped            ;
+; SCAN_CHAIN                    ; LONG                         ; Untyped            ;
+; PRIMARY_CLOCK                 ; INCLK0                       ; Untyped            ;
+; INCLK0_INPUT_FREQUENCY        ; 20000                        ; Signed Integer     ;
+; INCLK1_INPUT_FREQUENCY        ; 0                            ; Untyped            ;
+; GATE_LOCK_SIGNAL              ; NO                           ; Untyped            ;
+; GATE_LOCK_COUNTER             ; 0                            ; Untyped            ;
+; LOCK_HIGH                     ; 1                            ; Untyped            ;
+; LOCK_LOW                      ; 1                            ; Untyped            ;
+; VALID_LOCK_MULTIPLIER         ; 1                            ; Signed Integer     ;
+; INVALID_LOCK_MULTIPLIER       ; 5                            ; Signed Integer     ;
+; SWITCH_OVER_ON_LOSSCLK        ; OFF                          ; Untyped            ;
+; SWITCH_OVER_ON_GATED_LOCK     ; OFF                          ; Untyped            ;
+; ENABLE_SWITCH_OVER_COUNTER    ; OFF                          ; Untyped            ;
+; SKIP_VCO                      ; OFF                          ; Untyped            ;
+; SWITCH_OVER_COUNTER           ; 0                            ; Untyped            ;
+; SWITCH_OVER_TYPE              ; AUTO                         ; Untyped            ;
+; FEEDBACK_SOURCE               ; EXTCLK0                      ; Untyped            ;
+; BANDWIDTH                     ; 0                            ; Untyped            ;
+; BANDWIDTH_TYPE                ; AUTO                         ; Untyped            ;
+; SPREAD_FREQUENCY              ; 0                            ; Untyped            ;
+; DOWN_SPREAD                   ; 0                            ; Untyped            ;
+; SELF_RESET_ON_GATED_LOSS_LOCK ; OFF                          ; Untyped            ;
+; SELF_RESET_ON_LOSS_LOCK       ; OFF                          ; Untyped            ;
+; CLK9_MULTIPLY_BY              ; 0                            ; Untyped            ;
+; CLK8_MULTIPLY_BY              ; 0                            ; Untyped            ;
+; CLK7_MULTIPLY_BY              ; 0                            ; Untyped            ;
+; CLK6_MULTIPLY_BY              ; 0                            ; Untyped            ;
+; CLK5_MULTIPLY_BY              ; 1                            ; Untyped            ;
+; CLK4_MULTIPLY_BY              ; 1                            ; Untyped            ;
+; CLK3_MULTIPLY_BY              ; 1                            ; Untyped            ;
+; CLK2_MULTIPLY_BY              ; 1                            ; Untyped            ;
+; CLK1_MULTIPLY_BY              ; 1                            ; Untyped            ;
+; CLK0_MULTIPLY_BY              ; 3                            ; Signed Integer     ;
+; CLK9_DIVIDE_BY                ; 0                            ; Untyped            ;
+; CLK8_DIVIDE_BY                ; 0                            ; Untyped            ;
+; CLK7_DIVIDE_BY                ; 0                            ; Untyped            ;
+; CLK6_DIVIDE_BY                ; 0                            ; Untyped            ;
+; CLK5_DIVIDE_BY                ; 1                            ; Untyped            ;
+; CLK4_DIVIDE_BY                ; 1                            ; Untyped            ;
+; CLK3_DIVIDE_BY                ; 1                            ; Untyped            ;
+; CLK2_DIVIDE_BY                ; 1                            ; Untyped            ;
+; CLK1_DIVIDE_BY                ; 1                            ; Untyped            ;
+; CLK0_DIVIDE_BY                ; 2                            ; Signed Integer     ;
+; CLK9_PHASE_SHIFT              ; 0                            ; Untyped            ;
+; CLK8_PHASE_SHIFT              ; 0                            ; Untyped            ;
+; CLK7_PHASE_SHIFT              ; 0                            ; Untyped            ;
+; CLK6_PHASE_SHIFT              ; 0                            ; Untyped            ;
+; CLK5_PHASE_SHIFT              ; 0                            ; Untyped            ;
+; CLK4_PHASE_SHIFT              ; 0                            ; Untyped            ;
+; CLK3_PHASE_SHIFT              ; 0                            ; Untyped            ;
+; CLK2_PHASE_SHIFT              ; 0                            ; Untyped            ;
+; CLK1_PHASE_SHIFT              ; 0                            ; Untyped            ;
+; CLK0_PHASE_SHIFT              ; 0                            ; Untyped            ;
+; CLK5_TIME_DELAY               ; 0                            ; Untyped            ;
+; CLK4_TIME_DELAY               ; 0                            ; Untyped            ;
+; CLK3_TIME_DELAY               ; 0                            ; Untyped            ;
+; CLK2_TIME_DELAY               ; 0                            ; Untyped            ;
+; CLK1_TIME_DELAY               ; 0                            ; Untyped            ;
+; CLK0_TIME_DELAY               ; 0                            ; Untyped            ;
+; CLK9_DUTY_CYCLE               ; 50                           ; Untyped            ;
+; CLK8_DUTY_CYCLE               ; 50                           ; Untyped            ;
+; CLK7_DUTY_CYCLE               ; 50                           ; Untyped            ;
+; CLK6_DUTY_CYCLE               ; 50                           ; Untyped            ;
+; CLK5_DUTY_CYCLE               ; 50                           ; Untyped            ;
+; CLK4_DUTY_CYCLE               ; 50                           ; Untyped            ;
+; CLK3_DUTY_CYCLE               ; 50                           ; Untyped            ;
+; CLK2_DUTY_CYCLE               ; 50                           ; Untyped            ;
+; CLK1_DUTY_CYCLE               ; 50                           ; Untyped            ;
+; CLK0_DUTY_CYCLE               ; 50                           ; Signed Integer     ;
+; CLK9_USE_EVEN_COUNTER_MODE    ; OFF                          ; Untyped            ;
+; CLK8_USE_EVEN_COUNTER_MODE    ; OFF                          ; Untyped            ;
+; CLK7_USE_EVEN_COUNTER_MODE    ; OFF                          ; Untyped            ;
+; CLK6_USE_EVEN_COUNTER_MODE    ; OFF                          ; Untyped            ;
+; CLK5_USE_EVEN_COUNTER_MODE    ; OFF                          ; Untyped            ;
+; CLK4_USE_EVEN_COUNTER_MODE    ; OFF                          ; Untyped            ;
+; CLK3_USE_EVEN_COUNTER_MODE    ; OFF                          ; Untyped            ;
+; CLK2_USE_EVEN_COUNTER_MODE    ; OFF                          ; Untyped            ;
+; CLK1_USE_EVEN_COUNTER_MODE    ; OFF                          ; Untyped            ;
+; CLK0_USE_EVEN_COUNTER_MODE    ; OFF                          ; Untyped            ;
+; CLK9_USE_EVEN_COUNTER_VALUE   ; OFF                          ; Untyped            ;
+; CLK8_USE_EVEN_COUNTER_VALUE   ; OFF                          ; Untyped            ;
+; CLK7_USE_EVEN_COUNTER_VALUE   ; OFF                          ; Untyped            ;
+; CLK6_USE_EVEN_COUNTER_VALUE   ; OFF                          ; Untyped            ;
+; CLK5_USE_EVEN_COUNTER_VALUE   ; OFF                          ; Untyped            ;
+; CLK4_USE_EVEN_COUNTER_VALUE   ; OFF                          ; Untyped            ;
+; CLK3_USE_EVEN_COUNTER_VALUE   ; OFF                          ; Untyped            ;
+; CLK2_USE_EVEN_COUNTER_VALUE   ; OFF                          ; Untyped            ;
+; CLK1_USE_EVEN_COUNTER_VALUE   ; OFF                          ; Untyped            ;
+; CLK0_USE_EVEN_COUNTER_VALUE   ; OFF                          ; Untyped            ;
+; LOCK_WINDOW_UI                ;  0.05                        ; Untyped            ;
+; LOCK_WINDOW_UI_BITS           ; UNUSED                       ; Untyped            ;
+; VCO_RANGE_DETECTOR_LOW_BITS   ; UNUSED                       ; Untyped            ;
+; VCO_RANGE_DETECTOR_HIGH_BITS  ; UNUSED                       ; Untyped            ;
+; DPA_MULTIPLY_BY               ; 0                            ; Untyped            ;
+; DPA_DIVIDE_BY                 ; 1                            ; Untyped            ;
+; DPA_DIVIDER                   ; 0                            ; Untyped            ;
+; EXTCLK3_MULTIPLY_BY           ; 1                            ; Untyped            ;
+; EXTCLK2_MULTIPLY_BY           ; 1                            ; Untyped            ;
+; EXTCLK1_MULTIPLY_BY           ; 1                            ; Untyped            ;
+; EXTCLK0_MULTIPLY_BY           ; 1                            ; Untyped            ;
+; EXTCLK3_DIVIDE_BY             ; 1                            ; Untyped            ;
+; EXTCLK2_DIVIDE_BY             ; 1                            ; Untyped            ;
+; EXTCLK1_DIVIDE_BY             ; 1                            ; Untyped            ;
+; EXTCLK0_DIVIDE_BY             ; 1                            ; Untyped            ;
+; EXTCLK3_PHASE_SHIFT           ; 0                            ; Untyped            ;
+; EXTCLK2_PHASE_SHIFT           ; 0                            ; Untyped            ;
+; EXTCLK1_PHASE_SHIFT           ; 0                            ; Untyped            ;
+; EXTCLK0_PHASE_SHIFT           ; 0                            ; Untyped            ;
+; EXTCLK3_TIME_DELAY            ; 0                            ; Untyped            ;
+; EXTCLK2_TIME_DELAY            ; 0                            ; Untyped            ;
+; EXTCLK1_TIME_DELAY            ; 0                            ; Untyped            ;
+; EXTCLK0_TIME_DELAY            ; 0                            ; Untyped            ;
+; EXTCLK3_DUTY_CYCLE            ; 50                           ; Untyped            ;
+; EXTCLK2_DUTY_CYCLE            ; 50                           ; Untyped            ;
+; EXTCLK1_DUTY_CYCLE            ; 50                           ; Untyped            ;
+; EXTCLK0_DUTY_CYCLE            ; 50                           ; Untyped            ;
+; VCO_MULTIPLY_BY               ; 0                            ; Untyped            ;
+; VCO_DIVIDE_BY                 ; 0                            ; Untyped            ;
+; SCLKOUT0_PHASE_SHIFT          ; 0                            ; Untyped            ;
+; SCLKOUT1_PHASE_SHIFT          ; 0                            ; Untyped            ;
+; VCO_MIN                       ; 0                            ; Untyped            ;
+; VCO_MAX                       ; 0                            ; Untyped            ;
+; VCO_CENTER                    ; 0                            ; Untyped            ;
+; PFD_MIN                       ; 0                            ; Untyped            ;
+; PFD_MAX                       ; 0                            ; Untyped            ;
+; M_INITIAL                     ; 0                            ; Untyped            ;
+; M                             ; 0                            ; Untyped            ;
+; N                             ; 1                            ; Untyped            ;
+; M2                            ; 1                            ; Untyped            ;
+; N2                            ; 1                            ; Untyped            ;
+; SS                            ; 1                            ; Untyped            ;
+; C0_HIGH                       ; 0                            ; Untyped            ;
+; C1_HIGH                       ; 0                            ; Untyped            ;
+; C2_HIGH                       ; 0                            ; Untyped            ;
+; C3_HIGH                       ; 0                            ; Untyped            ;
+; C4_HIGH                       ; 0                            ; Untyped            ;
+; C5_HIGH                       ; 0                            ; Untyped            ;
+; C6_HIGH                       ; 0                            ; Untyped            ;
+; C7_HIGH                       ; 0                            ; Untyped            ;
+; C8_HIGH                       ; 0                            ; Untyped            ;
+; C9_HIGH                       ; 0                            ; Untyped            ;
+; C0_LOW                        ; 0                            ; Untyped            ;
+; C1_LOW                        ; 0                            ; Untyped            ;
+; C2_LOW                        ; 0                            ; Untyped            ;
+; C3_LOW                        ; 0                            ; Untyped            ;
+; C4_LOW                        ; 0                            ; Untyped            ;
+; C5_LOW                        ; 0                            ; Untyped            ;
+; C6_LOW                        ; 0                            ; Untyped            ;
+; C7_LOW                        ; 0                            ; Untyped            ;
+; C8_LOW                        ; 0                            ; Untyped            ;
+; C9_LOW                        ; 0                            ; Untyped            ;
+; C0_INITIAL                    ; 0                            ; Untyped            ;
+; C1_INITIAL                    ; 0                            ; Untyped            ;
+; C2_INITIAL                    ; 0                            ; Untyped            ;
+; C3_INITIAL                    ; 0                            ; Untyped            ;
+; C4_INITIAL                    ; 0                            ; Untyped            ;
+; C5_INITIAL                    ; 0                            ; Untyped            ;
+; C6_INITIAL                    ; 0                            ; Untyped            ;
+; C7_INITIAL                    ; 0                            ; Untyped            ;
+; C8_INITIAL                    ; 0                            ; Untyped            ;
+; C9_INITIAL                    ; 0                            ; Untyped            ;
+; C0_MODE                       ; BYPASS                       ; Untyped            ;
+; C1_MODE                       ; BYPASS                       ; Untyped            ;
+; C2_MODE                       ; BYPASS                       ; Untyped            ;
+; C3_MODE                       ; BYPASS                       ; Untyped            ;
+; C4_MODE                       ; BYPASS                       ; Untyped            ;
+; C5_MODE                       ; BYPASS                       ; Untyped            ;
+; C6_MODE                       ; BYPASS                       ; Untyped            ;
+; C7_MODE                       ; BYPASS                       ; Untyped            ;
+; C8_MODE                       ; BYPASS                       ; Untyped            ;
+; C9_MODE                       ; BYPASS                       ; Untyped            ;
+; C0_PH                         ; 0                            ; Untyped            ;
+; C1_PH                         ; 0                            ; Untyped            ;
+; C2_PH                         ; 0                            ; Untyped            ;
+; C3_PH                         ; 0                            ; Untyped            ;
+; C4_PH                         ; 0                            ; Untyped            ;
+; C5_PH                         ; 0                            ; Untyped            ;
+; C6_PH                         ; 0                            ; Untyped            ;
+; C7_PH                         ; 0                            ; Untyped            ;
+; C8_PH                         ; 0                            ; Untyped            ;
+; C9_PH                         ; 0                            ; Untyped            ;
+; L0_HIGH                       ; 1                            ; Untyped            ;
+; L1_HIGH                       ; 1                            ; Untyped            ;
+; G0_HIGH                       ; 1                            ; Untyped            ;
+; G1_HIGH                       ; 1                            ; Untyped            ;
+; G2_HIGH                       ; 1                            ; Untyped            ;
+; G3_HIGH                       ; 1                            ; Untyped            ;
+; E0_HIGH                       ; 1                            ; Untyped            ;
+; E1_HIGH                       ; 1                            ; Untyped            ;
+; E2_HIGH                       ; 1                            ; Untyped            ;
+; E3_HIGH                       ; 1                            ; Untyped            ;
+; L0_LOW                        ; 1                            ; Untyped            ;
+; L1_LOW                        ; 1                            ; Untyped            ;
+; G0_LOW                        ; 1                            ; Untyped            ;
+; G1_LOW                        ; 1                            ; Untyped            ;
+; G2_LOW                        ; 1                            ; Untyped            ;
+; G3_LOW                        ; 1                            ; Untyped            ;
+; E0_LOW                        ; 1                            ; Untyped            ;
+; E1_LOW                        ; 1                            ; Untyped            ;
+; E2_LOW                        ; 1                            ; Untyped            ;
+; E3_LOW                        ; 1                            ; Untyped            ;
+; L0_INITIAL                    ; 1                            ; Untyped            ;
+; L1_INITIAL                    ; 1                            ; Untyped            ;
+; G0_INITIAL                    ; 1                            ; Untyped            ;
+; G1_INITIAL                    ; 1                            ; Untyped            ;
+; G2_INITIAL                    ; 1                            ; Untyped            ;
+; G3_INITIAL                    ; 1                            ; Untyped            ;
+; E0_INITIAL                    ; 1                            ; Untyped            ;
+; E1_INITIAL                    ; 1                            ; Untyped            ;
+; E2_INITIAL                    ; 1                            ; Untyped            ;
+; E3_INITIAL                    ; 1                            ; Untyped            ;
+; L0_MODE                       ; BYPASS                       ; Untyped            ;
+; L1_MODE                       ; BYPASS                       ; Untyped            ;
+; G0_MODE                       ; BYPASS                       ; Untyped            ;
+; G1_MODE                       ; BYPASS                       ; Untyped            ;
+; G2_MODE                       ; BYPASS                       ; Untyped            ;
+; G3_MODE                       ; BYPASS                       ; Untyped            ;
+; E0_MODE                       ; BYPASS                       ; Untyped            ;
+; E1_MODE                       ; BYPASS                       ; Untyped            ;
+; E2_MODE                       ; BYPASS                       ; Untyped            ;
+; E3_MODE                       ; BYPASS                       ; Untyped            ;
+; L0_PH                         ; 0                            ; Untyped            ;
+; L1_PH                         ; 0                            ; Untyped            ;
+; G0_PH                         ; 0                            ; Untyped            ;
+; G1_PH                         ; 0                            ; Untyped            ;
+; G2_PH                         ; 0                            ; Untyped            ;
+; G3_PH                         ; 0                            ; Untyped            ;
+; E0_PH                         ; 0                            ; Untyped            ;
+; E1_PH                         ; 0                            ; Untyped            ;
+; E2_PH                         ; 0                            ; Untyped            ;
+; E3_PH                         ; 0                            ; Untyped            ;
+; M_PH                          ; 0                            ; Untyped            ;
+; C1_USE_CASC_IN                ; OFF                          ; Untyped            ;
+; C2_USE_CASC_IN                ; OFF                          ; Untyped            ;
+; C3_USE_CASC_IN                ; OFF                          ; Untyped            ;
+; C4_USE_CASC_IN                ; OFF                          ; Untyped            ;
+; C5_USE_CASC_IN                ; OFF                          ; Untyped            ;
+; C6_USE_CASC_IN                ; OFF                          ; Untyped            ;
+; C7_USE_CASC_IN                ; OFF                          ; Untyped            ;
+; C8_USE_CASC_IN                ; OFF                          ; Untyped            ;
+; C9_USE_CASC_IN                ; OFF                          ; Untyped            ;
+; CLK0_COUNTER                  ; G0                           ; Untyped            ;
+; CLK1_COUNTER                  ; G0                           ; Untyped            ;
+; CLK2_COUNTER                  ; G0                           ; Untyped            ;
+; CLK3_COUNTER                  ; G0                           ; Untyped            ;
+; CLK4_COUNTER                  ; G0                           ; Untyped            ;
+; CLK5_COUNTER                  ; G0                           ; Untyped            ;
+; CLK6_COUNTER                  ; E0                           ; Untyped            ;
+; CLK7_COUNTER                  ; E1                           ; Untyped            ;
+; CLK8_COUNTER                  ; E2                           ; Untyped            ;
+; CLK9_COUNTER                  ; E3                           ; Untyped            ;
+; L0_TIME_DELAY                 ; 0                            ; Untyped            ;
+; L1_TIME_DELAY                 ; 0                            ; Untyped            ;
+; G0_TIME_DELAY                 ; 0                            ; Untyped            ;
+; G1_TIME_DELAY                 ; 0                            ; Untyped            ;
+; G2_TIME_DELAY                 ; 0                            ; Untyped            ;
+; G3_TIME_DELAY                 ; 0                            ; Untyped            ;
+; E0_TIME_DELAY                 ; 0                            ; Untyped            ;
+; E1_TIME_DELAY                 ; 0                            ; Untyped            ;
+; E2_TIME_DELAY                 ; 0                            ; Untyped            ;
+; E3_TIME_DELAY                 ; 0                            ; Untyped            ;
+; M_TIME_DELAY                  ; 0                            ; Untyped            ;
+; N_TIME_DELAY                  ; 0                            ; Untyped            ;
+; EXTCLK3_COUNTER               ; E3                           ; Untyped            ;
+; EXTCLK2_COUNTER               ; E2                           ; Untyped            ;
+; EXTCLK1_COUNTER               ; E1                           ; Untyped            ;
+; EXTCLK0_COUNTER               ; E0                           ; Untyped            ;
+; ENABLE0_COUNTER               ; L0                           ; Untyped            ;
+; ENABLE1_COUNTER               ; L0                           ; Untyped            ;
+; CHARGE_PUMP_CURRENT           ; 2                            ; Untyped            ;
+; LOOP_FILTER_R                 ;  1.000000                    ; Untyped            ;
+; LOOP_FILTER_C                 ; 5                            ; Untyped            ;
+; CHARGE_PUMP_CURRENT_BITS      ; 9999                         ; Untyped            ;
+; LOOP_FILTER_R_BITS            ; 9999                         ; Untyped            ;
+; LOOP_FILTER_C_BITS            ; 9999                         ; Untyped            ;
+; VCO_POST_SCALE                ; 0                            ; Untyped            ;
+; CLK2_OUTPUT_FREQUENCY         ; 0                            ; Untyped            ;
+; CLK1_OUTPUT_FREQUENCY         ; 0                            ; Untyped            ;
+; CLK0_OUTPUT_FREQUENCY         ; 0                            ; Untyped            ;
+; INTENDED_DEVICE_FAMILY        ; Cyclone II                   ; Untyped            ;
+; PORT_CLKENA0                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLKENA1                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLKENA2                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLKENA3                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLKENA4                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLKENA5                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_EXTCLKENA0               ; PORT_CONNECTIVITY            ; Untyped            ;
+; PORT_EXTCLKENA1               ; PORT_CONNECTIVITY            ; Untyped            ;
+; PORT_EXTCLKENA2               ; PORT_CONNECTIVITY            ; Untyped            ;
+; PORT_EXTCLKENA3               ; PORT_CONNECTIVITY            ; Untyped            ;
+; PORT_EXTCLK0                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_EXTCLK1                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_EXTCLK2                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_EXTCLK3                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLKBAD0                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLKBAD1                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLK0                     ; PORT_USED                    ; Untyped            ;
+; PORT_CLK1                     ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLK2                     ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLK3                     ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLK4                     ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLK5                     ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLK6                     ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLK7                     ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLK8                     ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLK9                     ; PORT_UNUSED                  ; Untyped            ;
+; PORT_SCANDATA                 ; PORT_UNUSED                  ; Untyped            ;
+; PORT_SCANDATAOUT              ; PORT_UNUSED                  ; Untyped            ;
+; PORT_SCANDONE                 ; PORT_UNUSED                  ; Untyped            ;
+; PORT_SCLKOUT1                 ; PORT_CONNECTIVITY            ; Untyped            ;
+; PORT_SCLKOUT0                 ; PORT_CONNECTIVITY            ; Untyped            ;
+; PORT_ACTIVECLOCK              ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLKLOSS                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_INCLK1                   ; PORT_UNUSED                  ; Untyped            ;
+; PORT_INCLK0                   ; PORT_USED                    ; Untyped            ;
+; PORT_FBIN                     ; PORT_UNUSED                  ; Untyped            ;
+; PORT_PLLENA                   ; PORT_UNUSED                  ; Untyped            ;
+; PORT_CLKSWITCH                ; PORT_UNUSED                  ; Untyped            ;
+; PORT_ARESET                   ; PORT_UNUSED                  ; Untyped            ;
+; PORT_PFDENA                   ; PORT_UNUSED                  ; Untyped            ;
+; PORT_SCANCLK                  ; PORT_UNUSED                  ; Untyped            ;
+; PORT_SCANACLR                 ; PORT_UNUSED                  ; Untyped            ;
+; PORT_SCANREAD                 ; PORT_UNUSED                  ; Untyped            ;
+; PORT_SCANWRITE                ; PORT_UNUSED                  ; Untyped            ;
+; PORT_ENABLE0                  ; PORT_CONNECTIVITY            ; Untyped            ;
+; PORT_ENABLE1                  ; PORT_CONNECTIVITY            ; Untyped            ;
+; PORT_LOCKED                   ; PORT_USED                    ; Untyped            ;
+; PORT_CONFIGUPDATE             ; PORT_UNUSED                  ; Untyped            ;
+; PORT_FBOUT                    ; PORT_CONNECTIVITY            ; Untyped            ;
+; PORT_PHASEDONE                ; PORT_UNUSED                  ; Untyped            ;
+; PORT_PHASESTEP                ; PORT_UNUSED                  ; Untyped            ;
+; PORT_PHASEUPDOWN              ; PORT_UNUSED                  ; Untyped            ;
+; PORT_SCANCLKENA               ; PORT_UNUSED                  ; Untyped            ;
+; PORT_PHASECOUNTERSELECT       ; PORT_UNUSED                  ; Untyped            ;
+; PORT_VCOOVERRANGE             ; PORT_CONNECTIVITY            ; Untyped            ;
+; PORT_VCOUNDERRANGE            ; PORT_CONNECTIVITY            ; Untyped            ;
+; M_TEST_SOURCE                 ; 5                            ; Untyped            ;
+; C0_TEST_SOURCE                ; 5                            ; Untyped            ;
+; C1_TEST_SOURCE                ; 5                            ; Untyped            ;
+; C2_TEST_SOURCE                ; 5                            ; Untyped            ;
+; C3_TEST_SOURCE                ; 5                            ; Untyped            ;
+; C4_TEST_SOURCE                ; 5                            ; Untyped            ;
+; C5_TEST_SOURCE                ; 5                            ; Untyped            ;
+; C6_TEST_SOURCE                ; 5                            ; Untyped            ;
+; C7_TEST_SOURCE                ; 5                            ; Untyped            ;
+; C8_TEST_SOURCE                ; 5                            ; Untyped            ;
+; C9_TEST_SOURCE                ; 5                            ; Untyped            ;
+; CBXI_PARAMETER                ; NOTHING                      ; Untyped            ;
+; VCO_FREQUENCY_CONTROL         ; AUTO                         ; Untyped            ;
+; VCO_PHASE_SHIFT_STEP          ; 0                            ; Untyped            ;
+; WIDTH_CLOCK                   ; 6                            ; Untyped            ;
+; WIDTH_PHASECOUNTERSELECT      ; 4                            ; Untyped            ;
+; USING_FBMIMICBIDIR_PORT       ; OFF                          ; Untyped            ;
+; DEVICE_FAMILY                 ; Cyclone IV E                 ; Untyped            ;
+; SCAN_CHAIN_MIF_FILE           ; UNUSED                       ; Untyped            ;
+; SIM_GATE_LOCK_DEVICE_BEHAVIOR ; OFF                          ; Untyped            ;
+; AUTO_CARRY_CHAINS             ; ON                           ; AUTO_CARRY         ;
+; IGNORE_CARRY_BUFFERS          ; OFF                          ; IGNORE_CARRY       ;
+; AUTO_CASCADE_CHAINS           ; ON                           ; AUTO_CASCADE       ;
+; IGNORE_CASCADE_BUFFERS        ; OFF                          ; IGNORE_CASCADE     ;
++-------------------------------+------------------------------+--------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Partition Dependent Files                                                                                      ;
++-------------------------------------------+-----------------------+---------+----------------------------------+
+; File                                      ; Location              ; Library ; Checksum                         ;
++-------------------------------------------+-----------------------+---------+----------------------------------+
+; pll_altera.vhd                            ; Project Directory     ; work    ; f046300844a56d148217fc801941be6d ;
+; top.vhd                                   ; Project Directory     ; work    ; 425bba21acb43c23e8140d378801ab69 ;
+; ../vhdl/alu.vhd                           ; Project Directory     ; work    ; aaec3d0f5469f08b160cdb2b946b4008 ;
+; ../vhdl/core.vhd                          ; Project Directory     ; work    ; c9c729dd7310f80b1bf0d67e3b72e559 ;
+; ../vhdl/core_pkg.vhd                      ; Project Directory     ; work    ; 5d44b73fb64ea220d43ed90eb1a77364 ;
+; ../vhdl/decode.vhd                        ; Project Directory     ; work    ; 8d45d73cdc6c12af7ec7ae91523331c9 ;
+; ../vhdl/exec.vhd                          ; Project Directory     ; work    ; 0e0e867b464b5b49ce1c48a035e5f965 ;
+; ../vhdl/fetch.vhd                         ; Project Directory     ; work    ; d3a3b2dfefef8309f6c9b48535e4cb85 ;
+; ../vhdl/mem.vhd                           ; Project Directory     ; work    ; 14ec35f4968d6c1d3f82e297a5b44568 ;
+; ../vhdl/mem_pkg.vhd                       ; Project Directory     ; work    ; 5e4263287f7afc69f854bd4111f9c4c1 ;
+; ../vhdl/memu.vhd                          ; Project Directory     ; work    ; d87cf4c26b2774aca60a49b102ef1bee ;
+; ../vhdl/op_pkg.vhd                        ; Project Directory     ; work    ; 905ae90fb637afb860ce2a6ba4f06e71 ;
+; ../vhdl/pipeline.vhd                      ; Project Directory     ; work    ; d4e779d2c5fabb0be6673ff0bd37f0d7 ;
+; ../vhdl/pipeline_pkg.vhd                  ; Project Directory     ; work    ; f5f273a3b41114bec90f65a2246ea9f7 ;
+; ../vhdl/regfile.vhd                       ; Project Directory     ; work    ; 73c76f78ed9bd101ebb3c5a51253c8ce ;
+; ../vhdl/wb.vhd                            ; Project Directory     ; work    ; 50443aaec658869de8440c8e1b014deb ;
+; libraries/megafunctions/aglobal181.inc    ; Quartus Prime Install ; work    ; 0aaeb1b8d2a7c847a28c7279c556ac2b ;
+; libraries/megafunctions/altpll.tdf        ; Quartus Prime Install ; work    ; aa98bacc177fec4e0c987adf93460f0d ;
+; libraries/megafunctions/cycloneii_pll.inc ; Quartus Prime Install ; work    ; 39a0d9d1237d1d0b39c8480c3f9faffc ;
+; libraries/megafunctions/stratix_pll.inc   ; Quartus Prime Install ; work    ; 5f8211898149ceae8264a0ea5036254f ;
+; libraries/megafunctions/stratixii_pll.inc ; Quartus Prime Install ; work    ; 6d1985e16ab5f59a1fd6b0ae20978a4e ;
++-------------------------------------------+-----------------------+---------+----------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; blackbox              ; 1                           ;
+;     dev:dev_inst      ; 1                           ;
+; boundary_port         ; 4                           ;
+; cycloneiii_ff         ; 1352                        ;
+;     CLR               ; 2                           ;
+;     ENA               ; 16                          ;
+;     ENA CLR           ; 1317                        ;
+;     ENA CLR SCLR SLD  ; 15                          ;
+;     ENA CLR SLD       ; 2                           ;
+; cycloneiii_lcell_comb ; 2899                        ;
+;     arith             ; 137                         ;
+;         2 data inputs ; 13                          ;
+;         3 data inputs ; 124                         ;
+;     normal            ; 2762                        ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 16                          ;
+;         2 data inputs ; 181                         ;
+;         3 data inputs ; 291                         ;
+;         4 data inputs ; 2272                        ;
+; cycloneiii_pll        ; 1                           ;
+;                       ;                             ;
+; Max LUT depth         ; 11.00                       ;
+; Average LUT depth     ; 6.05                        ;
++-----------------------+-----------------------------+
+
+
++---------------------------------------------------------------------------------+
+; Partition Dependent Files                                                       ;
++----------------+-------------------+---------+----------------------------------+
+; File           ; Location          ; Library ; Checksum                         ;
++----------------+-------------------+---------+----------------------------------+
+; bootloader.qxp ; Project Directory ; work    ; 5243a46de1170efdf36818c8a6aaf2fa ;
++----------------+-------------------+---------+----------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Partition "sld_hub:auto_hub" Resource Utilization by Entity                                                                                                                                                                                                                                                    ;
++------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------+----------------+--------------+
+; Compilation Hierarchy Node                           ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                          ; Entity Name    ; Library Name ;
++------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------+----------------+--------------+
+; |top                                                 ; 118 (0)             ; 79 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top                                                                                         ; top            ; work         ;
+;    |sld_hub:auto_hub|                                ; 118 (1)             ; 79 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|sld_hub:auto_hub                                                                        ; sld_hub        ; work         ;
+;       |sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst| ; 117 (82)            ; 79 (51)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                           ; sld_jtag_hub   ; work         ;
+;          |sld_rom_sr:hub_info_reg|                   ; 18 (18)             ; 9 (9)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg   ; sld_rom_sr     ; work         ;
+;          |sld_shadow_jsm:shadow_jsm|                 ; 17 (17)             ; 19 (19)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm ; sld_shadow_jsm ; work         ;
++------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------+----------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------+
+; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |top|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[2]                             ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |top|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_minor_ver_reg[3]                    ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |top|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[0] ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |top|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg_internal[1]              ;
+; 34:1               ; 4 bits    ; 88 LEs        ; 60 LEs               ; 28 LEs                 ; Yes        ; |top|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[1]                      ;
+; 20:1               ; 4 bits    ; 52 LEs        ; 36 LEs               ; 16 LEs                 ; Yes        ; |top|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR[1]      ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Partition sld_hub:auto_hub ;
++-----------------------+------------------------------------------+
+; Type                  ; Count                                    ;
++-----------------------+------------------------------------------+
+; boundary_port         ; 49                                       ;
+; cycloneiii_ff         ; 79                                       ;
+;     CLR               ; 3                                        ;
+;     ENA               ; 16                                       ;
+;     ENA CLR           ; 21                                       ;
+;     ENA CLR SLD       ; 2                                        ;
+;     ENA SCLR          ; 5                                        ;
+;     ENA SLD           ; 9                                        ;
+;     SCLR              ; 7                                        ;
+;     plain             ; 16                                       ;
+; cycloneiii_lcell_comb ; 118                                      ;
+;     arith             ; 8                                        ;
+;         2 data inputs ; 8                                        ;
+;     normal            ; 110                                      ;
+;         0 data inputs ; 1                                        ;
+;         1 data inputs ; 6                                        ;
+;         2 data inputs ; 23                                       ;
+;         3 data inputs ; 31                                       ;
+;         4 data inputs ; 49                                       ;
+;                       ;                                          ;
+; Max LUT depth         ; 4.00                                     ;
+; Average LUT depth     ; 1.84                                     ;
++-----------------------+------------------------------------------+
+
+
++------------------------------------------------------------------------------+
+; Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|wb:wb_inst" ;
++-------+-------+----------+---------------------------------------------------+
+; Port  ; Type  ; Severity ; Details                                           ;
++-------+-------+----------+---------------------------------------------------+
+; flush ; Input ; Info     ; Stuck at GND                                      ;
++-------+-------+----------+---------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst"                  ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; r    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|mem:mem_inst"                                      ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                             ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; flush     ; Input  ; Info     ; Stuck at GND                                                                        ;
+; mem_busy  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; reg_write ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; exc_load  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; exc_store ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_2"                     ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                             ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; a[31..16] ; Input  ; Info     ; Stuck at GND                                                                        ;
+; r[31..16] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; z         ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|exec:exec_inst"                                        ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port          ; Type   ; Severity ; Details                                                                             ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; flush         ; Input  ; Info     ; Stuck at GND                                                                        ;
+; exec_op       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; reg_write_mem ; Input  ; Info     ; Stuck at GND                                                                        ;
+; reg_write_wr  ; Input  ; Info     ; Stuck at GND                                                                        ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|decode:decode_inst"                              ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+; Port    ; Type   ; Severity ; Details                                                                             ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+; flush   ; Input  ; Info     ; Stuck at GND                                                                        ;
+; exc_dec ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst"                                 ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port     ; Type   ; Severity ; Details                                                                             ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; flush    ; Input  ; Info     ; Stuck at GND                                                                        ;
+; mem_busy ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Virtual JTAG Settings                                                                                                                                                                                                        ;
++----------------+------------+------------------+----------+---------+-----------------+-------------------------+------------------------------------------------------------------------------------------------------------+
+; Instance Index ; Auto Index ; Index Reassigned ; IR Width ; Address ; USER1 DR length ; VIR capture instruction ; Hierarchy Location                                                                                         ;
++----------------+------------+------------------+----------+---------+-----------------+-------------------------+------------------------------------------------------------------------------------------------------------+
+; 42             ; NO         ; NO               ; 2        ; 0x10    ; 5               ; 0x0B                    ; dev:dev_inst|devices:inst|memory:mem|jtag_mem:jtag_mem_inst|jtag:jtag_inst|sld_virtual_jtag:virtual_jtag_0 ;
++----------------+------------+------------------+----------+---------+-----------------+-------------------------+------------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:07     ;
++----------------+--------------+
+
+
++-----------------------------------------------------------------------------------+
+; Analysis & Synthesis INI Usage                                                    ;
++-------------------------+---------------------------------------------------------+
+; Option                  ; Usage                                                   ;
++-------------------------+---------------------------------------------------------+
+; Initialization file:    ; /homes/d11775812/comp_arch/template/quartus/quartus.ini ;
+; sci_use_legacy_sld_flow ; on                                                      ;
++-------------------------+---------------------------------------------------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+    Info: Processing started: Mon Jun 29 08:24:20 2020
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off miriv -c miriv
+Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/alu.vhd
+    Info (12022): Found design unit 1: alu-rtl File: /homes/d11775812/comp_arch/template/vhdl/alu.vhd Line: 25
+    Info (12023): Found entity 1: alu File: /homes/d11775812/comp_arch/template/vhdl/alu.vhd Line: 16
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/wb.vhd
+    Info (12022): Found design unit 1: wb-rtl File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 29
+    Info (12023): Found entity 1: wb File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 10
+Info (12021): Found 2 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/mem_pkg.vhd
+    Info (12022): Found design unit 1: mem_pkg File: /homes/d11775812/comp_arch/template/vhdl/mem_pkg.vhd Line: 4
+    Info (12022): Found design unit 2: mem_pkg-body File: /homes/d11775812/comp_arch/template/vhdl/mem_pkg.vhd Line: 62
+Info (12021): Found 2 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/core_pkg.vhd
+    Info (12022): Found design unit 1: core_pkg File: /homes/d11775812/comp_arch/template/vhdl/core_pkg.vhd Line: 7
+    Info (12022): Found design unit 2: core_pkg-body File: /homes/d11775812/comp_arch/template/vhdl/core_pkg.vhd Line: 40
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/regfile.vhd
+    Info (12022): Found design unit 1: regfile-rtl File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 21
+    Info (12023): Found entity 1: regfile File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 8
+Info (12021): Found 1 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/op_pkg.vhd
+    Info (12022): Found design unit 1: op_pkg File: /homes/d11775812/comp_arch/template/vhdl/op_pkg.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/memu.vhd
+    Info (12022): Found design unit 1: memu-rtl File: /homes/d11775812/comp_arch/template/vhdl/memu.vhd Line: 41
+    Info (12023): Found entity 1: memu File: /homes/d11775812/comp_arch/template/vhdl/memu.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/mem.vhd
+    Info (12022): Found design unit 1: mem-rtl File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 51
+    Info (12023): Found entity 1: mem File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/fwd.vhd
+    Info (12022): Found design unit 1: fwd-rtl File: /homes/d11775812/comp_arch/template/vhdl/fwd.vhd Line: 23
+    Info (12023): Found entity 1: fwd File: /homes/d11775812/comp_arch/template/vhdl/fwd.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/fetch.vhd
+    Info (12022): Found design unit 1: fetch-rtl File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 31
+    Info (12023): Found entity 1: fetch File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/exec.vhd
+    Info (12022): Found design unit 1: exec-rtl File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 38
+    Info (12023): Found entity 1: exec File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/decode.vhd
+    Info (12022): Found design unit 1: decode-rtl File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 33
+    Info (12023): Found entity 1: decode File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd
+    Info (12022): Found design unit 1: ctrl-rtl File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 34
+    Info (12023): Found entity 1: ctrl File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd
+    Info (12022): Found design unit 1: pipeline-impl File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 24
+    Info (12023): Found entity 1: pipeline File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/core.vhd
+    Info (12022): Found design unit 1: core-impl File: /homes/d11775812/comp_arch/template/vhdl/core.vhd Line: 23
+    Info (12023): Found entity 1: core File: /homes/d11775812/comp_arch/template/vhdl/core.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file pll_altera.vhd
+    Info (12022): Found design unit 1: pll-SYN File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 52
+    Info (12023): Found entity 1: pll File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 42
+Info (12021): Found 2 design units, including 1 entities, in source file top.vhd
+    Info (12022): Found design unit 1: top-impl File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 15
+    Info (12023): Found entity 1: top File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 5
+Info (12021): Found 1 design units, including 1 entities, in source file bootloader.qxp
+    Info (12023): Found entity 1: dev File: /homes/d11775812/comp_arch/template/quartus/bootloader.qxp Line: -1
+Info (12021): Found 1 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/pipeline_pkg.vhd
+    Info (12022): Found design unit 1: pipeline_pkg File: /homes/d11775812/comp_arch/template/vhdl/pipeline_pkg.vhd Line: 11
+Info (12127): Elaborating entity "top" for the top level hierarchy
+Info (12128): Elaborating entity "pll" for hierarchy "pll:pll_inst" File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 70
+Info (12128): Elaborating entity "altpll" for hierarchy "pll:pll_inst|altpll:altpll_component" File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 137
+Info (12130): Elaborated megafunction instantiation "pll:pll_inst|altpll:altpll_component" File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 137
+Info (12133): Instantiated megafunction "pll:pll_inst|altpll:altpll_component" with the following parameter: File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 137
+    Info (12134): Parameter "clk0_divide_by" = "2"
+    Info (12134): Parameter "clk0_duty_cycle" = "50"
+    Info (12134): Parameter "clk0_multiply_by" = "3"
+    Info (12134): Parameter "clk0_phase_shift" = "0"
+    Info (12134): Parameter "compensate_clock" = "CLK0"
+    Info (12134): Parameter "gate_lock_signal" = "NO"
+    Info (12134): Parameter "inclk0_input_frequency" = "20000"
+    Info (12134): Parameter "intended_device_family" = "Cyclone II"
+    Info (12134): Parameter "invalid_lock_multiplier" = "5"
+    Info (12134): Parameter "lpm_hint" = "CBX_MODULE_PREFIX=pll_altera"
+    Info (12134): Parameter "lpm_type" = "altpll"
+    Info (12134): Parameter "operation_mode" = "NORMAL"
+    Info (12134): Parameter "port_activeclock" = "PORT_UNUSED"
+    Info (12134): Parameter "port_areset" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkbad0" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkbad1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkloss" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkswitch" = "PORT_UNUSED"
+    Info (12134): Parameter "port_configupdate" = "PORT_UNUSED"
+    Info (12134): Parameter "port_fbin" = "PORT_UNUSED"
+    Info (12134): Parameter "port_inclk0" = "PORT_USED"
+    Info (12134): Parameter "port_inclk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_locked" = "PORT_USED"
+    Info (12134): Parameter "port_pfdena" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phasecounterselect" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phasedone" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phasestep" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phaseupdown" = "PORT_UNUSED"
+    Info (12134): Parameter "port_pllena" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanaclr" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanclk" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanclkena" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scandata" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scandataout" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scandone" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanread" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanwrite" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk0" = "PORT_USED"
+    Info (12134): Parameter "port_clk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk2" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk3" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk4" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk5" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena0" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena2" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena3" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena4" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena5" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk0" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk2" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk3" = "PORT_UNUSED"
+    Info (12134): Parameter "valid_lock_multiplier" = "1"
+Info (12128): Elaborating entity "core" for hierarchy "core:core_inst" File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 77
+Info (12128): Elaborating entity "pipeline" for hierarchy "core:core_inst|pipeline:pipeline_inst" File: /homes/d11775812/comp_arch/template/vhdl/core.vhd Line: 26
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(51): object "exc_dec" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 51
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(58): object "exc_load" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 58
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(59): object "exc_store" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 59
+Info (12128): Elaborating entity "fetch" for hierarchy "core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 62
+Info (12128): Elaborating entity "decode" for hierarchy "core:core_inst|pipeline:pipeline_inst|decode:decode_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 77
+Info (12128): Elaborating entity "regfile" for hierarchy "core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst" File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 78
+Info (12128): Elaborating entity "exec" for hierarchy "core:core_inst|pipeline:pipeline_inst|exec:exec_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 93
+Warning (10036): Verilog HDL or VHDL warning at exec.vhd(59): object "alu_Z_2" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 59
+Warning (10036): Verilog HDL or VHDL warning at exec.vhd(66): object "int_wrdata" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 66
+Info (12128): Elaborating entity "alu" for hierarchy "core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1" File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 70
+Info (12128): Elaborating entity "mem" for hierarchy "core:core_inst|pipeline:pipeline_inst|mem:mem_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 115
+Warning (10036): Verilog HDL or VHDL warning at mem.vhd(91): object "int_D" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 91
+Warning (10036): Verilog HDL or VHDL warning at mem.vhd(92): object "int_M" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 92
+Info (12128): Elaborating entity "memu" for hierarchy "core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst" File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 95
+Info (12128): Elaborating entity "wb" for hierarchy "core:core_inst|pipeline:pipeline_inst|wb:wb_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 142
+Warning (10036): Verilog HDL or VHDL warning at wb.vhd(32): object "int_memresult" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 32
+Warning (10036): Verilog HDL or VHDL warning at wb.vhd(33): object "int_pc_old_in" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 33
+Info (12128): Elaborating entity "dev" for hierarchy "dev:dev_inst" File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 89
+Info (12205): 1 design partition requires Analysis and Synthesis
+    Info (12210): Partition "Top" requires synthesis because its netlist type is Source File
+Info (12208): 2 design partitions do not require synthesis
+    Info (12227): Partition "dev:dev_inst" does not require synthesis because its netlist was imported from a bottom-up project
+    Info (12229): Partition "sld_hub:auto_hub" does not require synthesis because there were no relevant design changes
+Warning (12240): Synthesis found one or more imported partitions that will be treated as black boxes for timing analysis during synthesis
+Info (281020): Starting Logic Optimization and Technology Mapping for Top Partition
+Info (13000): Registers with preset signals will power-up high File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 39
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Info (286031): Timing-Driven Synthesis is running on partition "Top"
+Info (17049): 9 registers lost all their fanouts during netlist optimizations.
+Info (21057): Implemented 4014 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 3 input pins
+    Info (21059): Implemented 1 output pins
+    Info (21061): Implemented 4008 logic cells
+    Info (21065): Implemented 1 PLLs
+    Info (21071): Implemented 1 partitions
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 10 warnings
+    Info: Peak virtual memory: 1150 megabytes
+    Info: Processing ended: Mon Jun 29 08:24:38 2020
+    Info: Elapsed time: 00:00:18
+    Info: Total CPU time (on all processors): 00:00:27
+
+

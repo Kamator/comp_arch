@@ -130,7 +130,7 @@ begin
 			int_aluresult_in <= aluresult_in; 
 			int_wrdata <= wrdata; 	
 
-		elsif stall = '1' then 
+		elsif rising_edge(clk) and stall = '1' then 
 			int_mem_op.mem.memread <= '0';
 			int_mem_op.mem.memwrite <= '0'; 
 
