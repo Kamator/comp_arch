@@ -37,7 +37,7 @@ architecture rtl of decode is
         clk              : in  std_logic;
         reset            : in  std_logic;
         stall            : in  std_logic;
-        rdaddr1, rdaddr2 : in  reg_adr_type;
+        rdaddr1, rdaddr2 : in  reg_adr_type := (others => '0');
         rddata1, rddata2 : out data_type;
         wraddr           : in  reg_adr_type;
         wrdata           : in  data_type;
@@ -53,6 +53,8 @@ architecture rtl of decode is
  signal regwrite : std_logic;
  signal int_pc_in : pc_type; 
  signal int_pc_out : pc_type;  
+ signal int_rdaddr1 : reg_adr_type; 
+ signal int_rdaddr2 : reg_adr_type; 
 
  constant fct7_zeros : std_logic_vector(6 downto 0) := (others => '0');
  constant OPC_LOAD : std_logic_vector(6 downto 0) := "0000011";
@@ -112,7 +114,6 @@ begin
 		wb_op <= WB_NOP;
 		exc_dec <= '0';
 		pc_out <= int_pc;
-
 
 		case opcode is
 			when OPC_OP =>

@@ -39,7 +39,7 @@ begin
 		if reset = '0' then 
 			int_pc_cnt <= std_logic_vector(to_signed(-4,pc_type'length)); 
 			int_instr <= NOP_INST;
-			
+		 	
 		elsif stall = '1' then 
 			--literally do nothing
 
@@ -53,7 +53,7 @@ begin
 	
 	end process; 
 
-	logic : process(int_pc_cnt,mem_in, pc_in, pcsrc, int_instr)
+	logic : process(int_pc_cnt,mem_in, pc_in, pcsrc, int_instr, reset)
 	begin
 
 		int_pc_cnt_nxt <= std_logic_vector(unsigned(int_pc_cnt) + 4);

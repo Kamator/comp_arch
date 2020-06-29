@@ -22,46 +22,110 @@ architecture rtl of regfile is
     type REG_MEMORY is array (0 to REG_COUNT-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
     signal reg_file : REG_MEMORY := (others => (others => '0'));
     signal int_rdaddr1, int_rdaddr2 : reg_adr_type := (others => '0');
-	 signal latch_rdaddr1, latch_rdaddr2 : reg_adr_type := (others => '0');
-	 signal int_rddata1, int_rddata2 : data_type := (others => '0');
-	 constant zeros : std_logic_vector(reg_adr_type'range) := (others => '0');
-	 constant x_addr : std_logic_vector(reg_adr_type'range) := (others => 'X');
+
+    constant zeros : std_logic_vector(reg_adr_type'range) := (others => '0');
+    constant x_addr : std_logic_vector(reg_adr_type'range) := (others => 'X');
+    signal reg_data1, reg_data2 : data_type; 
+    signal reg_data1_nxt, reg_data2_nxt : data_type; 
+    signal int_wrdata : data_type; 
+    signal int_wraddr : reg_adr_type; 
+
+    signal first_one : boolean := true; 
+
 begin
     sync : process(reset, clk, stall)
     begin
         if reset = '0' then
             reg_file <= (others => (others => '0'));
-            latch_rdaddr1 <= (others => '0');
-				latch_rdaddr2 <= (others => '0');
+	    reg_data1 <= (others => '0'); 
+	    reg_data2 <= (others => '0');
+		
+	    int_rdaddr1 <= (others => '0'); 
+	    int_rdaddr2 <= (others => '0'); 		
+ 
         elsif rising_edge(clk) and stall = '0' then --stall causes the circuit not to latch input values
-            latch_rdaddr1 <= int_rdaddr1;
-            latch_rdaddr2 <= int_rdaddr2;
-				if regwrite = '1' and wraddr /= zeros then
-					reg_file(to_integer(unsigned(wraddr))) <= wrdata;
-				else
-					reg_file(to_integer(unsigned(zeros))) <= (others => '0');
-				end if;    
-        end if;
+		reg_data1 <= reg_data1_nxt; 
+		reg_data2 <= reg_data2_nxt; 
+
+		if first_one then 
+			int_rdaddr1 <= (others => '0'); 
+			int_rdaddr2 <= (others => '0'); 		
+			first_one <= false; 
+		else 
+			int_rdaddr1 <= rdaddr1; 
+			int_rdaddr2 <= rdaddr2; 
+		end if; 
+
+		int_wrdata <= wrdata; 
+		int_wraddr <= wraddr; 
+
+		if regwrite = '1' and wraddr /= zeros then
+			reg_file(to_integer(unsigned(wraddr))) <= wrdata;
+		elsif regwrite = '1' then
+			reg_file(to_integer(unsigned(zeros))) <= (others => '0');
+		end if;  
+        
+	elsif rising_edge(clk) and stall = '1' then 
+		
+		reg_data1 <= reg_data1_nxt; 
+		reg_data2 <= reg_data2_nxt; 
+
+	end if; 
     
     end process;
-	 
-	 int_rdaddr1 <= rdaddr1;
-	 int_rdaddr2 <= rdaddr2;
-	 rddata1 <= int_rddata1;
-	 rddata2 <= int_rddata2;
-    
-    reg_file_read : process(all)
+
+    reg_file_read : process(int_rdaddr1, int_rdaddr2, int_wrdata, int_wraddr, reg_data1, reg_data2, reg_file, stall, regwrite)
     begin
-		if stall = '0' and int_rdaddr1 /= x_addr and int_rdaddr2 /= x_addr and reset = '1' then
-			int_rddata1 <= reg_file(to_integer(unsigned(int_rdaddr1)));
-			int_rddata2 <= reg_file(to_integer(unsigned(int_rdaddr2)));
-		  
-			if int_rdaddr1 = wraddr and int_rdaddr1 /= zeros and regwrite = '1' then
-				int_rddata1 <= wrdata;
-			elsif int_rdaddr2 = wraddr and int_rdaddr2 /= zeros and regwrite = '1' then
-            int_rddata2 <= wrdata;
-			end if;
-		end if;		
+
+		
+			--read
+			rddata1 <= reg_file(to_integer(unsigned(int_rdaddr1))); 
+			rddata2 <= reg_file(to_integer(unsigned(int_rdaddr2))); 
+
+			if stall = '0' then 
+				reg_data1_nxt <= reg_file(to_integer(unsigned(int_rdaddr1))); 
+				reg_data2_nxt <= reg_file(to_integer(unsigned(int_rdaddr2))); 
+			else 
+				reg_data1_nxt <= reg_data1; 
+				reg_data2_nxt <= reg_data2; 
+			end if; 
+		
+			if stall = '0' then
+			
+				if int_rdaddr1 = "00000" then 
+					rddata1 <= (others => '0'); 
+				end if; 
+
+				if int_rdaddr2 = "00000" then
+					rddata2 <= (others => '0'); 
+				end if; 
+
+				if int_rdaddr1 = int_wraddr and regwrite = '1' then 
+					rddata1 <= int_wrdata; 
+				        reg_data1_nxt <= int_wrdata; 
+			
+					if int_rdaddr1 = "00000" then 
+						rddata1 <= (others => '0');
+					end if; 
+				
+				end if; 
+
+				if int_rdaddr2 = int_wraddr and regwrite = '1' then 
+					rddata2 <= int_wrdata; 
+					reg_data1_nxt <= int_wrdata; 
+
+					if int_rdaddr2 = "00000" then 
+						rddata2 <= (others => '0');
+					end if; 
+				end if; 
+	
+			else 
+				--keep old values if stalled
+	
+				rddata1 <= reg_data1; 
+				rddata2 <= reg_data2; 
+			end if; 
+
     end process;
     
 end architecture;
