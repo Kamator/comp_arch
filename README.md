@@ -1,7 +1,4 @@
 # comp_arch
-for digital design laboratory course -> third and fourth exercise
-<<<<<<< HEAD
-anna balla
-=======
-philipp Geisler
->>>>>>> 137ae8fd2b5cbc6cf2f1249fc880ddd33403e069
+This git repo contains a minimal RISC-V implementation. It implements the majority (but not all) instructions of the RV321 Base Integer Instruction Set without any
+extensions.
+Note that RISC-V is a load-store architecture, where memory is addressed as 8-bit bytes using little-endian ordering. 
