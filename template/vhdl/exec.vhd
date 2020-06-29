@@ -119,7 +119,14 @@ begin
 
 	logic : process(int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2)
 	begin
-		
+	
+		--The signals exec_op , reg_write_mem and reg_write_wr are irrelevant for this 
+		--assignment and can be ignored here.
+
+		exec_op <= EXEC_NOP;
+
+		--As stated above, see page 22 of assignment three.
+	
 		if int_op.aluop = ALU_NOP then 
 			pc_old_out <= (others => '0'); 
 			pc_new_out <= (others => '0');

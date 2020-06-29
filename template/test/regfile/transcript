@@ -1,5 +1,5 @@
 # vsim -c -t ps work.tb -quiet -do "run 5us;quit -f" 
-# Start time: 12:09:50 on Jun 22,2020
+# Start time: 09:54:56 on Jun 29,2020
 # ** Note: (vsim-3812) Design is being optimized...
 # //  Questa Sim
 # //  Version 10.6c_1 linux Sep 15 2017
@@ -110,5 +110,5 @@
 # 
 #    Time: 325 ns  Iteration: 0  Instance: /tb
 # quit -f
-# End time: 12:09:52 on Jun 22,2020, Elapsed time: 0:00:02
+# End time: 09:54:57 on Jun 29,2020, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0

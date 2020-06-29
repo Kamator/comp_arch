@@ -80,7 +80,7 @@ add wave -noupdate -divider -height 40 wb
 #add wave -noupdate -expand -group wb /tb_cpu/dut/wb_inst/flush
 add wave -noupdate -expand -group wb /tb_cpu/dut/pipeline_inst/wb_inst/int_op
 add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/aluresult
-add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/int_memresult
+#add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/int_memresult
 add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/memresult
 add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/int_pc_old_in
 #add wave -noupdate -expand -group wb -childformat {{/tb_cpu/dut/wb_inst/reg_write.reg -radix unsigned} {/tb_cpu/dut/wb_inst/reg_write.data -radix hexadecimal}} -expand -subitemconfig {/tb_cpu/dut/wb_inst/reg_write.reg {-radix unsigned} /tb_cpu/dut/wb_inst/reg_write.data {-radix hexadecimal}} /tb_cpu/dut/wb_inst/reg_write

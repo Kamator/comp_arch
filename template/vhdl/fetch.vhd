@@ -77,6 +77,13 @@ begin
 			mem_out.byteena <= (others => '1'); 
 			mem_out.wrdata <= (others => '0'); 
 
+			if pcsrc = '1' then 
+				--if the next instruction has to be branched
+				mem_out.address <= pc_in(15 downto 2);
+
+			end if; 
+	
+
 			--pass on to instr
 			instr <= to_little_endian(mem_in.rddata); 
 		end if;  
