@@ -664,6 +664,7 @@ begin
 							exec_op.readdata2 <= int_readdata2;
 						end if;		
 						wb_op.src <= WBS_OPC;
+						wb_op.write <= '1';
 						mem_op.branch <= BR_CND;
 					when "001" =>    -- B BNE if(rs1 != rs2) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_SUB;
@@ -683,6 +684,7 @@ begin
 							exec_op.readdata2 <= int_readdata2;
 						end if;		
                   wb_op.src <= WBS_OPC;
+						wb_op.write <= '1';
 						mem_op.branch <= BR_CND;
 					when "100" =>    -- B BLT if(rs1\+- < rs2\+-) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
@@ -702,6 +704,7 @@ begin
 							exec_op.readdata2 <= int_readdata2;
 						end if;		
                   wb_op.src <= WBS_OPC;
+						wb_op.write <= '1';
 						mem_op.branch <= BR_CND;
 					when "101" =>    -- B BGE if(rs1\+- >= rs2\+- pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
@@ -721,6 +724,7 @@ begin
 							exec_op.readdata2 <= int_readdata2;
 						end if;		
 						wb_op.src <= WBS_OPC;
+						wb_op.write <= '1';
 						mem_op.branch <= BR_CND;
 					when "110" =>    -- B BLTU if(rs1\0 < rs2\0) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
@@ -740,6 +744,7 @@ begin
 							exec_op.readdata2 <= int_readdata2;
 						end if;		
 						wb_op.src <= WBS_OPC;
+						wb_op.write <= '1';
 						mem_op.branch <= BR_CND;
 					when "111" =>    -- B BGEU if(rs1\0 >= rs2\0) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
@@ -759,6 +764,7 @@ begin
 							exec_op.readdata2 <= int_readdata2;
 						end if;		
 						wb_op.src <= WBS_OPC;
+						wb_op.write <= '1';
 						mem_op.branch <= BR_CND;
 					when others => exc_dec <= '1';
 				end case;	

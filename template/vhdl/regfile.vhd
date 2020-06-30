@@ -24,7 +24,6 @@ architecture rtl of regfile is
     signal int_rdaddr1, int_rdaddr2 : reg_adr_type := (others => '0');
 
     constant zeros : std_logic_vector(reg_adr_type'range) := (others => '0');
-    constant x_addr : std_logic_vector(reg_adr_type'range) := (others => 'X');
     signal reg_data1, reg_data2 : data_type; 
     signal reg_data1_nxt, reg_data2_nxt : data_type; 
     signal int_wrdata : data_type; 
@@ -92,11 +91,11 @@ begin
 		
 			if stall = '0' then
 			
-				if int_rdaddr1 = "00000" then 
+				if int_rdaddr1 = zeros then 
 					rddata1 <= (others => '0'); 
 				end if; 
 
-				if int_rdaddr2 = "00000" then
+				if int_rdaddr2 = zeros then
 					rddata2 <= (others => '0'); 
 				end if; 
 
@@ -104,7 +103,7 @@ begin
 					rddata1 <= int_wrdata; 
 				        reg_data1_nxt <= int_wrdata; 
 			
-					if int_rdaddr1 = "00000" then 
+					if int_rdaddr1 = zeros then 
 						rddata1 <= (others => '0');
 					end if; 
 				
@@ -114,7 +113,7 @@ begin
 					rddata2 <= int_wrdata; 
 					reg_data1_nxt <= int_wrdata; 
 
-					if int_rdaddr2 = "00000" then 
+					if int_rdaddr2 = zeros then 
 						rddata2 <= (others => '0');
 					end if; 
 				end if; 
