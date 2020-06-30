@@ -1,7 +1,6 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
 add wave -position end  sim:/fetch_tb/*
-add wave -position end  sim:/fetch_tb/uut/prg_cnt*
 add wave -position end  sim:/fetch_tb/uut/int_instr
 add wave -position end  sim:/fetch_tb/uut/int_pc_cnt
 
