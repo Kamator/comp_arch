@@ -19,8 +19,10 @@ add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst
 add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/rddata1
 add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/rddata2
 add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/reg_file
-add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/tmp_rdaddr1
-add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/tmp_rdaddr2
+add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/int_rdaddr1
+add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/int_rdaddr2
+#add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/int_rddata1
+#add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/int_rddata2
 #add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/wraddr
 #add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/wrdata
 add wave -noupdate -divider -height 40 decode
