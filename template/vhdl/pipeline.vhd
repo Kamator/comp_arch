@@ -58,6 +58,19 @@ architecture impl of pipeline is
 	signal exc_load : std_logic; 
 	signal exc_store : std_logic; 
 
+	--stall and flush logic
+	signal stall_fetch : std_logic; 
+	signal stall_dec : std_logic; 
+	signal stall_exec : std_logic;
+	signal stall_mem : std_logic; 
+	signal stall_wb : std_logic; 
+	
+	signal flush_fetch : std_logic; 
+	signal flush_dec : std_logic; 
+	signal flush_exec : std_logic; 
+	signal flush_mem : std_logic; 
+	signal flush_wb : std_logic; 
+	
 	
 	component fetch is 
 	port (
@@ -196,15 +209,64 @@ architecture impl of pipeline is
     	);
 	end component wb;
 
+	component ctrl is
+	port(
+ 	clk, reset  : in std_logic;
+        stall       : in std_logic;
+
+        stall_fetch : out std_logic;
+        stall_dec   : out std_logic;
+        stall_exec  : out std_logic;
+        stall_mem   : out std_logic;
+        stall_wb    : out std_logic;
+
+        flush_fetch : out std_logic;
+        flush_dec   : out std_logic;
+        flush_exec  : out std_logic;
+        flush_mem   : out std_logic;
+        flush_wb    : out std_logic;
+
+        -- from FWD 
+        wb_op_mem   : in  wb_op_type;
+        exec_op     : in  exec_op_type;
+
+        pcsrc_in : in std_logic;
+        pcsrc_out : out std_logic
+
+	); 
+	end component; 
 
 begin
+
+	ctrl_inst : ctrl
+	port map(
+		clk => clk,
+		reset => reset, 
+		stall => stall,
+		stall_fetch => stall_fetch,
+		stall_dec => stall_dec,
+		stall_exec => stall_exec,
+		stall_mem => stall_mem,
+		stall_wb => stall_wb,
+		flush_fetch => flush_fetch,
+		flush_dec => flush_dec,
+		flush_exec => flush_exec,
+		flush_mem => flush_mem,
+		flush_wb => flush_wb,
+		--until fwd is finished
+		wb_op_mem => WB_NOP,
+		exec_op => EXEC_NOP, 
+		--until fwd is finished
+		pcsrc_in => pcsrc,
+		pcsrc_out => open
+	); 
 
 	fetch_inst : fetch
 	port map(
 		clk => clk,
 		reset => reset,
-		stall => stall, 
-		flush => '0',
+		stall => stall_fetch, 
+		flush => flush_fetch,
 		mem_busy => open,
 		pcsrc => pcsrc,
 		pc_in => pc_new_from_mem,
@@ -218,8 +280,8 @@ begin
 	port map(
 		clk => clk,
 		reset => reset,
-		stall => stall,
-		flush => '0',
+		stall => stall_dec,
+		flush => flush_dec,
 		pc_in => pc_from_fetch,
 		instr => instr,
 		reg_write => reg_write,
@@ -234,8 +296,8 @@ begin
 	port map(
 		clk => clk,
 		reset => reset,
-		stall => stall,
-		flush => '0',
+		stall => stall_exec,
+		flush => flush_exec,
 		op => exec_op,
 		pc_in => pc_from_decode,
 		pc_old_out => pc_old_from_ex,
@@ -256,8 +318,8 @@ begin
 	port map(
 		clk => clk,
 		reset => reset,
-		stall => stall,
-		flush => '0',
+		stall => stall_mem,
+		flush => flush_mem,
 		mem_busy => open,
 		mem_op => mem_op_from_ex,
 		wbop_in => wb_op_from_ex,
@@ -283,8 +345,8 @@ begin
 	port map(
 		clk => clk,
 		reset => reset,
-		stall => stall,
-		flush => '0',
+		stall => stall_wb,
+		flush => flush_wb,
 		op => wb_op_from_mem,
 		aluresult => aluresult_from_mem,
 		memresult => memresult,

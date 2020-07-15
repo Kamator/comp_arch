@@ -53,7 +53,7 @@ begin
 	
 	end process; 
 
-	logic : process(int_pc_cnt,mem_in, pc_in, pcsrc, int_instr, reset)
+	logic : process(int_pc_cnt,mem_in, pc_in, pcsrc, int_instr, reset, flush)
 	begin
 
 		int_pc_cnt_nxt <= std_logic_vector(unsigned(int_pc_cnt) + 4);
@@ -70,7 +70,8 @@ begin
 
 		mem_busy <= mem_in.busy; 
 
-		if mem_in.busy = '0' then
+		if mem_in.busy = '0' and flush = '0' then
+			--added "and flush = '0'"
 			--pass new request with next pc
 			mem_out.address <= std_logic_vector(unsigned(int_pc_cnt(15 downto 2))+1); 
 			mem_out.rd <= '1'; 

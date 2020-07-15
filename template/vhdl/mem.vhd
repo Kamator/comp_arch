@@ -120,6 +120,11 @@ begin
 			int_mem_op <= MEM_NOP; 
 			int_D <= MEM_IN_NOP; 
 			int_M <= MEM_OUT_NOP; 
+			int_aluresult_in <= (others => '0');
+			int_wbop_in <= WB_NOP; 
+			int_pc_new_in <= (others => '0'); 
+			int_pc_old_in <= (others => '0');
+			int_wrdata <= (others => '0'); 
 
 		elsif rising_edge(clk) and stall = '0' and flush = '0' then 
 			--sync
@@ -144,7 +149,7 @@ begin
 		wbop_out <= int_wbop_in; 
 		pc_old_out <= int_pc_old_in; 
 		aluresult_out <= int_aluresult_in; 
-
+		
 		reg_write.reg <= int_wbop_in.rd; 
 		reg_write.write <= '0'; 
 		reg_write.data <= (others => '0');
@@ -154,7 +159,8 @@ begin
 		memresult <= mem_in.rddata;
 
 		if int_mem_op.branch = BR_BR or int_mem_op.branch = BR_CND or int_mem_op.branch = BR_CNDI then
-			if to_integer(unsigned(int_aluresult_in)) /= 0 then
+			if to_integer(unsigned(aluresult_in)) /= 0 then
+				--int_aluresult_in --> aluresult_in
 				pcsrc <= '1';
 			else 
 				pcsrc <= '0'; 

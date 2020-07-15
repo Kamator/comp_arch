@@ -32,5 +32,99 @@ entity ctrl is
 end ctrl;
 
 architecture rtl of ctrl is
+
+	signal int_wb_op_mem : wb_op_type; 
+	signal int_exec_op   : exec_op_type; 
+	signal int_pcsrc_in  : std_logic; 
+	signal critical_reg  : reg_adr_type;
+	signal st_cnt, st_cnt_nxt : unsigned(7 downto 0);  
 begin
+
+	sync_p : process(clk, reset, stall)
+	begin
+		if reset = '0' then 
+			int_wb_op_mem <= WB_NOP; 
+			int_exec_op <= EXEC_NOP; 
+			int_pcsrc_in <= '0'; 
+			critical_reg <= (others => '0'); 
+			st_cnt <= (others => '0'); 
+	
+		elsif stall = '1' then 
+			int_wb_op_mem <= WB_NOP; 
+			int_exec_op <= EXEC_NOP; 
+			int_pcsrc_in <= '0'; 	
+			critical_reg <= (others => '0'); 
+			st_cnt <= (others => '0'); 
+
+		elsif rising_edge(clk) and reset = '1' and stall = '0' then 
+			int_wb_op_mem <= wb_op_mem; 
+			int_exec_op <= exec_op; 
+			int_pcsrc_in <= pcsrc_in; 	
+			critical_reg <= wb_op_mem.rd; 
+			st_cnt <= st_cnt_nxt; 		
+		
+		end if; 
+	end process; 
+
+	logic : process(int_wb_op_mem, int_exec_op, int_pcsrc_in, critical_reg, st_cnt, stall)
+	begin
+		--default values
+		stall_fetch <= '0'; 
+		stall_dec   <= '0'; 	
+		stall_exec  <= '0'; 
+		stall_mem   <= '0'; 
+		stall_wb    <= '0'; 
+
+		flush_fetch <= '0'; 
+		flush_dec   <= '0'; 
+		flush_exec  <= '0'; 
+		flush_mem   <= '0'; 
+		flush_wb    <= '0'; 
+
+		pcsrc_out <= int_pcsrc_in; 
+
+		--counter
+		st_cnt_nxt <= st_cnt; 
+
+		if int_pcsrc_in = '1' then 
+			--branch hazard - flush fetch, dec, exec and mem
+			flush_fetch <= '1'; 
+			flush_dec   <= '1'; 
+			flush_exec  <= '1'; 
+			flush_mem   <= '1'; 
+		end if; 
+		
+		--pipeline needs to be stalled if exec works with an register that gets a new value
+		--via mem and wb at the same time -- therefore stall pipeline until value was rec
+		
+		if (int_exec_op.rs1 = critical_reg or int_exec_op.rs2 = critical_reg) then 
+			--check if its also written to 
+
+			if int_wb_op_mem.write = '1' then 
+				--stall is necessary 
+				--stall 3 cycles 
+				
+				if st_cnt < 4 then 
+					st_cnt_nxt <= st_cnt + 1; 
+					stall_fetch <= '1'; 
+					stall_dec   <= '1'; 	
+					stall_exec  <= '1'; 
+					stall_mem   <= '1'; 
+					stall_wb    <= '1'; 		
+				else 
+					st_cnt_nxt <= (others => '0'); 
+				end if; 
+			
+			end if; 
+		end if;
+
+		if stall = '1' then  
+			stall_fetch <= '1'; 
+			stall_dec   <= '1'; 	
+			stall_exec  <= '1'; 
+			stall_mem   <= '1'; 
+			stall_wb    <= '1'; 	
+		end if;  
+
+	end process; 
 end architecture;
