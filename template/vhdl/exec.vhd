@@ -29,9 +29,9 @@ entity exec is
         wbop_out      : out wb_op_type;  --forwarded to WB stage
 
         -- FWD
-        exec_op       : out exec_op_type;
-        reg_write_mem : in  reg_write_type;
-        reg_write_wr  : in  reg_write_type
+        exec_op       : out exec_op_type; 
+        reg_write_mem : in  reg_write_type; --register to be written by current instr. in mem stage
+        reg_write_wr  : in  reg_write_type --register to be written by current instr. in wb stage
     );
 end exec;
 
@@ -65,6 +65,9 @@ architecture rtl of exec is
 	signal int_wbop_in : wb_op_type;  
 	signal int_wrdata : data_type; 
 
+	signal int_reg_wr_mem : reg_write_type;
+	signal int_reg_wr_wr : reg_write_type;
+
 begin
 
 	alu_inst_1 : alu 
@@ -95,6 +98,8 @@ begin
 			int_memop_in <= MEM_NOP; 
 			int_wbop_in <= WB_NOP; 
 			int_wrdata <= (others => '0'); 
+			int_reg_wr_mem <= REG_WRITE_NOP;
+			int_reg_wr_wr <= REG_WRITE_NOP;
 
 		elsif flush = '1' then 
 			--flush signal
@@ -104,6 +109,8 @@ begin
 			int_memop_in <= MEM_NOP; 
 			int_wbop_in <= WB_NOP; 
 			int_wrdata <= (others => '0'); 
+			int_reg_wr_mem <= REG_WRITE_NOP;
+			int_reg_wr_wr <= REG_WRITE_NOP;
 
 		elsif rising_edge(clk) and stall = '0' then 
 			--put through directly to ALU, ALU 1 control signals 
@@ -112,12 +119,14 @@ begin
 			int_memop_in <= memop_in; 
 			int_wbop_in <= wbop_in; 
 			int_wrdata <= (others => '0'); 
+			int_reg_wr_mem <= reg_write_mem;
+			int_reg_wr_wr <= reg_write_wr;
 		end if; 
 
 	end process; 
 	
 
-	logic : process(int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2)
+	logic : process(int_reg_wr_mem, int_reg_wr_wr, int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2)
 	begin
 	
 		--The signals exec_op , reg_write_mem and reg_write_wr are irrelevant for this 
@@ -126,7 +135,6 @@ begin
 		exec_op <= EXEC_NOP;
 
 		--As stated above, see page 22 of assignment three.
-	
 		if int_op.aluop = ALU_NOP then 
 			pc_old_out <= (others => '0'); 
 			pc_new_out <= (others => '0');
@@ -139,8 +147,7 @@ begin
 			--no latches
 			alu_op <= int_op.aluop; 
 			memop_out <= int_memop_in; 
-			wbop_out <= int_wbop_in; 
-	
+			wbop_out <= int_wbop_in;	
 		else  
 
 			--alu operation 
@@ -150,7 +157,7 @@ begin
 			--forward directly
 			pc_old_out <= int_pc_in; 
 			memop_out <= int_memop_in; 
-			wbop_out <= int_wbop_in; 	
+			wbop_out <= int_wbop_in; 
 
 			wrdata <= (others => '0'); 
 
@@ -169,12 +176,34 @@ begin
 
 		--R-Type instructions
 		if int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '0' then 
+		   if int_reg_wr_mem.write = '1' then
+				alu_A <= int_reg_wr_mem.data;
+		   elsif int_reg_wr_wr.write = '1' then
+				alu_A <= int_reg_wr_wr.data;
+		   else
 				alu_A <= int_op.readdata1;
-				alu_B <= int_op.readdata2;  
+		   end if;
 
+		   if int_reg_wr_mem.write = '1' then
+				alu_B <= int_reg_wr_mem.data;
+		   elsif int_reg_wr_wr.write = '1' then
+				alu_B <= int_reg_wr_wr.data;
+		   else
+				alu_B <= int_op.readdata2;  
+		   end if;
+				
 		--I-Type Instructions
 		elsif int_op.imm_flag = '1' and int_op.store_flag = '0' and int_op.pc_flag = '0' then
-				alu_A <= int_op.readdata1; 									     alu_B <= int_op.imm; 
+			
+		  if int_reg_wr_mem.write = '1' then
+				alu_A <= int_reg_wr_mem.data;
+		  elsif int_reg_wr_wr.write = '1' then
+				alu_A <= int_reg_wr_wr.data;
+		  else
+		        alu_A <= int_op.readdata1;
+		  end if;							     
+		  
+ 		  alu_B <= int_op.imm; 
 		  
 				if int_op.imm = x"00000000" and int_op.rs1 = "00000" then 
 					--NOP Instruction
@@ -184,16 +213,36 @@ begin
 		--S-Type Instructions
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '1' and int_op.pc_flag = '0' then
 				--address where to store that data
-				alu_A <= int_op.readdata1; 
-				alu_B <= int_op.imm; 
+	      if int_reg_wr_mem.write = '1' then
+				alu_A <= int_reg_wr_mem.data;
+		   elsif int_reg_wr_wr.write = '1' then
+				alu_A <= int_reg_wr_wr.data;
+		   else
+				alu_A <= int_op.readdata1;
+		   end if;
+
+		   alu_B <= int_op.imm; 
  
-				--value thats stored by memory stage
-				wrdata <= int_op.readdata2; 
+		   --value thats stored by memory stage
+	           wrdata <= int_op.readdata2; 
 		
 		--B-Type Instructions
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '1' then
-				alu_A <= int_op.readdata1; 
-				alu_B <= int_op.readdata2; 
+	      if int_reg_wr_mem.write = '1' then
+				alu_A <= int_reg_wr_mem.data;
+		   elsif int_reg_wr_wr.write = '1' then
+				alu_A <= int_reg_wr_wr.data;
+		   else
+				alu_A <= int_op.readdata1;
+		   end if;
+
+		   if int_reg_wr_mem.write = '1' then
+				alu_B <= int_reg_wr_mem.data;
+		   elsif int_reg_wr_wr.write = '1' then
+				alu_B <= int_reg_wr_wr.data;
+		   else
+				alu_B <= int_op.readdata2;  
+		   end if;
 				
 				if int_op.aluop = ALU_SUB then
 					--beq/neq instruction
@@ -225,8 +274,15 @@ begin
 
 		--UJ - Instructions (JALR)
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '1' and int_op.pc_flag = '1' then
-				alu_A <= int_op.readdata1; 
-				alu_B <= int_op.imm; 
+				 if int_reg_wr_mem.write = '1' then
+				   alu_A <= int_reg_wr_mem.data;
+		   	 elsif int_reg_wr_wr.write = '1' then
+				   alu_A <= int_reg_wr_wr.data;
+			    else
+				   alu_A <= int_op.readdata1;
+		   	 end if;
+
+				 alu_B <= int_op.imm; 
 
 				--pc+4 stored in rd
 				wrdata(15 downto 0) <= alu_R_2(15 downto 0); 
