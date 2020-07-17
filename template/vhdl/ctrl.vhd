@@ -23,8 +23,8 @@ entity ctrl is
         flush_wb    : out std_logic;
 
         -- from FWD
-        wb_op_mem   : in  wb_op_type;
-        exec_op     : in  exec_op_type;
+        wb_op_mem   : in  wb_op_type; --wb thats currently in mem stage
+        exec_op     : in  exec_op_type; --whats currently in exec stage
 
         pcsrc_in : in std_logic;
         pcsrc_out : out std_logic
@@ -94,9 +94,11 @@ begin
 			flush_mem   <= '1'; 
 		end if; 
 		
-		--pipeline needs to be stalled if exec works with an register that gets a new value
-		--via mem and wb at the same time -- therefore stall pipeline until value was rec
-		
+		--pipeline needs to be stalled (verzögert) if a load instruction saves a value
+		--into a register that is accessed in the next instruction. Then, the pipeline needs
+		--to be stalled for one cycle so that the value can be passed from mem to fwd and 
+		--back to exec
+
 		if (int_exec_op.rs1 = critical_reg or int_exec_op.rs2 = critical_reg) then 
 			--check if its also written to 
 
@@ -116,7 +118,7 @@ begin
 				end if; 
 			
 			end if; 
-		end if;
+		end if; */
 
 		if stall = '1' then  
 			stall_fetch <= '1'; 
