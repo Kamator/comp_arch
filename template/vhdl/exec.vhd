@@ -45,7 +45,7 @@ architecture rtl of exec is
         	Z    : out std_logic
 	    );
 	end component; 
-
+	
 	--ALU Signals /
 	signal alu_op: alu_op_type; 
 	signal alu_A, alu_B : data_type; 
@@ -67,7 +67,7 @@ architecture rtl of exec is
 
 	signal int_reg_wr_mem : reg_write_type;
 	signal int_reg_wr_wr : reg_write_type;
-
+	
 begin
 
 	alu_inst_1 : alu 
@@ -87,7 +87,7 @@ begin
 		R => alu_R_2,
 		Z => alu_Z_2
 	); 
-
+	
 	sync_p : process(clk, reset, flush, stall)
 	begin
 		if reset = '0' then 
