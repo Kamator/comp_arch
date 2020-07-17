@@ -166,6 +166,14 @@ begin
 				pcsrc <= '0'; 
 			end  if; 
 		end if; 
-		
+	
+		--if its a load instruction then pass the value thats received to fwd. after that it
+		--is passed on to exec (pas via forward) 
+	
+		if int_mem_op.mem.memread = '1' then 
+				reg_write.write <= '1'; 
+				reg_write.data  <= mem_in.rddata; 		
+		end if; 	
+
 	end process; 	
 end architecture;

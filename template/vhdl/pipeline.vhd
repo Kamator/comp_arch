@@ -47,7 +47,6 @@ architecture impl of pipeline is
 	signal mem_data_out : mem_out_type; 
 	signal mem_data_in  : mem_in_type; 
 	signal reg_write : reg_write_type; 
-	signal stall : std_logic; 
 	signal exc_dec : std_logic; 
 	signal aluresult : data_type; 
 	signal wrdata : data_type; 
@@ -71,6 +70,7 @@ architecture impl of pipeline is
 	signal flush_mem : std_logic; 
 	signal flush_wb : std_logic; 
 	
+	signal mem_busy_to_stall : std_logic; 
 	
 	component fetch is 
 	port (
@@ -242,7 +242,7 @@ begin
 	port map(
 		clk => clk,
 		reset => reset, 
-		stall => stall,
+		stall => mem_busy_to_stall,
 		stall_fetch => stall_fetch,
 		stall_dec => stall_dec,
 		stall_exec => stall_exec,
@@ -320,7 +320,7 @@ begin
 		reset => reset,
 		stall => stall_mem,
 		flush => flush_mem,
-		mem_busy => open,
+		mem_busy => mem_busy_to_stall,
 		mem_op => mem_op_from_ex,
 		wbop_in => wb_op_from_ex,
 		pc_new_in => pc_new_from_ex,
@@ -354,14 +354,5 @@ begin
 		pc_new_in => pc_new_from_mem,
 		reg_write => reg_write
 	); 
-
-	stall_logic : process(mem_d_in) 
-	begin
-		if mem_d_in.busy = '0' then 
-			stall <= '0'; 
-		else
-			stall <= '1'; 
-		end if; 
-	end process; 
 
 end architecture;
