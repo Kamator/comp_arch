@@ -72,6 +72,11 @@ architecture impl of pipeline is
 	
 	signal mem_busy_to_stall : std_logic; 
 	
+	signal reg_write_mem1, reg_write_wb1, reg_write_mem2, reg_write_wb2 : reg_write_type;
+   signal reg1, reg2 : reg_adr_type;
+   signal val1, val2 : data_type;
+   signal do_fwd1, do_fwd2 : std_logic; 
+	
 	component fetch is 
 	port (
   	      clk        : in  std_logic;
@@ -235,8 +240,41 @@ architecture impl of pipeline is
 
 	); 
 	end component; 
+	
+	component fwd is
+    port (
+        -- from Mem
+        reg_write_mem : in reg_write_type;
+
+        -- from WB
+        reg_write_wb  : in reg_write_type;
+
+        -- from/to EXEC
+        reg    : in  reg_adr_type;
+        val    : out data_type;
+        do_fwd : out std_logic
+    );
+	end component;   
 
 begin
+
+	fwd_inst_1 : fwd
+   port map(
+        reg_write_mem => reg_write_mem1,
+        reg_write_wb => reg_write_wb1,
+        reg => reg1,
+        val => val1,
+        do_fwd => do_fwd1
+    );
+    
+   fwd_inst_2 : fwd
+   port map(
+        reg_write_mem => reg_write_mem2,
+        reg_write_wb => reg_write_wb2,
+        reg => reg2,
+        val => val2,
+        do_fwd => do_fwd2
+   );	
 
 	ctrl_inst : ctrl
 	port map(
@@ -254,8 +292,12 @@ begin
 		flush_mem => flush_mem,
 		flush_wb => flush_wb,
 		--until fwd is finished
-		wb_op_mem => WB_NOP,
-		exec_op => EXEC_NOP, 
+		wb_op_mem.rd => reg_write_mem1.reg,
+		wb_op_mem.write => reg_write_mem1.write,
+		wb_op_mem.src => WBS_MEM,
+		--exec_op => EXEC_NOP,
+		exec_op.rs1 => reg2,
+		exec_op.readdata1 => val2,
 		--until fwd is finished
 		pcsrc_in => pcsrc,
 		pcsrc_out => open
@@ -310,8 +352,8 @@ begin
 		wbop_in => wb_op,
 		wbop_out => wb_op_from_ex,
 		exec_op => open,
-		reg_write_mem => REG_WRITE_NOP,
-		reg_write_wr => REG_WRITE_NOP
+		reg_write_mem => reg_write_mem1, --
+		reg_write_wr => reg_write_wb2 --
 	); 
 
 	mem_inst : mem
