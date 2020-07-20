@@ -159,9 +159,11 @@ begin
 		memresult <= mem_in.rddata;
 
 		if int_mem_op.branch = BR_BR or int_mem_op.branch = BR_CND or int_mem_op.branch = BR_CNDI then
-			if to_integer(unsigned(aluresult_in)) /= 0 then
-				--int_aluresult_in --> aluresult_in
+		
+			if to_integer(unsigned(int_aluresult_in)) /= 0 then
+				--branch is taken
 				pcsrc <= '1';
+				wbop_out <= WB_NOP; 
 			else 
 				pcsrc <= '0'; 
 			end  if; 
@@ -173,7 +175,11 @@ begin
 		if int_mem_op.mem.memread = '1' then 
 				reg_write.write <= '1'; 
 				reg_write.data  <= mem_in.rddata; 		
-		end if; 	
 
+		elsif int_wbop_in.write = '1' then
+				reg_write.write <= '1'; 
+				reg_write.data <= int_aluresult_in; 
+		end if; 
+	
 	end process; 	
 end architecture;

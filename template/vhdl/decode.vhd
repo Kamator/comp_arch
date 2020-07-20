@@ -637,14 +637,14 @@ begin
 					when others => exc_dec <= '1';
 				end case;
 			when OPC_BRANCH =>
-                exec_op.imm_flag <= '0';
-                exec_op.store_flag <= '0';
+                			 exec_op.imm_flag <= '0';
+                			 exec_op.store_flag <= '0';
 					 exec_op.pc_flag <= '1';
-					 exec_op.imm(31 downto 13) <= (others => int_instr(31));
-					 exec_op.imm(12) <= int_instr(7);
-					 exec_op.imm(11 downto 6) <= int_instr(30 downto 25);
-					 exec_op.imm(5 downto 2) <= int_instr(11 downto 8);
-					 exec_op.imm(1 downto 0) <= (others => '0');
+					 exec_op.imm(31 downto 12) <= (others => int_instr(31));
+					 exec_op.imm(11) <= int_instr(7);
+					 exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
+					 exec_op.imm(4 downto 1) <= int_instr(11 downto 8);
+					 exec_op.imm(0) <= '0';
 				case fct3 is
 					when "000" =>    -- B BEQ if(rs1 == rs2) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_SUB;

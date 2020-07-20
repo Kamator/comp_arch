@@ -27,20 +27,29 @@ begin
     begin
         do_fwd <= '0';
         val <= (others => '0');
-        if reg_write_mem.write = '1' then
-            if reg_write_mem.reg /= zeros and reg = reg_write_mem.reg then
-                do_fwd <= '1';
-                val <= reg_write_mem.data;
-            end if;
-        end if;
+
+	if reg_write_mem.write = '1' and reg_write_wb.write = '1' and reg_write_mem.reg = reg_write_wb.reg then
+		if reg_write_mem.reg /= zeros and reg = reg_write_mem.reg then 
+			do_fwd <= '1'; 
+			val <= reg_write_mem.data; 
+		end if; 
+	else 
+
+        	if reg_write_mem.write = '1' then
+            		if reg_write_mem.reg /= zeros and reg = reg_write_mem.reg then
+                		do_fwd <= '1';
+                		val <= reg_write_mem.data;
+            		end if;
+        	end if;
         
-        if reg_write_wb.write = '1' then
-            if reg_write_wb.reg /= zeros and reg = reg_write_wb.reg then
-                do_fwd <= '1';
-                val <= reg_write_wb.data;
-            end if;
-        end if;
+        	if reg_write_wb.write = '1' then
+            		if reg_write_wb.reg /= zeros and reg = reg_write_wb.reg then
+                		do_fwd <= '1';
+                		val <= reg_write_wb.data;
+            		end if;
+        	end if;
         
+	end if; 
     end process;
 
 end architecture;

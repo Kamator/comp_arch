@@ -66,7 +66,7 @@ begin
 		end if; 
 	end process; 
 
-	logic : process(int_wb_op_mem, int_exec_op, int_pcsrc_in, critical_reg, st_cnt, stall)
+	logic : process(int_wb_op_mem, int_exec_op, int_pcsrc_in, critical_reg, st_cnt, stall, pcsrc_in)
 	begin
 		--default values
 		stall_fetch <= '0'; 
@@ -86,46 +86,30 @@ begin
 		--counter
 		st_cnt_nxt <= st_cnt; 
 
-		if int_pcsrc_in = '1' then 
+		if pcsrc_in = '1' then 
+			--changed int to direct
 			--branch hazard - flush fetch, dec, exec and mem
 			flush_fetch <= '1'; 
 			flush_dec   <= '1'; 
-			flush_exec  <= '1'; 
-			flush_mem   <= '1'; 
+			flush_exec  <= '1';  
 		end if; 
 		
 		--pipeline needs to be stalled (verzögert) if a load instruction saves a value
 		--into a register that is accessed in the next instruction. Then, the pipeline needs
 		--to be stalled for one cycle so that the value can be passed from mem to fwd and 
 		--back to exec
-
-		if (int_exec_op.rs1 = critical_reg or int_exec_op.rs2 = critical_reg) then 
-			--check if its also written to 
-
-			if int_wb_op_mem.write = '1' then 
-				--stall is necessary 
-				--stall 3 cycles 
-				
-				if st_cnt < 4 then 
-					st_cnt_nxt <= st_cnt + 1; 
-					stall_fetch <= '1'; 
-					stall_dec   <= '1'; 	
-					stall_exec  <= '1'; 
-					stall_mem   <= '1'; 
-					stall_wb    <= '1'; 		
-				else 
-					st_cnt_nxt <= (others => '0'); 
-				end if; 
-			
-			end if; 
-		end if; */
+		
 
 		if stall = '1' then  
+			--memory load occured (stall until busy = 0)
+
 			stall_fetch <= '1'; 
 			stall_dec   <= '1'; 	
 			stall_exec  <= '1'; 
 			stall_mem   <= '1'; 
-			stall_wb    <= '1'; 	
+			stall_wb    <= '1'; 
+					
+					
 		end if;  
 
 	end process; 

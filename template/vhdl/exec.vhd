@@ -126,13 +126,13 @@ begin
 	end process; 
 	
 
-	logic : process(int_reg_wr_mem, int_reg_wr_wr, int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2)
+	logic : process(int_reg_wr_mem, int_reg_wr_wr, int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2, reg_write_wr, reg_write_mem)
 	begin
 	
 		--The signals exec_op , reg_write_mem and reg_write_wr are irrelevant for this 
 		--assignment and can be ignored here.
 
-		exec_op <= EXEC_NOP;
+		exec_op <= int_op;
 
 		--As stated above, see page 22 of assignment three.
 		if int_op.aluop = ALU_NOP then 
@@ -176,88 +176,118 @@ begin
 
 		--R-Type instructions
 		if int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '0' then 
-		   if int_reg_wr_mem.write = '1' then
-				alu_A <= int_reg_wr_mem.data;
-		   elsif int_reg_wr_wr.write = '1' then
-				alu_A <= int_reg_wr_wr.data;
-		   else
-				alu_A <= int_op.readdata1;
-		   end if;
+		
+			alu_A <= int_op.readdata1; 
+			alu_B <= int_op.readdata2; 
 
-		   if int_reg_wr_mem.write = '1' then
-				alu_B <= int_reg_wr_mem.data;
-		   elsif int_reg_wr_wr.write = '1' then
-				alu_B <= int_reg_wr_wr.data;
-		   else
-				alu_B <= int_op.readdata2;  
-		   end if;
+			if reg_write_mem.write = '1' or reg_write_wr.write = '1' then 
 				
+				if reg_write_mem.write = '1' then
+					if reg_write_mem.reg = int_op.rs1 then 
+						alu_A <= reg_write_mem.data; 
+					else
+						alu_B <= reg_write_mem.data; 
+					end if; 
+				end if; 
+
+				if reg_write_wr.write = '1' then  	
+					if reg_write_wr.reg = int_op.rs1 then 
+						alu_A <= reg_write_wr.data; 
+					else 
+						alu_B <= reg_write_wr.data; 
+					end if; 
+				end if; 
+			end if; 
+
 		--I-Type Instructions
 		elsif int_op.imm_flag = '1' and int_op.store_flag = '0' and int_op.pc_flag = '0' then
 			
-		  if int_reg_wr_mem.write = '1' then
+			--no parameter check necessary (immediate always second)
+
+		  	if reg_write_mem.write = '1' then
 				alu_A <= int_reg_wr_mem.data;
-		  elsif int_reg_wr_wr.write = '1' then
-				alu_A <= int_reg_wr_wr.data;
-		  else
-		        alu_A <= int_op.readdata1;
-		  end if;							     
+		  	elsif reg_write_wr.write = '1' then
+				alu_A <= reg_write_wr.data;
+		  	else
+		        	alu_A <= int_op.readdata1;
+		  	end if;							     
 		  
- 		  alu_B <= int_op.imm; 
+ 		  	alu_B <= int_op.imm; 
 		  
-				if int_op.imm = x"00000000" and int_op.rs1 = "00000" then 
-					--NOP Instruction
-					wbop_out.write <= '0';
-				end if; 
+			if int_op.imm = x"00000000" and int_op.rs1 = "00000" then 
+				--NOP Instruction
+				wbop_out.write <= '0';
+			end if; 
 					
 		--S-Type Instructions
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '1' and int_op.pc_flag = '0' then
-				--address where to store that data
-	      if int_reg_wr_mem.write = '1' then
-				alu_A <= int_reg_wr_mem.data;
-		   elsif int_reg_wr_wr.write = '1' then
-				alu_A <= int_reg_wr_wr.data;
-		   else
-				alu_A <= int_op.readdata1;
-		   end if;
-
-		   alu_B <= int_op.imm; 
- 
-		   --value thats stored by memory stage
-	           wrdata <= int_op.readdata2; 
+			
+			alu_A <= int_op.readdata1; 
+			alu_B <= int_op.imm; 
+			
+			--address where to store that data
+			wrdata <= int_op.readdata2; 
+			
+			if reg_write_mem.write = '1' or reg_write_wr.write = '1' then 
+		
+				if reg_write_mem.write = '1' then
+					if reg_write_mem.reg = int_op.rs1 then 
+						alu_A <= reg_write_mem.data; 
+					else 
+						wrdata <= reg_write_mem.data; 
+					end if; 
+				end if; 
+			
+				if reg_write_wr.write = '1' then 
+					if reg_write_wr.reg = int_op.rs1 then 
+						alu_A <= reg_write_wr.data; 
+					else 
+						wrdata <= reg_write_wr.data; 
+					end if; 	
+				end if; 
+			end if; 
 		
 		--B-Type Instructions
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '1' then
-	      if int_reg_wr_mem.write = '1' then
-				alu_A <= int_reg_wr_mem.data;
-		   elsif int_reg_wr_wr.write = '1' then
-				alu_A <= int_reg_wr_wr.data;
-		   else
-				alu_A <= int_op.readdata1;
-		   end if;
+	      	
+			alu_A <= int_op.readdata1; 
+			alu_B <= int_op.readdata2; 
 
-		   if int_reg_wr_mem.write = '1' then
-				alu_B <= int_reg_wr_mem.data;
-		   elsif int_reg_wr_wr.write = '1' then
-				alu_B <= int_reg_wr_wr.data;
-		   else
-				alu_B <= int_op.readdata2;  
-		   end if;
+			if reg_write_mem.write = '1' or reg_write_wr.write = '1' then 
 				
-				if int_op.aluop = ALU_SUB then
-					--beq/neq instruction
-					aluresult(31 downto 1) <= (others => '0');
-					aluresult(0) <= alu_Z;  
-				else 
-					--blt, bltu, bge, bgeu instructions
-					aluresult <= alu_R; 
+				if reg_write_mem.write = '1' then
+					if reg_write_mem.reg = int_op.rs1 then 
+						alu_A <= reg_write_mem.data; 
+					else 
+						alu_B <= reg_write_mem.data; 
+					end if; 
 				end if; 
+
+				if reg_write_wr.write = '1' then 
+					if reg_write_wr.reg = int_op.rs1 then 
+						alu_A <= reg_write_wr.data; 
+					else 
+						alu_B <= reg_write_wr.data; 
+					end if; 
+				end if; 
+			end if; 
+			
+			if int_op.aluop = ALU_SUB then
+				--beq/neq instruction
+				aluresult(31 downto 1) <= (others => '0');
+				aluresult(0) <= alu_Z;  
+			else 
+				--blt, bltu, bge, bgeu instructions
+				aluresult <= alu_R; 
+			end if; 
+
+			alu_op_2 <= ALU_ADD; 
 	
-				--branch target address
-				alu_A_2(15 downto 0) <= int_pc_in; 
-				alu_A_2(31 downto 16) <= (others => '0'); 
-				alu_B_2 <= int_op.imm; 
-				pc_new_out <= alu_R_2(15 downto 0);
+			--branch target address
+			alu_A_2(15 downto 0) <= int_pc_in; 
+			alu_A_2(31 downto 16) <= (others => '0'); 
+			alu_B_2 <= int_op.imm; 
+			pc_new_out <= alu_R_2(15 downto 0);
 
 		--UJ - Instructions (JAL)
 		elsif int_op.imm_flag = '1' and int_op.store_flag = '0' and int_op.pc_flag = '1' then
@@ -274,13 +304,14 @@ begin
 
 		--UJ - Instructions (JALR)
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '1' and int_op.pc_flag = '1' then
-				 if int_reg_wr_mem.write = '1' then
-				   alu_A <= int_reg_wr_mem.data;
-		   	 elsif int_reg_wr_wr.write = '1' then
-				   alu_A <= int_reg_wr_wr.data;
-			    else
-				   alu_A <= int_op.readdata1;
-		   	 end if;
+				
+				if int_reg_wr_mem.write = '1' then
+				   	alu_A <= int_reg_wr_mem.data;
+		   	 	elsif int_reg_wr_wr.write = '1' then
+				   	alu_A <= int_reg_wr_wr.data;
+			    	else
+				   	alu_A <= int_op.readdata1;
+		   	 	end if;
 
 				 alu_B <= int_op.imm; 
 

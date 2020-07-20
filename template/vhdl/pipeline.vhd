@@ -22,6 +22,9 @@ entity pipeline is
 end pipeline;
 
 architecture impl of pipeline is
+
+	signal stall : std_logic; 	
+
 	--pc stuff
 	signal pc_to_fetch : pc_type; 
 	signal pc_from_fetch : pc_type; 
@@ -32,6 +35,7 @@ architecture impl of pipeline is
 	signal pc_old_from_mem : pc_type; 
 
 	--op stuff
+	signal exec_op_from_dec : exec_op_type; 
 	signal exec_op : exec_op_type; 
 	signal mem_op : mem_op_type; 
 	signal wb_op  : wb_op_type; 
@@ -71,11 +75,13 @@ architecture impl of pipeline is
 	signal flush_wb : std_logic; 
 	
 	signal mem_busy_to_stall : std_logic; 
-	
-	signal reg_write_mem1, reg_write_wb1, reg_write_mem2, reg_write_wb2 : reg_write_type;
-   signal reg1, reg2 : reg_adr_type;
-   signal val1, val2 : data_type;
-   signal do_fwd1, do_fwd2 : std_logic; 
+
+	--forwarding
+	signal exec_op_to_fwd : exec_op_type; 	
+	signal reg_write_mem_to_fwd : reg_write_type; 
+      	signal reg_write_mem, reg_write_wr : reg_write_type; 
+	signal val1, val2 : data_type;
+   	signal do_fwd1, do_fwd2 : std_logic; 
 	
 	component fetch is 
 	port (
@@ -259,23 +265,62 @@ architecture impl of pipeline is
 begin
 
 	fwd_inst_1 : fwd
-   port map(
-        reg_write_mem => reg_write_mem1,
-        reg_write_wb => reg_write_wb1,
-        reg => reg1,
-        val => val1,
-        do_fwd => do_fwd1
-    );
+   	port map(
+        	reg_write_mem => reg_write_mem_to_fwd,
+        	reg_write_wb => reg_write,
+        	reg => exec_op_to_fwd.rs1,
+        	val => val1,
+        	do_fwd => do_fwd1
+    	);
     
-   fwd_inst_2 : fwd
-   port map(
-        reg_write_mem => reg_write_mem2,
-        reg_write_wb => reg_write_wb2,
-        reg => reg2,
-        val => val2,
-        do_fwd => do_fwd2
-   );	
+   	fwd_inst_2 : fwd
+   	port map(
+        	reg_write_mem => reg_write_mem_to_fwd,
+        	reg_write_wb => reg_write,
+        	reg => exec_op_to_fwd.rs2,
+        	val => val2,
+        	do_fwd => do_fwd2
+   	);	
+	
+	fwd_mpx : process(do_fwd1, do_fwd2)
+	begin
+	
+		
+		reg_write_wr <= REG_WRITE_NOP; 
+		reg_write_mem <= REG_WRITE_NOP; 
+	
+		if do_fwd1 = '1' then 
+			
+			if reg_write.reg = exec_op_to_fwd.rs1 then		
+				reg_write_wr.write <= '1'; 
+				reg_write_wr.reg <= exec_op_to_fwd.rs1; 
+				reg_write_wr.data <= val1; 
 
+			else
+				reg_write_mem.write <= '1'; 
+				reg_write_mem.reg <= exec_op_to_fwd.rs1; 
+				reg_write_mem.data <= val1; 
+
+			end if; 
+		end if; 
+
+		if do_fwd2 = '1' then 
+			
+			if reg_write.reg = exec_op_to_fwd.rs2 then		
+				reg_write_wr.write <= '1'; 
+				reg_write_wr.reg <= exec_op_to_fwd.rs2; 
+				reg_write_wr.data <= val2; 
+		 
+			else
+				reg_write_mem.write <= '1'; 
+				reg_write_mem.reg <= exec_op_to_fwd.rs2; 
+				reg_write_mem.data <= val2;
+
+			end if; 
+
+		end if; 
+	end process; 
+	
 	ctrl_inst : ctrl
 	port map(
 		clk => clk,
@@ -291,13 +336,8 @@ begin
 		flush_exec => flush_exec,
 		flush_mem => flush_mem,
 		flush_wb => flush_wb,
-		--until fwd is finished
-		wb_op_mem.rd => reg_write_mem1.reg,
-		wb_op_mem.write => reg_write_mem1.write,
-		wb_op_mem.src => WBS_MEM,
-		--exec_op => EXEC_NOP,
-		exec_op.rs1 => reg2,
-		exec_op.readdata1 => val2,
+		wb_op_mem => wb_op_from_mem, 
+		exec_op => exec_op_to_fwd,
 		--until fwd is finished
 		pcsrc_in => pcsrc,
 		pcsrc_out => open
@@ -328,7 +368,7 @@ begin
 		instr => instr,
 		reg_write => reg_write,
 		pc_out => pc_from_decode,
-		exec_op => exec_op,
+		exec_op => exec_op_from_dec,
 		mem_op => mem_op,
 		wb_op => wb_op,
 		exc_dec => exc_dec
@@ -340,7 +380,7 @@ begin
 		reset => reset,
 		stall => stall_exec,
 		flush => flush_exec,
-		op => exec_op,
+		op => exec_op_from_dec,
 		pc_in => pc_from_decode,
 		pc_old_out => pc_old_from_ex,
 		pc_new_out => pc_new_from_ex,
@@ -351,9 +391,9 @@ begin
 		memop_out => mem_op_from_ex,
 		wbop_in => wb_op,
 		wbop_out => wb_op_from_ex,
-		exec_op => open,
-		reg_write_mem => reg_write_mem1, --
-		reg_write_wr => reg_write_wb2 --
+		exec_op => exec_op_to_fwd,
+		reg_write_mem => reg_write_mem,
+		reg_write_wr => reg_write_wr
 	); 
 
 	mem_inst : mem
@@ -370,7 +410,7 @@ begin
 		aluresult_in => aluresult,
 		wrdata => wrdata,
 		zero => zero,
-		reg_write => open,
+		reg_write => reg_write_mem_to_fwd,
 		pc_new_out => pc_new_from_mem,
 		pcsrc => pcsrc,
 		wbop_out => wb_op_from_mem,
