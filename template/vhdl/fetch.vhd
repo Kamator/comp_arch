@@ -87,7 +87,10 @@ begin
 			end if; 
 			if pcsrc = '0' and flush = '0' then 
 				mem_out.rd <= '1'; 
-			else 
+			--added elsif clause
+			elsif pcsrc = '1' and flush = '1' then 
+				mem_out.rd <= '1'; 
+			else  
 				mem_out.rd <= '0'; 
 			end if; 
 

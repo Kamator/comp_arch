@@ -95,20 +95,16 @@ begin
 		end if; 
 		
 		--pipeline needs to be stalled (verzögert) if a load instruction saves a value
-		--into a register that is accessed in the next instruction. Then, the pipeline needs
-		--to be stalled for one cycle so that the value can be passed from mem to fwd and 
-		--back to exec
-		
+		--into a register that is accessed in the next instruction. Thus, the pipeline needs
+		--to be stalled as long as the memu unit is busy	
 
 		if stall = '1' then  
 			--memory load occured (stall until busy = 0)
-
 			stall_fetch <= '1'; 
 			stall_dec   <= '1'; 	
 			stall_exec  <= '1'; 
 			stall_mem   <= '1'; 
 			stall_wb    <= '1'; 
-					
 					
 		end if;  
 

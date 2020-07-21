@@ -74,7 +74,9 @@ architecture impl of pipeline is
 	signal flush_mem : std_logic; 
 	signal flush_wb : std_logic; 
 	
-	signal mem_busy_to_stall : std_logic; 
+	signal dmem_busy_to_stall : std_logic; 
+	signal imem_busy_to_stall : std_logic; 
+	signal busy_to_stall : std_logic; 
 
 	--forwarding
 	signal exec_op_to_fwd : exec_op_type; 	
@@ -321,11 +323,22 @@ begin
 		end if; 
 	end process; 
 	
+	mpx_stall : process(imem_busy_to_stall, dmem_busy_to_stall)
+	begin
+		if imem_busy_to_stall = '1' or dmem_busy_to_stall = '1' then 
+			busy_to_stall <= '1'; 
+		else 
+			busy_to_stall <= '0'; 
+		end if; 
+
+	end process; 
+
+
 	ctrl_inst : ctrl
 	port map(
 		clk => clk,
 		reset => reset, 
-		stall => mem_busy_to_stall,
+		stall => busy_to_stall,
 		stall_fetch => stall_fetch,
 		stall_dec => stall_dec,
 		stall_exec => stall_exec,
@@ -349,7 +362,7 @@ begin
 		reset => reset,
 		stall => stall_fetch, 
 		flush => flush_fetch,
-		mem_busy => open,
+		mem_busy => imem_busy_to_stall,
 		pcsrc => pcsrc,
 		pc_in => pc_new_from_mem,
 		pc_out => pc_from_fetch,
@@ -402,7 +415,7 @@ begin
 		reset => reset,
 		stall => stall_mem,
 		flush => flush_mem,
-		mem_busy => mem_busy_to_stall,
+		mem_busy => dmem_busy_to_stall,
 		mem_op => mem_op_from_ex,
 		wbop_in => wb_op_from_ex,
 		pc_new_in => pc_new_from_ex,
