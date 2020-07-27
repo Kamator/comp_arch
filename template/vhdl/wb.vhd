@@ -63,7 +63,7 @@ begin
 	logic : process(int_op, int_aluresult, memresult, int_pc_new_in, int_pc_old_in)
 	begin
 		reg_write.write <= '0'; 
-		reg_write.reg   <= (others => '0'); 
+		reg_write.reg   <= int_op.rd; 
 		reg_write.data  <= (others => '0');
 
 		if int_op.write = '1' then

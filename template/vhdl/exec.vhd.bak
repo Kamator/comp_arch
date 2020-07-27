@@ -98,8 +98,9 @@ begin
 			int_memop_in <= MEM_NOP; 
 			int_wbop_in <= WB_NOP; 
 			int_wrdata <= (others => '0'); 
-			
-			
+			int_reg_wr_mem <= REG_WRITE_NOP;
+			int_reg_wr_wr <= REG_WRITE_NOP;
+
 		elsif flush = '1' then 
 			--flush signal
 			--flush internal signals 
@@ -107,7 +108,10 @@ begin
 			int_pc_in <= (others => '0'); 
 			int_memop_in <= MEM_NOP; 
 			int_wbop_in <= WB_NOP; 
-			int_wrdata <= (others => '0'); 					
+			int_wrdata <= (others => '0'); 
+			int_reg_wr_mem <= REG_WRITE_NOP;
+			int_reg_wr_wr <= REG_WRITE_NOP;
+					
 
 		elsif rising_edge(clk) and stall = '0' then 
 			--put through directly to ALU, ALU 1 control signals 
@@ -116,85 +120,55 @@ begin
 			int_memop_in <= memop_in; 
 			int_wbop_in <= wbop_in; 
 			int_wrdata <= (others => '0'); 
-
-			if reg_write_mem.write = '1' then
-
-				if reg_write_mem.reg = op.rs1 then
+			int_reg_wr_mem <= reg_write_mem;
+			int_reg_wr_wr <= reg_write_wr;
 	
-					if reg_write_mem.reg /= ZERO_REG then  
+			if reg_write_mem.write = '1' or reg_write_wr.write = '1' then 
+				
+				if reg_write_mem.write = '1' then
+					if reg_write_mem.reg = int_op.rs1 then 
 						int_op.readdata1 <= reg_write_mem.data; 
-					end if; 
-
-				elsif reg_write_mem.reg = op.rs2 then
-
-					if reg_write_mem.reg /= ZERO_REG then  
+					else
 						int_op.readdata2 <= reg_write_mem.data; 
 					end if; 
-
 				end if; 
-			end if; 
 
-			if reg_write_wr.write = '1' then  	
-			
-				if reg_write_wr.reg = op.rs1 and reg_write_mem.reg /= op.rs1 then
-					
-					if reg_write_wr.reg /= ZERO_REG then 
-						int_op.readdata1 <= reg_write_wr.data;
-					end if; 
- 
-				elsif reg_write_wr.reg = op.rs2 and reg_write_mem.reg /= op.rs2 then
-					
-					if reg_write_wr.reg /= ZERO_REG then
+				if reg_write_wr.write = '1' then  	
+					if reg_write_wr.reg = int_op.rs1 then 
+						int_op.readdata1 <= reg_write_wr.data; 
+					else 
 						int_op.readdata2 <= reg_write_wr.data; 
 					end if; 
-
 				end if; 
 			end if; 
-	
 
 	
 		elsif rising_edge(clk) and stall = '1' then
 
-			if reg_write_mem.write = '1' then
-
-				if reg_write_mem.reg = op.rs1 then
-	
-					if reg_write_mem.reg /= ZERO_REG then  
+			if reg_write_mem.write = '1' or reg_write_wr.write = '1' then 
+				
+				if reg_write_mem.write = '1' then
+					if reg_write_mem.reg = int_op.rs1 then 
 						int_op.readdata1 <= reg_write_mem.data; 
-					end if; 
-
-				elsif reg_write_mem.reg = op.rs2 then
-
-					if reg_write_mem.reg /= ZERO_REG then  
+					else
 						int_op.readdata2 <= reg_write_mem.data; 
 					end if; 
-
 				end if; 
-			end if; 
 
-			if reg_write_wr.write = '1' then  	
-			
-				if reg_write_wr.reg = op.rs1 and reg_write_mem.reg /= op.rs1 then
-					
-					if reg_write_wr.reg /= ZERO_REG then 
-						int_op.readdata1 <= reg_write_wr.data;
-					end if; 
- 
-				elsif reg_write_wr.reg = op.rs2 and reg_write_mem.reg /= op.rs2 then
-					
-					if reg_write_wr.reg /= ZERO_REG then
+				if reg_write_wr.write = '1' then  	
+					if reg_write_wr.reg = int_op.rs1 then 
+						int_op.readdata1 <= reg_write_wr.data; 
+					else 
 						int_op.readdata2 <= reg_write_wr.data; 
-					end if;
-
+					end if; 
 				end if; 
 			end if; 
 		end if; 
-	 
 
 	end process; 
 	
 
-	logic : process(int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2)
+	logic : process(int_reg_wr_mem, int_reg_wr_wr, int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2, reg_write_wr, reg_write_mem)
 	begin
 	
 		--The signals exec_op , reg_write_mem and reg_write_wr are irrelevant for this 

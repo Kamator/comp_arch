@@ -84,8 +84,7 @@ architecture impl of pipeline is
       	signal reg_write_mem, reg_write_wr : reg_write_type; 
 	signal val1, val2 : data_type;
    	signal do_fwd1, do_fwd2 : std_logic; 
-	signal fwd_exec_1, fwd_exec_2 : std_logic; 	
-
+	
 	component fetch is 
 	port (
   	      clk        : in  std_logic;
@@ -285,6 +284,45 @@ begin
         	do_fwd => do_fwd2
    	);	
 	
+	fwd_mpx : process(do_fwd1, do_fwd2, val1, val2, reg_write, exec_op_to_fwd)
+	--27.07 changed sensitivity list
+	begin
+	
+		
+		reg_write_wr <= REG_WRITE_NOP; 
+		reg_write_mem <= REG_WRITE_NOP; 
+	
+		if do_fwd1 = '1' then 
+			
+			if reg_write.reg = exec_op_to_fwd.rs1 then		
+				reg_write_wr.write <= '1'; 
+				reg_write_wr.reg <= exec_op_to_fwd.rs1; 
+				reg_write_wr.data <= val1; 
+
+			else
+				reg_write_mem.write <= '1'; 
+				reg_write_mem.reg <= exec_op_to_fwd.rs1; 
+				reg_write_mem.data <= val1; 
+
+			end if; 
+		end if; 
+
+		if do_fwd2 = '1' then 
+			
+			if reg_write.reg = exec_op_to_fwd.rs2 then		
+				reg_write_wr.write <= '1'; 
+				reg_write_wr.reg <= exec_op_to_fwd.rs2; 
+				reg_write_wr.data <= val2; 
+		 
+			else
+				reg_write_mem.write <= '1'; 
+				reg_write_mem.reg <= exec_op_to_fwd.rs2; 
+				reg_write_mem.data <= val2;
+
+			end if; 
+
+		end if; 
+	end process; 
 	
 	mpx_stall : process(imem_busy_to_stall, dmem_busy_to_stall)
 	begin
@@ -368,12 +406,8 @@ begin
 		wbop_in => wb_op,
 		wbop_out => wb_op_from_ex,
 		exec_op => exec_op_to_fwd,
-		reg_write_mem.write => do_fwd1 or do_fwd2,
-		reg_write_mem.reg => reg_write_mem_to_fwd.reg,
-		reg_write_mem.data => reg_write_mem_to_fwd.data,
-		reg_write_wr.write => do_fwd1 or do_fwd2,
-		reg_write_wr.reg => reg_write.reg,
-		reg_write_wr.data => reg_write.data 
+		reg_write_mem => reg_write_mem,
+		reg_write_wr => reg_write_wr
 	); 
 
 	mem_inst : mem
