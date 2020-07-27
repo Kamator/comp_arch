@@ -89,7 +89,7 @@ add wave -noupdate -expand -group memu /tb_cpu/dut/pipeline_inst/mem_inst/memu_i
 add wave -noupdate -expand -group memu /tb_cpu/dut/pipeline_inst/mem_inst/memu_inst/XS
 add wave -noupdate -divider -height 40 wb
 add wave -noupdate -expand -group wb /tb_cpu/dut/pipeline_inst/stall_wb
-#add wave -noupdate -expand -group wb /tb_cpu/dut/wb_inst/flush_wb
+add wave -noupdate -expand -group wb /tb_cpu/dut/pipeline_inst/flush_wb
 add wave -noupdate -expand -group wb /tb_cpu/dut/pipeline_inst/wb_inst/int_op
 add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/aluresult
 #add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/int_memresult
