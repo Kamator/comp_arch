@@ -284,7 +284,8 @@ begin
         	do_fwd => do_fwd2
    	);	
 	
-	fwd_mpx : process(do_fwd1, do_fwd2)
+	fwd_mpx : process(do_fwd1, do_fwd2, val1, val2, reg_write, exec_op_to_fwd)
+	--27.07 changed sensitivity list
 	begin
 	
 		

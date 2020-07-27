@@ -111,6 +111,7 @@ begin
 			int_wrdata <= (others => '0'); 
 			int_reg_wr_mem <= REG_WRITE_NOP;
 			int_reg_wr_wr <= REG_WRITE_NOP;
+					
 
 		elsif rising_edge(clk) and stall = '0' then 
 			--put through directly to ALU, ALU 1 control signals 

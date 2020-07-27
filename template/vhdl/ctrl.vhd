@@ -36,8 +36,10 @@ architecture rtl of ctrl is
 	signal int_wb_op_mem : wb_op_type; 
 	signal int_exec_op   : exec_op_type; 
 	signal int_pcsrc_in  : std_logic; 
-	signal critical_reg  : reg_adr_type;
+	signal critical_reg_1  : reg_adr_type;
+	signal critical_reg_2  : reg_adr_type; 
 	signal st_cnt, st_cnt_nxt : unsigned(7 downto 0);  
+	signal fwd_load : std_logic; 
 begin
 
 	sync_p : process(clk, reset, stall)
@@ -46,27 +48,28 @@ begin
 			int_wb_op_mem <= WB_NOP; 
 			int_exec_op <= EXEC_NOP; 
 			int_pcsrc_in <= '0'; 
-			critical_reg <= (others => '0'); 
+			critical_reg_1 <= (others => '0'); 
+			critical_reg_2 <= (others => '0'); 
 			st_cnt <= (others => '0'); 
-	
-		elsif stall = '1' then 
-			int_wb_op_mem <= WB_NOP; 
-			int_exec_op <= EXEC_NOP; 
-			int_pcsrc_in <= '0'; 	
-			critical_reg <= (others => '0'); 
-			st_cnt <= (others => '0'); 
+			fwd_load <= '0'; 			
 
 		elsif rising_edge(clk) and reset = '1' and stall = '0' then 
 			int_wb_op_mem <= wb_op_mem; 
 			int_exec_op <= exec_op; 
 			int_pcsrc_in <= pcsrc_in; 	
-			critical_reg <= wb_op_mem.rd; 
-			st_cnt <= st_cnt_nxt; 		
-		
+			critical_reg_1 <= exec_op.rs1; 
+			critical_reg_2 <= exec_op.rs2; 
+			st_cnt <= st_cnt_nxt; 
+	
+			if wb_op_mem.src = WBS_MEM then 	
+				fwd_load <= wb_op_mem.write; 
+			else 
+				fwd_load <= '0'; 
+			end if; 
 		end if; 
 	end process; 
 
-	logic : process(int_wb_op_mem, int_exec_op, int_pcsrc_in, critical_reg, st_cnt, stall, pcsrc_in)
+	logic : process(fwd_load, int_wb_op_mem, int_exec_op, int_pcsrc_in, critical_reg_1, critical_reg_2, st_cnt, stall, pcsrc_in)
 	begin
 		--default values
 		stall_fetch <= '0'; 
@@ -97,16 +100,28 @@ begin
 		--pipeline needs to be stalled (verzögert) if a load instruction saves a value
 		--into a register that is accessed in the next instruction. Thus, the pipeline needs
 		--to be stalled as long as the memu unit is busy	
-
-		if stall = '1' then  
+  
+		if stall = '1' and fwd_load = '0' then 
 			--memory load occured (stall until busy = 0)
 			stall_fetch <= '1'; 
 			stall_dec   <= '1'; 	
 			stall_exec  <= '1'; 
 			stall_mem   <= '1'; 
 			stall_wb    <= '1'; 
-					
 		end if;  
 
+		if fwd_load = '1' then 	
+			if st_cnt < 2 then 
+				stall_fetch <= '1'; 
+				stall_dec   <= '1'; 	
+				stall_exec  <= '1';
+				stall_mem   <= '1'; 
+				st_cnt_nxt <= st_cnt + 1; 
+			else
+				st_cnt_nxt <= (others => '0'); 
+			end if;  
+		else 
+			st_cnt_nxt <= (others => '0'); 
+		end if; 
 	end process; 
 end architecture;

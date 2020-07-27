@@ -84,6 +84,7 @@ architecture rtl of mem is
 	signal int_wrdata : DATA_TYPE; 
 	signal int_zero : std_logic; 
 	signal int_mem_in : MEM_IN_TYPE; 
+	signal int_mem_busy : std_logic; 
 
 	--internal signals for memu 
 	signal int_A, int_W, int_R : data_type; 
@@ -98,14 +99,14 @@ begin
 		A => int_aluresult_in,
 		W => int_wrdata,
 		R => open,
-		B => mem_busy, 
+		B => int_mem_busy, 
 		XL => exc_load,
 		XS => exc_store,
 		D => mem_in,
 		M => mem_out
 	); 
 	
-	sync_p : process(clk, reset, stall, flush)
+	sync_p : process(clk, reset, stall, flush, int_mem_busy)
 	begin
 		if reset = '0' then 
 			--reset
@@ -114,7 +115,7 @@ begin
 			int_wbop_in <= WB_NOP; 
 			int_aluresult_in <= (others => '0'); 
 			int_wrdata <= (others => '0'); 
-	
+
 		elsif flush = '1' then 
 			--flush
 			int_mem_op <= MEM_NOP; 
@@ -126,24 +127,29 @@ begin
 			int_pc_old_in <= (others => '0');
 			int_wrdata <= (others => '0'); 
 
-		elsif rising_edge(clk) and stall = '0' and flush = '0' then 
+		elsif rising_edge(clk) and stall = '0' and flush = '0' and int_mem_busy = '0' then 
 			--sync
 			int_mem_op <= mem_op; 
 			int_wbop_in <= wbop_in; 
 			int_pc_new_in <= pc_new_in; 
 			int_pc_old_in <= pc_old_in; 	 
 			int_aluresult_in <= aluresult_in; 
-			int_wrdata <= wrdata; 	
+			int_wrdata <= wrdata; 	 
 
+		elsif int_mem_busy = '1' then 	
+			int_mem_op.mem.memread <= '0'; 
+			int_mem_op.mem.memwrite <= '0';
+		
 		elsif rising_edge(clk) and stall = '1' then 
-			int_mem_op.mem.memread <= '0';
-			int_mem_op.mem.memwrite <= '0'; 
+			int_mem_op.mem.memread <= '0'; 
+			int_mem_op.mem.memwrite <= '0';
+		end if; 
 
-		end if;	
 	end process; 
 
 	logic : process(all)
 	begin
+
 		--send to subsequent pipeline stages
 		pc_new_out <= int_pc_new_in; 
 		wbop_out <= int_wbop_in; 
@@ -158,6 +164,8 @@ begin
 
 		memresult <= mem_in.rddata;
 
+		mem_busy <= int_mem_busy; 
+		
 		if int_mem_op.branch = BR_BR or int_mem_op.branch = BR_CND or int_mem_op.branch = BR_CNDI then
 		
 			if to_integer(unsigned(int_aluresult_in)) /= 0 then
@@ -172,11 +180,13 @@ begin
 		--if its a load instruction then pass the value thats received to fwd. after that it
 		--is passed on to exec (pas via forward) 
 	
-		if int_mem_op.mem.memread = '1' then 
+		if int_wbop_in.write = '1' and int_wbop_in.src = WBS_MEM then 
+				--load instruction
 				reg_write.write <= '1'; 
-				reg_write.data  <= mem_in.rddata; 		
+				reg_write.data  <= to_little_endian(mem_in.rddata); 		
 
-		elsif int_wbop_in.write = '1' then
+		elsif int_wbop_in.write = '1' and int_wbop_in.src = WBS_ALU then
+				--result of alu needs to be forwarded
 				reg_write.write <= '1'; 
 				reg_write.data <= int_aluresult_in; 
 		end if; 

@@ -45,15 +45,14 @@ begin
 	
 	--no latches
 	M <= MEM_OUT_NOP; 
-	B <= '0'; 
+	B <= D.busy; 
 	XS <= '0'; 
 	XL <= '0'; 
 	R <= (others => '0'); 
 	
-	if op.memread = '1' then
+	if op.memread = '1' and D.busy = '0' then
 		--read access to memory
-		M.wr <= '0'; 	
-		B <= '1'; 
+		M.wr <= '0'; 	 
 		--therefore no store exception possible
 		XS <= '0'; 
 		M.byteena <= (others => '-'); 
@@ -207,8 +206,7 @@ begin
 			
 	elsif op.memwrite = '1' then 
 		--write access to memory occurs here
-		M.rd <= '0'; 
-		B <= '0'; 		
+		M.rd <= '0'; 		
 		R <= (others => '0'); 
 		--therefore no load exceptions possible
 		XL <= '0'; 
@@ -308,8 +306,7 @@ begin
 		end case;
 
 	else 
-			M <= MEM_OUT_NOP; 
-			B <= '0'; 
+			M <= MEM_OUT_NOP;  
 			XL <= '0'; 
 			XS <= '0'; 
 			R <= (others => '0');			

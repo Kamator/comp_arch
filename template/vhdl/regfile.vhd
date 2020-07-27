@@ -68,6 +68,26 @@ begin
 		
 		reg_data1 <= reg_data1_nxt; 
 		reg_data2 <= reg_data2_nxt; 
+		
+		--just copied from above	
+		if first_one then 
+			int_rdaddr1 <= (others => '0'); 
+			int_rdaddr2 <= (others => '0'); 		
+			first_one <= false; 
+		else 
+			int_rdaddr1 <= rdaddr1; 
+			int_rdaddr2 <= rdaddr2; 
+		end if; 
+
+		int_wrdata <= wrdata; 
+		int_wraddr <= wraddr; 
+
+		if regwrite = '1' and wraddr /= zeros then
+			reg_file(to_integer(unsigned(wraddr))) <= wrdata;
+		elsif regwrite = '1' then
+			reg_file(to_integer(unsigned(zeros))) <= (others => '0');
+		end if;  
+        
 
 	end if; 
     
