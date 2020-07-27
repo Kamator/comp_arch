@@ -1,0 +1,289 @@
+---------------------------------------------
+-                  QUARTUS                  -
+---------------------------------------------
+Info: *******************************************************************
+Info: Running Quartus Prime Shell
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+    Info: Copyright (C) 2018  Intel Corporation. All rights reserved.
+    Info: Your use of Intel Corporation's design tools, logic functions 
+    Info: and other software and tools, and its AMPP partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Intel Program License 
+    Info: Subscription Agreement, the Intel Quartus Prime License Agreement,
+    Info: the Intel FPGA IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Intel and sold by Intel or its authorized distributors.  Please
+    Info: refer to the applicable agreement for further details.
+    Info: Processing started: Mon Jun 29 16:32:12 2020
+Info: Command: quartus_sh --flow compile miriv
+Info: Quartus(args): compile miriv
+Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
+Info: Project Name = /homes/d11775812/comp_arch/template/quartus/miriv
+Info: Revision Name = miriv
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+    Info: Processing started: Mon Jun 29 16:32:12 2020
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off miriv -c miriv
+Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/alu.vhd
+    Info (12022): Found design unit 1: alu-rtl File: /homes/d11775812/comp_arch/template/vhdl/alu.vhd Line: 25
+    Info (12023): Found entity 1: alu File: /homes/d11775812/comp_arch/template/vhdl/alu.vhd Line: 16
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/wb.vhd
+    Info (12022): Found design unit 1: wb-rtl File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 29
+    Info (12023): Found entity 1: wb File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 10
+Info (12021): Found 2 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/mem_pkg.vhd
+    Info (12022): Found design unit 1: mem_pkg File: /homes/d11775812/comp_arch/template/vhdl/mem_pkg.vhd Line: 4
+    Info (12022): Found design unit 2: mem_pkg-body File: /homes/d11775812/comp_arch/template/vhdl/mem_pkg.vhd Line: 62
+Info (12021): Found 2 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/core_pkg.vhd
+    Info (12022): Found design unit 1: core_pkg File: /homes/d11775812/comp_arch/template/vhdl/core_pkg.vhd Line: 7
+    Info (12022): Found design unit 2: core_pkg-body File: /homes/d11775812/comp_arch/template/vhdl/core_pkg.vhd Line: 40
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/regfile.vhd
+    Info (12022): Found design unit 1: regfile-rtl File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 21
+    Info (12023): Found entity 1: regfile File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 8
+Info (12021): Found 1 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/op_pkg.vhd
+    Info (12022): Found design unit 1: op_pkg File: /homes/d11775812/comp_arch/template/vhdl/op_pkg.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/memu.vhd
+    Info (12022): Found design unit 1: memu-rtl File: /homes/d11775812/comp_arch/template/vhdl/memu.vhd Line: 41
+    Info (12023): Found entity 1: memu File: /homes/d11775812/comp_arch/template/vhdl/memu.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/mem.vhd
+    Info (12022): Found design unit 1: mem-rtl File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 51
+    Info (12023): Found entity 1: mem File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/fwd.vhd
+    Info (12022): Found design unit 1: fwd-rtl File: /homes/d11775812/comp_arch/template/vhdl/fwd.vhd Line: 23
+    Info (12023): Found entity 1: fwd File: /homes/d11775812/comp_arch/template/vhdl/fwd.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/fetch.vhd
+    Info (12022): Found design unit 1: fetch-rtl File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 31
+    Info (12023): Found entity 1: fetch File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/exec.vhd
+    Info (12022): Found design unit 1: exec-rtl File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 38
+    Info (12023): Found entity 1: exec File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/decode.vhd
+    Info (12022): Found design unit 1: decode-rtl File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 33
+    Info (12023): Found entity 1: decode File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd
+    Info (12022): Found design unit 1: ctrl-rtl File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 34
+    Info (12023): Found entity 1: ctrl File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd
+    Info (12022): Found design unit 1: pipeline-impl File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 24
+    Info (12023): Found entity 1: pipeline File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/core.vhd
+    Info (12022): Found design unit 1: core-impl File: /homes/d11775812/comp_arch/template/vhdl/core.vhd Line: 23
+    Info (12023): Found entity 1: core File: /homes/d11775812/comp_arch/template/vhdl/core.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file pll_altera.vhd
+    Info (12022): Found design unit 1: pll-SYN File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 52
+    Info (12023): Found entity 1: pll File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 42
+Info (12021): Found 2 design units, including 1 entities, in source file top.vhd
+    Info (12022): Found design unit 1: top-impl File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 15
+    Info (12023): Found entity 1: top File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 5
+Info (12021): Found 1 design units, including 1 entities, in source file bootloader.qxp
+    Info (12023): Found entity 1: dev File: /homes/d11775812/comp_arch/template/quartus/bootloader.qxp Line: -1
+Info (12021): Found 1 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/pipeline_pkg.vhd
+    Info (12022): Found design unit 1: pipeline_pkg File: /homes/d11775812/comp_arch/template/vhdl/pipeline_pkg.vhd Line: 11
+Info (12127): Elaborating entity "top" for the top level hierarchy
+Info (12128): Elaborating entity "pll" for hierarchy "pll:pll_inst" File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 70
+Info (12128): Elaborating entity "altpll" for hierarchy "pll:pll_inst|altpll:altpll_component" File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 137
+Info (12130): Elaborated megafunction instantiation "pll:pll_inst|altpll:altpll_component" File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 137
+Info (12133): Instantiated megafunction "pll:pll_inst|altpll:altpll_component" with the following parameter: File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 137
+    Info (12134): Parameter "clk0_divide_by" = "2"
+    Info (12134): Parameter "clk0_duty_cycle" = "50"
+    Info (12134): Parameter "clk0_multiply_by" = "3"
+    Info (12134): Parameter "clk0_phase_shift" = "0"
+    Info (12134): Parameter "compensate_clock" = "CLK0"
+    Info (12134): Parameter "gate_lock_signal" = "NO"
+    Info (12134): Parameter "inclk0_input_frequency" = "20000"
+    Info (12134): Parameter "intended_device_family" = "Cyclone II"
+    Info (12134): Parameter "invalid_lock_multiplier" = "5"
+    Info (12134): Parameter "lpm_hint" = "CBX_MODULE_PREFIX=pll_altera"
+    Info (12134): Parameter "lpm_type" = "altpll"
+    Info (12134): Parameter "operation_mode" = "NORMAL"
+    Info (12134): Parameter "port_activeclock" = "PORT_UNUSED"
+    Info (12134): Parameter "port_areset" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkbad0" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkbad1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkloss" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkswitch" = "PORT_UNUSED"
+    Info (12134): Parameter "port_configupdate" = "PORT_UNUSED"
+    Info (12134): Parameter "port_fbin" = "PORT_UNUSED"
+    Info (12134): Parameter "port_inclk0" = "PORT_USED"
+    Info (12134): Parameter "port_inclk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_locked" = "PORT_USED"
+    Info (12134): Parameter "port_pfdena" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phasecounterselect" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phasedone" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phasestep" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phaseupdown" = "PORT_UNUSED"
+    Info (12134): Parameter "port_pllena" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanaclr" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanclk" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanclkena" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scandata" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scandataout" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scandone" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanread" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanwrite" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk0" = "PORT_USED"
+    Info (12134): Parameter "port_clk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk2" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk3" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk4" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk5" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena0" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena2" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena3" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena4" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena5" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk0" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk2" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk3" = "PORT_UNUSED"
+    Info (12134): Parameter "valid_lock_multiplier" = "1"
+Info (12128): Elaborating entity "core" for hierarchy "core:core_inst" File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 77
+Info (12128): Elaborating entity "pipeline" for hierarchy "core:core_inst|pipeline:pipeline_inst" File: /homes/d11775812/comp_arch/template/vhdl/core.vhd Line: 26
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(51): object "exc_dec" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 51
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(58): object "exc_load" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 58
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(59): object "exc_store" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 59
+Info (12128): Elaborating entity "fetch" for hierarchy "core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 62
+Info (12128): Elaborating entity "decode" for hierarchy "core:core_inst|pipeline:pipeline_inst|decode:decode_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 77
+Info (12128): Elaborating entity "regfile" for hierarchy "core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst" File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 78
+Warning (10492): VHDL Process Statement warning at regfile.vhd(89): signal "regwrite" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 89
+Warning (10492): VHDL Process Statement warning at regfile.vhd(98): signal "regwrite" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 98
+Warning (10631): VHDL Process Statement warning at regfile.vhd(64): inferring latch(es) for signal or variable "rddata1", which holds its previous value in one or more paths through the process File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Warning (10631): VHDL Process Statement warning at regfile.vhd(64): inferring latch(es) for signal or variable "rddata2", which holds its previous value in one or more paths through the process File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Warning (10631): VHDL Process Statement warning at regfile.vhd(64): inferring latch(es) for signal or variable "reg_data1_nxt", which holds its previous value in one or more paths through the process File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Warning (10631): VHDL Process Statement warning at regfile.vhd(64): inferring latch(es) for signal or variable "reg_data2_nxt", which holds its previous value in one or more paths through the process File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[0]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[1]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[2]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[3]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[4]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[5]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[6]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[7]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[8]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[9]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[10]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[11]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[12]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[13]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[14]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[15]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[16]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[17]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[18]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[19]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[20]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[21]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[22]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[23]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[24]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[25]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[26]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[27]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[28]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[29]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[30]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data2_nxt[31]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[0]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[1]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[2]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[3]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[4]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[5]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[6]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[7]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[8]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[9]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[10]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[11]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[12]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[13]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[14]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[15]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[16]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[17]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[18]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[19]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[20]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[21]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[22]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[23]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[24]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[25]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[26]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[27]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[28]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[29]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[30]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "reg_data1_nxt[31]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[0]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[1]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[2]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[3]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[4]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[5]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[6]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[7]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[8]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[9]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[10]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[11]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[12]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[13]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[14]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[15]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[16]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[17]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[18]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[19]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[20]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[21]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[22]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[23]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[24]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[25]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[26]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[27]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[28]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[29]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[30]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata2[31]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[0]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[1]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[2]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[3]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[4]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[5]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[6]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[7]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[8]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[9]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[10]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[11]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[12]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[13]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[14]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[15]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[16]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[17]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[18]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[19]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[20]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[21]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[22]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[23]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[24]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[25]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[26]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[27]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[28]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[29]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[30]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (10041): Inferred latch for "rddata1[31]" at regfile.vhd(64) File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 64
+Info (12128): Elaborating entity "exec" for hierarchy "core:core_inst|pipeline:pipeline_inst|exec:exec_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 93
+Warning (10036): Verilog HDL or VHDL warning at exec.vhd(59): object "alu_Z_2" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Li

@@ -12,6 +12,14 @@ add wave -noupdate -radix hexadecimal /tb/inp.wrdata
 add wave -noupdate -divider Output
 add wave -noupdate -radix hexadecimal /tb/outp.rddata1
 add wave -noupdate -radix hexadecimal /tb/outp.rddata2
+add wave -noupdate -radix hexadecimal /tb/regfile_inst/int_rdaddr1
+add wave -noupdate -radix hexadecimal /tb/regfile_inst/int_rdaddr2
+add wave -noupdate -radix hexadecimal /tb/regfile_inst/int_wraddr
+add wave -noupdate -radix hexadecimal /tb/regfile_inst/int_wrdata
+add wave -noupdate -radix hexadecimal /tb/regfile_inst/reg_file
+add wave -noupdate -radix hexadecimal /tb/regfile_inst/reg_data1
+add wave -noupdate -radix hexadecimal /tb/regfile_inst/reg_data2
+
 
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ps} 0}

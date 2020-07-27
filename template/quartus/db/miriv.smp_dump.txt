@@ -60,3 +60,23 @@ int_op.aluop.ALU_SUB 0 0 0 1 0 0 0 0 0 0 1
 int_op.aluop.ALU_AND 0 0 1 0 0 0 0 0 0 0 1 
 int_op.aluop.ALU_OR 0 1 0 0 0 0 0 0 0 0 1 
 int_op.aluop.ALU_XOR 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|core:core_inst|pipeline:pipeline_inst|ctrl:ctrl_inst|int_exec_op.aluop
+Name int_exec_op.aluop.ALU_XOR int_exec_op.aluop.ALU_OR int_exec_op.aluop.ALU_AND int_exec_op.aluop.ALU_SUB int_exec_op.aluop.ALU_ADD int_exec_op.aluop.ALU_SRA int_exec_op.aluop.ALU_SRL int_exec_op.aluop.ALU_SLL int_exec_op.aluop.ALU_SLTU int_exec_op.aluop.ALU_SLT int_exec_op.aluop.ALU_NOP 
+int_exec_op.aluop.ALU_NOP 0 0 0 0 0 0 0 0 0 0 0 
+int_exec_op.aluop.ALU_SLT 0 0 0 0 0 0 0 0 0 1 1 
+int_exec_op.aluop.ALU_SLTU 0 0 0 0 0 0 0 0 1 0 1 
+int_exec_op.aluop.ALU_SLL 0 0 0 0 0 0 0 1 0 0 1 
+int_exec_op.aluop.ALU_SRL 0 0 0 0 0 0 1 0 0 0 1 
+int_exec_op.aluop.ALU_SRA 0 0 0 0 0 1 0 0 0 0 1 
+int_exec_op.aluop.ALU_ADD 0 0 0 0 1 0 0 0 0 0 1 
+int_exec_op.aluop.ALU_SUB 0 0 0 1 0 0 0 0 0 0 1 
+int_exec_op.aluop.ALU_AND 0 0 1 0 0 0 0 0 0 0 1 
+int_exec_op.aluop.ALU_OR 0 1 0 0 0 0 0 0 0 0 1 
+int_exec_op.aluop.ALU_XOR 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|core:core_inst|pipeline:pipeline_inst|ctrl:ctrl_inst|int_wb_op_mem.src
+Name int_wb_op_mem.src.WBS_OPC int_wb_op_mem.src.WBS_MEM int_wb_op_mem.src.WBS_ALU 
+int_wb_op_mem.src.WBS_ALU 0 0 0 
+int_wb_op_mem.src.WBS_MEM 0 1 1 
+int_wb_op_mem.src.WBS_OPC 1 0 1 

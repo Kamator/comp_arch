@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2020.4.9)  29 JUN 2020 13:02
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2020.4.9)  1 JUL 2020 09:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -247,7 +247,7 @@ ansition.png> <./fig/mem_0_075_to_0_135.png> <./fig/regfile_0_to_0_135.png>] [3
 Here is how much of TeX's memory you used:
  3582 strings out of 495063
  48983 string characters out of 3182202
- 107233 words of memory out of 3000000
+ 107232 words of memory out of 3000000
  6740 multiletter control sequences out of 15000+200000
  5964 words of font info for 22 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -257,7 +257,7 @@ cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
 10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on template.pdf (4 pages, 334915 bytes).
+Output written on template.pdf (4 pages, 335160 bytes).
 PDF statistics:
  52 PDF objects out of 1000 (max. 8388607)
  26 compressed objects within 1 object stream

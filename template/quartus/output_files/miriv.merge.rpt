@@ -1,5 +1,5 @@
 Partition Merge report for miriv
-Mon Jun 29 08:24:40 2020
+Mon Jul 27 13:45:04 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -41,15 +41,15 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Partition Merge Summary                                                              ;
 +------------------------------------+-------------------------------------------------+
-; Partition Merge Status             ; Successful - Mon Jun 29 08:24:40 2020           ;
+; Partition Merge Status             ; Successful - Mon Jul 27 13:45:04 2020           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                      ; miriv                                           ;
 ; Top-level Entity Name              ; top                                             ;
 ; Family                             ; Cyclone IV E                                    ;
-; Total logic elements               ; 4,457 / 114,480 ( 4 % )                         ;
-;     Total combinational functions  ; 3,344 / 114,480 ( 3 % )                         ;
-;     Dedicated logic registers      ; 1,645 / 114,480 ( 1 % )                         ;
-; Total registers                    ; 1645                                            ;
+; Total logic elements               ; 5,070 / 114,480 ( 4 % )                         ;
+;     Total combinational functions  ; 3,900 / 114,480 ( 3 % )                         ;
+;     Dedicated logic registers      ; 1,836 / 114,480 ( 2 % )                         ;
+; Total registers                    ; 1836                                            ;
 ; Total pins                         ; 4 / 529 ( < 1 % )                               ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 262,208 / 3,981,312 ( 7 % )                     ;
@@ -131,20 +131,20 @@ Note: The Incremental Compilation Advisor can be used to get more detailed recom
 +---------------------------------------------+-----------------------+------------------------+------------------------+--------------------------------+
 ; Statistic                                   ; Top                   ; dev:dev_inst           ; sld_hub:auto_hub       ; hard_block:auto_generated_inst ;
 +---------------------------------------------+-----------------------+------------------------+------------------------+--------------------------------+
-; Estimated Total logic elements              ; 3948 / 114480 ( 3 % ) ; 370 / 114480 ( < 1 % ) ; 139 / 114480 ( < 1 % ) ; 0 / 114480 ( 0 % )             ;
+; Estimated Total logic elements              ; 4561 / 114480 ( 4 % ) ; 370 / 114480 ( < 1 % ) ; 139 / 114480 ( < 1 % ) ; 0 / 114480 ( 0 % )             ;
 ;                                             ;                       ;                        ;                        ;                                ;
-; Total combinational functions               ; 2899                  ; 327                    ; 118                    ; 0                              ;
+; Total combinational functions               ; 3455                  ; 327                    ; 118                    ; 0                              ;
 ; Logic element usage by number of LUT inputs ;                       ;                        ;                        ;                                ;
-;     -- 4 input functions                    ; 2272                  ; 171                    ; 49                     ; 0                              ;
-;     -- 3 input functions                    ; 415                   ; 42                     ; 31                     ; 0                              ;
-;     -- <=2 input functions                  ; 212                   ; 114                    ; 38                     ; 0                              ;
+;     -- 4 input functions                    ; 2764                  ; 171                    ; 49                     ; 0                              ;
+;     -- 3 input functions                    ; 482                   ; 42                     ; 31                     ; 0                              ;
+;     -- <=2 input functions                  ; 209                   ; 114                    ; 38                     ; 0                              ;
 ;                                             ;                       ;                        ;                        ;                                ;
 ; Logic elements by mode                      ;                       ;                        ;                        ;                                ;
-;     -- normal mode                          ; 2762                  ; 256                    ; 110                    ; 0                              ;
-;     -- arithmetic mode                      ; 137                   ; 71                     ; 8                      ; 0                              ;
+;     -- normal mode                          ; 3298                  ; 256                    ; 110                    ; 0                              ;
+;     -- arithmetic mode                      ; 157                   ; 71                     ; 8                      ; 0                              ;
 ;                                             ;                       ;                        ;                        ;                                ;
-; Total registers                             ; 1352                  ; 214                    ; 79                     ; 0                              ;
-;     -- Dedicated logic registers            ; 1352 / 114480 ( 1 % ) ; 214 / 114480 ( < 1 % ) ; 79 / 114480 ( < 1 % )  ; 0 / 114480 ( 0 % )             ;
+; Total registers                             ; 1543                  ; 214                    ; 79                     ; 0                              ;
+;     -- Dedicated logic registers            ; 1543 / 114480 ( 1 % ) ; 214 / 114480 ( < 1 % ) ; 79 / 114480 ( < 1 % )  ; 0 / 114480 ( 0 % )             ;
 ;     -- I/O registers                        ; 0                     ; 0                      ; 0                      ; 0                              ;
 ;                                             ;                       ;                        ;                        ;                                ;
 ; Virtual pins                                ; 0                     ; 0                      ; 0                      ; 0                              ;
@@ -157,20 +157,20 @@ Note: The Incremental Compilation Advisor can be used to get more detailed recom
 ; M9K                                         ; 0 / 432 ( 0 % )       ; 34 / 432 ( 7 % )       ; 0 / 432 ( 0 % )        ; 0 / 432 ( 0 % )                ;
 ;                                             ;                       ;                        ;                        ;                                ;
 ; Connections                                 ;                       ;                        ;                        ;                                ;
-;     -- Input Connections                    ; 1817                  ; 1107                   ; 116                    ; 1                              ;
-;     -- Registered Input Connections         ; 1692                  ; 440                    ; 88                     ; 0                              ;
-;     -- Output Connections                   ; 1006                  ; 466                    ; 45                     ; 1524                           ;
-;     -- Registered Output Connections        ; 0                     ; 2                      ; 45                     ; 0                              ;
+;     -- Input Connections                    ; 1732                  ; 1107                   ; 116                    ; 1                              ;
+;     -- Registered Input Connections         ; 1543                  ; 440                    ; 88                     ; 0                              ;
+;     -- Output Connections                   ; 1006                  ; 183                    ; 45                     ; 1722                           ;
+;     -- Registered Output Connections        ; 0                     ; 9                      ; 45                     ; 0                              ;
 ;                                             ;                       ;                        ;                        ;                                ;
 ; Internal Connections                        ;                       ;                        ;                        ;                                ;
-;     -- Total Connections                    ; 17196                 ; 3439                   ; 666                    ; 1527                           ;
-;     -- Registered Connections               ; 7681                  ; 1450                   ; 454                    ; 0                              ;
+;     -- Total Connections                    ; 20095                 ; 3156                   ; 666                    ; 1725                           ;
+;     -- Registered Connections               ; 8119                  ; 1457                   ; 454                    ; 0                              ;
 ;                                             ;                       ;                        ;                        ;                                ;
 ; External Connections                        ;                       ;                        ;                        ;                                ;
-;     -- Top                                  ; 0                     ; 1357                   ; 111                    ; 1355                           ;
-;     -- dev:dev_inst                         ; 1357                  ; 0                      ; 46                     ; 170                            ;
+;     -- Top                                  ; 0                     ; 1074                   ; 111                    ; 1553                           ;
+;     -- dev:dev_inst                         ; 1074                  ; 0                      ; 46                     ; 170                            ;
 ;     -- sld_hub:auto_hub                     ; 111                   ; 46                     ; 4                      ; 0                              ;
-;     -- hard_block:auto_generated_inst       ; 1355                  ; 170                    ; 0                      ; 0                              ;
+;     -- hard_block:auto_generated_inst       ; 1553                  ; 170                    ; 0                      ; 0                              ;
 ;                                             ;                       ;                        ;                        ;                                ;
 ; Partition Interface                         ;                       ;                        ;                        ;                                ;
 ;     -- Input Ports                          ; 6                     ; 140                    ; 16                     ; 2                              ;
@@ -242,20 +242,20 @@ Note: Resource usage numbers presented for Partitions containing post-synthesis 
 +---------------------------------------------+--------------------------------------------+
 ; Resource                                    ; Usage                                      ;
 +---------------------------------------------+--------------------------------------------+
-; Estimated Total logic elements              ; 4,457 / 114,480 ( 3 % )                    ;
+; Estimated Total logic elements              ; 5,070 / 114,480 ( 4 % )                    ;
 ;                                             ;                                            ;
-; Total combinational functions               ; 3344                                       ;
+; Total combinational functions               ; 3900                                       ;
 ; Logic element usage by number of LUT inputs ;                                            ;
-;     -- 4 input functions                    ; 2492                                       ;
-;     -- 3 input functions                    ; 488                                        ;
-;     -- <=2 input functions                  ; 364                                        ;
+;     -- 4 input functions                    ; 2984                                       ;
+;     -- 3 input functions                    ; 555                                        ;
+;     -- <=2 input functions                  ; 361                                        ;
 ;                                             ;                                            ;
 ; Logic elements by mode                      ;                                            ;
-;     -- normal mode                          ; 3128                                       ;
-;     -- arithmetic mode                      ; 216                                        ;
+;     -- normal mode                          ; 3664                                       ;
+;     -- arithmetic mode                      ; 236                                        ;
 ;                                             ;                                            ;
-; Total registers                             ; 1645                                       ;
-;     -- Dedicated logic registers            ; 1645                                       ;
+; Total registers                             ; 1836                                       ;
+;     -- Dedicated logic registers            ; 1836                                       ;
 ;     -- I/O registers                        ; 0                                          ;
 ;                                             ;                                            ;
 ; I/O pins                                    ; 4                                          ;
@@ -267,8 +267,8 @@ Note: Resource usage numbers presented for Partitions containing post-synthesis 
 ;     -- PLLs                                 ; 1                                          ;
 ;                                             ;                                            ;
 ; Maximum fan-out node                        ; pll:pll_inst|altpll:altpll_component|_clk0 ;
-; Maximum fan-out                             ; 1356                                       ;
-; Total fan-out                               ; 19724                                      ;
+; Maximum fan-out                             ; 1554                                       ;
+; Total fan-out                               ; 22619                                      ;
 ; Average fan-out                             ; 3.90                                       ;
 +---------------------------------------------+--------------------------------------------+
 
@@ -301,7 +301,7 @@ Note: Resource usage numbers presented for Partitions containing post-synthesis 
 Info: *******************************************************************
 Info: Running Quartus Prime Partition Merge
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Mon Jun 29 08:24:39 2020
+    Info: Processing started: Mon Jul 27 13:45:03 2020
 Info: Command: quartus_cdb --read_settings_files=off --write_settings_files=off miriv -c miriv --merge=on
 Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
 Info (35007): Using synthesis netlist for partition "Top"
@@ -316,15 +316,15 @@ Warning (35016): Found partition port(s) not driving logic, possibly wasting are
     Warning (35018): Partition port "dev:dev_inst|mem_i_out[50]", driven by node "core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|mem_out.address[12]~12", does not drive logic File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 25
     Warning (35018): Partition port "dev:dev_inst|mem_i_out[51]", driven by node "core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|mem_out.address[13]~13", does not drive logic File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 25
     Warning (35018): Partition port "dev:dev_inst|mem_i_out[4]", driven by node "dev_inst.mem_i_in[32]~_wirecell", does not drive logic File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 89
-Info (21057): Implemented 4574 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 5258 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 6 input pins
     Info (21059): Implemented 2 output pins
-    Info (21061): Implemented 4529 logic cells
+    Info (21061): Implemented 5213 logic cells
     Info (21064): Implemented 34 RAM segments
     Info (21065): Implemented 1 PLLs
 Info: Quartus Prime Partition Merge was successful. 0 errors, 4 warnings
-    Info: Peak virtual memory: 1376 megabytes
-    Info: Processing ended: Mon Jun 29 08:24:41 2020
+    Info: Peak virtual memory: 1380 megabytes
+    Info: Processing ended: Mon Jul 27 13:45:05 2020
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:01
 

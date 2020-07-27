@@ -1,0 +1,22 @@
+Tue Jul 21 17:39:08 CEST 2020
+Trace back: can't unset "::wait_for_it": no such variable
+    while executing
+"vsimwidgets::Srcedit::HandleDrivers [lindex $sigList 0] $d_or_r"
+    (procedure "_showDFReadersDrivers" line 41)
+    invoked from within
+"_showDFReadersDrivers drivers .main_pane.wave.interior.cs.body.pw.wf 1"
+    ("eval" body line 1)
+    invoked from within
+"eval _showDFReadersDrivers "drivers" $winname $classic $args"
+    (procedure "Wave::ShowDFDrivers" line 2)
+    invoked from within
+"Wave::ShowDFDrivers $top 1"
+    (procedure "Wave::1Up" line 27)
+    invoked from within
+"Wave::1Up $widget $x $y"
+    (procedure "Wave::SelectUp" line 4)
+    invoked from within
+"Wave::SelectUp	 .main_pane.wave.interior.cs.body.pw.wf.grid.row0,wave.data 86 681 484 916 "
+    (command bound to event)
+  <2:/opt/questa_core_prime_10.6-for_quartus18.1-10.6c.1/mentor/2017-18/RHELx86/QUESTA-CORE-PRIME_10.6c-1/questasim/linux/tk8.6/bgerror.tcl:106: ::tkerror {can't unset "::wait_for_it": no such variable}
+  <1:eval:1: ::tk::dialog::error::bgerror {can't unset "::wait_for_it": no such variable}

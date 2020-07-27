@@ -44,8 +44,8 @@ add wave -noupdate -expand -group exec /tb_cpu/dut/pipeline_inst/exec_inst/int_p
 add wave -noupdate -expand -group exec -childformat {{/tb_cpu/dut/pipeline_inst/exec_inst/int_op.rs1 -radix unsigned} {/tb_cpu/dut/pipeline_inst/exec_inst/int_op.rs2 -radix unsigned} {/tb_cpu/dut/pipeline_inst/exec_inst/int_op.readdata1 -radix hexadecimal} {/tb_cpu/dut/pipeline_inst/exec_inst/int_op.readdata2 -radix hexadecimal} {/tb_cpu/dut/pipeline_inst/exec_inst/int_op.imm -radix hexadecimal}} -expand -subitemconfig {/tb_cpu/dut/pipeline_inst/exec_inst/int_op.rs1 {-radix unsigned} /tb_cpu/dut/pipeline_inst/exec_inst/int_op.rs2 {-radix unsigned} /tb_cpu/dut/pipeline_inst/exec_inst/int_op.readdata1 {-radix hexadecimal} /tb_cpu/dut/pipeline_inst/exec_inst/int_op.readdata2 {-radix hexadecimal} /tb_cpu/dut/pipeline_inst/exec_inst/int_op.imm {-radix hexadecimal}} /tb_cpu/dut/pipeline_inst/exec_inst/int_op
 add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/pc_in
 #add wave -noupdate -expand -group exec -childformat {{/tb_cpu/dut/exec_inst/reg_write_mem.reg -radix unsigned} {/tb_cpu/dut/exec_inst/reg_write_mem.data -radix hexadecimal}} -expand -subitemconfig {/tb_cpu/dut/exec_inst/reg_write_mem.reg {-radix unsigned} /tb_cpu/dut/exec_inst/reg_write_mem.data {-radix hexadecimal}} /tb_cpu/dut/exec_inst/reg_write_mem
-add wave -noupdate -expand -group exec /tb_cpu/dut/pipeline_inst/reg_write_wr
-add wave -noupdate -expand -group exec /tb_cpu/dut/pipeline_inst/reg_write_mem
+add wave -noupdate -expand -group exec /tb_cpu/dut/pipeline_inst/reg_write
+add wave -noupdate -expand -group exec /tb_cpu/dut/pipeline_inst/reg_write_mem_to_fwd
 add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/pc_new_out
 add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/pc_old_out
 add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/alu_A
@@ -92,6 +92,7 @@ add wave -noupdate -expand -group wb /tb_cpu/dut/pipeline_inst/stall_wb
 add wave -noupdate -expand -group wb /tb_cpu/dut/pipeline_inst/flush_wb
 add wave -noupdate -expand -group wb /tb_cpu/dut/pipeline_inst/wb_inst/int_op
 add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/aluresult
+add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/reg_write
 #add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/int_memresult
 #add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/int_aluresult
 add wave -noupdate -expand -group wb -radix hexadecimal /tb_cpu/dut/pipeline_inst/wb_inst/memresult

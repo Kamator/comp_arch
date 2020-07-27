@@ -62,8 +62,8 @@ begin
     generic map (
         IMEM_FILE => IMEM,
         DMEM_FILE => DMEM,
-        IMEM_DELAY => 0,
-        DMEM_DELAY => 0
+        IMEM_DELAY => 2,
+        DMEM_DELAY => 2
     )
     port map (
         clk => clk,
