@@ -44,7 +44,11 @@ begin
 		
 		elsif rising_edge(clk) and flush = '1' and reset = '1' then 
 			int_instr <= NOP_INST; 
-			int_pc_cnt <= int_pc_cnt_nxt; 			
+			int_pc_cnt <= int_pc_cnt_nxt;
+
+			if pcsrc = '1' then 
+				int_pc_cnt <= pc_in; 
+			end if;  			
 
 		elsif rising_edge(clk) and stall = '0' and flush = '0' and pcsrc = '0' then 
 			int_pc_cnt <= int_pc_cnt_nxt; 
@@ -64,12 +68,7 @@ begin
 
 		if pcsrc = '0' and flush = '0' then 
 			int_pc_cnt_nxt <= std_logic_vector(unsigned(int_pc_cnt) + 4);
-
-		/*elsif pcsrc = '1' and flush = '0' then 
-			int_pc_cnt_nxt <= pc_in; */
-			
 		else 
-			--should not happen
 			int_pc_cnt_nxt <= (others => '0'); 
 		end if; 
 		
@@ -89,9 +88,9 @@ begin
 			--removed "and flush = '0'"
 			--pass new request with next pc
 			if flush = '0' then 
-				mem_out.address <= std_logic_vector(unsigned(int_pc_cnt(15 downto 2))+1); 
+				mem_out.address <= std_logic_vector(unsigned(int_pc_cnt(15 downto 2))+1);
 			else 
-				mem_out.address <= std_logic_vector(unsigned(int_pc_cnt(15 downto 2)));
+				mem_out.address <= std_logic_vector(unsigned(pc_in(15 downto 2)));
 			end if; 
 			
 			if pcsrc = '0' and flush = '0' then 

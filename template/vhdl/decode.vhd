@@ -107,8 +107,8 @@ begin
 			int_instr <= (others => '0'); 
 			int_pc <= (others => '0'); 
 			int_reg_write <= reg_write_nop; 
-			int_rdaddr1 <= (others => '0'); 
-			int_rdaddr2 <= (others => '0'); 
+		--	int_rdaddr1 <= (others => '0'); 
+		--	int_rdaddr2 <= (others => '0'); 
 
 		elsif rising_edge(clk) and stall = '0' and flush = '0' then
 			int_instr <= instr;	

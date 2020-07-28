@@ -98,9 +98,8 @@ begin
 			int_memop_in <= MEM_NOP; 
 			int_wbop_in <= WB_NOP; 
 			int_wrdata <= (others => '0'); 
-			int_reg_wr_mem <= REG_WRITE_NOP;
-			int_reg_wr_wr <= REG_WRITE_NOP;
-
+			
+			
 		elsif flush = '1' then 
 			--flush signal
 			--flush internal signals 
@@ -108,10 +107,7 @@ begin
 			int_pc_in <= (others => '0'); 
 			int_memop_in <= MEM_NOP; 
 			int_wbop_in <= WB_NOP; 
-			int_wrdata <= (others => '0'); 
-			int_reg_wr_mem <= REG_WRITE_NOP;
-			int_reg_wr_wr <= REG_WRITE_NOP;
-					
+			int_wrdata <= (others => '0'); 					
 
 		elsif rising_edge(clk) and stall = '0' then 
 			--put through directly to ALU, ALU 1 control signals 
@@ -120,55 +116,14 @@ begin
 			int_memop_in <= memop_in; 
 			int_wbop_in <= wbop_in; 
 			int_wrdata <= (others => '0'); 
-			int_reg_wr_mem <= reg_write_mem;
-			int_reg_wr_wr <= reg_write_wr;
-	
-			if reg_write_mem.write = '1' or reg_write_wr.write = '1' then 
-				
-				if reg_write_mem.write = '1' then
-					if reg_write_mem.reg = int_op.rs1 then 
-						int_op.readdata1 <= reg_write_mem.data; 
-					else
-						int_op.readdata2 <= reg_write_mem.data; 
-					end if; 
-				end if; 
-
-				if reg_write_wr.write = '1' then  	
-					if reg_write_wr.reg = int_op.rs1 then 
-						int_op.readdata1 <= reg_write_wr.data; 
-					else 
-						int_op.readdata2 <= reg_write_wr.data; 
-					end if; 
-				end if; 
-			end if; 
-
-	
-		elsif rising_edge(clk) and stall = '1' then
-
-			if reg_write_mem.write = '1' or reg_write_wr.write = '1' then 
-				
-				if reg_write_mem.write = '1' then
-					if reg_write_mem.reg = int_op.rs1 then 
-						int_op.readdata1 <= reg_write_mem.data; 
-					else
-						int_op.readdata2 <= reg_write_mem.data; 
-					end if; 
-				end if; 
-
-				if reg_write_wr.write = '1' then  	
-					if reg_write_wr.reg = int_op.rs1 then 
-						int_op.readdata1 <= reg_write_wr.data; 
-					else 
-						int_op.readdata2 <= reg_write_wr.data; 
-					end if; 
-				end if; 
-			end if; 
+		
 		end if; 
+	 
 
 	end process; 
 	
 
-	logic : process(int_reg_wr_mem, int_reg_wr_wr, int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2, reg_write_wr, reg_write_mem)
+	logic : process(int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2, reg_write_mem, reg_write_wr)
 	begin
 	
 		--The signals exec_op , reg_write_mem and reg_write_wr are irrelevant for this 
@@ -222,14 +177,66 @@ begin
 			alu_A <= int_op.readdata1; 
 			alu_B <= int_op.readdata2; 
 
+			/*
+			if reg_write_mem.write = '1' then
+
+				if reg_write_mem.reg = int_op.rs1 then
+	
+					if reg_write_mem.reg /= ZERO_REG then  
+						alu_A <= reg_write_mem.data; 
+					end if; 
+				elsif reg_write_mem.reg = int_op.rs2 then 
+			
+					if reg_write_mem.reg /= ZERO_REG then 
+						alu_B <= reg_write_mem.data; 
+					end if; 
+
+				end if;  
+			end if; 
+
+			if reg_write_wr.write = '1' then  	
+			
+				if reg_write_wr.reg = int_op.rs1 and reg_write_mem.reg /= int_op.rs1 then
+					
+					if reg_write_wr.reg /= ZERO_REG then 
+						alu_A <= reg_write_wr.data;
+					end if; 
+		
+				elsif reg_write_wr.reg = int_op.rs2 and reg_write_mem.reg /= int_op.rs2 then
+					if reg_write_wr.reg /= ZERO_REG then
+						alu_B <= reg_write_wr.data; 
+					end if; 
+ 				end if; 
+			end if;  */
+		  
+
 		--I-Type Instructions
 		elsif int_op.imm_flag = '1' and int_op.store_flag = '0' and int_op.pc_flag = '0' then
 			
 			--no parameter check necessary (immediate always second)
 		        
-			alu_A <= int_op.readdata1;							     
-		  
+			alu_A <= int_op.readdata1;							 
  		  	alu_B <= int_op.imm; 
+			/*
+			if reg_write_mem.write = '1' then
+
+				if reg_write_mem.reg = int_op.rs1 then
+	
+					if reg_write_mem.reg /= ZERO_REG then  
+						alu_A <= reg_write_mem.data; 
+					end if; 
+				end if; 
+			end if; 
+
+			if reg_write_wr.write = '1' then  	
+			
+				if reg_write_wr.reg = int_op.rs1 and reg_write_mem.reg /= int_op.rs1 then
+					
+					if reg_write_wr.reg /= ZERO_REG then 
+						alu_A <= reg_write_wr.data;
+					end if; 
+ 				end if; 
+			end if; */
 		  
 			if int_op.imm = x"00000000" and int_op.rs1 = "00000" then 
 				--NOP Instruction
@@ -241,15 +248,80 @@ begin
 			
 			alu_A <= int_op.readdata1; 
 			alu_B <= int_op.imm; 
-			
+					
 			--address where to store that data
 			wrdata <= int_op.readdata2; 
+/*
+			if reg_write_mem.write = '1' then
+
+				if reg_write_mem.reg = int_op.rs1 then
+	
+					if reg_write_mem.reg /= ZERO_REG then  
+						alu_A <= reg_write_mem.data; 
+					end if; 
+				elsif reg_write_mem.reg = int_op.rs2 then 
+			
+					if reg_write_mem.reg /= ZERO_REG then 
+						wrdata <= reg_write_mem.data; 
+					end if; 
+
+				end if;  
+			end if; 
+
+			if reg_write_wr.write = '1' then  	
+			
+				if reg_write_wr.reg = int_op.rs1 and reg_write_mem.reg /= int_op.rs1 then
+					
+					if reg_write_wr.reg /= ZERO_REG then 
+						alu_A <= reg_write_wr.data;
+					end if; 
+		
+				elsif reg_write_wr.reg = int_op.rs2 and reg_write_mem.reg /= int_op.rs2 then
+					if reg_write_wr.reg /= ZERO_REG then
+						wrdata <= reg_write_wr.data; 
+					end if; 
+ 				end if; 
+			end if; */
+		  
 		
 		--B-Type Instructions
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '1' then
 	      	
 			alu_A <= int_op.readdata1; 
 			alu_B <= int_op.readdata2; 
+/*
+			if reg_write_mem.write = '1' then
+
+				if reg_write_mem.reg = int_op.rs1 then
+	
+					if reg_write_mem.reg /= ZERO_REG then  
+						alu_A <= reg_write_mem.data; 
+					end if; 
+				elsif reg_write_mem.reg = int_op.rs2 then 
+			
+					if reg_write_mem.reg /= ZERO_REG then 
+						alu_B <= reg_write_mem.data; 
+					end if; 
+
+				end if;  
+			end if; 
+
+			if reg_write_wr.write = '1' then  	
+			
+				if reg_write_wr.reg = int_op.rs1 and reg_write_mem.reg /= int_op.rs1 then
+					
+					if reg_write_wr.reg /= ZERO_REG then 
+						alu_A <= reg_write_wr.data;
+					end if; 
+		
+				elsif reg_write_wr.reg = int_op.rs2 and reg_write_mem.reg /= int_op.rs2 then
+					if reg_write_wr.reg /= ZERO_REG then
+						alu_B <= reg_write_wr.data; 
+					end if; 
+ 				end if; 
+			end if;  */
+		  
+
 
 			if int_op.aluop = ALU_SUB then
 				--beq/neq instruction
@@ -284,10 +356,30 @@ begin
 		--UJ - Instructions (JALR)
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '1' and int_op.pc_flag = '1' then
 
-				 alu_A <= int_op.readdata1;
-		   	
+			 alu_A <= int_op.readdata1;
+			 alu_B <= int_op.imm; 
+	
+/*
+			if reg_write_mem.write = '1' then
 
-				 alu_B <= int_op.imm; 
+				if reg_write_mem.reg = int_op.rs1 then
+	
+					if reg_write_mem.reg /= ZERO_REG then  
+						alu_A <= reg_write_mem.data; 
+					end if; 
+				end if; 
+			end if; 
+
+			if reg_write_wr.write = '1' then  	
+			
+				if reg_write_wr.reg = int_op.rs1 and reg_write_mem.reg /= int_op.rs1 then
+					
+					if reg_write_wr.reg /= ZERO_REG then 
+						alu_A <= reg_write_wr.data;
+					end if; 
+ 				end if; 
+			end if;  */
+		  
 
 				--pc+4 stored in rd
 				wrdata(15 downto 0) <= alu_R_2(15 downto 0); 
@@ -296,7 +388,48 @@ begin
 				--pc_new_out .. jalr, so rs1 + offset
 				pc_new_out <= alu_R(15 downto 0);
 
-		end if; 
+		end if;
+
+		--forward if needed	
+			if reg_write_mem.write = '1' then
+
+				if reg_write_mem.reg = int_op.rs1 then
+	
+					if reg_write_mem.reg /= ZERO_REG then  
+						alu_A <= reg_write_mem.data; 
+					end if; 
+				elsif reg_write_mem.reg = int_op.rs2 then 
+			
+					if reg_write_mem.reg /= ZERO_REG then
+						if int_op.store_flag = '1' then 
+							wrdata <= reg_write_mem.data; 
+						else 
+							alu_B <= reg_write_mem.data; 
+						end if; 	
+					end if; 
+
+				end if;  
+			end if; 
+
+			if reg_write_wr.write = '1' then  	
+			
+				if reg_write_wr.reg = int_op.rs1 and reg_write_mem.reg /= int_op.rs1 then
+					
+					if reg_write_wr.reg /= ZERO_REG then 
+						alu_A <= reg_write_wr.data;
+					end if; 
+		
+				elsif reg_write_wr.reg = int_op.rs2 and reg_write_mem.reg /= int_op.rs2 then
+					if reg_write_wr.reg /= ZERO_REG then
+						if int_op.store_flag = '1' then 
+							wrdata <= reg_write_wr.data; 
+						else 
+							alu_B <= reg_write_wr.data; 
+						end if; 
+					end if; 
+ 				end if; 
+			end if; 
+	 
 
 
 	end process; 

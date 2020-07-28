@@ -64,6 +64,7 @@ architecture rtl of exec is
 	signal int_memop_in : mem_op_type; 
 	signal int_wbop_in : wb_op_type;  
 	signal int_wrdata : data_type; 
+	signal dwr_flag : std_logic; 
 
 	signal int_reg_wr_mem : reg_write_type;
 	signal int_reg_wr_wr : reg_write_type;
@@ -88,7 +89,7 @@ begin
 		Z => alu_Z_2
 	); 
 	
-	sync_p : process(clk, reset, flush, stall)
+	sync_p : process(clk, reset, flush, stall, reg_write_mem, reg_write_wr)
 	begin
 		if reset = '0' then 
 			--global reset
@@ -98,7 +99,7 @@ begin
 			int_memop_in <= MEM_NOP; 
 			int_wbop_in <= WB_NOP; 
 			int_wrdata <= (others => '0'); 
-			
+			dwr_flag <= '0'; 	
 			
 		elsif flush = '1' then 
 			--flush signal
@@ -108,6 +109,7 @@ begin
 			int_memop_in <= MEM_NOP; 
 			int_wbop_in <= WB_NOP; 
 			int_wrdata <= (others => '0'); 					
+			dwr_flag <= '0'; 
 
 		elsif rising_edge(clk) and stall = '0' then 
 			--put through directly to ALU, ALU 1 control signals 
@@ -116,26 +118,32 @@ begin
 			int_memop_in <= memop_in; 
 			int_wbop_in <= wbop_in; 
 			int_wrdata <= (others => '0'); 
+			dwr_flag <= '0'; 
 
-			if reg_write_mem.write = '1' then
+			if reg_write_mem.write = '1' then 
 
 				if reg_write_mem.reg = op.rs1 then
-	
+			
 					if reg_write_mem.reg /= ZERO_REG then  
 						int_op.readdata1 <= reg_write_mem.data; 
 					end if; 
 
 				elsif reg_write_mem.reg = op.rs2 then
-
-					if reg_write_mem.reg /= ZERO_REG then  
-						int_op.readdata2 <= reg_write_mem.data; 
+				
+					if reg_write_mem.reg /= ZERO_REG then 
+						if op.store_flag = '1' then 
+							int_wrdata <= reg_write_mem.data; 
+							dwr_flag <= '1';  
+						else  
+							int_op.readdata2 <= reg_write_mem.data; 
+						end if; 
 					end if; 
 
 				end if; 
 			end if; 
 
 			if reg_write_wr.write = '1' then  	
-			
+				
 				if reg_write_wr.reg = op.rs1 and reg_write_mem.reg /= op.rs1 then
 					
 					if reg_write_wr.reg /= ZERO_REG then 
@@ -145,7 +153,13 @@ begin
 				elsif reg_write_wr.reg = op.rs2 and reg_write_mem.reg /= op.rs2 then
 					
 					if reg_write_wr.reg /= ZERO_REG then
-						int_op.readdata2 <= reg_write_wr.data; 
+						if op.store_flag = '1' then 
+							int_wrdata <= reg_write_wr.data; 
+							dwr_flag <= '1'; 
+						else 	
+							int_op.readdata2 <= reg_write_wr.data; 
+						end if; 
+						
 					end if; 
 
 				end if; 
@@ -155,25 +169,30 @@ begin
 	
 		elsif rising_edge(clk) and stall = '1' then
 
-			if reg_write_mem.write = '1' then
+			if reg_write_mem.write = '1' then 
 
 				if reg_write_mem.reg = op.rs1 then
-	
+			
 					if reg_write_mem.reg /= ZERO_REG then  
 						int_op.readdata1 <= reg_write_mem.data; 
 					end if; 
 
 				elsif reg_write_mem.reg = op.rs2 then
-
-					if reg_write_mem.reg /= ZERO_REG then  
-						int_op.readdata2 <= reg_write_mem.data; 
+				
+					if reg_write_mem.reg /= ZERO_REG then 
+						if op.store_flag = '1' then 
+							int_wrdata <= reg_write_mem.data; 
+							dwr_flag <= '1';  
+						else  
+							int_op.readdata2 <= reg_write_mem.data; 
+						end if; 
 					end if; 
 
 				end if; 
 			end if; 
 
 			if reg_write_wr.write = '1' then  	
-			
+				
 				if reg_write_wr.reg = op.rs1 and reg_write_mem.reg /= op.rs1 then
 					
 					if reg_write_wr.reg /= ZERO_REG then 
@@ -183,8 +202,14 @@ begin
 				elsif reg_write_wr.reg = op.rs2 and reg_write_mem.reg /= op.rs2 then
 					
 					if reg_write_wr.reg /= ZERO_REG then
-						int_op.readdata2 <= reg_write_wr.data; 
-					end if;
+						if op.store_flag = '1' then 
+							int_wrdata <= reg_write_wr.data; 
+							dwr_flag <= '1'; 
+						else 	
+							int_op.readdata2 <= reg_write_wr.data; 
+						end if; 
+						
+					end if; 
 
 				end if; 
 			end if; 
@@ -194,14 +219,14 @@ begin
 	end process; 
 	
 
-	logic : process(int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2)
+	logic : process(int_op, int_pc_in, int_memop_in, int_wbop_in, alu_R, alu_Z, alu_R_2, dwr_flag, int_wrdata)
 	begin
 	
 		--The signals exec_op , reg_write_mem and reg_write_wr are irrelevant for this 
 		--assignment and can be ignored here.
 
-		exec_op <= int_op;
-
+		exec_op <= op;
+		--exec_op <= int_op; 
 		--As stated above, see page 22 of assignment three.
 		if int_op.aluop = ALU_NOP then 
 			pc_old_out <= (others => '0'); 
@@ -270,7 +295,10 @@ begin
 			
 			--address where to store that data
 			wrdata <= int_op.readdata2; 
-		
+	
+			if dwr_flag = '1' then 
+				wrdata <= int_wrdata; 
+			end if; 	
 		--B-Type Instructions
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '1' then
 	      	
@@ -329,3 +357,4 @@ begin
 		
 	
 end architecture;
+
