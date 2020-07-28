@@ -9,10 +9,10 @@ z2
 cModel Technology
 Z0 d/homes/d11775812/comp_arch/template/sim
 T_opt
-!s110 1595856621
-V>0I^C9@_T9]jN<jh`P00Y1
+!s110 1595936881
+V=Agc=_gQnL4>YfHiP>;WA0
 04 6 5 work tb_cpu bench 1
-=1-000ae431a4f1-5f1ed6ed-74fc8-3b8
+=1-000ae431a4f1-5f201070-eb5eb-343a
 o-quiet -auto_acc_if_foreign -work work -G DMEM_FILE=../software/asm/phge.dmem.mif -G IMEM_FILE=../software/asm/phge.imem.mif
 tCvgOpt 0
 n@_opt
@@ -34,9 +34,9 @@ VPCO4X]CnGzgcB;Q[oBAiU0
 !s100 nR6hQ28B@UceMYR9T;UFL0
 Z10 OE;C;10.6c_1;65
 33
-Z11 !s110 1595856613
+Z11 !s110 1595936875
 !i10b 1
-Z12 !s108 1595856613.000000
+Z12 !s108 1595936875.000000
 Z13 !s90 -work|work|-2008|../vhdl/alu.vhd|
 Z14 !s107 ../vhdl/alu.vhd|
 !i113 0
@@ -81,9 +81,9 @@ VoES6GnBd;mB>M6EmoC<YY0
 !s100 Hm24J[LW5U];Bc<5TX?;j0
 R10
 33
-Z20 !s110 1595856614
+Z20 !s110 1595936876
 !i10b 1
-Z21 !s108 1595856614.000000
+Z21 !s108 1595936876.000000
 Z22 !s90 -work|work|-2008|../vhdl/core.vhd|
 Z23 !s107 ../vhdl/core.vhd|
 !i113 0
@@ -204,7 +204,7 @@ R33
 R15
 R16
 Edecode
-Z34 w1595506530
+Z34 w1595936855
 Z35 DEx4 work 7 regfile 0 22 _I5gXEeo?]hZQQM1bQUUP0
 R2
 R3
@@ -239,8 +239,8 @@ R7
 DEx4 work 6 decode 0 22 gm]zOC>O3HIVS=i]hJNmK0
 l80
 L33
-Vn[=>F_694l3G68FCmL5H`1
-!s100 @nilC^E[7ndF7lYCJHXZG0
+VHTB`WkW>Zfk`5dHM<oXU31
+!s100 94oi?SVFVbLHIDaFL7@Qi1
 R10
 33
 R11
@@ -252,7 +252,7 @@ R39
 R15
 R16
 Eexec
-Z40 w1595856589
+Z40 w1595932549
 R2
 R3
 R4
@@ -268,7 +268,7 @@ VC:W@2RW5J;>SzKQKj<?V11
 !s100 LnbPQ@COFb_mH[NQ^oz7V2
 R10
 33
-R11
+R20
 !i10b 1
 R12
 Z43 !s90 -work|work|-2008|../vhdl/exec.vhd|
@@ -284,13 +284,13 @@ R5
 R6
 R7
 DEx4 work 4 exec 0 22 C:W@2RW5J;>SzKQKj<?V11
-l71
+l72
 L38
-VFeeg1[FeQ4nK`nSIk?TK>3
-!s100 [fI7aHlP:KM8_3P?4`F2j3
+VC4dF:B2YeI?6HFVbobS6>0
+!s100 niIdoT<>:D;L65ECBY6cR1
 R10
 33
-R11
+R20
 !i10b 1
 R12
 R43
@@ -299,7 +299,7 @@ R44
 R15
 R16
 Efetch
-Z45 w1595847107
+Z45 w1595935348
 R2
 R3
 R4
@@ -333,8 +333,8 @@ R7
 DEx4 work 5 fetch 0 22 fV?n?:Q;d46CG?cg<R2zC2
 l38
 L31
-Vecij_`C[_9EI<BTM:<S5K1
-!s100 ICXaSFojn10W`kLAOfoHC2
+V>8:dDRj:ZAXY;1I5JTCD33
+!s100 HEiY3H]IT6R0>zaW:>fb92
 R10
 33
 R11
@@ -393,7 +393,7 @@ R54
 R15
 R16
 Emem
-Z55 w1595841168
+Z55 w1595925646
 R2
 R3
 R4
@@ -409,9 +409,9 @@ V]=`Z^3<L9G?SSIl@GDzUk2
 !s100 >31S3OzeLKf_?976i5XJa0
 R10
 33
-R11
+R20
 !i10b 1
-R12
+R21
 Z58 !s90 -work|work|-2008|../vhdl/mem.vhd|
 Z59 !s107 ../vhdl/mem.vhd|
 !i113 0
@@ -427,13 +427,13 @@ R7
 DEx4 work 3 mem 0 22 ]=`Z^3<L9G?SSIl@GDzUk2
 l95
 L51
-VHOXGJN04kEQ?`;AkZ9T0N0
-!s100 6ZzEE]=^P^b6i:6hVm]1=2
+V7Zz9CZR]SJTcFbLkT7YZ[0
+!s100 E1D5[IJkUUX80l3_hY:J]2
 R10
 33
-R11
+R20
 !i10b 1
-R12
+R21
 R58
 R59
 !i113 0
@@ -455,9 +455,9 @@ R10
 b1
 R11
 !i10b 1
-Z63 !s108 1595856612.000000
-Z64 !s90 -work|work|-2008|../vhdl/mem_pkg.vhd|
-Z65 !s107 ../vhdl/mem_pkg.vhd|
+R12
+Z63 !s90 -work|work|-2008|../vhdl/mem_pkg.vhd|
+Z64 !s107 ../vhdl/mem_pkg.vhd|
 !i113 0
 R15
 R16
@@ -473,14 +473,14 @@ R10
 33
 R11
 !i10b 1
+R12
 R63
 R64
-R65
 !i113 0
 R15
 R16
 Ememu
-Z66 w1595355107
+Z65 w1595355107
 R2
 R4
 R3
@@ -488,8 +488,8 @@ R5
 R6
 R7
 R0
-Z67 8../vhdl/memu.vhd
-Z68 F../vhdl/memu.vhd
+Z66 8../vhdl/memu.vhd
+Z67 F../vhdl/memu.vhd
 l0
 L9
 VmDE88ci]nMgbI5CH=He283
@@ -499,8 +499,8 @@ R10
 R11
 !i10b 1
 R12
-Z69 !s90 -work|work|-2008|../vhdl/memu.vhd|
-Z70 !s107 ../vhdl/memu.vhd|
+Z68 !s90 -work|work|-2008|../vhdl/memu.vhd|
+Z69 !s107 ../vhdl/memu.vhd|
 !i113 0
 R15
 R16
@@ -521,8 +521,8 @@ R10
 R11
 !i10b 1
 R12
+R68
 R69
-R70
 !i113 0
 R15
 R16
@@ -551,7 +551,7 @@ R12
 R15
 R16
 Epipeline
-Z71 w1595855012
+Z70 w1595855012
 R2
 R3
 R5
@@ -559,8 +559,8 @@ R4
 R6
 R7
 R0
-Z72 8../vhdl/pipeline.vhd
-Z73 F../vhdl/pipeline.vhd
+Z71 8../vhdl/pipeline.vhd
+Z72 F../vhdl/pipeline.vhd
 l0
 L9
 VLOPO>Wne_g^gUWjH?V=@l0
@@ -569,9 +569,9 @@ R10
 33
 R20
 !i10b 1
-R12
-Z74 !s90 -work|work|-2008|../vhdl/pipeline.vhd|
-Z75 !s107 ../vhdl/pipeline.vhd|
+R21
+Z73 !s90 -work|work|-2008|../vhdl/pipeline.vhd|
+Z74 !s107 ../vhdl/pipeline.vhd|
 !i113 0
 R15
 R16
@@ -591,22 +591,22 @@ R10
 33
 R20
 !i10b 1
-R12
+R21
+R73
 R74
-R75
 !i113 0
 R15
 R16
 Eregfile
-Z76 w1595346287
+Z75 w1595346287
 R3
 R4
 R5
 R6
 R7
 R0
-Z77 8../vhdl/regfile.vhd
-Z78 F../vhdl/regfile.vhd
+Z76 8../vhdl/regfile.vhd
+Z77 F../vhdl/regfile.vhd
 l0
 L8
 V_I5gXEeo?]hZQQM1bQUUP0
@@ -616,8 +616,8 @@ R10
 R11
 !i10b 1
 R12
-Z79 !s90 -work|work|-2008|../vhdl/regfile.vhd|
-Z80 !s107 ../vhdl/regfile.vhd|
+Z78 !s90 -work|work|-2008|../vhdl/regfile.vhd|
+Z79 !s107 ../vhdl/regfile.vhd|
 !i113 0
 R15
 R16
@@ -637,24 +637,24 @@ R10
 R11
 !i10b 1
 R12
+R78
 R79
-R80
 !i113 0
 R15
 R16
 Etb_cpu
-Z81 w1595257356
+Z80 w1595912890
 R3
-Z82 DPx10 bootloader 7 mem_pkg 0 22 4:9?>[:::Wn>Tj4627`571
-Z83 DPx10 bootloader 7 dev_pkg 0 22 Xam9B`PN^O9[FmkLPcZJA0
-Z84 DPx3 std 3 env 0 22 d?`1ck@NdeD@H3RZG7FgZ2
-Z85 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
+Z81 DPx10 bootloader 7 mem_pkg 0 22 4:9?>[:::Wn>Tj4627`571
+Z82 DPx10 bootloader 7 dev_pkg 0 22 Xam9B`PN^O9[FmkLPcZJA0
+Z83 DPx3 std 3 env 0 22 d?`1ck@NdeD@H3RZG7FgZ2
+Z84 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
 R5
 R6
 R7
 R0
-Z86 8tb/tb.vhd
-Z87 Ftb/tb.vhd
+Z85 8tb/tb.vhd
+Z86 Ftb/tb.vhd
 l0
 L15
 VJcH;<=zz748KaWGI<8:O;2
@@ -664,37 +664,37 @@ R10
 R20
 !i10b 1
 R21
-Z88 !s90 -work|work|-2008|tb/tb.vhd|
-Z89 !s107 tb/tb.vhd|
+Z87 !s90 -work|work|-2008|tb/tb.vhd|
+Z88 !s107 tb/tb.vhd|
 !i113 0
 R15
 R16
 Abench
 R3
+R81
 R82
 R83
 R84
-R85
 R5
 R6
 R7
 DEx4 work 6 tb_cpu 0 22 JcH;<=zz748KaWGI<8:O;2
 l47
 L22
-VMZ7b:l_laS5_SVE@=zhD73
-!s100 5[dKFL3QDkh5L>bfZSM[:1
+VH[LY:?K1VeaC<L;LZE`Sj3
+!s100 dXc5=gKPg;bc]Ekl7TInV3
 R10
 33
 R20
 !i10b 1
 R21
+R87
 R88
-R89
 !i113 0
 R15
 R16
 Ewb
-Z90 w1595850263
+Z89 w1595850263
 R2
 R3
 R4
@@ -702,19 +702,19 @@ R5
 R6
 R7
 R0
-Z91 8../vhdl/wb.vhd
-Z92 F../vhdl/wb.vhd
+Z90 8../vhdl/wb.vhd
+Z91 F../vhdl/wb.vhd
 l0
 L10
 VLj3A]_filfd6m0zzm:ldL2
 !s100 1;0^hJIP1adE?;>?@=zLL0
 R10
 33
-R11
+R20
 !i10b 1
-R12
-Z93 !s90 -work|work|-2008|../vhdl/wb.vhd|
-Z94 !s107 ../vhdl/wb.vhd|
+R21
+Z92 !s90 -work|work|-2008|../vhdl/wb.vhd|
+Z93 !s107 ../vhdl/wb.vhd|
 !i113 0
 R15
 R16
@@ -732,11 +732,11 @@ VieWWZNef51Ie>WC]FGL[R3
 !s100 o6iEN=0mnKocClaQl1ZSP1
 R10
 33
-R11
+R20
 !i10b 1
-R12
+R21
+R92
 R93
-R94
 !i113 0
 R15
 R16
