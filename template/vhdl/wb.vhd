@@ -29,9 +29,10 @@ end wb;
 architecture rtl of wb is
 	signal int_op : wb_op_type; 
 	signal int_aluresult : data_type; 
-	signal int_memresult : data_type; 
+	signal int_memresult, int_memresult_nxt : data_type; 
 	signal int_pc_old_in : pc_type; 
 	signal int_pc_new_in : pc_type; 
+	signal old_stall, old_stall_nxt : std_logic; 
 begin
 
 	sync_p : process(clk, reset, stall, flush)
@@ -43,6 +44,8 @@ begin
 			int_memresult <= (others => '0');
 			int_pc_old_in <= (others => '0'); 	
 			int_pc_new_in <= (others => '0'); 
+			old_stall <= '0'; 
+
 		elsif flush = '1' then	
 			--flush pipeline
 			int_op <= WB_NOP; 
@@ -50,34 +53,54 @@ begin
 			int_memresult <= (others => '0');
 			int_pc_old_in <= (others => '0'); 	
 			int_pc_new_in <= (others => '0'); 
+			old_stall <= '0'; 
 
 		elsif rising_edge(clk) and stall = '0' then
 			int_op <= op; 
 			int_aluresult <= aluresult; 
-			--int_memresult <= memresult; 
+			int_memresult <= memresult; 
 			int_pc_old_in <= pc_old_in; 
 			int_pc_new_in <= pc_new_in; 
-		end if; 
+			old_stall <= old_stall_nxt; 
+
+		elsif rising_edge(clk) and stall = '1' then 
+			old_stall <= old_stall_nxt; 
+			int_memresult <= int_memresult_nxt; 	
+		end if;  
 	end process; 
 
-	logic : process(int_op, int_aluresult, memresult, int_pc_new_in, int_pc_old_in)
+
+	logic : process(op, aluresult, memresult, pc_new_in, pc_old_in, stall, old_stall)
 	begin
+
+		if stall = '1' then 
+			int_memresult_nxt <= to_little_endian(memresult); 
+		else 
+			int_memresult_nxt <= (others => '0'); 
+		end if; 
+
 		reg_write.write <= '0'; 
-		reg_write.reg   <= int_op.rd; 
+		reg_write.reg   <= op.rd; 
 		reg_write.data  <= (others => '0');
 
-		if int_op.write = '1' then
+		old_stall_nxt <= stall; 
+
+		if op.write = '1' then
 			reg_write.write <= '1'; 
-			reg_write.reg   <= int_op.rd; 
+			--reg_write.reg   <= int_op.rd; 
 			
-			if int_op.src = WBS_ALU then
-				reg_write.data <= int_aluresult; 
+			if op.src = WBS_ALU then
+				reg_write.data <= aluresult; 
 			
-			elsif int_op.src = WBS_MEM then 
+			elsif op.src = WBS_MEM then 
 				reg_write.data <= to_little_endian(memresult); 
+		
+				if stall = '0' and old_stall = '1' then 
+					reg_write.data <= int_memresult; 
+				end if; 
 			
 			else 
-				reg_write.data(15 downto 0) <= int_pc_new_in; 
+				reg_write.data(15 downto 0) <= pc_new_in; 
 				reg_write.data(31 downto 16) <= (others => '0'); 
 			end if; 
 
@@ -86,5 +109,4 @@ begin
 		end if; 
 		
 	end process; 
-
 end architecture;

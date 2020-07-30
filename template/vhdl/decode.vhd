@@ -48,6 +48,8 @@ architecture rtl of decode is
  signal int_instr : instr_type := (others => '0');
  signal int_pc : pc_type := (others => '0');
  signal int_readdata1, int_readdata2 : data_type;
+ signal reg_readdata1, reg_readdata2 : data_type; 
+ signal help_rdaddr1, help_rdaddr2 : reg_adr_type; 
  signal wraddr : reg_adr_type;
  signal wrdata : data_type;
  signal regwrite : std_logic;
@@ -69,6 +71,7 @@ architecture rtl of decode is
  constant OPC_AUIPC : std_logic_vector(6 downto 0) := "0010111";
  constant OPC_LUI : std_logic_vector(6 downto 0) := "0110111";
  
+ alias pre_opcode : std_logic_vector(6 downto 0) is instr(6 downto 0);
  alias opcode : std_logic_vector(6 downto 0) is int_instr(6 downto 0);
  alias rd : std_logic_vector(4 downto 0) is int_instr(11 downto 7);
  alias rs1 : std_logic_vector(4 downto 0) is int_instr(19 downto 15);
@@ -88,14 +91,14 @@ begin
 	--rdaddr2 => instr(24 downto 20),
 	rdaddr1 => int_rdaddr1,
 	rdaddr2 => int_rdaddr2,
-        rddata1 => int_readdata1,
-	rddata2 => int_readdata2,
+        rddata1 => reg_readdata1,
+	rddata2 => reg_readdata2,
         wraddr => reg_write.reg,
         wrdata => reg_write.data,
         regwrite => reg_write.write
     );
 	
-	sync : process(reset, clk, flush, stall)
+	sync : process(reset, clk, flush, stall, reg_readdata1, reg_readdata2)
 	begin
 		if reset = '0' then
 			int_instr <= (others => '0');
@@ -107,8 +110,8 @@ begin
 			int_instr <= (others => '0'); 
 			int_pc <= (others => '0'); 
 			int_reg_write <= reg_write_nop; 
-		--	int_rdaddr1 <= (others => '0'); 
-		--	int_rdaddr2 <= (others => '0'); 
+			int_rdaddr1 <= (others => '0'); 
+			int_rdaddr2 <= (others => '0'); 
 
 		elsif rising_edge(clk) and stall = '0' and flush = '0' then
 			int_instr <= instr;	
@@ -116,6 +119,50 @@ begin
 			int_reg_write <= reg_write; 
 			int_rdaddr1 <= instr(19 downto 15); 
 			int_rdaddr2 <= instr(24 downto 20); 
+
+			int_readdata1 <= reg_readdata1; 
+			int_readdata2 <= reg_readdata2; 
+
+			--branch, op, store
+			if reg_write.write = '1' and (pre_opcode = OPC_BRANCH or pre_opcode = OPC_OP or  pre_opcode = OPC_STORE) then 
+				--replace rs1
+				if reg_write.reg = instr(19 downto 15) then
+					int_readdata1 <= reg_write.data;
+				
+				elsif help_rdaddr1 /= instr(19 downto 15) then
+						--don't get result of older read access to regfile 
+						int_readdata1 <= (others => '0'); 
+				end if; 
+
+				
+				--replace rs2 
+				if reg_write.reg = instr(24 downto 20) then
+					int_readdata2 <= reg_write.data;	
+			
+				elsif help_rdaddr2 /= instr(24 downto 20) then 
+						--don't get result of older read access to regfile
+						int_readdata2 <= (others => '0'); 
+				end if; 	
+				--maybe both
+
+				if reg_write.reg = instr(19 downto 15) and instr(19 downto 15) = instr(24 downto 0) then
+				
+					int_readdata1 <= reg_write.data;	
+					int_readdata2 <= reg_write.data;
+				
+				end if;
+			
+			else  
+				/*
+				if help_rdaddr1 /= instr(19 downto 15) then 
+						int_readdata1 <= (others => '0'); 
+				end if; 
+			
+				if help_rdaddr2 /= instr(24 downto 20) then 
+						int_readdata2 <= (others => '0'); 
+				end if; */ 
+			
+			end if; 
 		end if;
 	end process;
 	
@@ -126,6 +173,9 @@ begin
 		wb_op <= WB_NOP;
 		exc_dec <= '0';
 		pc_out <= int_pc;
+
+		help_rdaddr1 <= int_rdaddr1; 
+		help_rdaddr2 <= int_rdaddr2; 
 
 		case opcode is
 			when OPC_OP =>
@@ -139,19 +189,10 @@ begin
 								exec_op.aluop <= ALU_ADD;
 								exec_op.rs1 <= rs1;
 								exec_op.rs2 <= rs2;
-								if int_reg_write.reg = rs1 then
-									exec_op.readdata1 <= int_reg_write.data;
-									exec_op.readdata2 <= int_readdata2;
-								elsif int_reg_write.reg = rs2 then
-									exec_op.readdata2 <= int_reg_write.data;
-									exec_op.readdata1 <= int_readdata1;
-								elsif int_reg_write.reg = rs1 and rs1 = rs2 then
-									exec_op.readdata1 <= int_reg_write.data;
-									exec_op.readdata2 <= int_reg_write.data;
-								else	
-									exec_op.readdata1 <= int_readdata1;
-									exec_op.readdata2 <= int_readdata2;
-								end if;
+
+								exec_op.readdata1 <= int_readdata1;
+								exec_op.readdata2 <= int_readdata2;
+
 								wb_op.src <= WBS_ALU;
 								wb_op.write <= '1'; 
                         wb_op.rd <= rd;

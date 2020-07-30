@@ -50,7 +50,8 @@ begin
 	XL <= '0'; 
 	R <= (others => '0'); 
 	
-	if op.memread = '1' and D.busy = '0' then
+	if op.memread = '1' and D.busy = '0' then 
+
 		--read access to memory
 		M.wr <= '0'; 	 
 		--therefore no store exception possible

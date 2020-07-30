@@ -1,12 +1,12 @@
-Partition Merge Status : Successful - Mon Jul 27 13:45:04 2020
+Partition Merge Status : Successful - Wed Jul 29 15:55:29 2020
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 Revision Name : miriv
 Top-level Entity Name : top
 Family : Cyclone IV E
-Total logic elements : 5,070 / 114,480 ( 4 % )
-    Total combinational functions : 3,900 / 114,480 ( 3 % )
-    Dedicated logic registers : 1,836 / 114,480 ( 2 % )
-Total registers : 1836
+Total logic elements : 5,051 / 114,480 ( 4 % )
+    Total combinational functions : 3,914 / 114,480 ( 3 % )
+    Dedicated logic registers : 1,887 / 114,480 ( 2 % )
+Total registers : 1887
 Total pins : 4 / 529 ( < 1 % )
 Total virtual pins : 0
 Total memory bits : 262,208 / 3,981,312 ( 7 % )

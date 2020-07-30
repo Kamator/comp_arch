@@ -176,41 +176,28 @@ begin
 		pc_old_out <= int_pc_old_in; 
 		aluresult_out <= int_aluresult_in; 
 
-/*		
-		reg_write.reg <= int_wbop_in.rd; 
-		reg_write.write <= '0'; 
-		reg_write.data <= (others => '0');
-*/
 		pcsrc <= '0'; 
 
 		memresult <= mem_in.rddata;
 
 		mem_busy <= int_mem_busy; 
-		
+	
+
+		if int_mem_op.mem.memread = '1' then 
+			mem_busy <= '1'; 
+		end if; 
+	
 		if int_mem_op.branch = BR_BR or int_mem_op.branch = BR_CND or int_mem_op.branch = BR_CNDI then
 		
 			if to_integer(unsigned(int_aluresult_in)) /= 0 then
 				--branch is taken
 				pcsrc <= '1';
-				wbop_out <= WB_NOP; 
+				----wbop_out <= WB_NOP; 
 			else 
 				pcsrc <= '0'; 
 			end  if; 
 		end if; 
 	
-		--if its a load instruction then pass the value thats received to fwd. after that it
-		--is passed on to exec (pas via forward) 
-		/*
-		if int_wbop_in.write = '1' and int_wbop_in.src = WBS_MEM then 
-				--load instruction
-				reg_write.write <= '1'; 
-				reg_write.data  <= to_little_endian(mem_in.rddata); 		
-
-		elsif int_wbop_in.write = '1' and int_wbop_in.src = WBS_ALU then
-				--result of alu needs to be forwarded
-				reg_write.write <= '1'; 
-				reg_write.data <= int_aluresult_in; 
-		end if;  */
 	
 	end process; 	
 end architecture;
