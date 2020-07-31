@@ -14,4 +14,5 @@ End:		addi x5, x5, 1    ;18
 		nop		  ;20
 		
 		.end End
-		.size _start, .-End
+		.size _start, 
+		.-End
