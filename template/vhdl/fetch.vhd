@@ -65,11 +65,14 @@ begin
 	logic : process(int_pc_cnt,mem_in, pc_in, pcsrc, int_instr, reset, flush)
 	begin
 
-
+		instr <= (others => '0'); 
+		
 		if pcsrc = '0' and flush = '0' then 
 			int_pc_cnt_nxt <= std_logic_vector(unsigned(int_pc_cnt) + 4);
 		else 
-			int_pc_cnt_nxt <= (others => '0'); 
+			int_pc_cnt_nxt <= (others => '0');
+			--try this 
+			instr <= int_instr;  
 		end if; 
 		
 		--mem_out
