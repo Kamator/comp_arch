@@ -147,24 +147,38 @@ begin
 
 	end process;
 
-	reg_write_p : process(clk, stall, flush, aluresult_in, wbop_in)
+	reg_write_p : process(clk, stall, flush, aluresult_in, wbop_in, mem_in)
 	begin
 		reg_write.reg <= wbop_in.rd; 
 		reg_write.write <= '0'; 
 		reg_write.data <= (others => '0'); 
+	
+		--if stall is one, only forward memory results
+		--if stall is zero, forward both
 		
-		if wbop_in.write = '1' and wbop_in.src = WBS_MEM then 
-				--load instruction
-				reg_write.write <= '1'; 
-				reg_write.data  <= to_little_endian(mem_in.rddata); 		
+		if stall = '1' then 
+	
+			if wbop_in.write = '1' and wbop_in.src = WBS_MEM then 
+					--load instruction
+					reg_write.write <= '1'; 
+					reg_write.data  <= to_little_endian(mem_in.rddata); 		
+			end if; 
 
-		elsif wbop_in.write = '1' and wbop_in.src = WBS_ALU then
+		else
+ 
+			if wbop_in.write = '1' and wbop_in.src = WBS_MEM then 
+					--load instruction
+					reg_write.write <= '1'; 
+					reg_write.data  <= to_little_endian(mem_in.rddata); 		
+
+
+			elsif wbop_in.write = '1' and wbop_in.src = WBS_ALU then
 				--result of alu needs to be forwarded
 				reg_write.write <= '1'; 
 				reg_write.data <= aluresult_in; 
-		end if; 
-	
 
+			end if; 
+		end if; 
 	end process;  
 
 	logic : process(all)

@@ -224,7 +224,7 @@ begin
 
 	end process; 
 
-	fwd_exec_op : process(op, stall)
+	fwd_exec_op : process(op, stall, old_op)
 	begin
 		if stall = '1' then 
 			exec_op <= old_op; 

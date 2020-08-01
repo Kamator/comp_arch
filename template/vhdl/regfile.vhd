@@ -74,9 +74,6 @@ begin
 			int_rdaddr1 <= (others => '0'); 
 			int_rdaddr2 <= (others => '0'); 		
 			first_one <= false; 
-		else 
-			int_rdaddr1 <= rdaddr1; 
-			int_rdaddr2 <= rdaddr2; 
 		end if; 
 
 		int_wrdata <= wrdata; 
@@ -108,8 +105,6 @@ begin
 				reg_data1_nxt <= reg_data1; 
 				reg_data2_nxt <= reg_data2; 
 			end if; 
-		
-			if stall = '0' then
 			
 				if int_rdaddr1 = zeros then 
 					rddata1 <= (others => '0'); 
@@ -136,14 +131,7 @@ begin
 					if int_rdaddr2 = zeros then 
 						rddata2 <= (others => '0');
 					end if; 
-				end if; 
-	
-			else 
-				--keep old values if stalled
-	
-				rddata1 <= reg_data1; 
-				rddata2 <= reg_data2; 
-			end if; 
+				end if;
 
     end process;
     

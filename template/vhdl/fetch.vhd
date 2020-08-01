@@ -35,34 +35,42 @@ architecture rtl of fetch is
 	signal int_instr, int_instr_nxt : instr_type; 
 	signal flush_appeared, flush_appeared_nxt : std_logic; 
 
+	--signals to tackle the delay problem
+	signal int_read : std_logic; 
+
 begin
 	sync_p : process(clk, reset, stall, flush, int_pc_cnt_nxt, pcsrc)
 	begin
 		if reset = '0' then 
 			int_pc_cnt <= std_logic_vector(to_signed(-4,pc_type'length)); 
 			int_instr <= NOP_INST; 
-		
+			int_read <= '1'; 	
+
 		elsif rising_edge(clk) and flush = '1' and reset = '1' then 
 			int_instr <= NOP_INST; 
 			int_pc_cnt <= int_pc_cnt_nxt;
+			int_read <= '0'; 
 
-			if pcsrc = '1' then 
+			if pcsrc = '1' then
+				int_read <= '1';  
 				int_pc_cnt <= pc_in; 
 			end if;  			
 
 		elsif rising_edge(clk) and stall = '0' and flush = '0' and pcsrc = '0' then 
 			int_pc_cnt <= int_pc_cnt_nxt; 
 			int_instr <= int_instr_nxt; 
-		
+			int_read <= '1'; 		
+
 		elsif rising_edge(clk) and stall = '0' and flush = '0' and pcsrc = '1' then 
 			--branch the next instruction
 			int_pc_cnt <= pc_in; 
 			int_instr <= int_instr_nxt; 
+			int_read <= '0'; 
 		end if; 
 	
 	end process; 
 
-	logic : process(int_pc_cnt,mem_in, pc_in, pcsrc, int_instr, reset, flush)
+	logic : process(int_read, int_pc_cnt,mem_in, pc_in, pcsrc, int_instr, reset, flush)
 	begin
 
 		instr <= (others => '0'); 
@@ -71,7 +79,6 @@ begin
 			int_pc_cnt_nxt <= std_logic_vector(unsigned(int_pc_cnt) + 4);
 		else 
 			int_pc_cnt_nxt <= (others => '0');
-			--try this 
 			instr <= int_instr;  
 		end if; 
 		
@@ -96,35 +103,15 @@ begin
 				mem_out.address <= std_logic_vector(unsigned(pc_in(15 downto 2)));
 			end if; 
 			
-			if pcsrc = '0' and flush = '0' then 
-				mem_out.rd <= '1'; 
-			
-			elsif pcsrc = '1' and flush = '1' then 
-				mem_out.rd <= '1'; 
-				
-			else
-				mem_out.rd <= '0'; 
-				
-			end if; 
-
+			mem_out.rd <= int_read; 
 			mem_out.byteena <= (others => '1'); 
 			mem_out.wrdata <= (others => '0'); 
 
-			/*if pcsrc = '1' then 
-				--if the next instruction has to be branched
-				mem_out.address <= pc_in(15 downto 2);
-
-			end if; */
-	
-
 			--pass on to instr
 			instr <= to_little_endian(mem_in.rddata);  
-		end if;  
-
-		/*if pcsrc = '1' then 
-			int_pc_cnt_nxt <= pc_in; 
-		end if; */
-
+		else 
+			mem_out.rd <= '0'; 
+		end if; 
 	end process; 
 
 end architecture; 

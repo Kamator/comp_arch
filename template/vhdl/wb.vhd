@@ -70,7 +70,7 @@ begin
 	end process; 
 
 
-	logic : process(op, aluresult, memresult, pc_new_in, pc_old_in, stall, old_stall)
+	logic : process(int_memresult, op, aluresult, memresult, pc_new_in, pc_old_in, stall, old_stall)
 	begin
 
 		if stall = '1' then 

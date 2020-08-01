@@ -75,7 +75,7 @@ begin
 		end if;  
 	end process; 
 
-	logic : process(fwd_load, int_wb_op_mem, int_exec_op, int_pcsrc_in, critical_reg_1, critical_reg_2, st_cnt, stall, pcsrc_in)
+	logic : process(wb_op_mem,stall_flag, fwd_load, int_wb_op_mem, int_exec_op, int_pcsrc_in, critical_reg_1, critical_reg_2, st_cnt, stall, pcsrc_in)
 	begin
 		--default values
 		stall_fetch <= '0'; 
@@ -108,8 +108,10 @@ begin
 		--pipeline needs to be stalled (verzögert) if a load instruction saves a value
 		--into a register that is accessed in the next instruction. Thus, the pipeline needs
 		--to be stalled as long as the memu unit is busy	
-  
-		if (stall = '1' and fwd_load = '0') or stall_flag = '1' then 
+ 		--same happens if some imem is loaded
+
+ 
+		if (stall = '1' and wb_op_mem.write = '1' and wb_op_mem.src = WBS_MEM) or stall_flag = '1' then 
 			--memory load occured (stall until busy = 0)
 			if st_cnt < 1 then 
 				stall_fetch <= '1'; 
@@ -125,24 +127,19 @@ begin
 				st_cnt_nxt <= (others => '0');  
 				stall_flag_nxt <= '0'; 
 			end if;
+
+		elsif stall = '1' then -- and wb_op_mem.write = '0' then 
+			--regular imem stall
+	
+			stall_fetch <= '1'; 
+			stall_dec   <= '1'; 	
+			stall_exec  <= '1'; 
+			stall_mem   <= '1'; 
+			stall_wb    <= '1';	
 		else 
 			st_cnt_nxt <= (others => '0'); 
 			stall_flag_nxt <= '0';
 		end if; 
 	
-		/*
-		if fwd_load = '1' then 	
-			if st_cnt < 2 then 
-				stall_fetch <= '1'; 
-				stall_dec   <= '1'; 	
-				stall_exec  <= '1';
-				stall_mem   <= '1'; 
-				st_cnt_nxt <= st_cnt + 1; 
-			else
-				st_cnt_nxt <= (others => '0'); 
-			end if;  
-		else 
-			st_cnt_nxt <= (others => '0'); 
-		end if; */ 
 	end process; 
 end architecture;

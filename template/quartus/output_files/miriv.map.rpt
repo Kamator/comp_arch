@@ -1,5 +1,5 @@
 Analysis & Synthesis report for miriv
-Fri Jul 31 10:50:14 2020
+Sat Aug  1 11:29:47 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -69,7 +69,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Jul 31 10:50:14 2020           ;
+; Analysis & Synthesis Status        ; Successful - Sat Aug  1 11:29:47 2020           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                      ; miriv                                           ;
 ; Top-level Entity Name              ; top                                             ;
@@ -399,20 +399,21 @@ refer to the applicable agreement for further details.
 +---------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------+-------------+--------------+
 ; Compilation Hierarchy Node      ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                            ; Entity Name ; Library Name ;
 +---------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------+-------------+--------------+
-; |top                            ; 3442 (3)            ; 1559 (0)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top                                                                           ; top         ; work         ;
-;    |core:core_inst|             ; 3439 (0)            ; 1559 (0)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst                                                            ; core        ; work         ;
-;       |pipeline:pipeline_inst|  ; 3439 (15)           ; 1559 (0)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst                                     ; pipeline    ; work         ;
-;          |ctrl:ctrl_inst|       ; 16 (16)             ; 10 (10)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|ctrl:ctrl_inst                      ; ctrl        ; work         ;
-;          |decode:decode_inst|   ; 1623 (183)          ; 1221 (85)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst                  ; decode      ; work         ;
-;             |regfile:reg_inst|  ; 1440 (1440)         ; 1136 (1136)               ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst ; regfile     ; work         ;
-;          |exec:exec_inst|       ; 1423 (882)          ; 183 (183)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst                      ; exec        ; work         ;
-;             |alu:alu_inst_1|    ; 525 (525)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1       ; alu         ; work         ;
+; |top                            ; 3378 (4)            ; 1493 (0)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top                                                                           ; top         ; work         ;
+;    |core:core_inst|             ; 3374 (0)            ; 1493 (0)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst                                                            ; core        ; work         ;
+;       |pipeline:pipeline_inst|  ; 3374 (14)           ; 1493 (0)                  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst                                     ; pipeline    ; work         ;
+;          |ctrl:ctrl_inst|       ; 14 (14)             ; 9 (9)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|ctrl:ctrl_inst                      ; ctrl        ; work         ;
+;          |decode:decode_inst|   ; 283 (181)           ; 1157 (85)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst                  ; decode      ; work         ;
+;             |regfile:reg_inst|  ; 102 (102)           ; 1072 (1072)               ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst ; regfile     ; work         ;
+;          |exec:exec_inst|       ; 2694 (2150)         ; 182 (182)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst                      ; exec        ; work         ;
+;             |alu:alu_inst_1|    ; 528 (528)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1       ; alu         ; work         ;
 ;             |alu:alu_inst_2|    ; 16 (16)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_2       ; alu         ; work         ;
-;          |fetch:fetch_inst|     ; 78 (78)             ; 16 (16)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst                    ; fetch       ; work         ;
-;          |fwd:fwd_inst_1|       ; 8 (8)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|fwd:fwd_inst_1                      ; fwd         ; work         ;
+;          |fetch:fetch_inst|     ; 77 (77)             ; 16 (16)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst                    ; fetch       ; work         ;
+;          |fwd:fwd_inst_1|       ; 11 (11)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|fwd:fwd_inst_1                      ; fwd         ; work         ;
+;          |fwd:fwd_inst_2|       ; 6 (6)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|fwd:fwd_inst_2                      ; fwd         ; work         ;
 ;          |mem:mem_inst|         ; 141 (56)            ; 96 (96)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst                        ; mem         ; work         ;
 ;             |memu:memu_inst|    ; 85 (85)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst         ; memu        ; work         ;
-;          |wb:wb_inst|           ; 135 (135)           ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst                          ; wb          ; work         ;
+;          |wb:wb_inst|           ; 134 (134)           ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst                          ; wb          ; work         ;
 ;    |pll:pll_inst|               ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|pll:pll_inst                                                              ; pll         ; work         ;
 ;       |altpll:altpll_component| ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |top|pll:pll_inst|altpll:altpll_component                                      ; altpll      ; work         ;
 +---------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------+-------------+--------------+
@@ -571,6 +572,7 @@ Encoding Type:  One-Hot
 ; core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_instr[2,3]            ; Stuck at GND due to stuck port data_in                                          ;
 ; core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_instr[0,1]            ; Stuck at VCC due to stuck port data_in                                          ;
 ; core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.imm[21..23]          ; Merged with core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.imm[20] ;
+; core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_read                  ; Stuck at VCC due to stuck port data_in                                          ;
 ; core:core_inst|pipeline:pipeline_inst|wb:wb_inst|int_op.src.WBS_ALU              ; Lost fanout                                                                     ;
 ; core:core_inst|pipeline:pipeline_inst|wb:wb_inst|int_op.src.WBS_MEM              ; Lost fanout                                                                     ;
 ; core:core_inst|pipeline:pipeline_inst|wb:wb_inst|int_op.src.WBS_OPC              ; Lost fanout                                                                     ;
@@ -578,6 +580,7 @@ Encoding Type:  One-Hot
 ; core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.branch.BR_BR       ; Lost fanout                                                                     ;
 ; core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.branch.BR_CND      ; Lost fanout                                                                     ;
 ; core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.branch.BR_CNDI     ; Lost fanout                                                                     ;
+; core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_wbop_in.src.WBS_OPC     ; Lost fanout                                                                     ;
 ; core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.branch.BR_BR   ; Lost fanout                                                                     ;
 ; core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.branch.BR_CND  ; Lost fanout                                                                     ;
 ; core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.branch.BR_CNDI ; Lost fanout                                                                     ;
@@ -595,7 +598,7 @@ Encoding Type:  One-Hot
 ; core:core_inst|pipeline:pipeline_inst|ctrl:ctrl_inst|int_wb_op_mem.src.WBS_ALU   ; Lost fanout                                                                     ;
 ; core:core_inst|pipeline:pipeline_inst|ctrl:ctrl_inst|int_wb_op_mem.src.WBS_MEM   ; Lost fanout                                                                     ;
 ; core:core_inst|pipeline:pipeline_inst|ctrl:ctrl_inst|int_wb_op_mem.src.WBS_OPC   ; Lost fanout                                                                     ;
-; Total Number of Removed Registers = 59                                           ;                                                                                 ;
+; Total Number of Removed Registers = 61                                           ;                                                                                 ;
 +----------------------------------------------------------------------------------+---------------------------------------------------------------------------------+
 
 
@@ -604,55 +607,53 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                     ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------+
-; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][15] ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_data1[23]   ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|ctrl:ctrl_inst|st_cnt[5]                            ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_pc_new_in[8]                       ;
+; 4:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|int_rdaddr1[0]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|reg_file[0][16] ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|ctrl:ctrl_inst|st_cnt[2]                            ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_pc_new_in[1]                       ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_mem_op.mem.memread                 ;
-; 6:1                ; 16 bits   ; 64 LEs        ; 48 LEs               ; 16 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_wrdata[13]                         ;
-; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_pc_cnt[1]                      ;
-; 9:1                ; 32 bits   ; 192 LEs       ; 64 LEs               ; 128 LEs                ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_wrdata[2]                        ;
-; 31:1               ; 4 bits    ; 80 LEs        ; 8 LEs                ; 72 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_wbop_in.rd[3]                    ;
-; 141:1              ; 12 bits   ; 1128 LEs      ; 48 LEs               ; 1080 LEs               ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[18]                 ;
-; 22:1               ; 4 bits    ; 56 LEs        ; 20 LEs               ; 36 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[23]                 ;
-; 142:1              ; 8 bits    ; 752 LEs       ; 32 LEs               ; 720 LEs                ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[7]                  ;
-; 143:1              ; 8 bits    ; 760 LEs       ; 32 LEs               ; 728 LEs                ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[13]                 ;
-; 141:1              ; 16 bits   ; 1504 LEs      ; 64 LEs               ; 1440 LEs               ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata1[17]                 ;
-; 141:1              ; 16 bits   ; 1504 LEs      ; 80 LEs               ; 1424 LEs               ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata1[14]                 ;
+; 6:1                ; 16 bits   ; 64 LEs        ; 48 LEs               ; 16 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|int_wrdata[15]                         ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_pc_cnt[0]                      ;
+; 9:1                ; 32 bits   ; 192 LEs       ; 64 LEs               ; 128 LEs                ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_wrdata[11]                       ;
+; 31:1               ; 4 bits    ; 80 LEs        ; 8 LEs                ; 72 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_wbop_in.rd[4]                    ;
+; 171:1              ; 12 bits   ; 1368 LEs      ; 288 LEs              ; 1080 LEs               ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[24]                 ;
+; 52:1               ; 4 bits    ; 136 LEs       ; 100 LEs              ; 36 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[23]                 ;
+; 172:1              ; 8 bits    ; 912 LEs       ; 192 LEs              ; 720 LEs                ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[3]                  ;
+; 173:1              ; 8 bits    ; 920 LEs       ; 192 LEs              ; 728 LEs                ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata2[10]                 ;
+; 171:1              ; 16 bits   ; 1824 LEs      ; 384 LEs              ; 1440 LEs               ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata1[21]                 ;
+; 171:1              ; 16 bits   ; 1824 LEs      ; 400 LEs              ; 1424 LEs               ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.readdata1[3]                  ;
 ; 5:1                ; 14 bits   ; 42 LEs        ; 28 LEs               ; 14 LEs                 ; Yes        ; |top|core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst|int_pc_cnt[4]                      ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux515                           ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux482                           ;
-; 4:1                ; 28 bits   ; 56 LEs        ; 56 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_B[3]                             ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_B[20]                            ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux506                           ;
+; 4:1                ; 28 bits   ; 56 LEs        ; 56 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_B[8]                             ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_B[21]                            ;
 ; 3:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|wrdata                               ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|reg_write.data[24]                     ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.mem.memtype.MEM_BU      ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_memop_in.mem.memtype.MEM_H       ;
-; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|aluresult[7]                         ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux482                           ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_A[18]                            ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_A[10]                            ;
-; 5:1                ; 16 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst|reg_write.data[19]                       ;
-; 5:1                ; 16 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst|reg_write.data[4]                        ;
-; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux494                           ;
-; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|Mux9            ;
-; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst|Mux37           ;
-; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[12]            ;
-; 6:1                ; 8 bits    ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[3]             ;
-; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[18]            ;
-; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[29]            ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.byteena[2]            ;
-; 129:1              ; 6 bits    ; 516 LEs       ; 6 LEs                ; 510 LEs                ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux499                           ;
+; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|aluresult[2]                         ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|reg_write.data[28]                     ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux480                           ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_A[27]                            ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu_A[5]                             ;
+; 5:1                ; 16 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst|reg_write.data[27]                       ;
+; 5:1                ; 16 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst|reg_write.data[0]                        ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux495                           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[11]            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[2]             ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[17]            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.wrdata[24]            ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst|M.byteena[3]            ;
+; 129:1              ; 6 bits    ; 516 LEs       ; 6 LEs                ; 510 LEs                ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux502                           ;
 ; 131:1              ; 2 bits    ; 174 LEs       ; 8 LEs                ; 166 LEs                ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|int_op.aluop.ALU_SRA                 ;
-; 13:1               ; 8 bits    ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1|Selector18            ;
+; 13:1               ; 8 bits    ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1|Selector16            ;
 ; 14:1               ; 4 bits    ; 36 LEs        ; 36 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1|Selector27            ;
 ; 139:1              ; 5 bits    ; 460 LEs       ; 5 LEs                ; 455 LEs                ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux411                           ;
-; 15:1               ; 2 bits    ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1|Selector28            ;
-; 20:1               ; 4 bits    ; 52 LEs        ; 16 LEs               ; 36 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux506                           ;
-; 16:1               ; 7 bits    ; 70 LEs        ; 70 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|aluresult[17]                        ;
-; 17:1               ; 4 bits    ; 44 LEs        ; 40 LEs               ; 4 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|aluresult[25]                        ;
+; 15:1               ; 2 bits    ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1|Selector29            ;
+; 20:1               ; 4 bits    ; 52 LEs        ; 16 LEs               ; 36 LEs                 ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux505                           ;
+; 16:1               ; 7 bits    ; 70 LEs        ; 70 LEs               ; 0 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|aluresult[18]                        ;
+; 17:1               ; 4 bits    ; 44 LEs        ; 40 LEs               ; 4 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|aluresult[26]                        ;
 ; 18:1               ; 2 bits    ; 24 LEs        ; 22 LEs               ; 2 LEs                  ; No         ; |top|core:core_inst|pipeline:pipeline_inst|exec:exec_inst|aluresult[28]                        ;
-; 35:1               ; 5 bits    ; 115 LEs       ; 10 LEs               ; 105 LEs                ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux406                           ;
+; 35:1               ; 5 bits    ; 115 LEs       ; 10 LEs               ; 105 LEs                ; No         ; |top|core:core_inst|pipeline:pipeline_inst|decode:decode_inst|Mux402                           ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------+
 
 
@@ -1040,18 +1041,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; ../vhdl/alu.vhd                           ; Project Directory     ; work    ; aaec3d0f5469f08b160cdb2b946b4008 ;
 ; ../vhdl/core.vhd                          ; Project Directory     ; work    ; c9c729dd7310f80b1bf0d67e3b72e559 ;
 ; ../vhdl/core_pkg.vhd                      ; Project Directory     ; work    ; 5d44b73fb64ea220d43ed90eb1a77364 ;
-; ../vhdl/ctrl.vhd                          ; Project Directory     ; work    ; 4c51eb0ce86ee600d7aee81f72e6725f ;
+; ../vhdl/ctrl.vhd                          ; Project Directory     ; work    ; 2549dccf3fa6a446ec14a27e6f57ea9f ;
 ; ../vhdl/decode.vhd                        ; Project Directory     ; work    ; 89572469fe2c367600139852eeb04994 ;
-; ../vhdl/exec.vhd                          ; Project Directory     ; work    ; 3ebba82b932299cfb58ffe78c189d153 ;
-; ../vhdl/fetch.vhd                         ; Project Directory     ; work    ; 1a3d44a456e00c49c544b7b84384af41 ;
+; ../vhdl/exec.vhd                          ; Project Directory     ; work    ; d2b19fbdcc8e3426c45d83f693008c29 ;
+; ../vhdl/fetch.vhd                         ; Project Directory     ; work    ; 2d4ce74d97812fe0980c73b59afa0602 ;
 ; ../vhdl/fwd.vhd                           ; Project Directory     ; work    ; d5c38b50678a1af968458720593e25f8 ;
-; ../vhdl/mem.vhd                           ; Project Directory     ; work    ; 5adde3508242fadb248b1f7b27a4c903 ;
+; ../vhdl/mem.vhd                           ; Project Directory     ; work    ; 52e92a68f7887cf8fcf6e9202b4b446a ;
 ; ../vhdl/mem_pkg.vhd                       ; Project Directory     ; work    ; 5e4263287f7afc69f854bd4111f9c4c1 ;
 ; ../vhdl/memu.vhd                          ; Project Directory     ; work    ; 30053903a2a12fe5566048b83180539f ;
 ; ../vhdl/op_pkg.vhd                        ; Project Directory     ; work    ; 905ae90fb637afb860ce2a6ba4f06e71 ;
 ; ../vhdl/pipeline.vhd                      ; Project Directory     ; work    ; 3787e899968cdfdb328923a7c8ba0421 ;
-; ../vhdl/regfile.vhd                       ; Project Directory     ; work    ; 9234c66333da37aa05cf22520d6515a9 ;
-; ../vhdl/wb.vhd                            ; Project Directory     ; work    ; 0554713499224e40d0deb5f087bfb5dc ;
+; ../vhdl/regfile.vhd                       ; Project Directory     ; work    ; 0c96b679bfba3bb88fcda9e2f0853e36 ;
+; ../vhdl/wb.vhd                            ; Project Directory     ; work    ; bc209b86b7382d6ad3415c70e54da841 ;
 ; libraries/megafunctions/aglobal181.inc    ; Quartus Prime Install ; work    ; 0aaeb1b8d2a7c847a28c7279c556ac2b ;
 ; libraries/megafunctions/altpll.tdf        ; Quartus Prime Install ; work    ; aa98bacc177fec4e0c987adf93460f0d ;
 ; libraries/megafunctions/cycloneii_pll.inc ; Quartus Prime Install ; work    ; 39a0d9d1237d1d0b39c8480c3f9faffc ;
@@ -1068,26 +1069,25 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; blackbox              ; 1                           ;
 ;     dev:dev_inst      ; 1                           ;
 ; boundary_port         ; 4                           ;
-; cycloneiii_ff         ; 1559                        ;
-;     CLR               ; 48                          ;
+; cycloneiii_ff         ; 1493                        ;
+;     CLR               ; 37                          ;
 ;     ENA               ; 54                          ;
-;     ENA CLR           ; 1416                        ;
+;     ENA CLR           ; 1393                        ;
 ;     ENA CLR SCLR      ; 9                           ;
-;     ENA CLR SLD       ; 32                          ;
-; cycloneiii_lcell_comb ; 3442                        ;
+; cycloneiii_lcell_comb ; 3378                        ;
 ;     arith             ; 159                         ;
 ;         2 data inputs ; 19                          ;
 ;         3 data inputs ; 140                         ;
-;     normal            ; 3283                        ;
+;     normal            ; 3219                        ;
 ;         0 data inputs ; 2                           ;
 ;         1 data inputs ; 18                          ;
 ;         2 data inputs ; 181                         ;
-;         3 data inputs ; 395                         ;
-;         4 data inputs ; 2687                        ;
+;         3 data inputs ; 351                         ;
+;         4 data inputs ; 2667                        ;
 ; cycloneiii_pll        ; 1                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 17.00                       ;
-; Average LUT depth     ; 8.58                        ;
+; Max LUT depth         ; 16.00                       ;
+; Average LUT depth     ; 8.18                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1258,7 +1258,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Fri Jul 31 10:49:54 2020
+    Info: Processing started: Sat Aug  1 11:29:27 2020
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off miriv -c miriv
 Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -1388,9 +1388,7 @@ Warning (10036): Verilog HDL or VHDL warning at ctrl.vhd(36): object "int_wb_op_
 Warning (10036): Verilog HDL or VHDL warning at ctrl.vhd(37): object "int_exec_op" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 37
 Warning (10036): Verilog HDL or VHDL warning at ctrl.vhd(39): object "critical_reg_1" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 39
 Warning (10036): Verilog HDL or VHDL warning at ctrl.vhd(40): object "critical_reg_2" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 40
-Warning (10492): VHDL Process Statement warning at ctrl.vhd(95): signal "stall_flag" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 95
-Warning (10492): VHDL Process Statement warning at ctrl.vhd(112): signal "stall_flag" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 112
-Warning (10492): VHDL Process Statement warning at ctrl.vhd(121): signal "stall_flag" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 121
+Warning (10036): Verilog HDL or VHDL warning at ctrl.vhd(43): object "fwd_load" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 43
 Info (12128): Elaborating entity "fetch" for hierarchy "core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 322
 Info (12128): Elaborating entity "decode" for hierarchy "core:core_inst|pipeline:pipeline_inst|decode:decode_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 337
 Warning (10036): Verilog HDL or VHDL warning at decode.vhd(52): object "help_rdaddr1" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 52
@@ -1399,19 +1397,16 @@ Info (12128): Elaborating entity "regfile" for hierarchy "core:core_inst|pipelin
 Info (12128): Elaborating entity "exec" for hierarchy "core:core_inst|pipeline:pipeline_inst|exec:exec_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 353
 Warning (10036): Verilog HDL or VHDL warning at exec.vhd(59): object "alu_Z_2" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 59
 Warning (10036): Verilog HDL or VHDL warning at exec.vhd(69): object "stall_flag" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 69
-Warning (10492): VHDL Process Statement warning at exec.vhd(230): signal "old_op" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 230
 Info (12128): Elaborating entity "alu" for hierarchy "core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1" File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 77
 Info (12128): Elaborating entity "mem" for hierarchy "core:core_inst|pipeline:pipeline_inst|mem:mem_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 379
 Warning (10036): Verilog HDL or VHDL warning at mem.vhd(92): object "int_D" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 92
 Warning (10036): Verilog HDL or VHDL warning at mem.vhd(93): object "int_M" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 93
-Warning (10492): VHDL Process Statement warning at mem.vhd(159): signal "mem_in" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 159
 Info (12128): Elaborating entity "memu" for hierarchy "core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst" File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 96
 Info (12128): Elaborating entity "wb" for hierarchy "core:core_inst|pipeline:pipeline_inst|wb:wb_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 406
 Warning (10036): Verilog HDL or VHDL warning at wb.vhd(30): object "int_op" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 30
 Warning (10036): Verilog HDL or VHDL warning at wb.vhd(31): object "int_aluresult" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 31
 Warning (10036): Verilog HDL or VHDL warning at wb.vhd(33): object "int_pc_old_in" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 33
 Warning (10036): Verilog HDL or VHDL warning at wb.vhd(34): object "int_pc_new_in" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 34
-Warning (10492): VHDL Process Statement warning at wb.vhd(99): signal "int_memresult" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 99
 Info (12128): Elaborating entity "dev" for hierarchy "dev:dev_inst" File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 89
 Info (12205): 1 design partition requires Analysis and Synthesis
     Info (12210): Partition "Top" requires synthesis because its netlist type is Source File
@@ -1420,20 +1415,20 @@ Info (12208): 2 design partitions do not require synthesis
     Info (12229): Partition "sld_hub:auto_hub" does not require synthesis because there were no relevant design changes
 Warning (12240): Synthesis found one or more imported partitions that will be treated as black boxes for timing analysis during synthesis
 Info (281020): Starting Logic Optimization and Technology Mapping for Top Partition
-Info (13000): Registers with preset signals will power-up high File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 41
+Info (13000): Registers with preset signals will power-up high File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 44
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Info (286031): Timing-Driven Synthesis is running on partition "Top"
-Info (17049): 24 registers lost all their fanouts during netlist optimizations.
-Info (21057): Implemented 4666 device resources after synthesis - the final resource count might be different
+Info (17049): 25 registers lost all their fanouts during netlist optimizations.
+Info (21057): Implemented 4541 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 3 input pins
     Info (21059): Implemented 1 output pins
-    Info (21061): Implemented 4660 logic cells
+    Info (21061): Implemented 4535 logic cells
     Info (21065): Implemented 1 PLLs
     Info (21071): Implemented 1 partitions
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 26 warnings
-    Info: Peak virtual memory: 1158 megabytes
-    Info: Processing ended: Fri Jul 31 10:50:15 2020
-    Info: Elapsed time: 00:00:21
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 21 warnings
+    Info: Peak virtual memory: 1159 megabytes
+    Info: Processing ended: Sat Aug  1 11:29:47 2020
+    Info: Elapsed time: 00:00:20
     Info: Total CPU time (on all processors): 00:00:29
 
 
