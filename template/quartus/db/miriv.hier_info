@@ -1,7 +1,7 @@
 |top
 clk_pin => pll:pll_inst.inclk0
 res_n => dev:dev_inst.res_n
-tx << dev:dev_inst.tx
+tx <= dev:dev_inst.tx
 rx => dev:dev_inst.rx
 
 

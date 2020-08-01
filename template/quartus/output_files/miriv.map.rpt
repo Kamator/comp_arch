@@ -1,5 +1,5 @@
 Analysis & Synthesis report for miriv
-Sat Aug  1 11:29:47 2020
+Sat Aug  1 19:55:11 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -69,7 +69,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Aug  1 11:29:47 2020           ;
+; Analysis & Synthesis Status        ; Successful - Sat Aug  1 19:55:11 2020           ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                      ; miriv                                           ;
 ; Top-level Entity Name              ; top                                             ;
@@ -182,14 +182,12 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 4           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.00        ;
-; Maximum used               ; 4           ;
+; Average used               ; 1.10        ;
+; Maximum used               ; 2           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.1%      ;
-;     Processor 3            ;   0.1%      ;
-;     Processor 4            ;   0.1%      ;
+;     Processor 2            ;  10.2%      ;
 +----------------------------+-------------+
 
 
@@ -227,160 +225,153 @@ refer to the applicable agreement for further details.
 +----------------------------------+-----------------+-----------------------------+---------------------------------------------------------------------+---------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Source assignments for dev:dev_inst                                                                                                                                                                                                                                                            ;
-+--------------------------------------------------------------------------------+--------------------+------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Assignment                                                                     ; Value              ; From ; To                                                                                                                                                                                ;
-+--------------------------------------------------------------------------------+--------------------+------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; LOCATION                                                                       ; PIN_Y2             ;      ; clk_pin                                                                                                                                                                           ;
-; LOCATION                                                                       ; PIN_R24            ;      ; res_n                                                                                                                                                                             ;
-; LOCATION                                                                       ; PIN_G12            ;      ; rx                                                                                                                                                                                ;
-; LOCATION                                                                       ; PIN_G9             ;      ; tx                                                                                                                                                                                ;
-; ENABLE_UNUSED_RX_CLOCK_WORKAROUND                                              ; OFF                ;      ;                                                                                                                                                                                   ;
-; PRESERVE_UNUSED_XCVR_CHANNEL                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
-; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP                                            ; OFF                ;      ;                                                                                                                                                                                   ;
-; SYNCHRONIZATION_REGISTER_CHAIN_LENGTH                                          ; 2                  ;      ;                                                                                                                                                                                   ;
-; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL COMPILATION ;      ;                                                                                                                                                                                   ;
-; TXPMA_SLEW_RATE                                                                ; LOW                ;      ;                                                                                                                                                                                   ;
-; ADCE_ENABLED                                                                   ; AUTO               ;      ;                                                                                                                                                                                   ;
-; BLOCK_RAM_TO_MLAB_CELL_CONVERSION                                              ; ON                 ;      ;                                                                                                                                                                                   ;
-; BLOCK_RAM_AND_MLAB_EQUIVALENT_POWER_UP_CONDITIONS                              ; AUTO               ;      ;                                                                                                                                                                                   ;
-; BLOCK_RAM_AND_MLAB_EQUIVALENT_PAUSED_READ_CAPABILITIES                         ; CARE               ;      ;                                                                                                                                                                                   ;
-; OPTIMIZE_POWER_DURING_FITTING                                                  ; NORMAL COMPILATION ;      ;                                                                                                                                                                                   ;
-; PHYSICAL_SYNTHESIS_COMBO_LOGIC_FOR_AREA                                        ; OFF                ;      ;                                                                                                                                                                                   ;
-; PHYSICAL_SYNTHESIS_COMBO_LOGIC                                                 ; OFF                ;      ;                                                                                                                                                                                   ;
-; PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION                                        ; OFF                ;      ;                                                                                                                                                                                   ;
-; PHYSICAL_SYNTHESIS_MAP_LOGIC_TO_MEMORY_FOR_AREA                                ; OFF                ;      ;                                                                                                                                                                                   ;
-; PHYSICAL_SYNTHESIS_REGISTER_RETIMING                                           ; OFF                ;      ;                                                                                                                                                                                   ;
-; PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING                              ; OFF                ;      ;                                                                                                                                                                                   ;
-; ENABLE_BENEFICIAL_SKEW_OPTIMIZATION                                            ; ON                 ;      ;                                                                                                                                                                                   ;
-; FORM_DDR_CLUSTERING_CLIQUE                                                     ; OFF                ;      ;                                                                                                                                                                                   ;
-; HYPER_RETIMER_FAST_FORWARD_ADD_PIPELINING_MAX                                  ; -1                 ;      ;                                                                                                                                                                                   ;
-; HYPER_RETIMER_FAST_FORWARD_ASYNCH_CLEAR                                        ; AUTO               ;      ;                                                                                                                                                                                   ;
-; HYPER_RETIMER_FAST_FORWARD_USER_PRESERVE_RESTRICTION                           ; AUTO               ;      ;                                                                                                                                                                                   ;
-; HYPER_RETIMER_FAST_FORWARD_DSP_BLOCKS                                          ; ON                 ;      ;                                                                                                                                                                                   ;
-; HYPER_RETIMER_FAST_FORWARD_RAM_BLOCKS                                          ; ON                 ;      ;                                                                                                                                                                                   ;
-; POWER_REPORT_SIGNAL_ACTIVITY                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
-; POWER_REPORT_POWER_DISSIPATION                                                 ; OFF                ;      ;                                                                                                                                                                                   ;
-; ARRIAIIGX_RX_CDR_LOCKUP_FIX_OVERRIDE                                           ; OFF                ;      ;                                                                                                                                                                                   ;
-; MUX_RESTRUCTURE                                                                ; AUTO               ;      ;                                                                                                                                                                                   ;
-; MLAB_ADD_TIMING_CONSTRAINTS_FOR_MIXED_PORT_FEED_THROUGH_MODE_SETTING_DONT_CARE ; OFF                ;      ;                                                                                                                                                                                   ;
-; STATE_MACHINE_PROCESSING                                                       ; AUTO               ;      ;                                                                                                                                                                                   ;
-; SAFE_STATE_MACHINE                                                             ; OFF                ;      ;                                                                                                                                                                                   ;
-; IGNORE_VERILOG_INITIAL_CONSTRUCTS                                              ; OFF                ;      ;                                                                                                                                                                                   ;
-; VERILOG_CONSTANT_LOOP_LIMIT                                                    ; 5000               ;      ;                                                                                                                                                                                   ;
-; VERILOG_NON_CONSTANT_LOOP_LIMIT                                                ; 250                ;      ;                                                                                                                                                                                   ;
-; INFER_RAMS_FROM_RAW_LOGIC                                                      ; ON                 ;      ;                                                                                                                                                                                   ;
-; DSP_BLOCK_BALANCING                                                            ; AUTO               ;      ;                                                                                                                                                                                   ;
-; NOT_GATE_PUSH_BACK                                                             ; ON                 ;      ;                                                                                                                                                                                   ;
-; REMOVE_REDUNDANT_LOGIC_CELLS                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
-; REMOVE_DUPLICATE_REGISTERS                                                     ; ON                 ;      ;                                                                                                                                                                                   ;
-; IGNORE_CARRY_BUFFERS                                                           ; OFF                ;      ;                                                                                                                                                                                   ;
-; IGNORE_CASCADE_BUFFERS                                                         ; OFF                ;      ;                                                                                                                                                                                   ;
-; IGNORE_GLOBAL_BUFFERS                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
-; IGNORE_ROW_GLOBAL_BUFFERS                                                      ; OFF                ;      ;                                                                                                                                                                                   ;
-; IGNORE_LCELL_BUFFERS                                                           ; OFF                ;      ;                                                                                                                                                                                   ;
-; MAX7000_IGNORE_LCELL_BUFFERS                                                   ; AUTO               ;      ;                                                                                                                                                                                   ;
-; IGNORE_SOFT_BUFFERS                                                            ; ON                 ;      ;                                                                                                                                                                                   ;
-; MAX7000_IGNORE_SOFT_BUFFERS                                                    ; OFF                ;      ;                                                                                                                                                                                   ;
-; AUTO_GLOBAL_CLOCK_MAX                                                          ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_GLOBAL_OE_MAX                                                             ; ON                 ;      ;                                                                                                                                                                                   ;
-; MAX_AUTO_GLOBAL_REGISTER_CONTROLS                                              ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_IMPLEMENT_IN_ROM                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
-; APEX20K_TECHNOLOGY_MAPPER                                                      ; LUT                ;      ;                                                                                                                                                                                   ;
-; OPTIMIZATION_TECHNIQUE                                                         ; BALANCED           ;      ;                                                                                                                                                                                   ;
-; STRATIXII_OPTIMIZATION_TECHNIQUE                                               ; BALANCED           ;      ;                                                                                                                                                                                   ;
-; CYCLONE_OPTIMIZATION_TECHNIQUE                                                 ; BALANCED           ;      ;                                                                                                                                                                                   ;
-; CYCLONEII_OPTIMIZATION_TECHNIQUE                                               ; BALANCED           ;      ;                                                                                                                                                                                   ;
-; STRATIX_OPTIMIZATION_TECHNIQUE                                                 ; BALANCED           ;      ;                                                                                                                                                                                   ;
-; MAXII_OPTIMIZATION_TECHNIQUE                                                   ; BALANCED           ;      ;                                                                                                                                                                                   ;
-; MAX7000_OPTIMIZATION_TECHNIQUE                                                 ; SPEED              ;      ;                                                                                                                                                                                   ;
-; APEX20K_OPTIMIZATION_TECHNIQUE                                                 ; BALANCED           ;      ;                                                                                                                                                                                   ;
-; MERCURY_OPTIMIZATION_TECHNIQUE                                                 ; AREA               ;      ;                                                                                                                                                                                   ;
-; FLEX6K_OPTIMIZATION_TECHNIQUE                                                  ; AREA               ;      ;                                                                                                                                                                                   ;
-; FLEX10K_OPTIMIZATION_TECHNIQUE                                                 ; AREA               ;      ;                                                                                                                                                                                   ;
-; ALLOW_XOR_GATE_USAGE                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_LCELL_INSERTION                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
-; CARRY_CHAIN_LENGTH                                                             ; 48                 ;      ;                                                                                                                                                                                   ;
-; FLEX6K_CARRY_CHAIN_LENGTH                                                      ; 32                 ;      ;                                                                                                                                                                                   ;
-; FLEX10K_CARRY_CHAIN_LENGTH                                                     ; 32                 ;      ;                                                                                                                                                                                   ;
-; MERCURY_CARRY_CHAIN_LENGTH                                                     ; 48                 ;      ;                                                                                                                                                                                   ;
-; STRATIX_CARRY_CHAIN_LENGTH                                                     ; 70                 ;      ;                                                                                                                                                                                   ;
-; STRATIXII_CARRY_CHAIN_LENGTH                                                   ; 70                 ;      ;                                                                                                                                                                                   ;
-; CASCADE_CHAIN_LENGTH                                                           ; 2                  ;      ;                                                                                                                                                                                   ;
-; PARALLEL_EXPANDER_CHAIN_LENGTH                                                 ; 16                 ;      ;                                                                                                                                                                                   ;
-; MAX7000_PARALLEL_EXPANDER_CHAIN_LENGTH                                         ; 4                  ;      ;                                                                                                                                                                                   ;
-; AUTO_CARRY_CHAINS                                                              ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_CASCADE_CHAINS                                                            ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_PARALLEL_EXPANDERS                                                        ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_OPEN_DRAIN_PINS                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_ROM_RECOGNITION                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_RAM_RECOGNITION                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_DSP_RECOGNITION                                                           ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_SHIFT_REGISTER_RECOGNITION                                                ; AUTO               ;      ;                                                                                                                                                                                   ;
-; ALLOW_SHIFT_REGISTER_MERGING_ACROSS_HIERARCHIES                                ; AUTO               ;      ;                                                                                                                                                                                   ;
-; AUTO_CLOCK_ENABLE_RECOGNITION                                                  ; ON                 ;      ;                                                                                                                                                                                   ;
-; STRICT_RAM_RECOGNITION                                                         ; OFF                ;      ;                                                                                                                                                                                   ;
-; ALLOW_SYNCH_CTRL_USAGE                                                         ; ON                 ;      ;                                                                                                                                                                                   ;
-; FORCE_SYNCH_CLEAR                                                              ; OFF                ;      ;                                                                                                                                                                                   ;
-; AUTO_RAM_TO_LCELL_CONVERSION                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
-; AUTO_RESOURCE_SHARING                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
-; ALLOW_ANY_RAM_SIZE_FOR_RECOGNITION                                             ; OFF                ;      ;                                                                                                                                                                                   ;
-; ALLOW_ANY_ROM_SIZE_FOR_RECOGNITION                                             ; OFF                ;      ;                                                                                                                                                                                   ;
-; ALLOW_ANY_SHIFT_REGISTER_SIZE_FOR_RECOGNITION                                  ; OFF                ;      ;                                                                                                                                                                                   ;
-; MAX7000_FANIN_PER_CELL                                                         ; 100                ;      ;                                                                                                                                                                                   ;
-; SYNTH_TIMING_DRIVEN_SYNTHESIS                                                  ; ON                 ;      ;                                                                                                                                                                                   ;
-; IGNORE_MAX_FANOUT_ASSIGNMENTS                                                  ; OFF                ;      ;                                                                                                                                                                                   ;
-; USE_HIGH_SPEED_ADDER                                                           ; AUTO               ;      ;                                                                                                                                                                                   ;
-; SYNTH_GATED_CLOCK_CONVERSION                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
-; BLOCK_DESIGN_NAMING                                                            ; AUTO               ;      ;                                                                                                                                                                                   ;
-; SHIFT_REGISTER_RECOGNITION_ACLR_SIGNAL                                         ; ON                 ;      ;                                                                                                                                                                                   ;
-; PRPOF_ID                                                                       ; OFF                ;      ;                                                                                                                                                                                   ;
-; DISABLE_DSP_NEGATE_INFERENCING                                                 ; OFF                ;      ;                                                                                                                                                                                   ;
-; AUTO_MERGE_PLLS                                                                ; ON                 ;      ;                                                                                                                                                                                   ;
-; IGNORE_MODE_FOR_MERGE                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
-; PERIPHERY_TO_CORE_PLACEMENT_AND_ROUTING_OPTIMIZATION                           ; OFF                ;      ;                                                                                                                                                                                   ;
-; SLOW_SLEW_RATE                                                                 ; OFF                ;      ;                                                                                                                                                                                   ;
-; PCI_IO                                                                         ; OFF                ;      ;                                                                                                                                                                                   ;
-; TURBO_BIT                                                                      ; ON                 ;      ;                                                                                                                                                                                   ;
-; WEAK_PULL_UP_RESISTOR                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
-; ENABLE_BUS_HOLD_CIRCUITRY                                                      ; OFF                ;      ;                                                                                                                                                                                   ;
-; AUTO_GLOBAL_MEMORY_CONTROLS                                                    ; OFF                ;      ;                                                                                                                                                                                   ;
-; QII_AUTO_PACKED_REGISTERS                                                      ; AUTO               ;      ;                                                                                                                                                                                   ;
-; AUTO_PACKED_REGISTERS_MAX                                                      ; AUTO               ;      ;                                                                                                                                                                                   ;
-; NORMAL_LCELL_INSERT                                                            ; ON                 ;      ;                                                                                                                                                                                   ;
-; CARRY_OUT_PINS_LCELL_INSERT                                                    ; ON                 ;      ;                                                                                                                                                                                   ;
-; XSTL_INPUT_ALLOW_SE_BUFFER                                                     ; OFF                ;      ;                                                                                                                                                                                   ;
-; TREAT_BIDIR_AS_OUTPUT                                                          ; OFF                ;      ;                                                                                                                                                                                   ;
-; AUTO_TURBO_BIT                                                                 ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_GLOBAL_CLOCK                                                              ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_GLOBAL_OE                                                                 ; ON                 ;      ;                                                                                                                                                                                   ;
-; AUTO_GLOBAL_REGISTER_CONTROLS                                                  ; ON                 ;      ;                                                                                                                                                                                   ;
-; SYNCHRONIZER_IDENTIFICATION                                                    ; AUTO               ;      ;                                                                                                                                                                                   ;
-; M144K_BLOCK_READ_CLOCK_DUTY_CYCLE_DEPENDENCY                                   ; OFF                ;      ;                                                                                                                                                                                   ;
-; CLAMPING_DIODE                                                                 ; OFF                ;      ;                                                                                                                                                                                   ;
-; IMPLEMENT_MLAB_IN_16_BIT_DEEP_MODE                                             ; OFF                ;      ;                                                                                                                                                                                   ;
-; MESSAGE_DISABLE                                                                ; 13410              ;      ;                                                                                                                                                                                   ;
-; NOT_GATE_PUSH_BACK                                                             ; OFF                ;      ; clr_reg                                                                                                                                                                           ;
-; REMOVE_REDUNDANT_LOGIC_CELLS                                                   ; OFF                ;      ;                                                                                                                                                                                   ;
-; IGNORE_LCELL_BUFFERS                                                           ; OFF                ;      ;                                                                                                                                                                                   ;
-; POWER_UP_LEVEL                                                                 ; LOW                ;      ; clr_reg                                                                                                                                                                           ;
-; AUTO_ROM_RECOGNITION                                                           ; OFF                ;      ;                                                                                                                                                                                   ;
-; MESSAGE_DISABLE                                                                ; 13410              ;      ; dev:dev_inst|sld_hub:auto_hub                                                                                                                                                     ;
-; NOT_GATE_PUSH_BACK                                                             ; OFF                ;      ; dev:dev_inst|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|clr_reg                                                                                                ;
-; REMOVE_REDUNDANT_LOGIC_CELLS                                                   ; OFF                ;      ; dev:dev_inst|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                                                                                                        ;
-; IGNORE_LCELL_BUFFERS                                                           ; OFF                ;      ; dev:dev_inst|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                                                                                                        ;
-; POWER_UP_LEVEL                                                                 ; LOW                ;      ; dev:dev_inst|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|clr_reg                                                                                                ;
-; IO_STANDARD                                                                    ; 3.3-V LVTTL        ;      ; clk_pin                                                                                                                                                                           ;
-; IO_STANDARD                                                                    ; 2.5 V              ;      ; res_n                                                                                                                                                                             ;
-; IO_STANDARD                                                                    ; 2.5 V              ;      ; rx                                                                                                                                                                                ;
-; IO_STANDARD                                                                    ; 2.5 V              ;      ; tx                                                                                                                                                                                ;
-; AUTO_ROM_RECOGNITION                                                           ; OFF                ;      ; dev:dev_inst|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg                                                                                ;
-; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL_COMPILATION ;      ; dev:dev_inst|devices:inst|memory:mem|ram:dram|altsyncram:altsyncram_component|altsyncram_qau3:auto_generated                                                                      ;
-; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL_COMPILATION ;      ; dev:dev_inst|devices:inst|memory:mem|ram:iram|altsyncram:altsyncram_component|altsyncram_qau3:auto_generated                                                                      ;
-; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL_COMPILATION ;      ; dev:dev_inst|devices:inst|serial_port_wrapper:uart|serial_port:sp|fifo:rx_fifo_inst|scfifo:fifo_inst_dist|scfifo_4sd1:auto_generated|a_dpfifo_u651:dpfifo|altsyncram_e5j1:FIFOram ;
-; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL_COMPILATION ;      ; dev:dev_inst|devices:inst|serial_port_wrapper:uart|serial_port:sp|fifo:tx_fifo_inst|scfifo:fifo_inst_dist|scfifo_4sd1:auto_generated|a_dpfifo_u651:dpfifo|altsyncram_e5j1:FIFOram ;
-+--------------------------------------------------------------------------------+--------------------+------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for dev:dev_inst                                                                                      ;
++--------------------------------------------------------------------------------+--------------------+------+-------------+
+; Assignment                                                                     ; Value              ; From ; To          ;
++--------------------------------------------------------------------------------+--------------------+------+-------------+
+; ENABLE_UNUSED_RX_CLOCK_WORKAROUND                                              ; OFF                ;      ;             ;
+; PRESERVE_UNUSED_XCVR_CHANNEL                                                   ; OFF                ;      ;             ;
+; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP                                            ; OFF                ;      ;             ;
+; SYNCHRONIZATION_REGISTER_CHAIN_LENGTH                                          ; 2                  ;      ;             ;
+; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL COMPILATION ;      ;             ;
+; TXPMA_SLEW_RATE                                                                ; LOW                ;      ;             ;
+; ADCE_ENABLED                                                                   ; AUTO               ;      ;             ;
+; BLOCK_RAM_TO_MLAB_CELL_CONVERSION                                              ; ON                 ;      ;             ;
+; BLOCK_RAM_AND_MLAB_EQUIVALENT_POWER_UP_CONDITIONS                              ; AUTO               ;      ;             ;
+; BLOCK_RAM_AND_MLAB_EQUIVALENT_PAUSED_READ_CAPABILITIES                         ; CARE               ;      ;             ;
+; OPTIMIZE_POWER_DURING_FITTING                                                  ; NORMAL COMPILATION ;      ;             ;
+; PHYSICAL_SYNTHESIS_COMBO_LOGIC_FOR_AREA                                        ; OFF                ;      ;             ;
+; PHYSICAL_SYNTHESIS_COMBO_LOGIC                                                 ; OFF                ;      ;             ;
+; PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION                                        ; OFF                ;      ;             ;
+; PHYSICAL_SYNTHESIS_MAP_LOGIC_TO_MEMORY_FOR_AREA                                ; OFF                ;      ;             ;
+; PHYSICAL_SYNTHESIS_REGISTER_RETIMING                                           ; OFF                ;      ;             ;
+; PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING                              ; OFF                ;      ;             ;
+; ENABLE_BENEFICIAL_SKEW_OPTIMIZATION                                            ; ON                 ;      ;             ;
+; FORM_DDR_CLUSTERING_CLIQUE                                                     ; OFF                ;      ;             ;
+; HYPER_RETIMER_FAST_FORWARD_ADD_PIPELINING_MAX                                  ; -1                 ;      ;             ;
+; HYPER_RETIMER_FAST_FORWARD_ASYNCH_CLEAR                                        ; AUTO               ;      ;             ;
+; HYPER_RETIMER_FAST_FORWARD_USER_PRESERVE_RESTRICTION                           ; AUTO               ;      ;             ;
+; HYPER_RETIMER_FAST_FORWARD_DSP_BLOCKS                                          ; ON                 ;      ;             ;
+; HYPER_RETIMER_FAST_FORWARD_RAM_BLOCKS                                          ; ON                 ;      ;             ;
+; POWER_REPORT_SIGNAL_ACTIVITY                                                   ; OFF                ;      ;             ;
+; POWER_REPORT_POWER_DISSIPATION                                                 ; OFF                ;      ;             ;
+; ARRIAIIGX_RX_CDR_LOCKUP_FIX_OVERRIDE                                           ; OFF                ;      ;             ;
+; MUX_RESTRUCTURE                                                                ; AUTO               ;      ;             ;
+; MLAB_ADD_TIMING_CONSTRAINTS_FOR_MIXED_PORT_FEED_THROUGH_MODE_SETTING_DONT_CARE ; OFF                ;      ;             ;
+; STATE_MACHINE_PROCESSING                                                       ; AUTO               ;      ;             ;
+; SAFE_STATE_MACHINE                                                             ; OFF                ;      ;             ;
+; IGNORE_VERILOG_INITIAL_CONSTRUCTS                                              ; OFF                ;      ;             ;
+; VERILOG_CONSTANT_LOOP_LIMIT                                                    ; 5000               ;      ;             ;
+; VERILOG_NON_CONSTANT_LOOP_LIMIT                                                ; 250                ;      ;             ;
+; INFER_RAMS_FROM_RAW_LOGIC                                                      ; ON                 ;      ;             ;
+; DSP_BLOCK_BALANCING                                                            ; AUTO               ;      ;             ;
+; NOT_GATE_PUSH_BACK                                                             ; ON                 ;      ;             ;
+; REMOVE_REDUNDANT_LOGIC_CELLS                                                   ; OFF                ;      ;             ;
+; REMOVE_DUPLICATE_REGISTERS                                                     ; ON                 ;      ;             ;
+; IGNORE_CARRY_BUFFERS                                                           ; OFF                ;      ;             ;
+; IGNORE_CASCADE_BUFFERS                                                         ; OFF                ;      ;             ;
+; IGNORE_GLOBAL_BUFFERS                                                          ; OFF                ;      ;             ;
+; IGNORE_ROW_GLOBAL_BUFFERS                                                      ; OFF                ;      ;             ;
+; IGNORE_LCELL_BUFFERS                                                           ; OFF                ;      ;             ;
+; MAX7000_IGNORE_LCELL_BUFFERS                                                   ; AUTO               ;      ;             ;
+; IGNORE_SOFT_BUFFERS                                                            ; ON                 ;      ;             ;
+; MAX7000_IGNORE_SOFT_BUFFERS                                                    ; OFF                ;      ;             ;
+; AUTO_GLOBAL_CLOCK_MAX                                                          ; ON                 ;      ;             ;
+; AUTO_GLOBAL_OE_MAX                                                             ; ON                 ;      ;             ;
+; MAX_AUTO_GLOBAL_REGISTER_CONTROLS                                              ; ON                 ;      ;             ;
+; AUTO_IMPLEMENT_IN_ROM                                                          ; OFF                ;      ;             ;
+; APEX20K_TECHNOLOGY_MAPPER                                                      ; LUT                ;      ;             ;
+; OPTIMIZATION_TECHNIQUE                                                         ; BALANCED           ;      ;             ;
+; STRATIXII_OPTIMIZATION_TECHNIQUE                                               ; BALANCED           ;      ;             ;
+; CYCLONE_OPTIMIZATION_TECHNIQUE                                                 ; BALANCED           ;      ;             ;
+; CYCLONEII_OPTIMIZATION_TECHNIQUE                                               ; BALANCED           ;      ;             ;
+; STRATIX_OPTIMIZATION_TECHNIQUE                                                 ; BALANCED           ;      ;             ;
+; MAXII_OPTIMIZATION_TECHNIQUE                                                   ; BALANCED           ;      ;             ;
+; MAX7000_OPTIMIZATION_TECHNIQUE                                                 ; SPEED              ;      ;             ;
+; APEX20K_OPTIMIZATION_TECHNIQUE                                                 ; BALANCED           ;      ;             ;
+; MERCURY_OPTIMIZATION_TECHNIQUE                                                 ; AREA               ;      ;             ;
+; FLEX6K_OPTIMIZATION_TECHNIQUE                                                  ; AREA               ;      ;             ;
+; FLEX10K_OPTIMIZATION_TECHNIQUE                                                 ; AREA               ;      ;             ;
+; ALLOW_XOR_GATE_USAGE                                                           ; ON                 ;      ;             ;
+; AUTO_LCELL_INSERTION                                                           ; ON                 ;      ;             ;
+; CARRY_CHAIN_LENGTH                                                             ; 48                 ;      ;             ;
+; FLEX6K_CARRY_CHAIN_LENGTH                                                      ; 32                 ;      ;             ;
+; FLEX10K_CARRY_CHAIN_LENGTH                                                     ; 32                 ;      ;             ;
+; MERCURY_CARRY_CHAIN_LENGTH                                                     ; 48                 ;      ;             ;
+; STRATIX_CARRY_CHAIN_LENGTH                                                     ; 70                 ;      ;             ;
+; STRATIXII_CARRY_CHAIN_LENGTH                                                   ; 70                 ;      ;             ;
+; CASCADE_CHAIN_LENGTH                                                           ; 2                  ;      ;             ;
+; PARALLEL_EXPANDER_CHAIN_LENGTH                                                 ; 16                 ;      ;             ;
+; MAX7000_PARALLEL_EXPANDER_CHAIN_LENGTH                                         ; 4                  ;      ;             ;
+; AUTO_CARRY_CHAINS                                                              ; ON                 ;      ;             ;
+; AUTO_CASCADE_CHAINS                                                            ; ON                 ;      ;             ;
+; AUTO_PARALLEL_EXPANDERS                                                        ; ON                 ;      ;             ;
+; AUTO_OPEN_DRAIN_PINS                                                           ; ON                 ;      ;             ;
+; AUTO_ROM_RECOGNITION                                                           ; ON                 ;      ;             ;
+; AUTO_RAM_RECOGNITION                                                           ; ON                 ;      ;             ;
+; AUTO_DSP_RECOGNITION                                                           ; ON                 ;      ;             ;
+; AUTO_SHIFT_REGISTER_RECOGNITION                                                ; AUTO               ;      ;             ;
+; ALLOW_SHIFT_REGISTER_MERGING_ACROSS_HIERARCHIES                                ; AUTO               ;      ;             ;
+; AUTO_CLOCK_ENABLE_RECOGNITION                                                  ; ON                 ;      ;             ;
+; STRICT_RAM_RECOGNITION                                                         ; OFF                ;      ;             ;
+; ALLOW_SYNCH_CTRL_USAGE                                                         ; ON                 ;      ;             ;
+; FORCE_SYNCH_CLEAR                                                              ; OFF                ;      ;             ;
+; AUTO_RAM_TO_LCELL_CONVERSION                                                   ; OFF                ;      ;             ;
+; AUTO_RESOURCE_SHARING                                                          ; OFF                ;      ;             ;
+; ALLOW_ANY_RAM_SIZE_FOR_RECOGNITION                                             ; OFF                ;      ;             ;
+; ALLOW_ANY_ROM_SIZE_FOR_RECOGNITION                                             ; OFF                ;      ;             ;
+; ALLOW_ANY_SHIFT_REGISTER_SIZE_FOR_RECOGNITION                                  ; OFF                ;      ;             ;
+; MAX7000_FANIN_PER_CELL                                                         ; 100                ;      ;             ;
+; SYNTH_TIMING_DRIVEN_SYNTHESIS                                                  ; ON                 ;      ;             ;
+; IGNORE_MAX_FANOUT_ASSIGNMENTS                                                  ; OFF                ;      ;             ;
+; USE_HIGH_SPEED_ADDER                                                           ; AUTO               ;      ;             ;
+; SYNTH_GATED_CLOCK_CONVERSION                                                   ; OFF                ;      ;             ;
+; BLOCK_DESIGN_NAMING                                                            ; AUTO               ;      ;             ;
+; SHIFT_REGISTER_RECOGNITION_ACLR_SIGNAL                                         ; ON                 ;      ;             ;
+; PRPOF_ID                                                                       ; OFF                ;      ;             ;
+; DISABLE_DSP_NEGATE_INFERENCING                                                 ; OFF                ;      ;             ;
+; AUTO_MERGE_PLLS                                                                ; ON                 ;      ;             ;
+; IGNORE_MODE_FOR_MERGE                                                          ; OFF                ;      ;             ;
+; PERIPHERY_TO_CORE_PLACEMENT_AND_ROUTING_OPTIMIZATION                           ; OFF                ;      ;             ;
+; SLOW_SLEW_RATE                                                                 ; OFF                ;      ;             ;
+; PCI_IO                                                                         ; OFF                ;      ;             ;
+; TURBO_BIT                                                                      ; ON                 ;      ;             ;
+; WEAK_PULL_UP_RESISTOR                                                          ; OFF                ;      ;             ;
+; ENABLE_BUS_HOLD_CIRCUITRY                                                      ; OFF                ;      ;             ;
+; AUTO_GLOBAL_MEMORY_CONTROLS                                                    ; OFF                ;      ;             ;
+; QII_AUTO_PACKED_REGISTERS                                                      ; AUTO               ;      ;             ;
+; AUTO_PACKED_REGISTERS_MAX                                                      ; AUTO               ;      ;             ;
+; NORMAL_LCELL_INSERT                                                            ; ON                 ;      ;             ;
+; CARRY_OUT_PINS_LCELL_INSERT                                                    ; ON                 ;      ;             ;
+; XSTL_INPUT_ALLOW_SE_BUFFER                                                     ; OFF                ;      ;             ;
+; TREAT_BIDIR_AS_OUTPUT                                                          ; OFF                ;      ;             ;
+; AUTO_TURBO_BIT                                                                 ; ON                 ;      ;             ;
+; AUTO_GLOBAL_CLOCK                                                              ; ON                 ;      ;             ;
+; AUTO_GLOBAL_OE                                                                 ; ON                 ;      ;             ;
+; AUTO_GLOBAL_REGISTER_CONTROLS                                                  ; ON                 ;      ;             ;
+; SYNCHRONIZER_IDENTIFICATION                                                    ; AUTO               ;      ;             ;
+; M144K_BLOCK_READ_CLOCK_DUTY_CYCLE_DEPENDENCY                                   ; OFF                ;      ;             ;
+; CLAMPING_DIODE                                                                 ; OFF                ;      ;             ;
+; IMPLEMENT_MLAB_IN_16_BIT_DEEP_MODE                                             ; OFF                ;      ;             ;
+; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL_COMPILATION ;      ;             ;
+; OPTIMIZE_POWER_DURING_SYNTHESIS                                                ; NORMAL_COMPILATION ;      ;             ;
+; VIRTUAL_PIN                                                                    ; ON                 ;      ; clk         ;
+; VIRTUAL_PIN                                                                    ; ON                 ;      ; cpu_reset_n ;
+; VIRTUAL_PIN                                                                    ; ON                 ;      ; mem_d_in    ;
+; VIRTUAL_PIN                                                                    ; ON                 ;      ; mem_d_out   ;
+; VIRTUAL_PIN                                                                    ; ON                 ;      ; mem_i_in    ;
+; VIRTUAL_PIN                                                                    ; ON                 ;      ; mem_i_out   ;
+; VIRTUAL_PIN                                                                    ; ON                 ;      ; res_n       ;
+; VIRTUAL_PIN                                                                    ; ON                 ;      ; rx          ;
+; VIRTUAL_PIN                                                                    ; ON                 ;      ; tx          ;
+; MESSAGE_DISABLE                                                                ; 13410              ;      ;             ;
+; NOT_GATE_PUSH_BACK                                                             ; OFF                ;      ; clr_reg     ;
+; REMOVE_REDUNDANT_LOGIC_CELLS                                                   ; OFF                ;      ;             ;
+; IGNORE_LCELL_BUFFERS                                                           ; OFF                ;      ;             ;
+; POWER_UP_LEVEL                                                                 ; LOW                ;      ; clr_reg     ;
+; AUTO_ROM_RECOGNITION                                                           ; OFF                ;      ;             ;
++--------------------------------------------------------------------------------+--------------------+------+-------------+
 
 
 +------------------------------------------------------------------------+
@@ -390,7 +381,7 @@ refer to the applicable agreement for further details.
 +------------------+-------------+---------------------------------------+
 ; Top              ; yes         ; netlist type = Source File            ;
 ; dev:dev_inst     ; no          ; Netlist imported from another project ;
-; sld_hub:auto_hub ; no          ; No relevant changes                   ;
+; sld_hub:auto_hub ; yes         ; No netlist in project database        ;
 +------------------+-------------+---------------------------------------+
 
 
@@ -1233,13 +1224,14 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------+------------+------------------+----------+---------+-----------------+-------------------------+------------------------------------------------------------------------------------------------------------+
 
 
-+-------------------------------+
-; Elapsed Time Per Partition    ;
-+----------------+--------------+
-; Partition Name ; Elapsed Time ;
-+----------------+--------------+
-; Top            ; 00:00:09     ;
-+----------------+--------------+
++---------------------------------+
+; Elapsed Time Per Partition      ;
++------------------+--------------+
+; Partition Name   ; Elapsed Time ;
++------------------+--------------+
+; Top              ; 00:00:11     ;
+; sld_hub:auto_hub ; 00:00:02     ;
++------------------+--------------+
 
 
 +-----------------------------------------------------------------------------------+
@@ -1258,7 +1250,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Sat Aug  1 11:29:27 2020
+    Info: Processing started: Sat Aug  1 19:54:49 2020
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off miriv -c miriv
 Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -1408,12 +1400,19 @@ Warning (10036): Verilog HDL or VHDL warning at wb.vhd(31): object "int_aluresul
 Warning (10036): Verilog HDL or VHDL warning at wb.vhd(33): object "int_pc_old_in" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 33
 Warning (10036): Verilog HDL or VHDL warning at wb.vhd(34): object "int_pc_new_in" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 34
 Info (12128): Elaborating entity "dev" for hierarchy "dev:dev_inst" File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 89
-Info (12205): 1 design partition requires Analysis and Synthesis
+Info (12206): 2 design partitions require synthesis
     Info (12210): Partition "Top" requires synthesis because its netlist type is Source File
-Info (12208): 2 design partitions do not require synthesis
+    Info (12213): Partition "sld_hub:auto_hub" requires synthesis because the project database does not contain a post-synthesis netlist for this partition
+Info (12207): 1 design partition does not require synthesis
     Info (12227): Partition "dev:dev_inst" does not require synthesis because its netlist was imported from a bottom-up project
-    Info (12229): Partition "sld_hub:auto_hub" does not require synthesis because there were no relevant design changes
 Warning (12240): Synthesis found one or more imported partitions that will be treated as black boxes for timing analysis during synthesis
+Info (281037): Using 4 processors to synthesize 2 partitions in parallel
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+    Info: Processing started: Sat Aug  1 19:55:00 2020
+Info: Command: quartus_map --parallel=1 --helper=0 --helper_type=user_partition --partition=Top miriv -c miriv
+Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
 Info (281020): Starting Logic Optimization and Technology Mapping for Top Partition
 Info (13000): Registers with preset signals will power-up high File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 44
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
@@ -1425,10 +1424,35 @@ Info (21057): Implemented 4541 device resources after synthesis - the final reso
     Info (21061): Implemented 4535 logic cells
     Info (21065): Implemented 1 PLLs
     Info (21071): Implemented 1 partitions
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 1013 megabytes
+    Info: Processing ended: Sat Aug  1 19:55:11 2020
+    Info: Elapsed time: 00:00:11
+    Info: Total CPU time (on all processors): 00:00:10
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+    Info: Processing started: Sat Aug  1 19:55:00 2020
+Info: Command: quartus_map --parallel=1 --helper=2 --helper_type=user_partition --partition=sld_hub:auto_hub miriv -c miriv
+Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
+Info (281019): Starting Logic Optimization and Technology Mapping for Partition sld_hub:auto_hub
+Info (13000): Registers with preset signals will power-up high File: /opt/quartus_18.1/quartus/libraries/megafunctions/sld_jtag_hub.vhd Line: 386
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Info (286031): Timing-Driven Synthesis is running on partition "sld_hub:auto_hub"
+Info (21057): Implemented 192 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 16 input pins
+    Info (21059): Implemented 33 output pins
+    Info (21061): Implemented 143 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 988 megabytes
+    Info: Processing ended: Sat Aug  1 19:55:02 2020
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:01
+Info (281038): Finished parallel synthesis of all partitions
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 21 warnings
-    Info: Peak virtual memory: 1159 megabytes
-    Info: Processing ended: Sat Aug  1 11:29:47 2020
-    Info: Elapsed time: 00:00:20
-    Info: Total CPU time (on all processors): 00:00:29
+    Info: Peak virtual memory: 1234 megabytes
+    Info: Processing ended: Sat Aug  1 19:55:12 2020
+    Info: Elapsed time: 00:00:23
+    Info: Total CPU time (on all processors): 00:00:31
 
 
