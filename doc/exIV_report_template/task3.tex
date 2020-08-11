@@ -1,0 +1,30 @@
+\begin{table}[htb]
+  \centering
+  \caption{Resource usage by entity, including resources used by sub-entities.}
+  \begin{tabular}{llll}
+    \toprule
+                         & LC Combinationals & LC Registers & Memory Bits \\
+    \midrule
+    Fetch Stage          & 80                & 2            & 0           \\
+    Decode Stage         & 253               & 2            & 0           \\
+    -- Register File     & 1132              & 99           & 0           \\
+    Execute Stage        & 2229              & 6            & 0           \\
+    -- ALU               & 1: 517, 2:16      & 1: 0, 2: 0   & 1: 0, 2: 0  \\
+    Memory Stage         & 154               & 6            & 0           \\
+    -- Memory Unit       & 85  	             & 0            & 0           \\
+    Write-Back Stage     & 135               & 0            & 0           \\
+    Forwarding Unit      & 1: 10, 2:5        & 1:0, 2:0     & 1: 0, 2:0   \\
+    Control Unit         & 14                & 0            & 0           \\
+    \cmidrule{1-4}
+    Sum                  & 4630              & 109          & 0           \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{qa}
+  \question{What is the maximum frequency of your design?}
+  \answer{In the slow 1200mV 85C Model that's 80.72 MHz.}
+  \question{Where is the critical path of your design?}
+  \answer{That's the forwarding of values via both the forwarding units.}
+\end{qa}
+
