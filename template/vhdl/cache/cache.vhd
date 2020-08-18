@@ -1,0 +1,74 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use ieee.std_logic_misc.all;
+
+use work.mem_pkg.all;
+use work.cache_pkg.all;
+
+entity cache is
+    generic (
+        SETS_LD   : natural          := SETS_LD;
+        WAYS_LD   : natural          := WAYS_LD;
+        ADDR_MASK : mem_address_type := (others => '1')
+    );
+    port (
+        clk : in std_logic;
+        reset : in std_logic;
+
+        mem_out_cpu : in  mem_out_type;
+        mem_in_cpu  : out mem_in_type;
+        mem_out_mem : out mem_out_type;
+        mem_in_mem  : in  mem_in_type
+    );
+end entity;
+
+/*architecture impl of cache is --for testing
+    alias cpu_to_cache : mem_out_type is mem_out_cpu;
+    alias cache_to_cpu : mem_in_type is mem_in_cpu;
+    alias cache_to_mem : mem_out_type is mem_out_mem;
+    alias mem_to_cache : mem_in_type is mem_in_mem;
+begin
+    cache_to_mem<=cpu_to_cache;
+    cache_to_cpu<=mem_to_cache;
+end architecture;*/
+
+architecture behav of cache is 
+   type CACHE_CNTRL_STATE is (IDLE, READ_CACHE, READ_MEM_START, READ_MEM, WRITE_BACK_START, WRITE_BACK);
+   signal state, state_next : CACHE_CNTRL_STATE;
+begin
+
+
+	sync : process(clk, reset)
+	begin
+		if reset = '0' then
+			state <= IDLE;
+		elsif rising_edge(clk) then
+			state <= state_next;
+		end if;
+	end process;	
+	
+	fsm : process(all)
+	begin
+		state_next <= state;
+		
+		case state is 
+			when IDLE =>
+			
+			when READ_CACHE => 
+
+			when READ_MEM_START =>
+
+			when READ_MEM => 
+
+			when WRITE_BACK_START =>
+
+			when WRITE_BACK =>
+			
+			when others =>
+			
+	   end case;
+	end process;	
+
+
+end architecture;
