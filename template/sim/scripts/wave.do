@@ -2,11 +2,16 @@ onerror {resume}
 quietly WaveActivateNextPane {} 0
 add wave -noupdate /tb_cpu/dut/pipeline_inst/clk
 add wave -noupdate /tb_cpu/dut/pipeline_inst/reset
+add wave -noupdate -divider -height 40 device 
+add wave -noupdate -expand -group device /tb_cpu/dev_inst/devices_inst/uart_inst/tx
+add wave -noupdate -expand -group device /tb_cpu/dev_inst/devices_inst/uart_inst/rx_data
 add wave -noupdate -divider -height 40 fetch
 add wave -noupdate -expand -group fetch /tb_cpu/dut/pipeline_inst/stall_fetch
 add wave -noupdate -expand -group fetch /tb_cpu/dut/pipeline_inst/flush_fetch
 add wave -noupdate -expand -group fetch -radix hexadecimal /tb_cpu/dut/pipeline_inst/fetch_inst/pc_in
 add wave -noupdate -expand -group fetch /tb_cpu/dut/pipeline_inst/pcsrc
+add wave -noupdate -expand -group fetch /tb_cpu/dut/pipeline_inst/fetch_inst/int_instr
+add wave -noupdate -expand -group fetch /tb_cpu/dut/pipeline_inst/fetch_inst/int_instr_nxt
 add wave -noupdate -expand -group fetch /tb_cpu/dut/pipeline_inst/fetch_inst/int_pc_cnt
 add wave -noupdate -expand -group fetch -childformat {{/tb_cpu/dut/pipeline_inst/mem_i_in.rddata -radix hexadecimal}} -expand -subitemconfig {/tb_cpu/dut/pipeline_inst/mem_i_in.rddata {-radix hexadecimal}} /tb_cpu/dut/pipeline_inst/mem_i_in
 add wave -noupdate -expand -group fetch -radix hexadecimal /tb_cpu/dut/pipeline_inst/fetch_inst/instr
@@ -23,12 +28,13 @@ add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst
 add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/int_rdaddr2
 #add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/int_rddata1
 #add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/int_rddata2
-#add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/wraddr
-#add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/wrdata
+add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/int_wraddr
+add wave -noupdate -expand -group reg_file /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/int_wrdata
 add wave -noupdate -divider -height 40 decode
 add wave -noupdate -expand -group decode /tb_cpu/dut/pipeline_inst/decode_inst/stall
 add wave -noupdate -expand -group decode /tb_cpu/dut/pipeline_inst/flush_dec
 add wave -noupdate -expand -group decode /tb_cpu/dut/pipeline_inst/stall_dec
+add wave -noupdate -expand -group decode -radix hexadecimal /tb_cpu/dut/pipeline_inst/decode_inst/int_instr
 add wave -noupdate -expand -group decode -radix hexadecimal /tb_cpu/dut/pipeline_inst/decode_inst/instr
 add wave -noupdate -expand -group decode /tb_cpu/dut/pipeline_inst/decode_inst/int_readdata1
 add wave -noupdate -expand -group decode /tb_cpu/dut/pipeline_inst/decode_inst/int_readdata2
@@ -60,6 +66,7 @@ add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_i
 add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/pc_old_out
 add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/alu_A
 add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/alu_B
+add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/alu_Z
 add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/alu_A_2
 add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/alu_B_2
 add wave -noupdate -expand -group exec -radix hexadecimal /tb_cpu/dut/pipeline_inst/exec_inst/alu_R_2
@@ -70,10 +77,11 @@ add wave -noupdate -divider -height 40 mem
 add wave -noupdate -expand -group mem /tb_cpu/dut/pipeline_inst/clk
 add wave -noupdate -expand -group mem /tb_cpu/dut/pipeline_inst/mem_inst/stall
 add wave -noupdate -expand -group mem /tb_cpu/dut/pipeline_inst/flush_mem
-#add wave -noupdate -expand -group mem /tb_cpu/dut/pipeline_inst/mem_inst/mem_op
+add wave -noupdate -expand -group mem /tb_cpu/dut/pipeline_inst/mem_op_from_ex
 #add wave -noupdate -expand -group mem /tb_cpu/dut/pipeline_inst/mem_inst/zero
 add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_inst/mem_inst/wrdata
 add wave -noupdate -expand -group mem /tb_cpu/dut/pipeline_inst/mem_inst/reg_write
+add wave -noupdate -expand -group mem /tb_cpu/dut/pipeline_inst/mem_inst/int_R
 add wave -noupdate -expand -group mem /tb_cpu/dut/pipeline_inst/mem_inst/mem_busy
 add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_inst/mem_inst/memresult
 add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_inst/mem_inst/pc_new_in
@@ -85,6 +93,8 @@ add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_in
 add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_inst/mem_inst/int_wbop_in
 add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_inst/mem_inst/aluresult_in
 add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_inst/mem_inst/int_aluresult_in
+add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_inst/mem_inst/int_memresult
+add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_inst/mem_inst/int_memresult_nxt
 add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_inst/mem_d_in
 add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_inst/mem_d_out
 #add wave -noupdate -expand -group mem /tb_cpu/dut/pipeline_inst/mem_inst/pcsrc
@@ -92,6 +102,7 @@ add wave -noupdate -expand -group mem -radix hexadecimal /tb_cpu/dut/pipeline_in
 #add wave -noupdate -expand -group mem -childformat {{/tb_cpu/dut/pipeline_inst/mem_inst/mem_in.rddata -radix hexadecimal}} -expand -subitemconfig {/tb_cpu/dut/pipeline_inst/mem_inst/mem_in.rddata {-radix hexadecimal}} /tb_cpu/dut/pipeline_inst/mem_inst/mem_in
 #add wave -noupdate -expand -group mem -childformat {{/tb_cpu/dut/pipeline_inst/mem_inst/mem_out.address -radix hexadecimal} {/tb_cpu/dut/pipeline_inst/mem_inst/mem_out.wrdata -radix hexadecimal}} -expand -subitemconfig {/tb_cpu/dut/pipeline_inst/mem_inst/mem_out.address {-radix hexadecimal} /tb_cpu/dut/pipeline_inst/mem_inst/mem_out.wrdata {-radix hexadecimal}} /tb_cpu/dut/pipeline_inst/mem_inst/mem_out
 add wave -noupdate -divider -height 40 memu
+add wave -noupdate -expand -group memu /tb_cpu/dut/pipeline_inst/mem_inst/memu_inst/mem_op/mem
 add wave -noupdate -expand -group memu /tb_cpu/dut/pipeline_inst/mem_inst/memu_inst/A
 add wave -noupdate -expand -group memu /tb_cpu/dut/pipeline_inst/mem_inst/memu_inst/B
 add wave -noupdate -expand -group memu /tb_cpu/dut/pipeline_inst/mem_inst/memu_inst/M

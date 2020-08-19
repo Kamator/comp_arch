@@ -12,28 +12,45 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# vsim -t ps work.tb_cpu -quiet -do "do scripts/wave.do;run 5us;wave zoom full" -GDMEM_FILE=../software/c/helloworld.dmem.mif -GIMEM_FILE=../software/c/helloworld.imem.mif 
-# Start time: 15:26:41 on Aug 01,2020
-# ** Note: (vsim-3812) Design is being optimized...
+# vsim -t ps work.tb_cpu -quiet -novopt -do "do scripts/wave.do;run 5us;wave zoom full" -GDMEM_FILE=../software/c/helloworld.dmem.mif -GIMEM_FILE=../software/c/helloworld.imem.mif 
+# Start time: 15:16:02 on Aug 18,2020
+# ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.tb_cpu(bench)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.mem_pkg(body)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.core(impl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.core_pkg(body)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.op_pkg
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.pipeline(impl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.fwd(rtl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.ctrl(rtl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.fetch(rtl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.decode(rtl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.regfile(rtl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.exec(rtl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.alu(rtl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.mem(rtl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.memu(rtl)
+# Refreshing /homes/d11775812/comp_arch/template/sim/work.wb(rtl)
 # do scripts/wave.do
-# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/rdaddr1'.
-# Executing ONERROR command at macro ./scripts/wave.do line 17
-# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/decode_inst/reg_inst/rdaddr2'.
-# Executing ONERROR command at macro ./scripts/wave.do line 18
-# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/decode_inst/help_rdaddr1'.
-# Executing ONERROR command at macro ./scripts/wave.do line 42
-# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/decode_inst/help_rdaddr2'.
-# Executing ONERROR command at macro ./scripts/wave.do line 43
-# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/wb_inst/int_op'.
-# Executing ONERROR command at macro ./scripts/wave.do line 108
-# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/wb_inst/int_pc_old_in'.
-# Executing ONERROR command at macro ./scripts/wave.do line 114
-# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/reg_write_wr'.
-# Executing ONERROR command at macro ./scripts/wave.do line 135
-# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/reg_write_wr'.
-# Executing ONERROR command at macro ./scripts/wave.do line 141
+# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/fetch_inst/int_instr_nxt'.
+# Executing ONERROR command at macro ./scripts/wave.do line 14
+# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/decode_inst/reg_readdata1'.
+# Executing ONERROR command at macro ./scripts/wave.do line 50
+# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/decode_inst/reg_readdata2'.
+# Executing ONERROR command at macro ./scripts/wave.do line 51
+# ** Error: (vish-4014) No objects found matching '/tb_cpu/dut/pipeline_inst/mem_inst/memu_inst/mem_op/mem'.
+# Executing ONERROR command at macro ./scripts/wave.do line 105
 # run 5us
+# ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
+#    Time: 0 ps  Iteration: 0  Instance: /tb_cpu/dut/pipeline_inst/mem_inst
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 25 ns  Iteration: 2  Instance: /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 25 ns  Iteration: 2  Instance: /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 25 ns  Iteration: 2  Instance: /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 25 ns  Iteration: 2  Instance: /tb_cpu/dut/pipeline_inst/decode_inst/reg_inst
 # wave zoom full
 # {0 ps} {5250 ns}
-# End time: 15:35:46 on Aug 01,2020, Elapsed time: 0:09:05
-# Errors: 24, Warnings: 0
+# Causality operation skipped due to absence of debug database file

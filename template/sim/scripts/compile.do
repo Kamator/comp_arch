@@ -15,6 +15,13 @@ vcom -work work -2008 ../vhdl/exec.vhd
 vcom -work work -2008 ../vhdl/mem.vhd
 vcom -work work -2008 ../vhdl/wb.vhd
 vcom -work work -2008 ../vhdl/pipeline.vhd
+vcom -work work -2008 ../vhdl/cache/cache_pkg.vhd
+vcom -work work -2008 ../vhdl/cache/cache.vhd
+vcom -work work -2008 ../vhdl/cache/data_st_1w.vhd
+vcom -work work -2008 ../vhdl/cache/data_std.vhd
+vcom -work work -2008 ../vhdl/cache/mgmt_st_1w.vhd
+vcom -work work -2008 ../vhdl/cache/mpmt_st.vhd
+vcom -work work -2008 ../vhdl/cache/repl.vhd
 vcom -work work -2008 ../vhdl/core.vhd
 
 vmap bootloader bootloader
