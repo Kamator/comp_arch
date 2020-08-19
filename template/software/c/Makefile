@@ -37,6 +37,6 @@ libc.a: util.o
 	./hex2mif.pl < $< > $@
 
 clean:
-	rm -rf libc.a *.s *.o *.elf *.hex *.mif
+	rm -rf libc.a *.s *.o *.elf *.hex *.mif *.txt
 
-.PHONY: all lib helloworld md5
+.PHONY: all lib helloworld md5 

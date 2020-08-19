@@ -1,19 +1,20 @@
 #include "util.h"
 
 int main() {
-	int i,k;
+	//int i,k;
 
 	puts("Hello, MiRiscV");
 
+	/*
 	for (k = 0; k < 10; k++) {
-		/* delay loop */
+		//delay loop 
 		for (i = 0; i < 3000000; i++) {
 			__asm__("");
 		}
-		/* sign of life */
+		//sign of life 
 		putchar('0'+k);
 	}
-	putchar('\n');
+	putchar('\n'); */
 
 	return 0;
 }
