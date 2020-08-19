@@ -48,7 +48,7 @@ architecture rtl of decode is
  signal int_instr : instr_type := (others => '0');
  signal int_pc : pc_type := (others => '0');
  signal int_readdata1, int_readdata2 : data_type;
- signal reg_readdata1, reg_readdata2 : data_type; 
+ 
  signal help_rdaddr1, help_rdaddr2 : reg_adr_type; 
  signal wraddr : reg_adr_type;
  signal wrdata : data_type;
@@ -98,7 +98,7 @@ begin
         regwrite => reg_write.write
     );
 	
-	sync : process(reset, clk, flush, stall, reg_readdata1, reg_readdata2, instr)
+	sync : process(reset, clk, flush, stall, instr)
 	begin
 		if reset = '0' then
 			int_instr <= (others => '0');
@@ -119,7 +119,6 @@ begin
 			int_reg_write <= reg_write; 
 			int_rdaddr1 <= instr(19 downto 15); 
 			int_rdaddr2 <= instr(24 downto 20); 
-
 		end if;
 	end process;
 	
@@ -541,19 +540,30 @@ begin
 						end if; 
 						
 						mem_op.branch <= BR_CND;
+
+						exec_op.imm_flag <= '1'; 
+						exec_op.store_flag <= '1'; 
+						exec_op.pc_flag <= '1'; 
+
 					when "001" =>    -- B BNE if(rs1 != rs2) pc = pc + (imm\+- << 1)
-						exec_op.aluop <= ALU_SUB;
+						--exec_op.aluop <= ALU_SUB;
 						exec_op.rs1 <= rs1;
 						exec_op.rs2 <= rs2;
-						
+				
+						exec_op.aluop <= ALU_SUB; 
+	
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
 					
 						mem_op.branch <= BR_CND;
+
+						exec_op.imm_flag <= '1'; 
+						exec_op.store_flag <= '1'; 
+						exec_op.pc_flag <= '0'; 
 					when "100" =>    -- B BLT if(rs1\+- < rs2\+-) pc = pc + (imm\+- << 1)
 						exec_op.aluop <= ALU_NOP;
 						exec_op.rs1 <= rs1;
-					   exec_op.rs2 <= rs2;
+						exec_op.rs2 <= rs2;
 
 						exec_op.readdata1 <= int_readdata1;
 						exec_op.readdata2 <= int_readdata2;
@@ -590,66 +600,87 @@ begin
 				end case;	
 			when OPC_JALR =>
 				if fct3 = "000" then  --I JALR rd = pc + 4; pc = imm\+- + rs1; pc[0] = '0'
-                  exec_op.imm_flag <= '0';
-                  exec_op.store_flag <= '1';
-                  exec_op.pc_flag <= '1';
-                  exec_op.aluop <= ALU_ADD;
+                  				exec_op.imm_flag <= '0';
+                  				exec_op.store_flag <= '1';
+                  				exec_op.pc_flag <= '1';
+                  				exec_op.aluop <= ALU_ADD;
 						exec_op.imm(31 downto 11) <= (others => int_instr(31));
 						exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
 						exec_op.imm(4 downto 1) <= int_instr(24 downto 21);
 						exec_op.imm(0) <= int_instr(20);
+						
 						if int_reg_write.reg = rs1 then
 							exec_op.readdata1 <= int_reg_write.data;
-					   else
+					   	else
 							exec_op.readdata1 <= int_readdata1;
 						end if;	
+						
 						wb_op.src <= WBS_ALU;
 						wb_op.write <= '1';
-                  wb_op.rd <= rd;
+                  				wb_op.rd <= rd;
+
+						--returns were not taken
+						mem_op.branch <= BR_BR; 
 				else
 					exc_dec <= '1';
 				end if;
+
 			when OPC_JAL =>   --J JAL rd = pc + 4; pc = pc + (imm\+- << 1)
-                exec_op.imm_flag <= '1';
-                exec_op.store_flag <= '0';
-                exec_op.pc_flag <= '1';
+               			    exec_op.imm_flag <= '1';
+                		    exec_op.store_flag <= '0';
+                		    exec_op.pc_flag <= '1';
 			            exec_op.imm(31 downto 20) <= (others => int_instr(31));
 				    exec_op.imm(19 downto 12) <= int_instr(19 downto 12);
 				    exec_op.imm(11) <= int_instr(20);
 				    exec_op.imm(10 downto 5) <= int_instr(30 downto 25);
 				    exec_op.imm(4 downto 1) <= int_instr(24 downto 21);
-				    exec_op.imm(0) <= '0';
+				    exec_op.imm(0) <= '0'; 
+
 				    exec_op.aluop <= ALU_ADD;
 				    wb_op.src <= WBS_OPC;
 				    wb_op.write <= '1';
 				    wb_op.rd <= rd;
 				    mem_op.branch <= BR_BR; 
 			
-			when OPC_AUIPC =>   --U AUIPC rd = pc + (imm\+- << 12)
-                exec_op.imm_flag <= '0';
-                exec_op.store_flag <= '0';
-                exec_op.pc_flag <= '0';
-                exec_op.imm(31 downto 24) <= int_instr(19 downto 12);
-				    exec_op.imm(23 downto 0) <= (others => '0');
-                exec_op.aluop <= ALU_ADD;
-					 exec_op.readdata1 <= (others => '0');
-                exec_op.readdata1(15 downto 0) <= int_pc;
-					 exec_op.readdata2 <= exec_op.imm;
-				    wb_op.src <= WBS_ALU;
-			       wb_op.write <= '1';
-				    wb_op.rd <= rd;
+			when OPC_AUIPC =>   --U AUIPC rd = pc + (imm\+- << 12) .. add upper immediate to pc - adds immediate to programm counter
+                		--exec_op.imm_flag <= '0';
+                		exec_op.imm_flag <= '1'; 
+				exec_op.store_flag <= '0';
+                		exec_op.pc_flag <= '0';
+				exec_op.imm(31) <= int_instr(31); 
+				exec_op.imm(30 downto 20) <= int_instr(30 downto 20); 
+				exec_op.imm(19 downto 12) <= int_instr(19 downto 12);
+				exec_op.imm(11 downto 0) <= (others => '0'); 
+                		--exec_op.imm(31 downto 12) <= int_instr(31 downto 12);
+				--exec_op.imm( downto 0) <= (others => '0');
+				--exec_op.imm(19 downto 0) <= int_instr(31 downto 12); --the 20-bit value is the immediate
+				--exec_op.imm(31 downto 20) <= (others => '0'); 
+                		exec_op.aluop <= ALU_ADD;
+		                exec_op.readdata1 <= (others => '0');
+                		exec_op.readdata1(15 downto 0) <= int_pc;
+				exec_op.readdata2 <= (others => '0');
+				wb_op.src <= WBS_ALU;
+			       	wb_op.write <= '1';
+				wb_op.rd <= rd;
 			when OPC_LUI =>    --U LUI rd = imm\+- << 12
-                exec_op.imm_flag <= '0';
-                exec_op.store_flag <= '0';
-                exec_op.pc_flag <= '0';
-					 exec_op.imm(31 downto 24) <= int_instr(19 downto 12);
-					 exec_op.imm(23 downto 0) <= (others => '0');
-				    exec_op.aluop <= ALU_NOP;
-					 exec_op.readdata1 <= (others => '0');
-					 exec_op.readdata2 <= exec_op.imm;
-					 wb_op.src <= WBS_ALU;
-					 wb_op.write <= '1';
-					 wb_op.rd <= rd;
+                		exec_op.imm_flag <= '1';
+                		exec_op.store_flag <= '0';
+               			exec_op.pc_flag <= '0';
+				--exec_op.imm(31 downto 24) <= int_instr(19 downto 12);
+				--exec_op.imm(23 downto 0) <= (others => '0');
+				--exec_op.imm(19 downto 0) <= int_instr(31 downto 12); 
+				--exec_op.imm(31 downto 20) <= (others => '0'); 
+				exec_op.imm(31) <= int_instr(31); 
+				exec_op.imm(30 downto 20) <= int_instr(30 downto 20); 
+				exec_op.imm(19 downto 12) <= int_instr(19 downto 12); 
+				exec_op.imm(11 downto 0) <= (others => '0'); 
+
+				exec_op.aluop <= ALU_ADD;
+				exec_op.readdata1 <= (others => '0');
+				exec_op.readdata2 <= (others => '0');
+				wb_op.src <= WBS_ALU;
+				wb_op.write <= '1';
+				wb_op.rd <= rd;
 			when "0001111" =>
 				if fct3 = "000" then -- I FENCE nop
 					exec_op <= EXEC_NOP;

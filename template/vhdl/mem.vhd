@@ -85,12 +85,15 @@ architecture rtl of mem is
 	signal int_zero : std_logic; 
 	signal int_mem_in : MEM_IN_TYPE; 
 	signal int_mem_busy : std_logic; 
+	signal int_memresult, int_memresult_nxt : DATA_TYPE; 
+
+	constant addr_threshold : DATA_TYPE := x"00002000"; 
 
 	--internal signals for memu 
 	signal int_A, int_W, int_R : data_type; 
 	signal int_B, int_XL, int_XS : std_logic; 
 	signal int_D : mem_in_type; 
-	signal int_M : mem_out_type; 
+	signal int_M : mem_out_type;  
 
 begin
 	memu_inst : memu
@@ -98,7 +101,7 @@ begin
 		op => int_mem_op.mem,
 		A => int_aluresult_in,
 		W => int_wrdata,
-		R => open,
+		R => int_R,
 		B => int_mem_busy, 
 		XL => exc_load,
 		XS => exc_store,
@@ -115,6 +118,7 @@ begin
 			int_wbop_in <= WB_NOP; 
 			int_aluresult_in <= (others => '0'); 
 			int_wrdata <= (others => '0'); 
+			int_memresult <= (others => '0'); 
 
 		elsif flush = '1' then 
 			--flush
@@ -126,6 +130,7 @@ begin
 			int_pc_new_in <= (others => '0'); 
 			int_pc_old_in <= (others => '0');
 			int_wrdata <= (others => '0'); 
+			int_memresult <= (others => '0'); 
 
 		elsif rising_edge(clk) and stall = '0' and flush = '0' and int_mem_busy = '0' then 
 			--sync
@@ -135,6 +140,7 @@ begin
 			int_pc_old_in <= pc_old_in; 	 
 			int_aluresult_in <= aluresult_in; 
 			int_wrdata <= wrdata; 	 
+			int_memresult <= int_memresult_nxt; 
 
 		elsif int_mem_busy = '1' then 	
 			int_mem_op.mem.memread <= '0'; 
@@ -143,11 +149,12 @@ begin
 		elsif rising_edge(clk) and stall = '1' then 
 			int_mem_op.mem.memread <= '0'; 
 			int_mem_op.mem.memwrite <= '0';
+			int_memresult <= int_memresult_nxt; 
 		end if; 
 
 	end process;
 
-	reg_write_p : process(clk, stall, flush, aluresult_in, wbop_in, mem_in)
+	reg_write_p : process(clk, stall,int_R, flush, aluresult_in, int_aluresult_in,int_memresult, wbop_in, mem_in)
 	begin
 		reg_write.reg <= wbop_in.rd; 
 		reg_write.write <= '0'; 
@@ -161,21 +168,45 @@ begin
 			if wbop_in.write = '1' and wbop_in.src = WBS_MEM then 
 					--load instruction
 					reg_write.write <= '1'; 
-					reg_write.data  <= to_little_endian(mem_in.rddata); 		
+					--reg_write.data  <= to_little_endian(mem_in.rddata); 	
+					--reg_write.data <= to_little_endian(int_R); 	
+					reg_write.data <= int_R;
+		
+					--special address handling
+					if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then
+						reg_write.data <= int_memresult; 
+					end if;  
 			end if; 
 
+					--special address handling
+					if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then
+						reg_write.data <= int_memresult; 
+					end if;  
 		else
  
 			if wbop_in.write = '1' and wbop_in.src = WBS_MEM then 
 					--load instruction
 					reg_write.write <= '1'; 
-					reg_write.data  <= to_little_endian(mem_in.rddata); 		
-
+					--reg_write.data  <= to_little_endian(mem_in.rddata); 		
+					--reg_write.data <= to_little_endian(int_R); 
+					reg_write.data <= int_R;
+ 
+					--special address handling
+					if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then
+						reg_write.data <= int_memresult; 
+					end if;  
 
 			elsif wbop_in.write = '1' and wbop_in.src = WBS_ALU then
 				--result of alu needs to be forwarded
 				reg_write.write <= '1'; 
 				reg_write.data <= aluresult_in; 
+				
+				--very unsure
+				
+					--special address handling
+					if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then
+						reg_write.data <= int_memresult; 
+					end if;  
 
 			end if; 
 		end if; 
@@ -192,10 +223,17 @@ begin
 
 		pcsrc <= '0'; 
 
-		memresult <= mem_in.rddata;
+		--memresult <= mem_in.rddata;
+		memresult <= to_little_endian(int_R); 		
+
+		if stall = '1' and int_memresult /= x"00000000" then 
+			memresult <= to_little_endian(int_memresult); 
+		end if; 
 
 		mem_busy <= int_mem_busy; 
 	
+		int_memresult_nxt <= (others => '0'); 
+
 
 		if int_mem_op.mem.memread = '1' then 
 			mem_busy <= '1'; 
@@ -209,9 +247,25 @@ begin
 				----wbop_out <= WB_NOP; 
 			else 
 				pcsrc <= '0'; 
-			end  if; 
+					
+				if int_mem_op.branch = BR_BR then 
+					--unconditional branch in the first line
+					pcsrc <= '1'; 
+				end if; 
+
+			end  if;
 		end if; 
 	
+		--special address handling (>= 0x2000)
+		if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then 
+			int_memresult_nxt <= int_R; 
+		
+			if int_memresult /= x"00000000" then 
+				int_memresult_nxt <= int_memresult; 
+			end if; 
+			
+		end if;  
+
 	
 	end process; 	
 end architecture;

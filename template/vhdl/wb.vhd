@@ -17,7 +17,7 @@ entity wb is
         -- from MEM
         op         : in  wb_op_type;
         aluresult  : in  data_type;
-        memresult  : in  data_type;
+        memresult  : in  data_type; --is not little endian! 
         pc_old_in  : in  pc_type;
 	pc_new_in  : in  pc_type;
 
@@ -58,7 +58,7 @@ begin
 		elsif rising_edge(clk) and stall = '0' then
 			int_op <= op; 
 			int_aluresult <= aluresult; 
-			int_memresult <= memresult; 
+			int_memresult <= to_little_endian(memresult); 
 			int_pc_old_in <= pc_old_in; 
 			int_pc_new_in <= pc_new_in; 
 			old_stall <= old_stall_nxt; 
@@ -75,6 +75,10 @@ begin
 
 		if stall = '1' then 
 			int_memresult_nxt <= to_little_endian(memresult); 
+		
+		elsif stall = '0' and old_stall = '1' then 
+			--try this elsif
+			int_memresult_nxt <= int_memresult;  
 		else 
 			int_memresult_nxt <= (others => '0'); 
 		end if; 
@@ -95,13 +99,15 @@ begin
 			elsif op.src = WBS_MEM then 
 				reg_write.data <= to_little_endian(memresult); 
 		
-				if stall = '0' and old_stall = '1' then 
+				if stall = '0' and old_stall = '1' then 	
 					reg_write.data <= int_memresult; 
 				end if; 
 			
-			else 
-				reg_write.data(15 downto 0) <= pc_new_in; 
-				reg_write.data(31 downto 16) <= (others => '0'); 
+			elsif op.src = WBS_OPC then 
+				--JAL/JALR
+ 				reg_write.data <= aluresult; 
+				--reg_write.data(15 downto 0) <= pc_new_in; 
+				--reg_write.data(31 downto 16) <= (others => '0'); 
 			end if; 
 
 		else 

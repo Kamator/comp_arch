@@ -150,13 +150,17 @@ begin
 			if reg_write_wr.write = '1' then  	
 				
 				if reg_write_wr.reg = op.rs1 and reg_write_mem.reg /= op.rs1 then
-					
+				
+				-- and reg_write_mem.reg /= op.rs1 to resolve double-data hazards
+	
 					if reg_write_wr.reg /= ZERO_REG then 
 						int_op.readdata1 <= reg_write_wr.data;
 					end if; 
  
 				elsif reg_write_wr.reg = op.rs2 and reg_write_mem.reg /= op.rs2 then
-					
+				
+				-- and reg_write_mem.reg /= op.rs2 to resolve double-data hazards
+	
 					if reg_write_wr.reg /= ZERO_REG then
 						if op.store_flag = '1' then 
 							int_wrdata <= reg_write_wr.data; 
@@ -316,20 +320,13 @@ begin
 			if dwr_flag = '1' then 
 				wrdata <= int_wrdata; 
 			end if; 	
-		--B-Type Instructions
+		--B-Type Instructions (BLTU, BLT,....)
 		elsif int_op.imm_flag = '0' and int_op.store_flag = '0' and int_op.pc_flag = '1' then
 	      	
 			alu_A <= int_op.readdata1; 
 			alu_B <= int_op.readdata2; 
 
-			if int_op.aluop = ALU_SUB then
-				--beq/neq instruction
-				aluresult(31 downto 1) <= (others => '0');
-				aluresult(0) <= alu_Z;  
-			else 
-				--blt, bltu, bge, bgeu instructions
-				aluresult <= alu_R; 
-			end if; 
+			aluresult <= alu_R;  
 
 			alu_op_2 <= ALU_ADD; 
 	
@@ -345,10 +342,17 @@ begin
 				alu_A(31 downto 16) <= (others => '0'); 
 				alu_B <= int_op.imm; 
 				
-				--pc+4 stored in rd
-				wrdata(15 downto 0) <= alu_R_2(15 downto 0); 		
-				wrdata(31 downto 16) <= (others => '0'); 
+				alu_op_2 <= ALU_ADD; 
+				alu_A_2(31 downto 16) <= (others => '0');
+				alu_A_2(15 downto 0) <= int_pc_in; 
+				alu_B_2 <= (others => '0'); 
+				alu_B_2(2 downto 0) <= "100";  
 
+				--pc+4 stored in rd
+				--wrdata(15 downto 0) <= alu_R_2(15 downto 0); 		
+				--wrdata(31 downto 16) <= (others => '0'); 
+				aluresult <= alu_R_2; 
+				
 				--pc_new_out .. jal, so pc_in + offset
 				pc_new_out <= alu_R(15 downto 0); 
 
@@ -367,6 +371,37 @@ begin
 				--pc_new_out .. jalr, so rs1 + offset
 				pc_new_out <= alu_R(15 downto 0);
 
+		--B - Instructions (BNE)
+		elsif int_op.imm_flag = '1' and int_op.store_flag = '1' and int_op.pc_flag = '0' then 
+				alu_A <= int_op.readdata1; 
+				alu_B <= int_op.readdata2; 
+
+				aluresult(31 downto 1) <= (others => '0'); 
+				aluresult(0) <= not(alu_Z); 
+
+				alu_op_2 <= ALU_ADD; 
+	
+				--branch target address
+				alu_A_2(15 downto 0) <= int_pc_in; 
+				alu_A_2(31 downto 16) <= (others => '0'); 
+				alu_B_2 <= int_op.imm; 
+				pc_new_out <= alu_R_2(15 downto 0);
+
+		--B - Instructions (BEQ) 
+		elsif int_op.imm_flag = '1' and int_op.store_flag = '1' and int_op.pc_flag = '1' then 
+				alu_A <= int_op.readdata1; 
+				alu_B <= int_op.readdata2; 
+			
+				aluresult(31 downto 1) <= (others => '0'); 
+				aluresult(0) <= alu_Z; 
+
+				alu_op_2 <= ALU_ADD; 
+		
+				--branch target address
+				alu_A_2(15 downto 0) <= int_pc_in; 
+				alu_A_2(31 downto 16) <= (others => '0'); 
+				alu_B_2 <= int_op.imm; 
+				pc_new_out <= alu_R_2(15 downto 0);
 		end if; 
 
 

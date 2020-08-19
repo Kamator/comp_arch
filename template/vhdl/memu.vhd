@@ -49,6 +49,44 @@ begin
 	XS <= '0'; 
 	XL <= '0'; 
 	R <= (others => '0'); 
+	R <= D.rddata; 
+
+	--try this for result tracking
+	
+	if op.memtype = MEM_BU then 	
+				--unsigned values /* 
+				/*
+				if A(1 downto 0) = "00" then 
+					--first byte accessed, others zero
+					R <= x"000000" & D.rddata(31 downto 24);
+				elsif A(1 downto 0) = "01" then 
+					--second byte accessed, others zero
+					R <= x"000000" & D.rddata(23 downto 16); 
+				elsif A(1 downto 0) = "10" then 
+					--third byte accessed, others zero
+					R <= x"000000" & D.rddata(15 downto 8); 
+				elsif A(1 downto 0) = "11" then 
+					--fourth byte accessed, others zero
+					R <= x"000000" & D.rddata(7 downto 0); 
+				end if; */
+
+				if A(1 downto 0) = "00" then 
+					--first byte accessed, others zero
+					R <= D.rddata(31 downto 24) & x"000000";
+				elsif A(1 downto 0) = "01" then 
+					--second byte accessed, others zero
+					R <= D.rddata(23 downto 16) & x"000000"; 
+				elsif A(1 downto 0) = "10" then 
+					--third byte accessed, others zero
+					R <= D.rddata(15 downto 8) & x"000000"; 
+				elsif A(1 downto 0) = "11" then 
+					--fourth byte accessed, others zero
+					R <= D.rddata(7 downto 0) & x"000000"; 
+				end if;
+
+				
+		end if; 
+ 
 	
 	if op.memread = '1' and D.busy = '0' then 
 
@@ -310,7 +348,7 @@ begin
 			M <= MEM_OUT_NOP;  
 			XL <= '0'; 
 			XS <= '0'; 
-			R <= (others => '0');			
+			--R <= (others => '0');			
 	end if; 
 	end process;  
 end architecture;
