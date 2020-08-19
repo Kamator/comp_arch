@@ -1,0 +1,112 @@
+QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
+Start time: 14:21:04 on Aug 19,2020
+vcom -2008 -opt=-clkOpt -work work -suppress 1236 -novopt ../../vhdl/mem_pkg.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling package mem_pkg
+-- Compiling package body mem_pkg
+-- Loading package mem_pkg
+End time: 14:21:04 on Aug 19,2020, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
+Start time: 14:21:04 on Aug 19,2020
+vcom -2008 -opt=-clkOpt -work work -suppress 1236 -novopt ../../vhdl/core_pkg.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package mem_pkg
+-- Compiling package core_pkg
+-- Compiling package body core_pkg
+-- Loading package core_pkg
+End time: 14:21:05 on Aug 19,2020, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0
+QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
+Start time: 14:21:05 on Aug 19,2020
+vcom -2008 -opt=-clkOpt -work work -suppress 1236 -novopt ../../vhdl/op_pkg.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package mem_pkg
+-- Loading package core_pkg
+-- Compiling package op_pkg
+End time: 14:21:05 on Aug 19,2020, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
+Start time: 14:21:05 on Aug 19,2020
+vcom -2008 -opt=-clkOpt -work work -suppress 1236 -novopt ../../vhdl/cache/ram/single_clock_rw_ram_pkg.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package single_clock_rw_ram_pkg
+End time: 14:21:05 on Aug 19,2020, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
+Start time: 14:21:05 on Aug 19,2020
+vcom -2008 -opt=-clkOpt -work work -suppress 1236 -novopt ../../vhdl/cache/ram/single_clock_rw_ram.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity single_clock_rw_ram
+-- Compiling architecture rtl of single_clock_rw_ram
+End time: 14:21:05 on Aug 19,2020, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
+Start time: 14:21:05 on Aug 19,2020
+vcom -2008 -opt=-clkOpt -work work -suppress 1236 -novopt ../../vhdl/cache/cache_pkg.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package mem_pkg
+-- Compiling package cache_pkg
+** Warning: ../../vhdl/cache/cache_pkg.vhd(18): (vcom-1246) Range -1 downto 0 is null.
+End time: 14:21:05 on Aug 19,2020, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
+Start time: 14:21:05 on Aug 19,2020
+vcom -2008 -opt=-clkOpt -work work -suppress 1236 -novopt ../../vhdl/cache/data_st_1w.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package mem_pkg
+-- Loading package cache_pkg
+-- Loading package single_clock_rw_ram_pkg
+-- Compiling entity data_st_1w
+-- Compiling architecture impl of data_st_1w
+End time: 14:21:05 on Aug 19,2020, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
+Start time: 14:21:05 on Aug 19,2020
+vcom -2008 -opt=-clkOpt -work work -suppress 1236 -novopt ../../vhdl/cache/data_st.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package mem_pkg
+-- Loading package cache_pkg
+-- Loading package single_clock_rw_ram_pkg
+-- Compiling entity data_st
+-- Compiling architecture impl of data_st
+End time: 14:21:05 on Aug 19,2020, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+QuestaSim vcom 10.6c_1 Compiler 2017.09 Sep 15 2017
+Start time: 14:21:05 on Aug 19,2020
+vcom -2008 -opt=-clkOpt -work work -suppress 1236 -novopt ./data_st_tb.vhd 
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package mem_pkg
+-- Loading package core_pkg
+-- Loading package op_pkg
+-- Loading package single_clock_rw_ram_pkg
+-- Loading package cache_pkg
+-- Compiling entity data_st_tb
+-- Compiling architecture beh of data_st_tb
+End time: 14:21:05 on Aug 19,2020, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
