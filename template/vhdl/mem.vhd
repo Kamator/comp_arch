@@ -101,7 +101,7 @@ begin
 		op => int_mem_op.mem,
 		A => int_aluresult_in,
 		W => int_wrdata,
-		R => int_R,
+		R => int_R, --NOT LITTLE ENDIAN
 		B => int_mem_busy, 
 		XL => exc_load,
 		XS => exc_store,
@@ -154,7 +154,7 @@ begin
 
 	end process;
 
-	reg_write_p : process(clk, stall,int_R, flush, aluresult_in, int_aluresult_in,int_memresult, wbop_in, mem_in)
+	reg_write_p : process(clk, stall,int_R, flush, aluresult_in, int_aluresult_in,int_memresult, wbop_in, mem_in, mem_op)
 	begin
 		reg_write.reg <= wbop_in.rd; 
 		reg_write.write <= '0'; 
@@ -198,15 +198,29 @@ begin
 
 			elsif wbop_in.write = '1' and wbop_in.src = WBS_ALU then
 				--result of alu needs to be forwarded
+
+				if mem_op.branch /= BR_NOP then
+					reg_write.data <= int_memresult; 
+					reg_write.write <= '1'; 
+				else 
+					reg_write.write <= '1'; 
+					reg_write.data <= aluresult_in; 
+				end if; 
+
+				/*
 				reg_write.write <= '1'; 
 				reg_write.data <= aluresult_in; 
 				
 				--very unsure
+				--only if its a branch
+				 
+				--special address handling
+				if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then
+					reg_write.data <= int_memresult; 
+				end if;
+
+			 	*/
 				
-					--special address handling
-					if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then
-						reg_write.data <= int_memresult; 
-					end if;  
 
 			end if; 
 		end if; 
@@ -224,10 +238,11 @@ begin
 		pcsrc <= '0'; 
 
 		--memresult <= mem_in.rddata;
-		memresult <= to_little_endian(int_R); 		
+		memresult <= int_R; 		
 
 		if stall = '1' and int_memresult /= x"00000000" then 
-			memresult <= to_little_endian(int_memresult); 
+			--memresult <= to_little_endian(int_memresult); 
+			memresult <= int_memresult; 
 		end if; 
 
 		mem_busy <= int_mem_busy; 

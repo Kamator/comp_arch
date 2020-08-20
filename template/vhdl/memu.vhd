@@ -47,15 +47,14 @@ begin
 	M <= MEM_OUT_NOP; 
 	B <= D.busy; 
 	XS <= '0'; 
-	XL <= '0'; 
-	R <= (others => '0'); 
-	R <= D.rddata; 
+	XL <= '0';  
+	R <= to_little_endian(D.rddata); 
 
 	--try this for result tracking
 	
 	if op.memtype = MEM_BU then 	
 				--unsigned values /* 
-				/*
+		
 				if A(1 downto 0) = "00" then 
 					--first byte accessed, others zero
 					R <= x"000000" & D.rddata(31 downto 24);
@@ -68,8 +67,9 @@ begin
 				elsif A(1 downto 0) = "11" then 
 					--fourth byte accessed, others zero
 					R <= x"000000" & D.rddata(7 downto 0); 
-				end if; */
+				end if; 
 
+				/*
 				if A(1 downto 0) = "00" then 
 					--first byte accessed, others zero
 					R <= D.rddata(31 downto 24) & x"000000";
@@ -83,7 +83,7 @@ begin
 					--fourth byte accessed, others zero
 					R <= D.rddata(7 downto 0) & x"000000"; 
 				end if;
-
+				*/
 				
 		end if; 
  
@@ -98,8 +98,14 @@ begin
 		M.wrdata  <= (others => '-'); 
 		
 		--&"00" because the word address is needed
-		M.address <= A(ADDR_WIDTH-1 downto 2) & "00"; 
-
+		--M.address <= A(ADDR_WIDTH-1 downto 2) & "00"; 
+		
+		if signed(A) > 0 then 
+			M.address <= "00" & A(ADDR_WIDTH-1 downto 2); 
+		else 
+			M.address <= "11" & A(ADDR_WIDTH-1 downto 2); 
+		end if; 
+	
 		case op.memtype is 
 
 			when MEM_B => 
@@ -245,14 +251,21 @@ begin
 			
 	elsif op.memwrite = '1' then 
 		--write access to memory occurs here
-		M.rd <= '0'; 		
+		M.rd <= '0'; 	
+		M.wr <= '1'; 	
 		R <= (others => '0'); 
 		--therefore no load exceptions possible
 		XL <= '0'; 
 
 		--&"00" because the word address is needed
- 		M.address <= A(ADDR_WIDTH-1 downto 2) & "00";  
+ 		--M.address <= A(ADDR_WIDTH-1 downto 2) & "00";  
 
+		if signed(A) > 0 then 
+			M.address <= "00" & A(ADDR_WIDTH-1 downto 2); 
+		else 
+			M.address <= "11" & A(ADDR_WIDTH-1 downto 2); 
+		end if;
+ 
 		case op.memtype is 
 			when MEM_B | MEM_BU => 
 				--no load exception when loading single bytes

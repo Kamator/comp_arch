@@ -52,7 +52,11 @@ begin
 
 		elsif rising_edge(clk) and flush = '0' and stall = '0' then 
 			--regular mode 
-			int_instr <= to_little_endian(mem_in.rddata); 
+			int_instr <= to_little_endian(mem_in.rddata);
+			--try this for erasing metavalues
+			if unsigned(int_pc_cnt_nxt) = 0 then 
+				int_instr <= NOP_INST;
+			end if;  
 			read <= '1'; 	
 			int_pc_cnt <= int_pc_cnt_nxt; 
 

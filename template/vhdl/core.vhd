@@ -33,12 +33,13 @@ begin
         reset => reset,
         mem_i_out => mem_i_out,
         mem_i_in  => mem_i_in,
-        mem_d_out => mem_d_out_s, --with cache
-        mem_d_in  => mem_d_in_s --with cache
-        --mem_d_out => mem_d_out, --without cache
-        --mem_d_in  => mem_d_in --without cache
+        --mem_d_out => mem_d_out_s, --with cache
+        --mem_d_in  => mem_d_in_s --with cache
+        mem_d_out => mem_d_out, --without cache
+        mem_d_in  => mem_d_in --without cache
     );
-
+	
+/*
     cache_inst : entity work.cache
     generic map (
         ADDR_MASK => 14x"0FFF"
@@ -52,5 +53,5 @@ begin
         mem_out_mem  => mem_d_out,
         mem_in_mem   => mem_d_in
     );
-
+*/
 end architecture;

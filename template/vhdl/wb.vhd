@@ -58,7 +58,7 @@ begin
 		elsif rising_edge(clk) and stall = '0' then
 			int_op <= op; 
 			int_aluresult <= aluresult; 
-			int_memresult <= to_little_endian(memresult); 
+			int_memresult <= memresult; 
 			int_pc_old_in <= pc_old_in; 
 			int_pc_new_in <= pc_new_in; 
 			old_stall <= old_stall_nxt; 
@@ -74,7 +74,7 @@ begin
 	begin
 
 		if stall = '1' then 
-			int_memresult_nxt <= to_little_endian(memresult); 
+			int_memresult_nxt <= memresult; 
 		
 		elsif stall = '0' and old_stall = '1' then 
 			--try this elsif
@@ -97,7 +97,7 @@ begin
 				reg_write.data <= aluresult; 
 			
 			elsif op.src = WBS_MEM then 
-				reg_write.data <= to_little_endian(memresult); 
+				reg_write.data <= memresult; 
 		
 				if stall = '0' and old_stall = '1' then 	
 					reg_write.data <= int_memresult; 

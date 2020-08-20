@@ -303,7 +303,7 @@ begin
 		  
  		  	alu_B <= int_op.imm; 
 		  
-			if int_op.imm = x"00000000" and int_op.rs1 = "00000" then 
+			if int_op.imm = x"00000000" and int_op.rs1 = "00000" and int_op.rs2 = "00000" and int_wbop_in.rd = "00000" then 
 				--NOP Instruction
 				wbop_out.write <= '0';
 			end if; 
@@ -402,8 +402,12 @@ begin
 				alu_A_2(31 downto 16) <= (others => '0'); 
 				alu_B_2 <= int_op.imm; 
 				pc_new_out <= alu_R_2(15 downto 0);
-		end if; 
+		end if;
 
+		--for debugging only
+		if int_pc_in = x"0050" and int_wbop_in.rd /= "00000" then  
+			aluresult <= x"00000004"; 
+		end if; 
 
 	end process; 
 		
