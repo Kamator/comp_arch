@@ -4,7 +4,8 @@ use ieee.std_logic_1164.all;
 use work.mem_pkg.all;
 
 package cache_pkg is
-    constant WAYS_LD : natural := 0;
+	 --changed WAYS_LD's value from 0 to 1 to remove not allowed warnings 
+    constant WAYS_LD : natural := 1;
     constant SETS_LD : natural := 4;
     constant INDEX_SIZE : natural :=SETS_LD;
     constant TAG_SIZE : natural :=ADDR_WIDTH-INDEX_SIZE;

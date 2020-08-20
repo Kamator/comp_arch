@@ -64,11 +64,10 @@ architecture impl of mgmt_st is
     );
     end component;
 
-    signal int_index : c_index_type;
-    signal int_wr, int_rd, int_valid, int_dirty : std_logic;
-    signal int_tag : c_tag_type; 
-    signal we, we_repl : std_logic;
-    signal int_mgmt_info_in, mgmt_info_in, int_mgmt_info_out, reg_mgmt_info_out, mgmt_info_out : c_mgmt_info;
+    signal int_index : c_index_type := (others => '0');
+    signal int_wr, int_rd, int_valid, int_dirty : std_logic := '0';
+    signal int_tag : c_tag_type := (others => '0'); 
+    signal int_mgmt_info_in, mgmt_info_in, int_mgmt_info_out, reg_mgmt_info_out, mgmt_info_out : c_mgmt_info := MGMT_NOP;
 begin
 
     mgmt_st_1w_inst : mgmt_st_1w
@@ -80,10 +79,10 @@ begin
         reset => reset,
 
         index => int_index,
-        we => we,
-        we_repl => we_repl,
+        we => int_wr,
+        we_repl => '0',
 
-        mgmt_info_in => int_mgmt_info_in,
+        mgmt_info_in => mgmt_info_in,
         mgmt_info_out => mgmt_info_out
     );
 
@@ -96,7 +95,6 @@ begin
         int_valid <= '0';
         int_dirty <= '0';
         int_tag <= (others => '0');   
-        int_mgmt_info_out <= MGMT_NOP;
         int_mgmt_info_in <= MGMT_NOP;
     elsif rising_edge(clk) then
         int_index <= index;
@@ -114,16 +112,22 @@ end process;
 --mem address - ADDRESS_WIDTH := 14:  1101 0110 0010 11 --> INDEX: 1011 & TAG_SIZE := 10: 1101 0110 00
 process(all)
 begin
-
+  tag_out <= (others => '0');
+  valid_out <= '0';
+  hit_out <= '0';
+  dirty_out <= '0';
+  int_mgmt_info_out <= MGMT_NOP;
+  way_out <= (others => '0');
+  
   --store --> entry present & valid?
   if wr = '1' then
     -- store --> write hit
-    if mgmt_info_in.tag = int_tag and mgmt_info_in.valid = '1' then
+    if int_mgmt_info_in.tag = int_tag and int_mgmt_info_in.valid = '1' then
         tag_out <= int_tag;
         valid_out <= int_valid;
         hit_out <= '1';
         
-        if mgmt_info_in.dirty = '0' then
+        if int_mgmt_info_in.dirty = '0' then
             int_mgmt_info_out.dirty <= '1';
             dirty_out <= '1';
         end if;
@@ -134,7 +138,7 @@ begin
     end if;
     
     --store --> write miss
-    if mgmt_info_in.valid = '0' then
+    if int_mgmt_info_in.valid = '0' then
         tag_out <= int_tag;
         valid_out <= int_valid;
         hit_out <= '0';
@@ -147,8 +151,8 @@ begin
 
     end if;
 
-    if mgmt_info_in.tag /= int_tag then
-	tag_out <= reg_mgmt_info_out.tag;
+    if int_mgmt_info_in.tag /= int_tag then
+		  tag_out <= reg_mgmt_info_out.tag;
         valid_out <= reg_mgmt_info_out.valid;
         hit_out <= '0';
        	int_mgmt_info_out.dirty <= reg_mgmt_info_out.dirty;    
@@ -158,7 +162,7 @@ begin
     
   elsif rd = '1' then
     -- load --> read hit
-    if mgmt_info_in.tag = int_tag and mgmt_info_in.valid = '1' then
+    if int_mgmt_info_in.tag = int_tag and int_mgmt_info_in.valid = '1' then
         tag_out <= int_tag;
         valid_out <= int_valid;
         hit_out <= '1';
@@ -168,7 +172,7 @@ begin
     end if;
     
     --load --> read miss
-    if mgmt_info_in.valid = '0' then
+    if int_mgmt_info_in.valid = '0' then
         tag_out <= int_tag;
         valid_out <= int_valid;
         hit_out <= '0';                
@@ -177,7 +181,7 @@ begin
 
     end if;
 
-    if mgmt_info_in.tag /= int_tag then
+    if int_mgmt_info_in.tag /= int_tag then
 	     tag_out <= reg_mgmt_info_out.tag;
         valid_out <= reg_mgmt_info_out.valid;
         hit_out <= '0';
