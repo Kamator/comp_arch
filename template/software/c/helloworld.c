@@ -1,11 +1,10 @@
 #include "util.h"
 
 int main() {
-	//int i,k;
+	int i,k;
 
 	puts("Hello, MiRiscV");
 
-	/*
 	for (k = 0; k < 10; k++) {
 		//delay loop 
 		for (i = 0; i < 3000000; i++) {
@@ -13,8 +12,8 @@ int main() {
 		}
 		//sign of life 
 		putchar('0'+k);
-	}
-	putchar('\n'); */
+	} 
+	putchar('\n');
 
 	return 0;
 }
