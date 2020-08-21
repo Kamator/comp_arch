@@ -20,7 +20,7 @@ entity mem is
         mem_op        : in  mem_op_type; --was passed
         wbop_in       : in  wb_op_type;  --will be passed on
         pc_new_in     : in  pc_type;     --will be passed on
-        pc_old_in     : in  pc_type;	 --will be passed on 
+        pc_old_in     : in  pc_type;     --will be passed on 
         aluresult_in  : in  data_type;   --result of computation (also adressess) 
         wrdata        : in  data_type;   --some byte/halfword/word that needs to be saved
         zero          : in  std_logic;   --zero flag 
@@ -29,7 +29,7 @@ entity mem is
         reg_write     : out reg_write_type;
 
         -- to FETCH
-        pc_new_out    : out pc_type;   
+        pc_new_out    : out pc_type;
         pcsrc         : out std_logic;
 
         -- to WB
@@ -48,239 +48,202 @@ entity mem is
     );
 end mem;
 
-architecture rtl of mem is
+--result of memory load can come WITHIN the same cycle or IN THE NEXT cycle (if cashed) OTHERWISE
+--as soon as mem_busy gets low 
+
+architecture rtl of mem is 
+
+ 	 component memu is
+           port (
+                -- to mem
+                op   : in  memu_op_type; --access type
+                A    : in  data_type;    --address
+                W    : in  data_type;    --write data (one word) 
+                R    : out data_type := (others => '0');  --result of mem access
+
+                B    : out std_logic := '0'; --busy
+                XL   : out std_logic := '0'; --load exception
+                XS   : out std_logic := '0';  --store exception
+
+                -- to memory controller
+                D    : in  mem_in_type; --interface from memory (result of access)
+                M    : out mem_out_type := MEM_OUT_NOP --interface to memory (to start access)
+                );
+        end component;
+
+	--INTERNAL LOGIC 
+	signal int_mem_op : mem_op_type; 
+	signal int_wbop_in : wb_op_type; 
+	signal int_pc_new_in : pc_type; 
+	signal int_pc_old_in : pc_type; 
+	signal int_aluresult_in : data_type; 
+	signal int_wrdata : data_type; 
+	signal int_memresult, int_memresult_nxt : data_type;  
 	
-	component memu is 
-	   port (
-       		-- to mem
-      		op   : in  memu_op_type; --access type
-        	A    : in  data_type;    --address
-        	W    : in  data_type;    --write data (one word) 
-        	R    : out data_type := (others => '0');  --result of mem access
+	--MEMU
+	signal memu_address : data_type; 
+	signal memu_wrdata : data_type; 
+	signal memu_response : data_type; 
+	signal memu_busy : std_logic; 
+	signal memu_xl : std_logic; 
+	signal memu_xs : std_logic; 
 
-        	B    : out std_logic := '0'; --busy
-        	XL   : out std_logic := '0'; --load exception
-        	XS   : out std_logic := '0';  --store exception
-
-        	-- to memory controller
-        	D    : in  mem_in_type; --interface from memory (result of access)
-        	M    : out mem_out_type := MEM_OUT_NOP --interface to memory (to start access)
-    		);
-	end component;
-
-/*	--signals to memu
-	signal memu_op : memu_op_type; 
-	signal memu_A, memu_W, memu_R : data_type; 
-	signal memu_B, memu_XL, memu_XS : std_logic; 
-	signal memu_D : mem_in_type; 
-	signal memu_M : mem_out_type;  */
-
-	--internal signals 
-	signal int_mem_op : MEM_OP_TYPE; 
-	signal int_wbop_in : WB_OP_TYPE; 
-	signal int_pc_new_in : PC_TYPE; 
-	signal int_pc_old_in : PC_TYPE; 
-	signal int_aluresult_in : DATA_TYPE; 
-	signal int_wrdata : DATA_TYPE; 
-	signal int_zero : std_logic; 
-	signal int_mem_in : MEM_IN_TYPE; 
-	signal int_mem_busy : std_logic; 
-	signal int_memresult, int_memresult_nxt : DATA_TYPE; 
-
-	constant addr_threshold : DATA_TYPE := x"00002000"; 
-
-	--internal signals for memu 
-	signal int_A, int_W, int_R : data_type; 
-	signal int_B, int_XL, int_XS : std_logic; 
-	signal int_D : mem_in_type; 
-	signal int_M : mem_out_type;  
-
+	constant addr_threshold : unsigned := x"00002000"; 
+	
 begin
+
 	memu_inst : memu
 	port map(
 		op => int_mem_op.mem,
-		A => int_aluresult_in,
-		W => int_wrdata,
-		R => int_R, --NOT LITTLE ENDIAN
-		B => int_mem_busy, 
-		XL => exc_load,
-		XS => exc_store,
+		A => memu_address,
+		W => memu_wrdata,
+		R => memu_response,
+		B => memu_busy,
+		XL => memu_xl,
+		XS => memu_xs,
 		D => mem_in,
 		M => mem_out
-	); 
-	
-	sync_p : process(clk, reset, stall, flush, int_mem_busy)
+	); 	
+
+	sync_p : process(clk, flush, stall, reset)
 	begin
 		if reset = '0' then 
-			--reset
-			int_mem_op <= MEM_NOP;
-			int_pc_old_in <= (others => '0');  
+			int_mem_op <= MEM_NOP; 
+			int_pc_old_in <= (others => '0'); 
+			int_pc_new_in <= (others => '0'); 
 			int_wbop_in <= WB_NOP; 
 			int_aluresult_in <= (others => '0'); 
-			int_wrdata <= (others => '0'); 
+			int_wrdata <= (others => '0');
 			int_memresult <= (others => '0'); 
-
-		elsif flush = '1' then 
-			--flush
+			int_memresult <= (others => '0'); 
+		
+		elsif flush = '1' then
 			int_mem_op <= MEM_NOP; 
-			int_D <= MEM_IN_NOP; 
-			int_M <= MEM_OUT_NOP; 
-			int_aluresult_in <= (others => '0');
-			int_wbop_in <= WB_NOP; 
+			int_pc_old_in <= (others => '0'); 
 			int_pc_new_in <= (others => '0'); 
-			int_pc_old_in <= (others => '0');
-			int_wrdata <= (others => '0'); 
+			int_wbop_in <= WB_NOP; 
+			int_aluresult_in <= (others => '0'); 
+			int_wrdata <= (others => '0');
 			int_memresult <= (others => '0'); 
-
-		elsif rising_edge(clk) and stall = '0' and flush = '0' and int_mem_busy = '0' then 
-			--sync
+			int_memresult <= (others => '0'); 
+		
+		elsif rising_edge(clk) and stall= '0' then 
 			int_mem_op <= mem_op; 
 			int_wbop_in <= wbop_in; 
 			int_pc_new_in <= pc_new_in; 
-			int_pc_old_in <= pc_old_in; 	 
+			int_pc_old_in <= pc_old_in; 
 			int_aluresult_in <= aluresult_in; 
-			int_wrdata <= wrdata; 	 
+			int_wrdata <= wrdata; 
 			int_memresult <= int_memresult_nxt; 
-
-		elsif int_mem_busy = '1' then 	
-			int_mem_op.mem.memread <= '0'; 
-			int_mem_op.mem.memwrite <= '0';
 		
-		elsif rising_edge(clk) and stall = '1' then 
-			int_mem_op.mem.memread <= '0'; 
-			int_mem_op.mem.memwrite <= '0';
-			int_memresult <= int_memresult_nxt; 
+		elsif rising_edge(clk) and stall = '1' then
+			int_mem_op.mem.memread <= '0';
+			int_mem_op.mem.memwrite <= '0';	
+			int_memresult <= int_memresult_nxt; 	
 		end if; 
+		
+	end process; 
 
-	end process;
-
-	reg_write_p : process(clk, stall,int_R, flush, aluresult_in, int_aluresult_in,int_memresult, wbop_in, mem_in, mem_op)
+	pc_p : process(int_pc_new_in, int_aluresult_in, int_mem_op)
 	begin
+	
+		pc_new_out <= int_pc_new_in; 
+
+
+		if unsigned(int_aluresult_in) /= 0 and int_mem_op.branch /= BR_NOP then 
+			--branch is taken
+			pcsrc <= '1'; 
+		else 	
+			--branch is not taken
+			pcsrc <= '0'; 
+		end if; 
+		
+	end process; 
+
+
+	reg_write_p : process(stall, wbop_in, memu_response, int_aluresult_in, mem_op, int_wbop_in, int_mem_op, aluresult_in, int_memresult)
+	begin
+		--might be wbop.. not sure
 		reg_write.reg <= wbop_in.rd; 
 		reg_write.write <= '0'; 
 		reg_write.data <= (others => '0'); 
-	
-		--if stall is one, only forward memory results
-		--if stall is zero, forward both
 		
 		if stall = '1' then 
-	
-			if wbop_in.write = '1' and wbop_in.src = WBS_MEM then 
-					--load instruction
-					reg_write.write <= '1'; 
-					--reg_write.data  <= to_little_endian(mem_in.rddata); 	
-					--reg_write.data <= to_little_endian(int_R); 	
-					reg_write.data <= int_R;
-		
-					--special address handling
-					if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then
-						reg_write.data <= int_memresult; 
-					end if;  
-			end if; 
 
-					--special address handling
-					if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then
-						reg_write.data <= int_memresult; 
-					end if;  
-		else
- 
-			if wbop_in.write = '1' and wbop_in.src = WBS_MEM then 
-					--load instruction
-					reg_write.write <= '1'; 
-					--reg_write.data  <= to_little_endian(mem_in.rddata); 		
-					--reg_write.data <= to_little_endian(int_R); 
-					reg_write.data <= int_R;
- 
-					--special address handling
-					if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then
-						reg_write.data <= int_memresult; 
-					end if;  
+			reg_write.reg <= int_wbop_in.rd; 
 
-			elsif wbop_in.write = '1' and wbop_in.src = WBS_ALU then
-				--result of alu needs to be forwarded
+			--might be wbop... not sure... because if stalled the corr package is int
+			if int_wbop_in.write = '1' and int_wbop_in.src = WBS_MEM then 
+				reg_write.write <= '1'; 
+				reg_write.data <= memu_response;
 
-				if mem_op.branch /= BR_NOP then
+				if unsigned(int_aluresult_in) > addr_threshold then 
 					reg_write.data <= int_memresult; 
-					reg_write.write <= '1'; 
+				end if;  
+
+			else 
+				reg_write.write <= '0';
+				reg_write.data <= (others => '0');
+			end if;  
+	
+		else 
+			--if timing problem, check here
+			if wbop_in.write = '1' and wbop_in.src = WBS_MEM then 
+				reg_write.write <= '1'; 
+				reg_write.data <= memu_response; 
+				
+			elsif wbop_in.write = '1' and wbop_in.src = WBS_ALU then 
+			
+				reg_write.write <= '1'; 
+	
+				if mem_op.branch /= BR_NOP then 
+					reg_write.data <= int_memresult; 
 				else 
-					reg_write.write <= '1'; 
 					reg_write.data <= aluresult_in; 
 				end if; 
-
-				/*
-				reg_write.write <= '1'; 
-				reg_write.data <= aluresult_in; 
-				
-				--very unsure
-				--only if its a branch
-				 
-				--special address handling
-				if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then
-					reg_write.data <= int_memresult; 
-				end if;
-
-			 	*/
-				
-
 			end if; 
 		end if; 
-	end process;  
+	end process; 
 
-	logic : process(all)
-	begin
-
-		--send to subsequent pipeline stages
-		pc_new_out <= int_pc_new_in; 
-		wbop_out <= int_wbop_in; 
+	read_write_p : process(memu_xl, memu_xs, int_wrdata, int_memresult, int_wbop_in, int_pc_old_in, int_aluresult_in, memu_busy, memu_response, int_mem_op, stall)
+	begin	
+		int_memresult_nxt <= int_memresult; 
+		
+		memresult <= int_memresult; 
+		wbop_out <= int_wbop_in; 	
 		pc_old_out <= int_pc_old_in; 
 		aluresult_out <= int_aluresult_in; 
-
-		pcsrc <= '0'; 
-
-		--memresult <= mem_in.rddata;
-		memresult <= int_R; 		
-
-		if stall = '1' and int_memresult /= x"00000000" then 
-			--memresult <= to_little_endian(int_memresult); 
-			memresult <= int_memresult; 
-		end if; 
-
-		mem_busy <= int_mem_busy; 
+		mem_busy <= memu_busy; 
 	
-		int_memresult_nxt <= (others => '0'); 
+		exc_load <= memu_xl; 
+		exc_store <= memu_xs;
+		
 
+		if stall = '1' then 
+			--if pipeline is stalled and memresult needs to be kept alive
+			int_memresult_nxt <= int_memresult; 
+		else
+			int_memresult_nxt <= (others => '0');
+		end if;
 
-		if int_mem_op.mem.memread = '1' then 
+		if int_mem_op.mem.memread = '1' then
 			mem_busy <= '1'; 
+			memu_address <= int_aluresult_in; 
+			memu_wrdata <= (others => '0'); 
+			--response can come in the next cycle! --> alway stall when mem-access
+			int_memresult_nxt <= memu_response; 
+	
+		elsif int_mem_op.mem.memwrite = '1' then 
+			mem_busy <= '0'; 
+			memu_address <= int_aluresult_in; 
+			memu_wrdata <= int_wrdata; 	
+		else 
+			memu_address <= (others => '0'); 
+			memu_wrdata <= (others => '0'); 
 		end if; 
-	
-		if int_mem_op.branch = BR_BR or int_mem_op.branch = BR_CND or int_mem_op.branch = BR_CNDI then
-		
-			if to_integer(unsigned(int_aluresult_in)) /= 0 then
-				--branch is taken
-				pcsrc <= '1';
-				----wbop_out <= WB_NOP; 
-			else 
-				pcsrc <= '0'; 
-					
-				if int_mem_op.branch = BR_BR then 
-					--unconditional branch in the first line
-					pcsrc <= '1'; 
-				end if; 
 
-			end  if;
-		end if; 
-	
-		--special address handling (>= 0x2000)
-		if unsigned(int_aluresult_in) >= unsigned(addr_threshold) then 
-			int_memresult_nxt <= int_R; 
-		
-			if int_memresult /= x"00000000" then 
-				int_memresult_nxt <= int_memresult; 
-			end if; 
-			
-		end if;  
+	end process; 
 
-	
-	end process; 	
-end architecture;
+end architecture; 
+
+

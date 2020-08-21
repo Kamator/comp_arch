@@ -404,11 +404,6 @@ begin
 				pc_new_out <= alu_R_2(15 downto 0);
 		end if;
 
-		--for debugging only
-		if int_pc_in = x"0050" and int_wbop_in.rd /= "00000" then  
-			aluresult <= x"00000004"; 
-		end if; 
-
 	end process; 
 		
 	

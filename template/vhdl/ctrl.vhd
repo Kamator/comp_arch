@@ -112,6 +112,8 @@ begin
 
  
 		if (stall = '1' and wb_op_mem.write = '1' and wb_op_mem.src = WBS_MEM) or stall_flag = '1' then 
+			
+		
 			--memory load occured (stall until busy = 0)
 			if st_cnt < 1 then 
 				stall_fetch <= '1'; 
