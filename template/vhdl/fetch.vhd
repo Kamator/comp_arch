@@ -67,10 +67,11 @@ begin
 	begin
 
 		mem_out <= MEM_OUT_NOP; 		
-
-		mem_busy <= mem_in.busy; 
-
+		
 		if mem_in.busy = '0' then 
+			
+			mem_busy <= '0';			
+
 			mem_out.rd <= read;  
 
 			mem_out.byteena <= (others => '1'); 
@@ -87,7 +88,9 @@ begin
 				mem_out.address <= std_logic_vector(unsigned(pc_in(15 downto 2)));
 			end if; 
 
-		end if; 
+		else 
+			mem_busy <= '1'; 
+		end if;  
 		
 	end process; 
 

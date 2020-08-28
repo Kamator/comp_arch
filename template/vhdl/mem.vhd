@@ -79,7 +79,9 @@ architecture rtl of mem is
 	signal int_aluresult_in : data_type; 
 	signal int_wrdata : data_type; 
 	signal int_memresult, int_memresult_nxt : data_type;  
-	
+	signal st_cnt, st_cnt_nxt : unsigned(7 downto 0); 	
+	signal busy_fell, busy_fell_nxt : std_logic_vector(1 downto 0); 
+
 	--MEMU
 	signal memu_address : data_type; 
 	signal memu_wrdata : data_type; 
@@ -115,8 +117,9 @@ begin
 			int_aluresult_in <= (others => '0'); 
 			int_wrdata <= (others => '0');
 			int_memresult <= (others => '0'); 
-			int_memresult <= (others => '0'); 
-		
+			st_cnt <= (others => '0'); 	
+			busy_fell <= (others => '0');	
+
 		elsif flush = '1' then
 			int_mem_op <= MEM_NOP; 
 			int_pc_old_in <= (others => '0'); 
@@ -124,9 +127,10 @@ begin
 			int_wbop_in <= WB_NOP; 
 			int_aluresult_in <= (others => '0'); 
 			int_wrdata <= (others => '0');
-			int_memresult <= (others => '0'); 
-			int_memresult <= (others => '0'); 
-		
+			int_memresult <= (others => '0'); 	
+			st_cnt <= (others => '0');		
+			busy_fell <= (others => '0');
+
 		elsif rising_edge(clk) and stall= '0' then 
 			int_mem_op <= mem_op; 
 			int_wbop_in <= wbop_in; 
@@ -135,11 +139,15 @@ begin
 			int_aluresult_in <= aluresult_in; 
 			int_wrdata <= wrdata; 
 			int_memresult <= int_memresult_nxt; 
-		
+			st_cnt <= (others => '0'); 		
+			busy_fell <= busy_fell_nxt; 
+
 		elsif rising_edge(clk) and stall = '1' then
 			int_mem_op.mem.memread <= '0';
 			int_mem_op.mem.memwrite <= '0';	
 			int_memresult <= int_memresult_nxt; 	
+			st_cnt <= st_cnt_nxt;
+			busy_fell <= busy_fell_nxt;  
 		end if; 
 		
 	end process; 
@@ -161,29 +169,41 @@ begin
 	end process; 
 
 
-	reg_write_p : process(stall, wbop_in, memu_response, int_aluresult_in, mem_op, int_wbop_in, int_mem_op, aluresult_in, int_memresult)
+
+	reg_write_p : process(st_cnt,stall, wbop_in, memu_response, int_aluresult_in, mem_op, int_wbop_in, int_mem_op, aluresult_in, int_memresult)
 	begin
 		--might be wbop.. not sure
 		reg_write.reg <= wbop_in.rd; 
 		reg_write.write <= '0'; 
 		reg_write.data <= (others => '0'); 
 		
+		--during stall, results should only be forwarded if its the result of a memory load
+		st_cnt_nxt <= st_cnt; 
+
+
 		if stall = '1' then 
 
 			reg_write.reg <= int_wbop_in.rd; 
-
+			st_cnt_nxt <= st_cnt + 1; 
+	
 			--might be wbop... not sure... because if stalled the corr package is int
 			if int_wbop_in.write = '1' and int_wbop_in.src = WBS_MEM then 
 				reg_write.write <= '1'; 
-				reg_write.data <= memu_response;
+				reg_write.data <= int_memresult;
+			
+				/*
+				if unsigned(int_aluresult_in) > addr_threshold and st_cnt >= 1 then 
+					reg_write.data <= int_memresult;
+				end if; */
+				
 
-				if unsigned(int_aluresult_in) > addr_threshold then 
-					reg_write.data <= int_memresult; 
-				end if;  
 
 			else 
 				reg_write.write <= '0';
-				reg_write.data <= (others => '0');
+				--	reg_write.data <= (others => '0');
+		
+				--old aluresult needs to be forwarded 
+				reg_write.data <= int_aluresult_in;
 			end if;  
 	
 		else 
@@ -205,43 +225,84 @@ begin
 		end if; 
 	end process; 
 
+	-- if address > addr_threshold, then result comes in the same cycle as busy is high
+	-- if address <= addr_threshold, the result comes in the next cycle after busy is low
+
 	read_write_p : process(memu_xl, memu_xs, int_wrdata, int_memresult, int_wbop_in, int_pc_old_in, int_aluresult_in, memu_busy, memu_response, int_mem_op, stall)
 	begin	
-		int_memresult_nxt <= int_memresult; 
+		--int_memresult_nxt <= int_memresult; 
 		
-		memresult <= int_memresult; 
+		--memresult <= int_memresult; 
 		wbop_out <= int_wbop_in; 	
 		pc_old_out <= int_pc_old_in; 
 		aluresult_out <= int_aluresult_in; 
 		mem_busy <= memu_busy; 
-	
+		memu_address <= int_aluresult_in;	
+
 		exc_load <= memu_xl; 
 		exc_store <= memu_xs;
 		
 
-		if stall = '1' then 
+		/*if stall = '1' then 
 			--if pipeline is stalled and memresult needs to be kept alive
-			int_memresult_nxt <= int_memresult; 
+			int_memresult_nxt <= int_memresult;
+			--only if special address
+			if unsigned(int_aluresult_in) <=  addr_threshold then 
+				memresult <= memu_response;
+				--try this 
+				--int_memresult_nxt <= memu_response;
+			end if; 
 		else
 			int_memresult_nxt <= (others => '0');
-		end if;
+		end if;*/
 
 		if int_mem_op.mem.memread = '1' then
 			mem_busy <= '1'; 
 			memu_address <= int_aluresult_in; 
 			memu_wrdata <= (others => '0'); 
 			--response can come in the next cycle! --> alway stall when mem-access
-			int_memresult_nxt <= memu_response; 
+			--int_memresult_nxt <= memu_response; 
 	
 		elsif int_mem_op.mem.memwrite = '1' then 
 			mem_busy <= '0'; 
 			memu_address <= int_aluresult_in; 
 			memu_wrdata <= int_wrdata; 	
-		else 
-			memu_address <= (others => '0'); 
+		else 	
 			memu_wrdata <= (others => '0'); 
 		end if; 
 
+	end process; 
+
+	memresult_p : process(busy_fell,int_memresult,memu_busy ,stall, int_wbop_in, memu_response, int_aluresult_in, int_mem_op)
+	begin
+		--the thing with busy fell won't work
+
+		int_memresult_nxt <= int_memresult; 		
+		memresult <= (others => '0');
+		busy_fell_nxt <= busy_fell;
+
+		if stall = '1' then
+			if int_wbop_in.write = '1' and int_wbop_in.src = WBS_MEM and unsigned(int_aluresult_in) < addr_threshold then
+				if busy_fell /= "10" then
+					int_memresult_nxt <= memu_response;
+					busy_fell_nxt <= "11";
+				end if;
+ 
+				memresult <= int_memresult; 
+			elsif int_wbop_in.write = '1' and int_wbop_in.src = WBS_MEM and unsigned(int_aluresult_in) >= addr_threshold and int_mem_op.mem.memread = '1' then
+				int_memresult_nxt <= memu_response; 
+			end if; 		
+
+			if memu_busy = '1' then 
+				busy_fell_nxt <= "11";
+			elsif memu_busy = '0' and busy_fell = "11" then
+				busy_fell_nxt <= "10";
+			end if; 
+
+		else 
+			busy_fell_nxt <= "00"; 
+			memresult <= int_memresult; 
+		end if; 
 	end process; 
 
 end architecture; 

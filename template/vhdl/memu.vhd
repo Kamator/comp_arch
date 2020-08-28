@@ -55,6 +55,8 @@ begin
 	if op.memtype = MEM_BU then 	
 				--unsigned values /* 
 		
+
+
 				if A(1 downto 0) = "00" then 
 					--first byte accessed, others zero
 					R <= x"000000" & D.rddata(31 downto 24);
@@ -86,6 +88,7 @@ begin
 				*/
 				
 		end if; 
+
  
 	
 	if op.memread = '1' and D.busy = '0' then 

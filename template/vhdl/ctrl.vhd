@@ -40,7 +40,8 @@ architecture rtl of ctrl is
 	signal critical_reg_2  : reg_adr_type; 
 	signal st_cnt, st_cnt_nxt : unsigned(7 downto 0);  
 	signal stall_flag, stall_flag_nxt : std_logic; 
-	signal fwd_load : std_logic; 
+	signal fwd_load : std_logic;
+	signal save_flag, save_flag_nxt : std_logic;  
 begin
 
 	sync_p : process(clk, reset, stall)
@@ -54,6 +55,7 @@ begin
 			st_cnt <= (others => '0'); 
 			fwd_load <= '0'; 			
 			stall_flag <= '0'; 
+			save_flag <= '0';
 
 		elsif rising_edge(clk) and reset = '1' and stall = '0' then 
 			int_wb_op_mem <= wb_op_mem; 
@@ -63,6 +65,7 @@ begin
 			critical_reg_2 <= exec_op.rs2; 
 			st_cnt <= st_cnt_nxt; 
 			stall_flag <= stall_flag_nxt; 	
+			save_flag <= save_flag_nxt; 
 
 			if wb_op_mem.src = WBS_MEM then 	
 				fwd_load <= wb_op_mem.write; 
@@ -71,11 +74,12 @@ begin
 			end if; 
 		
 		elsif rising_edge(clk) and stall = '1' then 
-			stall_flag <= stall_flag_nxt; 
+			stall_flag <= stall_flag_nxt;
+			save_flag <= save_flag_nxt;  
 		end if;  
 	end process; 
 
-	logic : process(wb_op_mem,stall_flag, fwd_load, int_wb_op_mem, int_exec_op, int_pcsrc_in, critical_reg_1, critical_reg_2, st_cnt, stall, pcsrc_in)
+	logic : process(save_flag, wb_op_mem,stall_flag, fwd_load, int_wb_op_mem, int_exec_op, int_pcsrc_in, critical_reg_1, critical_reg_2, st_cnt, stall, pcsrc_in)
 	begin
 		--default values
 		stall_fetch <= '0'; 
@@ -110,38 +114,38 @@ begin
 		--to be stalled as long as the memu unit is busy	
  		--same happens if some imem is loaded
 
- 
-		if (stall = '1' and wb_op_mem.write = '1' and wb_op_mem.src = WBS_MEM) or stall_flag = '1' then 
-			
-		
-			--memory load occured (stall until busy = 0)
-			if st_cnt < 1 then 
-				stall_fetch <= '1'; 
-				stall_dec   <= '1'; 	
-				stall_exec  <= '1'; 
-				stall_mem   <= '1'; 
-				stall_wb    <= '1';
-				stall_flag_nxt <= '1';
-				if stall_flag = '1' then  
-					st_cnt_nxt <= st_cnt + 1;
-				end if; 
-			else
-				st_cnt_nxt <= (others => '0');  
-				stall_flag_nxt <= '0'; 
-			end if;
+		--NEW LOGIC
+		save_flag_nxt <= save_flag; 
 
-		elsif stall = '1' then -- and wb_op_mem.write = '0' then 
-			--regular imem stall
-	
+		if stall = '1' or stall_flag = '1' then 
+			--some memory is busy, therefore stall! 
+			st_cnt_nxt <= st_cnt + 1;		
+
 			stall_fetch <= '1'; 
 			stall_dec   <= '1'; 	
 			stall_exec  <= '1'; 
 			stall_mem   <= '1'; 
 			stall_wb    <= '1';	
+
+			--it might be a memory load awaiting to be forwarded, tf stall at least 4 cycl
+			if wb_op_mem.write = '1' and wb_op_mem.src = WBS_MEM and stall_flag = '0' then 
+				stall_flag_nxt <= '1'; 
+			elsif stall_flag = '1' and st_cnt <= 2 then
+				stall_flag_nxt <= '1';
+			else 
+				stall_flag_nxt <= '0';
+			end if;   
+		
+			if stall = '0' and stall_flag = '1' and st_cnt > 2 then
+				stall_fetch <= '0'; 
+				stall_dec   <= '0'; 	
+				stall_exec  <= '0'; 
+				stall_mem   <= '0'; 
+				stall_wb    <= '0';
+			end if; 	
 		else 
-			st_cnt_nxt <= (others => '0'); 
-			stall_flag_nxt <= '0';
-		end if; 
-	
+			st_cnt_nxt <= (others => '0');
+		end if;  		
+
 	end process; 
 end architecture;

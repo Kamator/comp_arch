@@ -101,6 +101,11 @@ begin
 		
 				if stall = '0' and old_stall = '1' then 	
 					reg_write.data <= int_memresult; 
+				end if;
+
+				--very unsure
+				if stall = '1' then 
+					reg_write.write <= '0';
 				end if; 
 			
 			elsif op.src = WBS_OPC then 

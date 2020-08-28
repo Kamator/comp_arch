@@ -71,7 +71,12 @@ architecture rtl of exec is
 
 	signal int_reg_wr_mem : reg_write_type;
 	signal int_reg_wr_wr : reg_write_type;
-	
+
+	--DEBUGGING SIGNALS
+	/*
+	signal uart_busy_cnt, uart_busy_cnt_nxt : unsigned(7 downto 0); 
+	constant UART_BUSY_CYCLES : unsigned(7 downto 0) := x"04"; --UART is busy 4 cycles
+	*/
 begin
 
 	alu_inst_1 : alu 
@@ -105,6 +110,9 @@ begin
 			dwr_flag <= '0'; 	
 			stall_flag <= '0'; 		
 	
+			--DEBUGGING STUFF
+			--uart_busy_cnt <= (others => '0'); 
+
 		elsif flush = '1' then 
 			--flush signal
 			--flush internal signals 
@@ -115,6 +123,9 @@ begin
 			int_wrdata <= (others => '0'); 					
 			dwr_flag <= '0'; 
 			stall_flag <= '0'; 
+			
+			--DEBUGGING_STUFF
+			--uart_busy_cnt <= (others => '0'); 
 
 		elsif rising_edge(clk) and stall = '0' then 
 			--put through directly to ALU, ALU 1 control signals 
@@ -125,6 +136,10 @@ begin
 			int_wrdata <= (others => '0'); 
 			dwr_flag <= '0'; 
 		
+			--DEBUGGING STUFF BEG
+			--uart_busy_cnt <= uart_busy_cnt_nxt; 
+			--DEBUGGING STUFF END
+
 			if reg_write_mem.write = '1' then 
 
 				if reg_write_mem.reg = op.rs1 then
@@ -403,6 +418,34 @@ begin
 				alu_B_2 <= int_op.imm; 
 				pc_new_out <= alu_R_2(15 downto 0);
 		end if;
+
+		--DEBUGGING STUFF would be here
+		
+		--simulate busy UART: 
+		--first busy loop
+
+		/*
+		uart_busy_cnt_nxt <= uart_busy_cnt; 
+ 
+		if int_pc_in = x"01e0" then 
+			uart_busy_cnt_nxt <= uart_busy_cnt + 1;
+			
+			if uart_busy_cnt = UART_BUSY_CYCLES then 
+				uart_busy_cnt_nxt <= (others => '0'); 
+			else 
+				aluresult <= x"00000001"; 
+			end if; 
+		end if;  
+
+		if int_pc_in = x"01f8" then 
+			uart_busy_cnt_nxt <= uart_busy_cnt + 1; 
+		
+			if uart_busy_cnt = UART_BUSY_CYCLES then
+				uart_busy_cnt_nxt <= (others => '0'); 
+			else 
+				aluresult <= x"00000001"; 
+			end if; 
+		end if; */ 
 
 	end process; 
 		
