@@ -80,13 +80,9 @@ architecture behav of cache is
 	signal tag_to_mgmt : c_tag_type; 
 	signal byteena : mem_byteena_type;
 	signal data_in, data_out : mem_data_type;
-<<<<<<< HEAD
 	signal int_data, int_data_nxt : data_type; 
-	signal write_back_flag : std_logic; 
-=======
+	signal write_back_flag : std_logic;
    constant zeros_addr : unsigned(ADDR_WIDTH-1 downto 0) := (others => '0');
-	
->>>>>>> a3a4514c6ba85debfaa5020e39e1062896b9d076
 	
 begin
 	
@@ -237,7 +233,7 @@ begin
 				end if;	
 
 			when READ_MEM_START => --first cycle of mem rd
-				mem_in_cpu.busy <= '1'
+				mem_in_cpu.busy <= '1';
 				mem_out_mem.rd <= '1';
 				mem_out_mem.address <= int_mem_out_cpu.address;
 				
