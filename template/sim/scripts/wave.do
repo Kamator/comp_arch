@@ -157,6 +157,22 @@ add wave -noupdate -expand -group fwd_2 /tb_cpu/dut/pipeline_inst/exec_op_to_fwd
 add wave -noupdate -expand -group fwd_2 /tb_cpu/dut/pipeline_inst/reg_write_mem_to_fwd
 add wave -noupdate -expand -group fwd_2 /tb_cpu/dut/pipeline_inst/reg_write
 add wave -noupdate -expand -group fwd_2 /tb_cpu/dut/pipeline_inst/reg_write_wr
+add wave -noupdate -divider -height 40 info
+add wave -noupdate -expand -group info /tb_cpu/dut/mem_i_out
+add wave -noupdate -expand -group info /tb_cpu/dut/mem_i_in
+add wave -noupdate -expand -group info /tb_cpu/dut/mem_d_out
+add wave -noupdate -expand -group info /tb_cpu/dut/mem_d_in
+add wave -noupdate -expand -group info /tb_cpu/dut/mem_d_out_s
+add wave -noupdate -expand -group info /tb_cpu/dut/mem_d_in_s
+
+#add wave -noupdate -divider -height 40 mgmt_st
+#add wave -noupdate -expand -group mgmt_st /tb_cpu/dut/cache_inst/mgmt_st_inst/*
+#add wave -noupdate -divider -height 40 data_st
+#add wave -noupdate -expand -group data_st /tb_cpu/dut/cache_inst/data_st_inst/*
+
+add wave -noupdate -divider -height 40 cache
+add wave -noupdate -expand -group cache /tb_cpu/dut/cache_inst/*
+
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {988255000 ps} 0}
 quietly wave cursor active 1

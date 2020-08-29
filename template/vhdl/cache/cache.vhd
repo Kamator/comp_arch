@@ -165,8 +165,10 @@ begin
 					state_next <= READ_CACHE;
 				end if;
 			when READ_CACHE => 
+				mem_in_cpu.busy <= '1';
 				rd_mgmt_info <= '1';
 				int_index <= mem_out_cpu.address(SETS_LD-1 downto 0);
+				
 				
 				if dirty_out = '1' then 
 					state_next <= WRITE_BACK_START;
@@ -187,10 +189,13 @@ begin
 					state_next <= READ_MEM;
 				end if;	
 			when READ_MEM => --waiting for mem req to finish and wr rslt into cache
+			 mem_in_cpu.busy <= '1';
+			 if mem_in_mem.busy = '0' then
 				we_updating_stored_data <= '1';
 				data_in <= mem_in_mem.rddata;
 				
 				state_next <= IDLE;
+			 end if;	
 			when WRITE_BACK_START => --first cycle of mem wr (if dirty bit was '1')
 				mem_out_mem.wr <= '1';
 				mem_out_mem.address <= int_index & tag_out;
