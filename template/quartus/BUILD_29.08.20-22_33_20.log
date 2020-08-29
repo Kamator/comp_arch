@@ -1,0 +1,228 @@
+---------------------------------------------
+-                  QUARTUS                  -
+---------------------------------------------
+Info: *******************************************************************
+Info: Running Quartus Prime Shell
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+    Info: Copyright (C) 2018  Intel Corporation. All rights reserved.
+    Info: Your use of Intel Corporation's design tools, logic functions 
+    Info: and other software and tools, and its AMPP partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Intel Program License 
+    Info: Subscription Agreement, the Intel Quartus Prime License Agreement,
+    Info: the Intel FPGA IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Intel and sold by Intel or its authorized distributors.  Please
+    Info: refer to the applicable agreement for further details.
+    Info: Processing started: Sat Aug 29 22:33:21 2020
+Info: Command: quartus_sh --flow compile miriv
+Info: Quartus(args): compile miriv
+Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
+Info: Project Name = /homes/d11775812/comp_arch/template/quartus/miriv
+Info: Revision Name = miriv
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+    Info: Processing started: Sat Aug 29 22:33:21 2020
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off miriv -c miriv
+Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/alu.vhd
+    Info (12022): Found design unit 1: alu-rtl File: /homes/d11775812/comp_arch/template/vhdl/alu.vhd Line: 25
+    Info (12023): Found entity 1: alu File: /homes/d11775812/comp_arch/template/vhdl/alu.vhd Line: 16
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/wb.vhd
+    Info (12022): Found design unit 1: wb-rtl File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 29
+    Info (12023): Found entity 1: wb File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 10
+Info (12021): Found 2 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/mem_pkg.vhd
+    Info (12022): Found design unit 1: mem_pkg File: /homes/d11775812/comp_arch/template/vhdl/mem_pkg.vhd Line: 4
+    Info (12022): Found design unit 2: mem_pkg-body File: /homes/d11775812/comp_arch/template/vhdl/mem_pkg.vhd Line: 62
+Info (12021): Found 2 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/core_pkg.vhd
+    Info (12022): Found design unit 1: core_pkg File: /homes/d11775812/comp_arch/template/vhdl/core_pkg.vhd Line: 7
+    Info (12022): Found design unit 2: core_pkg-body File: /homes/d11775812/comp_arch/template/vhdl/core_pkg.vhd Line: 40
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/regfile.vhd
+    Info (12022): Found design unit 1: regfile-rtl File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 21
+    Info (12023): Found entity 1: regfile File: /homes/d11775812/comp_arch/template/vhdl/regfile.vhd Line: 8
+Info (12021): Found 1 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/op_pkg.vhd
+    Info (12022): Found design unit 1: op_pkg File: /homes/d11775812/comp_arch/template/vhdl/op_pkg.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/memu.vhd
+    Info (12022): Found design unit 1: memu-rtl File: /homes/d11775812/comp_arch/template/vhdl/memu.vhd Line: 41
+    Info (12023): Found entity 1: memu File: /homes/d11775812/comp_arch/template/vhdl/memu.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/mem.vhd
+    Info (12022): Found design unit 1: mem-rtl File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 54
+    Info (12023): Found entity 1: mem File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/fwd.vhd
+    Info (12022): Found design unit 1: fwd-rtl File: /homes/d11775812/comp_arch/template/vhdl/fwd.vhd Line: 23
+    Info (12023): Found entity 1: fwd File: /homes/d11775812/comp_arch/template/vhdl/fwd.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/fetch.vhd
+    Info (12022): Found design unit 1: fetch-rtl File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 32
+    Info (12023): Found entity 1: fetch File: /homes/d11775812/comp_arch/template/vhdl/fetch.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/exec.vhd
+    Info (12022): Found design unit 1: exec-rtl File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 38
+    Info (12023): Found entity 1: exec File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/decode.vhd
+    Info (12022): Found design unit 1: decode-rtl File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 33
+    Info (12023): Found entity 1: decode File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd
+    Info (12022): Found design unit 1: ctrl-rtl File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 34
+    Info (12023): Found entity 1: ctrl File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd
+    Info (12022): Found design unit 1: pipeline-impl File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 24
+    Info (12023): Found entity 1: pipeline File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/core.vhd
+    Info (12022): Found design unit 1: core-impl File: /homes/d11775812/comp_arch/template/vhdl/core.vhd Line: 23
+    Info (12023): Found entity 1: core File: /homes/d11775812/comp_arch/template/vhdl/core.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file pll_altera.vhd
+    Info (12022): Found design unit 1: pll-SYN File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 52
+    Info (12023): Found entity 1: pll File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 42
+Info (12021): Found 2 design units, including 1 entities, in source file top.vhd
+    Info (12022): Found design unit 1: top-impl File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 15
+    Info (12023): Found entity 1: top File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 5
+Info (12021): Found 1 design units, including 1 entities, in source file bootloader.qxp
+    Info (12023): Found entity 1: dev File: /homes/d11775812/comp_arch/template/quartus/bootloader.qxp Line: -1
+Info (12021): Found 1 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/pipeline_pkg.vhd
+    Info (12022): Found design unit 1: pipeline_pkg File: /homes/d11775812/comp_arch/template/vhdl/pipeline_pkg.vhd Line: 11
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/cache/cache.vhd
+    Info (12022): Found design unit 1: cache-behav File: /homes/d11775812/comp_arch/template/vhdl/cache/cache.vhd Line: 27
+    Info (12023): Found entity 1: cache File: /homes/d11775812/comp_arch/template/vhdl/cache/cache.vhd Line: 10
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/cache/data_st.vhd
+    Info (12022): Found design unit 1: data_st-impl File: /homes/d11775812/comp_arch/template/vhdl/cache/data_st.vhd Line: 27
+    Info (12023): Found entity 1: data_st File: /homes/d11775812/comp_arch/template/vhdl/cache/data_st.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/cache/mgmt_st.vhd
+    Info (12022): Found design unit 1: mgmt_st-impl File: /homes/d11775812/comp_arch/template/vhdl/cache/mgmt_st.vhd Line: 48
+    Info (12023): Found entity 1: mgmt_st File: /homes/d11775812/comp_arch/template/vhdl/cache/mgmt_st.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/cache/mgmt_st_1w.vhd
+    Info (12022): Found design unit 1: mgmt_st_1w-impl File: /homes/d11775812/comp_arch/template/vhdl/cache/mgmt_st_1w.vhd Line: 25
+    Info (12023): Found entity 1: mgmt_st_1w File: /homes/d11775812/comp_arch/template/vhdl/cache/mgmt_st_1w.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/cache/data_st_1w.vhd
+    Info (12022): Found design unit 1: data_st_1w-impl File: /homes/d11775812/comp_arch/template/vhdl/cache/data_st_1w.vhd Line: 24
+    Info (12023): Found entity 1: data_st_1w File: /homes/d11775812/comp_arch/template/vhdl/cache/data_st_1w.vhd Line: 9
+Info (12021): Found 1 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/cache/cache_pkg.vhd
+    Info (12022): Found design unit 1: cache_pkg File: /homes/d11775812/comp_arch/template/vhdl/cache/cache_pkg.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/cache/repl.vhd
+    Info (12022): Found design unit 1: repl-impl File: /homes/d11775812/comp_arch/template/vhdl/cache/repl.vhd Line: 20
+    Info (12023): Found entity 1: repl File: /homes/d11775812/comp_arch/template/vhdl/cache/repl.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file /homes/d11775812/comp_arch/template/vhdl/cache/ram/single_clock_rw_ram.vhd
+    Info (12022): Found design unit 1: single_clock_rw_ram-rtl File: /homes/d11775812/comp_arch/template/vhdl/cache/ram/single_clock_rw_ram.vhd Line: 23
+    Info (12023): Found entity 1: single_clock_rw_ram File: /homes/d11775812/comp_arch/template/vhdl/cache/ram/single_clock_rw_ram.vhd Line: 8
+Info (12021): Found 1 design units, including 0 entities, in source file /homes/d11775812/comp_arch/template/vhdl/cache/ram/single_clock_rw_ram_pkg.vhd
+    Info (12022): Found design unit 1: single_clock_rw_ram_pkg File: /homes/d11775812/comp_arch/template/vhdl/cache/ram/single_clock_rw_ram_pkg.vhd Line: 5
+Info (12127): Elaborating entity "top" for the top level hierarchy
+Info (12128): Elaborating entity "pll" for hierarchy "pll:pll_inst" File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 70
+Info (12128): Elaborating entity "altpll" for hierarchy "pll:pll_inst|altpll:altpll_component" File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 137
+Info (12130): Elaborated megafunction instantiation "pll:pll_inst|altpll:altpll_component" File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 137
+Info (12133): Instantiated megafunction "pll:pll_inst|altpll:altpll_component" with the following parameter: File: /homes/d11775812/comp_arch/template/quartus/pll_altera.vhd Line: 137
+    Info (12134): Parameter "clk0_divide_by" = "2"
+    Info (12134): Parameter "clk0_duty_cycle" = "50"
+    Info (12134): Parameter "clk0_multiply_by" = "3"
+    Info (12134): Parameter "clk0_phase_shift" = "0"
+    Info (12134): Parameter "compensate_clock" = "CLK0"
+    Info (12134): Parameter "gate_lock_signal" = "NO"
+    Info (12134): Parameter "inclk0_input_frequency" = "20000"
+    Info (12134): Parameter "intended_device_family" = "Cyclone II"
+    Info (12134): Parameter "invalid_lock_multiplier" = "5"
+    Info (12134): Parameter "lpm_hint" = "CBX_MODULE_PREFIX=pll_altera"
+    Info (12134): Parameter "lpm_type" = "altpll"
+    Info (12134): Parameter "operation_mode" = "NORMAL"
+    Info (12134): Parameter "port_activeclock" = "PORT_UNUSED"
+    Info (12134): Parameter "port_areset" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkbad0" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkbad1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkloss" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkswitch" = "PORT_UNUSED"
+    Info (12134): Parameter "port_configupdate" = "PORT_UNUSED"
+    Info (12134): Parameter "port_fbin" = "PORT_UNUSED"
+    Info (12134): Parameter "port_inclk0" = "PORT_USED"
+    Info (12134): Parameter "port_inclk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_locked" = "PORT_USED"
+    Info (12134): Parameter "port_pfdena" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phasecounterselect" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phasedone" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phasestep" = "PORT_UNUSED"
+    Info (12134): Parameter "port_phaseupdown" = "PORT_UNUSED"
+    Info (12134): Parameter "port_pllena" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanaclr" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanclk" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanclkena" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scandata" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scandataout" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scandone" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanread" = "PORT_UNUSED"
+    Info (12134): Parameter "port_scanwrite" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk0" = "PORT_USED"
+    Info (12134): Parameter "port_clk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk2" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk3" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk4" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clk5" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena0" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena2" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena3" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena4" = "PORT_UNUSED"
+    Info (12134): Parameter "port_clkena5" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk0" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk1" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk2" = "PORT_UNUSED"
+    Info (12134): Parameter "port_extclk3" = "PORT_UNUSED"
+    Info (12134): Parameter "valid_lock_multiplier" = "1"
+Info (12128): Elaborating entity "core" for hierarchy "core:core_inst" File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 77
+Info (12128): Elaborating entity "pipeline" for hierarchy "core:core_inst|pipeline:pipeline_inst" File: /homes/d11775812/comp_arch/template/vhdl/core.vhd Line: 30
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(54): object "exc_dec" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 54
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(61): object "exc_load" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 61
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(62): object "exc_store" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 62
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(85): object "val1" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 85
+Warning (10036): Verilog HDL or VHDL warning at pipeline.vhd(85): object "val2" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 85
+Info (12128): Elaborating entity "fwd" for hierarchy "core:core_inst|pipeline:pipeline_inst|fwd:fwd_inst_1" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 270
+Info (12128): Elaborating entity "ctrl" for hierarchy "core:core_inst|pipeline:pipeline_inst|ctrl:ctrl_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 300
+Warning (10036): Verilog HDL or VHDL warning at ctrl.vhd(36): object "int_wb_op_mem" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 36
+Warning (10036): Verilog HDL or VHDL warning at ctrl.vhd(37): object "int_exec_op" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 37
+Warning (10036): Verilog HDL or VHDL warning at ctrl.vhd(39): object "critical_reg_1" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 39
+Warning (10036): Verilog HDL or VHDL warning at ctrl.vhd(40): object "critical_reg_2" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 40
+Warning (10036): Verilog HDL or VHDL warning at ctrl.vhd(43): object "fwd_load" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/ctrl.vhd Line: 43
+Info (12128): Elaborating entity "fetch" for hierarchy "core:core_inst|pipeline:pipeline_inst|fetch:fetch_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 322
+Info (12128): Elaborating entity "decode" for hierarchy "core:core_inst|pipeline:pipeline_inst|decode:decode_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 337
+Warning (10036): Verilog HDL or VHDL warning at decode.vhd(52): object "help_rdaddr1" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 52
+Warning (10036): Verilog HDL or VHDL warning at decode.vhd(52): object "help_rdaddr2" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 52
+Info (12128): Elaborating entity "regfile" for hierarchy "core:core_inst|pipeline:pipeline_inst|decode:decode_inst|regfile:reg_inst" File: /homes/d11775812/comp_arch/template/vhdl/decode.vhd Line: 85
+Info (12128): Elaborating entity "exec" for hierarchy "core:core_inst|pipeline:pipeline_inst|exec:exec_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 353
+Warning (10036): Verilog HDL or VHDL warning at exec.vhd(59): object "alu_Z_2" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 59
+Warning (10036): Verilog HDL or VHDL warning at exec.vhd(69): object "stall_flag" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 69
+Info (12128): Elaborating entity "alu" for hierarchy "core:core_inst|pipeline:pipeline_inst|exec:exec_inst|alu:alu_inst_1" File: /homes/d11775812/comp_arch/template/vhdl/exec.vhd Line: 82
+Info (12128): Elaborating entity "mem" for hierarchy "core:core_inst|pipeline:pipeline_inst|mem:mem_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 379
+Info (12128): Elaborating entity "memu" for hierarchy "core:core_inst|pipeline:pipeline_inst|mem:mem_inst|memu:memu_inst" File: /homes/d11775812/comp_arch/template/vhdl/mem.vhd Line: 97
+Info (12128): Elaborating entity "wb" for hierarchy "core:core_inst|pipeline:pipeline_inst|wb:wb_inst" File: /homes/d11775812/comp_arch/template/vhdl/pipeline.vhd Line: 406
+Warning (10036): Verilog HDL or VHDL warning at wb.vhd(30): object "int_op" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 30
+Warning (10036): Verilog HDL or VHDL warning at wb.vhd(31): object "int_aluresult" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 31
+Warning (10036): Verilog HDL or VHDL warning at wb.vhd(33): object "int_pc_old_in" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 33
+Warning (10036): Verilog HDL or VHDL warning at wb.vhd(34): object "int_pc_new_in" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/wb.vhd Line: 34
+Info (12128): Elaborating entity "cache" for hierarchy "core:core_inst|cache:cache_inst" File: /homes/d11775812/comp_arch/template/vhdl/core.vhd Line: 42
+Warning (10036): Verilog HDL or VHDL warning at cache.vhd(75): object "way" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/cache/cache.vhd Line: 75
+Warning (10036): Verilog HDL or VHDL warning at cache.vhd(75): object "way_out" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/cache/cache.vhd Line: 75
+Warning (10036): Verilog HDL or VHDL warning at cache.vhd(76): object "tag_in" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/cache/cache.vhd Line: 76
+Warning (10036): Verilog HDL or VHDL warning at cache.vhd(84): object "write_back_flag" assigned a value but never read File: /homes/d11775812/comp_arch/template/vhdl/cache/cache.vhd Line: 84
+Info (12128): Elaborating entity "data_st" for hierarchy "core:core_inst|cache:cache_inst|data_st:data_st_inst" File: /homes/d11775812/comp_arch/template/vhdl/cache/cache.vhd Line: 89
+Info (12128): Elaborating entity "data_st_1w" for hierarchy "core:core_inst|cache:cache_inst|data_st:data_st_inst|data_st_1w:data_st_1w_inst" File: /homes/d11775812/comp_arch/template/vhdl/cache/data_st.vhd Line: 46
+Info (12128): Elaborating entity "single_clock_rw_ram" for hierarchy "core:core_inst|cache:cache_inst|data_st:data_st_inst|data_st_1w:data_st_1w_inst|single_clock_rw_ram:single_clock_rw_ram_inst_1" File: /homes/d11775812/comp_arch/template/vhdl/cache/data_st_1w.vhd Line: 33
+Info (12128): Elaborating entity "mgmt_st" for hierarchy "core:core_inst|cache:cache_inst|mgmt_st:mgmt_st_inst" File: /homes/d11775812/comp_arch/template/vhdl/cache/cache.vhd Line: 106
+Warning (10540): VHDL Signal Declaration warning at mgmt_st.vhd(69): used explicit default value for signal "int_valid" because signal was never assigned a value File: /homes/d11775812/comp_arch/template/vhdl/cache/mgmt_st.vhd Line: 69
+Warning (10540): VHDL Signal Declaration warning at mgmt_st.vhd(70): used explicit default value for signal "int_tag" because signal was never assigned a value File: /homes/d11775812/comp_arch/template/vhdl/cache/mgmt_st.vhd Line: 70
+Warning (10540): VHDL Signal Declaration warning at mgmt_st.vhd(72): used explicit default value for signal "int_mgmt_info_out" because signal was never assigned a value File: /homes/d11775812/comp_arch/template/vhdl/cache/mgmt_st.vhd Line: 72
+Info (12128): Elaborating entity "mgmt_st_1w" for hierarchy "core:core_inst|cache:cache_inst|mgmt_st:mgmt_st_inst|mgmt_st_1w:mgmt_st_1w_inst" File: /homes/d11775812/comp_arch/template/vhdl/cache/mgmt_st.vhd Line: 75
+Info (12128): Elaborating entity "dev" for hierarchy "dev:dev_inst" File: /homes/d11775812/comp_arch/template/quartus/top.vhd Line: 89
+Info (12206): 2 design partitions require synthesis
+    Info (12210): Partition "Top" requires synthesis because its netlist type is Source File
+    Info (12213): Partition "sld_hub:auto_hub" requires synthesis because the project database does not contain a post-synthesis netlist for this partition
+Info (12207): 1 design partition does not require synthesis
+    Info (12227): Partition "dev:dev_inst" does not require synthesis because its netlist was imported from a bottom-up project
+Warning (12240): Synthesis found one or more imported partitions that will be treated as black boxes for timing analysis during synthesis
+Info (281037): Using 4 processors to synthesize 2 partitions in parallel
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+    Info: Processing started: Sat Aug 29 22:33:35 2020
+Info: Command: quartus_map --parallel=1 --helper=0 --helper_type=user_partition --partition=Top miriv -c miriv
+Info: Using INI file /homes/d11775812/comp_arch/template/quartus/quartus.ini
+Info: ********************************

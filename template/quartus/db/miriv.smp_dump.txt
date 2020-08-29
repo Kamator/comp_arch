@@ -1,4 +1,13 @@
 
+State Machine - |top|core:core_inst|cache:cache_inst|state
+Name state.WRITE_BACK state.WRITE_BACK_START state.READ_MEM state.READ_MEM_START state.READ_CACHE state.IDLE 
+state.IDLE 0 0 0 0 0 0 
+state.READ_CACHE 0 0 0 0 1 1 
+state.READ_MEM_START 0 0 0 1 0 1 
+state.READ_MEM 0 0 1 0 0 1 
+state.WRITE_BACK_START 0 1 0 0 0 1 
+state.WRITE_BACK 1 0 0 0 0 1 
+
 State Machine - |top|core:core_inst|pipeline:pipeline_inst|wb:wb_inst|int_op.src
 Name int_op.src.WBS_OPC int_op.src.WBS_MEM int_op.src.WBS_ALU 
 int_op.src.WBS_ALU 0 0 0 

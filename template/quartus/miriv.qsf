@@ -107,5 +107,14 @@ set_global_assignment -name VHDL_FILE ../vhdl/pipeline_pkg.vhd
 set_global_assignment -name ENABLE_SIGNALTAP ON
 set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
 set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
+set_global_assignment -name VHDL_FILE ../vhdl/cache/cache.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/cache/data_st.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/cache/mgmt_st.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/cache/mgmt_st_1w.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/cache/data_st_1w.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/cache/cache_pkg.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/cache/repl.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/cache/ram/single_clock_rw_ram.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/cache/ram/single_clock_rw_ram_pkg.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY devin_27e71 -to "dev:dev_inst" -section_id "dev:dev_inst"
