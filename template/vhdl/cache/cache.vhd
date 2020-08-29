@@ -80,8 +80,13 @@ architecture behav of cache is
 	signal tag_to_mgmt : c_tag_type; 
 	signal byteena : mem_byteena_type;
 	signal data_in, data_out : mem_data_type;
+<<<<<<< HEAD
 	signal int_data, int_data_nxt : data_type; 
 	signal write_back_flag : std_logic; 
+=======
+   constant zeros_addr : unsigned(ADDR_WIDTH-1 downto 0) := (others => '0');
+	
+>>>>>>> a3a4514c6ba85debfaa5020e39e1062896b9d076
 	
 begin
 	
@@ -166,8 +171,12 @@ begin
 		tag_to_mgmt <= int_tag; 
 		int_data_nxt <= int_data;
 
-		case state is 
-			when IDLE => --no mem request from the processor
+		if ((unsigned(ADDR_MASK) xor unsigned(mem_out_cpu.address)) and unsigned(mem_out_cpu.address)) /= zeros_addr then --bypass cache
+			mem_in_cpu <= mem_in_mem;
+			mem_out_mem <= mem_out_cpu;	
+		else
+		  case state is 
+			 when IDLE => --no mem request from the processor
 				
 				write_back_flag <= '0';
 
@@ -198,7 +207,6 @@ begin
 
 			when READ_CACHE => 
 				write_back_flag <= '0';
-
 				--to CPU
 				mem_in_cpu.busy <= '1';
 				rd_mgmt_info <= '1';
@@ -229,14 +237,13 @@ begin
 				end if;	
 
 			when READ_MEM_START => --first cycle of mem rd
-				mem_in_cpu.busy <= '1';
-				
+				mem_in_cpu.busy <= '1'
 				mem_out_mem.rd <= '1';
 				mem_out_mem.address <= int_mem_out_cpu.address;
 				
 				state_next <= READ_MEM; 
 
-			when READ_MEM => --waiting for mem req to finish and wr rslt into cache
+			 when READ_MEM => --waiting for mem req to finish and wr rslt into cache
 				mem_in_cpu.busy <= '1';
 				--some results come when busy is high....
 				int_data_nxt <= mem_in_mem.rddata; 			 
@@ -259,21 +266,22 @@ begin
 					state_next <= IDLE;
 			 	end if;
 	
-			when WRITE_BACK_START => --first cycle of mem wr (if dirty bit was '1')
+			 when WRITE_BACK_START => --first cycle of mem wr (if dirty bit was '1')
 				mem_out_mem.wr <= '1';
 				mem_out_mem.address <= int_index & tag_out;
 				
 				state_next <= WRITE_BACK;
-			when WRITE_BACK => --finish wr op
+			 when WRITE_BACK => --finish wr op
 				rd_stored_data <= '1';
 				mem_out_mem.wrdata <= data_out;
 				
 				if mem_in_mem.busy = '0' then 
 					state_next <= IDLE;
 				end if;
-			when others => state_next <= IDLE;
+			 when others => state_next <= IDLE;
 			
-	   end case;
+		end case;
+	  end if;	
 	end process;	
 
 
