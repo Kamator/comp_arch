@@ -42,3 +42,5 @@
 # ** Error: TC#6 - WRONG VALUE WAS READ.
 #    Time: 540 ns  Iteration: 0  Instance: /data_st_tb
 # 
+# End time: 16:00:36 on Aug 19,2020, Elapsed time: 1:39:26
+# Errors: 2, Warnings: 8

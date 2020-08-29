@@ -6,6 +6,7 @@ add wave sim:/mem_tb/wbop_in
 add wave sim:/mem_tb/pc_new_in
 add wave sim:/mem_tb/pc_old_in
 add wave sim:/mem_tb/aluresult_in
+add wave sim:/mem_tb/mem_inst/int_aluresult_in
 add wave sim:/mem_tb/wrdata
 add wave sim:/mem_tb/zero
 add wave sim:/mem_tb/pc_new_out

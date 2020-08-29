@@ -30,14 +30,14 @@ clean:
 	rm -f output.txt
 
 compile:
-	@vsim -c -novopt -do "do scripts/compile.do;quit -f"
+	@vsim -c -do "do scripts/compile.do;quit -f"
 
 sim:
-	@vsim -c $(FILE_OPT) -novopt -t ps work.tb_cpu -quiet -do "run $(TIME);quit -f" | grep "\*\*"
+	@vsim -c $(FILE_OPT) -t ps work.tb_cpu -quiet -do "run $(TIME);quit -f" | grep "\*\*"
 	@cat output.txt
 
 sim_gui:
-	@vsim $(FILE_OPT) -t ps work.tb_cpu -quiet -novopt -do "do scripts/wave.do;run 5us;wave zoom full"
+	@vsim $(FILE_OPT) -t ps work.tb_cpu -quiet -do "do scripts/wave.do;run 5us;wave zoom full"
 
 
 .PHONY: all clean compile sim sim_gui

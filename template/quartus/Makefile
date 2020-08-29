@@ -51,5 +51,6 @@ clean:
 	rm -f *.summary
 	rm -f *.qdf
 	rm -f *.qws
+	rm -f BUILD*
 
 .PHONY: all quartus_gui download clean pack

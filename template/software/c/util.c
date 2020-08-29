@@ -1,10 +1,14 @@
 #include "util.h"
 
-#define UART_STATUS (*((volatile char*)(-8)))
-#define UART_DATA (*((volatile char*)(-4)))
+#define UART_STATUS (*((volatile char*)(-8)))  //0xFFFFFFF8
+#define UART_DATA (*((volatile char*)(-4)))    //0xFFFFFFFC
 
 #define COUNTER (*((volatile unsigned int*)0xFFFF8000))
 
+
+// 0x01 = "0000 0001"
+// 0x02 = "0000 0002"
+ 
 int getchar() {
 	while ((UART_STATUS & 0x02) == 0) {
 		/* wait for UART */
@@ -18,7 +22,7 @@ int putchar(int c) {
 		/* wait for UART */
 	}
 	/* write to UART */
-    UART_DATA = c;
+    	UART_DATA = c;
 	return c;
 }
 

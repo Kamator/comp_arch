@@ -99,10 +99,11 @@ begin
 			elsif op.src = WBS_MEM then 
 				reg_write.data <= memresult; 
 		
+				/* zeros put into register	
 				if stall = '0' and old_stall = '1' then 	
 					reg_write.data <= int_memresult; 
 				end if;
-
+				*/
 				--very unsure
 				if stall = '1' then 
 					reg_write.write <= '0';

@@ -1,0 +1,10 @@
+0x10078:  0000              illegal       
+0x1007a:  0001              nop           
+0x1007c:  000d              addi          zero,zero,3
+0x1007e:  0401              mv            s0,s0
+0x10080:  0404              addi          s1,sp,512
+0x10082:  0405              addi          s0,s0,1
+0x10084:  f1402573          csrrs         a0,mhartid,zero
+0x10088:  00000597          auipc         a1,0                            # 0x10088
+0x1008c:  204002b7          lui           t0,541065216
+0x10090:  00000013          nop           

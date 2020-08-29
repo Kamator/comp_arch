@@ -124,8 +124,7 @@ begin
 		wait for 2*CLK_PERIOD; 
 		reset <= '0'; 
 		wait for 2*CLK_PERIOD; 
-		reset <= '1'; 
-		wait for 3*CLK_PERIOD; 
+		reset <= '1';  
 		 
 		--TESTCASE #1 -> no memory operation, no branch operation just forward values
 		mem_op.branch <= BR_NOP; 
