@@ -65,8 +65,10 @@ architecture impl of mgmt_st is
     end component;
 
     signal int_index : c_index_type := (others => '0');
+    signal index_to_mgmt : c_index_type;
     signal int_wr, int_rd, int_valid, int_dirty : std_logic := '0';
     signal int_tag : c_tag_type := (others => '0'); 
+    signal update_mgmt_info : std_logic; 
     signal int_mgmt_info_in, mgmt_info_in, int_mgmt_info_out, reg_mgmt_info_out, mgmt_info_out : c_mgmt_info := MGMT_NOP;
 begin
 
@@ -78,120 +80,167 @@ begin
         clk  => clk,
         reset => reset,
 
-        index => index,
-        we => int_wr,
+        index => index_to_mgmt,
+        we => update_mgmt_info,
         we_repl => '0',
 
         mgmt_info_in => mgmt_info_in,
         mgmt_info_out => mgmt_info_out
     );
 
+
+mpx : process(all)
+begin
+	index_to_mgmt <= index;
+	mgmt_info_in <= MGMT_NOP;
+  	way_out <= (others => '0'); 
+	tag_out <= (others => '0');
+	valid_out <= '0';
+	hit_out <= '0';
+	dirty_out <= '0';	
+ 	
+        if wr = '1' then
+    	  -- store --> write hit (an entry will get dirty)
+    	
+       		if mgmt_info_out.tag = tag_in and mgmt_info_out.valid = '1' then
+        		tag_out <= int_tag;     --nice to know for cache (but not necessary)
+        		valid_out <= int_valid; --valid will be zero now
+        		hit_out <= '1';         --write hit (some entry is now dirty)
+        
+			--update mgmt info entry
+  			update_mgmt_info <= '1';
+			mgmt_info_in.valid <= valid_in; 
+			mgmt_info_in.dirty <= dirty_in;	
+			mgmt_info_in.replace <= '0';
+			mgmt_info_in.tag <= tag_in; 
+    		end if;
+
+	-- not(int_tag = tag and mgmt_info.valid = 1)
+	-- by deMorgan's Rule
+	-- int_tag != tag or mgmt_info.valid = 0
+    
+    --store --> write miss (no entry will get dirty)
+    		if mgmt_info_out.valid = '0' or int_mgmt_info_out.tag /= int_tag then
+        		tag_out <= mgmt_info_out.tag;
+        		valid_out <= mgmt_info_out.valid;
+			dirty_out <= mgmt_info_out.dirty;
+      			hit_out <= '0';
+   		 end if;
+
+  elsif rd = '1' then
+
+    -- load --> read hit
+    if mgmt_info_out.tag = tag_in and mgmt_info_out.valid = '1' then
+        tag_out <= mgmt_info_out.tag;
+	dirty_out <= mgmt_info_out.dirty;
+        valid_out <= mgmt_info_out.valid;
+        hit_out <= '1';    
+    end if;
+    
+    --load --> read miss
+    if mgmt_info_out.tag /= int_tag then
+        tag_out <= mgmt_info_out.tag;
+        valid_out <= mgmt_info_out.valid;
+	dirty_out <= mgmt_info_out.dirty;
+        hit_out <= '0';
+
+    end if;
+
+ end if;
+end process;
+
+/*
 sync : process (clk, reset)
 begin
     if reset = '0' then 
-        int_index <= (others => '0');
+        index_to_mgmt  <= (others => '0');
+	int_index <= (others => '0');
         int_wr <= '0';
         int_rd <= '0';
         int_valid <= '0';
         int_dirty <= '0';
         int_tag <= (others => '0');   
         int_mgmt_info_in <= MGMT_NOP;
+
     elsif rising_edge(clk) then
         int_index <= index;
+	index_to_mgmt <= index;
         int_wr <= wr;
         int_rd <= rd;
         int_valid <= valid_in;
         int_dirty <= dirty_in;
         int_tag <= tag_in;    
-        mgmt_info_out <= int_mgmt_info_out;
-        int_mgmt_info_in <= mgmt_info_in;
-	     reg_mgmt_info_out <= int_mgmt_info_out;
+        int_mgmt_info_out <= mgmt_info_out;
     end if;
 end process;
-
+*/
+/*
 --mem address - ADDRESS_WIDTH := 14:  1101 0110 0010 11 --> INDEX: 1011 & TAG_SIZE := 10: 1101 0110 00
-process(all)
+logic: process(all)
 begin
   tag_out <= (others => '0');
   valid_out <= '0';
   hit_out <= '0';
   dirty_out <= '0';
-  int_mgmt_info_out <= MGMT_NOP;
-  way_out <= (others => '0');
-  
+  way_out <= (others => '0'); 
+  mgmt_info_in <= MGMT_NOP;
+  update_mgmt_info <= '0';
+
+  --always fully define mgmt_info_in (needed in lower level)
   --store --> entry present & valid?
-  if wr = '1' then
-    -- store --> write hit
-    if int_mgmt_info_in.tag = int_tag and int_mgmt_info_in.valid = '1' then
-        tag_out <= int_tag;
-        valid_out <= int_valid;
-        hit_out <= '1';
-        
-        if int_mgmt_info_in.dirty = '0' then
-            int_mgmt_info_out.dirty <= '1';
-            dirty_out <= '1';
-        end if;
-        
-        int_mgmt_info_out.valid <= int_valid;
-        int_mgmt_info_out.tag <= int_tag;       
-    
-    end if;
-    
-    --store --> write miss
-    if int_mgmt_info_in.valid = '0' then
-        tag_out <= int_tag;
-        valid_out <= int_valid;
-        hit_out <= '0';
-        
-        int_mgmt_info_out.dirty <= '0';
-        dirty_out <= '0';
-                
-        int_mgmt_info_out.valid <= int_valid;
-        int_mgmt_info_out.tag <= int_tag;
 
+  if int_wr = '1' then
+    -- store --> write hit (an entry will get dirty)
+    if int_mgmt_info_out.tag = int_tag and int_mgmt_info_out.valid = '1' then
+        tag_out <= int_tag;     --nice to know for cache (but not necessary)
+        valid_out <= int_valid; --valid will be zero now
+        hit_out <= '1';         --write hit (some entry is now dirty)
+        
+	--update mgmt info entry
+  	update_mgmt_info <= '1';
+	mgmt_info_in.valid <= int_valid; 
+	mgmt_info_in.dirty <= int_dirty;	
+	mgmt_info_in.replace <= '0';
+	mgmt_info_in.tag <= int_tag; 
+ 
     end if;
 
-    if int_mgmt_info_in.tag /= int_tag then
-		  tag_out <= reg_mgmt_info_out.tag;
-        valid_out <= reg_mgmt_info_out.valid;
+	-- not(int_tag = tag and mgmt_info.valid = 1)
+	-- by deMorgan's Rule
+	-- int_tag != tag or mgmt_info.valid = 0
+    
+    --store --> write miss (no entry will get dirty)
+    if int_mgmt_info_in.valid = '0' or int_mgmt_info_out.tag /= int_tag then
+        tag_out <= int_tag;
+        valid_out <= int_valid;
+	dirty_out <= '0';
         hit_out <= '0';
-       	int_mgmt_info_out.dirty <= reg_mgmt_info_out.dirty;    
-        int_mgmt_info_out.valid <= reg_mgmt_info_out.valid;
-        int_mgmt_info_out.tag <= reg_mgmt_info_out.tag;
+        
     end if;
+
     
   elsif rd = '1' then
+
     -- load --> read hit
-    if int_mgmt_info_in.tag = int_tag and int_mgmt_info_in.valid = '1' then
+    if int_mgmt_info_out.tag = int_tag and int_mgmt_info_out.valid = '1' then
         tag_out <= int_tag;
-        valid_out <= int_valid;
-        hit_out <= '1';
-        int_mgmt_info_out.valid <= int_valid;
-        int_mgmt_info_out.tag <= int_tag;       
-    
+	dirty_out <= int_mgmt_info_out.dirty;
+        valid_out <= int_mgmt_info_out.valid;
+        hit_out <= '1';    
     end if;
     
     --load --> read miss
-    if int_mgmt_info_in.valid = '0' then
-        tag_out <= int_tag;
-        valid_out <= int_valid;
-        hit_out <= '0';                
-        int_mgmt_info_out.valid <= int_valid;
-        int_mgmt_info_out.tag <= int_tag;
-
-    end if;
-
-    if int_mgmt_info_in.tag /= int_tag then
-	     tag_out <= reg_mgmt_info_out.tag;
-        valid_out <= reg_mgmt_info_out.valid;
+    if int_mgmt_info_out.tag /= int_tag then
+        tag_out <= int_mgmt_info_out.tag;
+        valid_out <= int_mgmt_info_out.valid;
+	dirty_out <= int_mgmt_info_out.dirty;
         hit_out <= '0';
-       	int_mgmt_info_out.dirty <= reg_mgmt_info_out.dirty;    
-        int_mgmt_info_out.valid <= reg_mgmt_info_out.valid;
-        int_mgmt_info_out.tag <= reg_mgmt_info_out.tag;
+
     end if;
-  end if;
+
+ end if;
 
 
 end process;
-
+*/
 end architecture;

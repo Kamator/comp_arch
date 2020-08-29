@@ -5,7 +5,6 @@ use ieee.std_logic_misc.all;
 
 use work.mem_pkg.all;
 use work.cache_pkg.all;
-use work.core_pkg.all;
 
 entity cache is
     generic (
@@ -23,6 +22,16 @@ entity cache is
         mem_in_mem  : in  mem_in_type
     );
 end entity;
+
+/*architecture impl of cache is --for testing
+    alias cpu_to_cache : mem_out_type is mem_out_cpu;
+    alias cache_to_cpu : mem_in_type is mem_in_cpu;
+    alias cache_to_mem : mem_out_type is mem_out_mem;
+    alias mem_to_cache : mem_in_type is mem_in_mem;
+begin
+    cache_to_mem<=cpu_to_cache;
+    cache_to_cpu<=mem_to_cache;
+end architecture;*/
 
 architecture behav of cache is 
 	
@@ -70,18 +79,14 @@ architecture behav of cache is
 	
    type CACHE_CNTRL_STATE is (IDLE, READ_CACHE, READ_MEM_START, READ_MEM, WRITE_BACK_START, WRITE_BACK);
    signal state, state_next : CACHE_CNTRL_STATE;
-	signal int_mem_out_cpu, int_mem_out_cpu_nxt : mem_out_type;
+	signal int_mem_out_cpu : mem_out_type;
 	signal wr_updating_mgmt_info, rd_mgmt_info, we_updating_stored_data, rd_stored_data, valid_in, valid_out, dirty_in, dirty_out, hit_out  : std_logic;
 	signal way, way_out : c_way_type;
 	signal tag_in, tag_out : c_tag_type;
-	signal int_index, int_index_nxt : c_index_type;
-	signal index_to_mgmt : c_index_type; 
-	signal int_tag, int_tag_nxt : c_tag_type; 
-	signal tag_to_mgmt : c_tag_type; 
+	signal int_index, index : c_index_type;
 	signal byteena : mem_byteena_type;
 	signal data_in, data_out : mem_data_type;
-	signal int_data, int_data_nxt : data_type; 
-	signal write_back_flag : std_logic; 
+	
 	
 begin
 	
@@ -111,14 +116,14 @@ begin
         clk => clk,
         reset => reset,
 
-        index => index_to_mgmt,
+        index => int_index,
         wr => wr_updating_mgmt_info,
         rd => rd_mgmt_info,
 
         valid_in => valid_in,
         dirty_in => dirty_in,
-        tag_in => tag_to_mgmt,
-	way_out => way_out,
+        tag_in => tag_in,
+		  way_out => way_out,
         valid_out => valid_out,
         dirty_out => dirty_out,
         tag_out => tag_out,
@@ -131,23 +136,17 @@ begin
 			state <= IDLE;
 			int_mem_out_cpu <= MEM_OUT_NOP;
 			way <= (others => '0');
-			int_index <= (others => '0'); 
-			int_tag <= (others => '0');
-			int_data <= (others => '0');
-	
 		elsif rising_edge(clk) then
 			state <= state_next;
-			int_index <= int_index_nxt;
-			int_mem_out_cpu <= int_mem_out_cpu_nxt;
-			int_tag <= int_tag_nxt; 
-			int_data <= int_data_nxt;
-
+			index <= int_index;
+			--int_mem_out_cpu <= mem_out_cpu;
 		end if;
 	end process;	
 	
 	fsm : process(all)
 	begin
 		state_next <= state;
+		int_index <= index;
 		rd_mgmt_info <= '0';
 		mem_in_cpu <= MEM_IN_NOP;
 		data_in <= (others => '0');
@@ -159,106 +158,44 @@ begin
 		tag_in <= (others => '0');
 		wr_updating_mgmt_info <= '0';
 		byteena <= (others => '0');
-		int_mem_out_cpu_nxt <= int_mem_out_cpu; 
-		int_index_nxt <= int_index; 		
-		int_tag_nxt <= int_tag; 
-		index_to_mgmt <= int_index; 
-		tag_to_mgmt <= int_tag; 
-		int_data_nxt <= int_data;
-
+		
 		case state is 
 			when IDLE => --no mem request from the processor
-				
-				write_back_flag <= '0';
-
-				int_mem_out_cpu_nxt <= mem_out_cpu; 
-				int_index_nxt <= mem_out_cpu.address(SETS_LD-1 downto 0); 
-				int_tag_nxt <= mem_out_cpu.address(ADDR_WIDTH-1 downto SETS_LD); 
-
-				--use mem_out here so that the correct one is next
 				if mem_out_cpu.rd = '1' then
 					state_next <= READ_CACHE;
-
-				elsif mem_out_cpu.wr = '1' then 
-					--place dirty flag 
-					rd_mgmt_info <= '1';
-					index_to_mgmt <= mem_out_cpu.address(SETS_LD-1 downto 0); 
-					tag_to_mgmt <= mem_out_cpu.address(ADDR_WIDTH-1 downto SETS_LD);
-				
-					if hit_out = '1' then 
-						--update data in cache
-						wr_updating_mgmt_info <= '1';
-						dirty_in <= '1';
-						we_updating_stored_data <= '1';
-						data_in <= mem_out_cpu.wrdata; 			
-					else 
-						mem_out_mem <= mem_out_cpu;
-					end if; 
 				end if;
-
 			when READ_CACHE => 
-				write_back_flag <= '0';
-
-				--to CPU
 				mem_in_cpu.busy <= '1';
 				rd_mgmt_info <= '1';
-
+				int_index <= mem_out_cpu.address(SETS_LD-1 downto 0);
+				
+				
 				if dirty_out = '1' then 
 					state_next <= WRITE_BACK_START;
-
 				else
-					if tag_out = int_mem_out_cpu.address(ADDR_WIDTH-1 downto SETS_LD) and valid_out = '1' and hit_out = '1' then --data is in the cache --> rd hit
+					if tag_out = mem_out_cpu.address(ADDR_WIDTH-1 downto SETS_LD) and valid_out = '1' and hit_out = '1' then --data is in the cache --> rd hit
 						rd_stored_data <= '1';
 						mem_in_cpu.rddata <= data_out;
 						state_next <= IDLE;
-
-					elsif tag_out /= int_mem_out_cpu.address(ADDR_WIDTH-1 downto SETS_LD) and hit_out = '1' then 
-						--already an entry at this index, if dirty write-back
-						--TODO: case if at an index there is already an entry and the old entry is dirty and needs to be written back to memory
-						if valid_out = '0' and dirty_out = '1' then 
-							write_back_flag <= '1';
-						end if; 
-
-						state_next <= READ_MEM_START; 
-
-					elsif hit_out = '0' then -- read miss (get entry from memory and save in cache)
+					elsif hit_out = '0' then -- rd miss
 						state_next <= READ_MEM_START;
-
 					end if;
-
 				end if;	
-
 			when READ_MEM_START => --first cycle of mem rd
-				mem_in_cpu.busy <= '1';
-				
 				mem_out_mem.rd <= '1';
-				mem_out_mem.address <= int_mem_out_cpu.address;
-				
-				state_next <= READ_MEM; 
-
-			when READ_MEM => --waiting for mem req to finish and wr rslt into cache
-				mem_in_cpu.busy <= '1';
-				--some results come when busy is high....
-				int_data_nxt <= mem_in_mem.rddata; 			 
-
-				we_updating_stored_data <= '0';
+				mem_out_mem.address <= mem_out_cpu.address;
 				
 				if mem_in_mem.busy = '0' then
-					--update in RAM
-					we_updating_stored_data <= '1';
-					data_in <= mem_in_mem.rddata;
-					int_data_nxt <= mem_in_mem.rddata;
-					--send to cpu
-					mem_in_cpu.busy <= '0';
-					mem_in_cpu.rddata <= mem_in_mem.rddata;
-					--update mgmt info 
-					wr_updating_mgmt_info <= '1';
-					tag_in <= int_mem_out_cpu.address(ADDR_WIDTH-1 downto SETS_LD);
-					index_to_mgmt <= int_mem_out_cpu.address(SETS_LD-1 downto 0); 
-
-					state_next <= IDLE;
-			 	end if;
-	
+					state_next <= READ_MEM;
+				end if;	
+			when READ_MEM => --waiting for mem req to finish and wr rslt into cache
+			 mem_in_cpu.busy <= '1';
+			 if mem_in_mem.busy = '0' then
+				we_updating_stored_data <= '1';
+				data_in <= mem_in_mem.rddata;
+				
+				state_next <= IDLE;
+			 end if;	
 			when WRITE_BACK_START => --first cycle of mem wr (if dirty bit was '1')
 				mem_out_mem.wr <= '1';
 				mem_out_mem.address <= int_index & tag_out;
