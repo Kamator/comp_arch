@@ -78,7 +78,7 @@ begin
         clk  => clk,
         reset => reset,
 
-        index => int_index,
+        index => index,
         we => int_wr,
         we_repl => '0',
 
