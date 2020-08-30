@@ -361,7 +361,7 @@ begin
 		end case;
 
 	else 
-			M <= MEM_OUT_NOP;  
+			--M <= MEM_OUT_NOP;  
 			XL <= '0'; 
 			XS <= '0'; 
 			--R <= (others => '0');			

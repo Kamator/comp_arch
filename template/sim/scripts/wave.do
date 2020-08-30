@@ -160,16 +160,22 @@ add wave -noupdate -expand -group fwd_2 /tb_cpu/dut/pipeline_inst/reg_write_wr
 add wave -noupdate -divider -height 40 info
 add wave -noupdate -expand -group info /tb_cpu/dut/mem_i_out
 add wave -noupdate -expand -group info /tb_cpu/dut/mem_i_in
-add wave -noupdate -expand -group info /tb_cpu/dut/mem_d_out
-add wave -noupdate -expand -group info /tb_cpu/dut/mem_d_in
+add wave -noupdate -expand -group info /tb_cpu/mem_d_out
+add wave -noupdate -expand -group info /tb_cpu/mem_d_in
 add wave -noupdate -expand -group info /tb_cpu/dut/mem_d_out_s
 add wave -noupdate -expand -group info /tb_cpu/dut/mem_d_in_s
 
-#add wave -noupdate -divider -height 40 mgmt_st
-#add wave -noupdate -expand -group mgmt_st /tb_cpu/dut/cache_inst/mgmt_st_inst/*
-#add wave -noupdate -divider -height 40 data_st
-#add wave -noupdate -expand -group data_st /tb_cpu/dut/cache_inst/data_st_inst/*
-
+add wave -noupdate -divider -height 40 mgmt_st
+add wave -noupdate -expand -group mgmt_st /tb_cpu/dut/cache_inst/mgmt_st_inst/*
+add wave -noupdate -divider -height 40 mgmt_st_1w
+add wave -noupdate -expand -group mgmt_st /tb_cpu/dut/cache_inst/mgmt_st_inst/mgmt_st_1w_inst/*
+add wave -noupdate -divider -height 40 data_st
+add wave -noupdate -expand -group data_st /tb_cpu/dut/cache_inst/data_st_inst/*
+add wave -noupdate -divider -height 40 ram_of_data
+add wave -noupdate -expand -group data_st /tb_cpu/dut/cache_inst/data_st_inst/data_st_1w_inst/single_clock_rw_ram_inst_4/*
+add wave -noupdate -expand -group data_st /tb_cpu/dut/cache_inst/data_st_inst/data_st_1w_inst/single_clock_rw_ram_inst_3/*
+add wave -noupdate -expand -group data_st /tb_cpu/dut/cache_inst/data_st_inst/data_st_1w_inst/single_clock_rw_ram_inst_2/*
+add wave -noupdate -expand -group data_st /tb_cpu/dut/cache_inst/data_st_inst/data_st_1w_inst/single_clock_rw_ram_inst_1/*
 add wave -noupdate -divider -height 40 cache
 add wave -noupdate -expand -group cache /tb_cpu/dut/cache_inst/*
 

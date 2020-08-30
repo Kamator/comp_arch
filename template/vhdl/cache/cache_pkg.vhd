@@ -5,7 +5,7 @@ use work.mem_pkg.all;
 
 package cache_pkg is
 	 --changed WAYS_LD's value from 0 to 1 to remove not allowed warnings 
-    constant WAYS_LD : natural := 1;
+    constant WAYS_LD : natural := 0;
     constant SETS_LD : natural := 4;
     constant INDEX_SIZE : natural :=SETS_LD;
     constant TAG_SIZE : natural :=ADDR_WIDTH-INDEX_SIZE;
@@ -16,7 +16,8 @@ package cache_pkg is
 
     subtype c_tag_type is std_logic_vector(TAG_SIZE-1 downto 0);
     subtype c_index_type is std_logic_vector(INDEX_SIZE-1 downto 0);
-    subtype c_way_type is std_logic_vector(WAYS_LD-1 downto 0);
+    --subtype c_way_type is std_logic_vector(WAYS_LD-1 downto 0);
+    subtype c_way_type is std_logic_vector(0 downto 0);
 
     type c_mgmt_info is record
         valid : std_logic;

@@ -51,6 +51,6 @@ begin
         mem_in_cpu   => mem_d_in_s,
         mem_out_mem  => mem_d_out,
         mem_in_mem   => mem_d_in
-    );
+    ); 
 
 end architecture;

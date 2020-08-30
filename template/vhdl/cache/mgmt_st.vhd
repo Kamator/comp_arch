@@ -63,13 +63,18 @@ architecture impl of mgmt_st is
         mgmt_info_out : out c_mgmt_info
     );
     end component;
-
+/*
     signal int_index : c_index_type := (others => '0');
     signal index_to_mgmt : c_index_type;
     signal int_wr, int_rd, int_valid, int_dirty : std_logic := '0';
     signal int_tag : c_tag_type := (others => '0'); 
     signal update_mgmt_info : std_logic; 
     signal int_mgmt_info_in, mgmt_info_in, int_mgmt_info_out, reg_mgmt_info_out, mgmt_info_out : c_mgmt_info := MGMT_NOP;
+*/
+	signal index_to_mgmt : c_index_type; 
+	signal update_mgmt_info : std_logic; 
+	signal mgmt_info_in : c_mgmt_info;
+	signal mgmt_info_out : c_mgmt_info;
 begin
 
     mgmt_st_1w_inst : mgmt_st_1w
@@ -98,13 +103,14 @@ begin
 	valid_out <= '0';
 	hit_out <= '0';
 	dirty_out <= '0';	
- 	
+ 	update_mgmt_info <= '0';
+	
         if wr = '1' then
     	  -- store --> write hit (an entry will get dirty)
     	
        		if mgmt_info_out.tag = tag_in and mgmt_info_out.valid = '1' then
-        		tag_out <= int_tag;     --nice to know for cache (but not necessary)
-        		valid_out <= int_valid; --valid will be zero now
+        		tag_out <= mgmt_info_out.tag;     --nice to know for cache (but not necessary)
+        		valid_out <= mgmt_info_out.valid; --valid will be zero now
         		hit_out <= '1';         --write hit (some entry is now dirty)
         
 			--update mgmt info entry
@@ -120,7 +126,7 @@ begin
 	-- int_tag != tag or mgmt_info.valid = 0
     
     --store --> write miss (no entry will get dirty)
-    		if mgmt_info_out.valid = '0' or int_mgmt_info_out.tag /= int_tag then
+    		if mgmt_info_out.valid = '0' or mgmt_info_out.tag /= tag_in then
         		tag_out <= mgmt_info_out.tag;
         		valid_out <= mgmt_info_out.valid;
 			dirty_out <= mgmt_info_out.dirty;
@@ -138,7 +144,7 @@ begin
     end if;
     
     --load --> read miss
-    if mgmt_info_out.tag /= int_tag then
+    if mgmt_info_out.tag /= tag_in then
         tag_out <= mgmt_info_out.tag;
         valid_out <= mgmt_info_out.valid;
 	dirty_out <= mgmt_info_out.dirty;

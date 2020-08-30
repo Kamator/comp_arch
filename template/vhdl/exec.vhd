@@ -445,12 +445,7 @@ begin
 			else 
 				aluresult <= x"00000001"; 
 			end if; 
-		end if; */ 
-
-		--decrease loop time to simulate second putchar instruction
-		if int_pc_in = x"0050" then 
-			aluresult <= x"00000004";
-		end if; 
+		end if; */
 
 	end process; 
 		

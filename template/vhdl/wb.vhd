@@ -83,42 +83,17 @@ begin
 			int_memresult_nxt <= (others => '0'); 
 		end if; 
 
-		reg_write.write <= '0'; 
+		reg_write.write <= op.write; 
 		reg_write.reg   <= op.rd; 
-		reg_write.data  <= (others => '0');
+		reg_write.data  <= aluresult; 		
+
+		if op.src = WBS_MEM then
+			reg_write.data <= memresult; 
+		end if; 
+
+		
 
 		old_stall_nxt <= stall; 
 
-		if op.write = '1' then
-			reg_write.write <= '1'; 
-			--reg_write.reg   <= int_op.rd; 
-			
-			if op.src = WBS_ALU then
-				reg_write.data <= aluresult; 
-			
-			elsif op.src = WBS_MEM then 
-				reg_write.data <= memresult; 
-		
-				/* zeros put into register	
-				if stall = '0' and old_stall = '1' then 	
-					reg_write.data <= int_memresult; 
-				end if;
-				*/
-				--very unsure
-				if stall = '1' then 
-					reg_write.write <= '0';
-				end if; 
-			
-			elsif op.src = WBS_OPC then 
-				--JAL/JALR
- 				reg_write.data <= aluresult; 
-				--reg_write.data(15 downto 0) <= pc_new_in; 
-				--reg_write.data(31 downto 16) <= (others => '0'); 
-			end if; 
-
-		else 
-			reg_write <= REG_WRITE_NOP; 
-		end if; 
-		
 	end process; 
 end architecture;

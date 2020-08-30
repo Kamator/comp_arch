@@ -1,2 +1,0 @@
-Hello, MiRiscV
-0123456789
